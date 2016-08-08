@@ -4,5 +4,5 @@
 var express = require('express');
 var chart = require('./../model/chart');
 var logger = require('./../helper/logger');
-var app = express();
+var router = express.Router();
 

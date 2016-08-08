@@ -1,48 +1,52 @@
 /**
- * Created by YouHan on 2016/8/5.
+ * Created by YouHan on 2016/8/8.
  */
 var pool = require('./../db/pool');
 var mysql = require('mysql');
 
+/**
+ * for the event table bd handle
+ */
+
+
 //add function
-exports.add = function (pid, name) {
+exports.add = function (sid, name) {
     return new Promise(function (resolver, rejector) {
-        if (!pid || !name) {
-            rejector('no pid or blank name')
+        if (!sid || !name) {
+            rejector('no sid or no name');
         }
-        pool.getConnection(function (err, connection) {
+        pool.getConnection(function (err, conn) {
             if (err) {
-                rejector('err happen when connect db');
+                rejector('err happen when conn pool');
                 throw err;
             }
-            var sql = "INSERT INTO tbl_chart ('pid', 'name', 'create_time', 'update_time') values (??, ?? , ?? , ??)";
-            var inserts = [pid, name, new Date(), new Date()];
-            sql = mysql.format(sql, inserts);
-
-            connection.query(sql, function (err, rows) {
+            var sql = mysql.format("INSERT INTO tbl_event ('associate_id', 'name', 'create_time', " +
+                "'update_time') VALUES (??, ??, ??, ??)", [sid, name, new Date(), new Date()]);
+            conn.query(sql, function (err, rows) {
                 if (err) {
-                    rejector('err when execute sql');
-                    throw err;
+                    rejector('err happen when execute sql');
                 }
                 resolver(rows);
             });
         });
-    })
+    });
 };
 
+
 //update function
-exports.update = function (id, pid, name) {
+exports.update = function (id, sid, name) {
     return new Promise(function (resolver, rejector) {
-        if (!id || !pid || !name) {
-            rejector('no pid or no name');
+        if (!id || !sid || !name) {
+            rejector('no id or no sid or no name');
         }
+
         pool.getConnection(function (err, conn) {
             if (err) {
                 rejector('err happen when connect db');
                 throw err;
             }
-            var sql = "UPDATE tbl_chart SET pid = ??, name = ??, update_time = ??  WHERE id = ??";
-            var inserts = [pid, name, new Date(), id];
+            var sql = "UPDATE tbl_event SET sid = ??, name = ??, update_time = ??  WHERE id = ??";
+            var inserts = [sid, name, new Date(), id];
             sql = mysql.format(sql, inserts);
 
             conn.query(sql, function (err, rows) {
@@ -66,9 +70,9 @@ exports.get = function (id) {
             }
             var sql;
             if (id) {
-                sql = mysql.format("SELECT * from tbl_chart where id= ??", [id]);
+                sql = mysql.format("SELECT * from tbl_event where id= ??", [id]);
             } else {
-                sql = mysql.format("SELECT * from tbl_chart");
+                sql = mysql.format("SELECT * from tbl_event");
             }
             conn.query(sql, function (err, rows) {
                 if (err) {
@@ -82,7 +86,7 @@ exports.get = function (id) {
 };
 
 
-//del function
+//remove function
 exports.remove = function (id) {
     return new Promise(function (resolver, rejector) {
         if (!id) {
@@ -93,8 +97,7 @@ exports.remove = function (id) {
                 rejector('err happen when connect db');
                 throw err;
             }
-            var sql = mysql.format("DELETE FROM tbl_chart WHERE id = ??;" +
-                "DELETE FROM tbl_event WHERE associate_id = ??", [id, id]);
+            var sql = mysql.format("DELETE FROM tbl_event WHERE id = ??", [id]);
 
             conn.query(sql, function (err, rows) {
                 if (err) {
@@ -106,3 +109,4 @@ exports.remove = function (id) {
         })
     });
 };
+
