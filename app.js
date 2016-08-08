@@ -6,8 +6,7 @@ var app = express();
 var chart = require('./app/server/model/chart');
 var logger = require('./app/server/helper/logger');
 
-
-app.get('/', function (req, res) {
+app.get('/chart', function (req, res) {
     chart.get().then(function (data) {
         res.send({
             success: true,
@@ -21,10 +20,9 @@ app.get('/', function (req, res) {
     ***REMOVED***
 ***REMOVED***
 
-app.post('/', function (req, res) {
+app.post('/chart', function (req, res) {
     var params = req.params;
-    console.log(params);
-    chart.save(params.pid, params.name).then(function (res) {
+    chart.add(params.pid, params.name).then(function (res) {
         res.send({
             success: true
         ***REMOVED***
@@ -32,7 +30,7 @@ app.post('/', function (req, res) {
         res.send({
             success: false,
             reason: error || 'error happen'
-        })
+        ***REMOVED***
     ***REMOVED***
 ***REMOVED***
 

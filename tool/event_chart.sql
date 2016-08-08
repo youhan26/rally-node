@@ -2,7 +2,8 @@
 SQLyog Professional v10.42 
 MySQL - 5.6.25-log : Database - rally
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8***REMOVED***;
 
@@ -18,9 +19,9 @@ USE `rally`;
 
 /*Table structure for table `tbl_event_chart`***REMOVED***
 
-DROP TABLE IF EXISTS `tbl_event_chart`;
+DROP TABLE IF EXISTS `tbl_chart`;
 
-CREATE TABLE `tbl_event_chart` (
+CREATE TABLE `tbl_chart` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `parent_id` bigint(20) NOT NULL,
   `name` varchar(128) NOT NULL,
