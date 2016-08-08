@@ -82,7 +82,7 @@ exports.get = function (id) {
 };
 
 
-//del function
+//remove function
 exports.remove = function (id) {
     return new Promise(function (resolver, rejector) {
         if (!id) {
@@ -103,6 +103,6 @@ exports.remove = function (id) {
                 }
                 resolver(rows);
             });
-        })
+        });
     });
 };

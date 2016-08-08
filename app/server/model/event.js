@@ -8,7 +8,6 @@ var mysql = require('mysql');
  * for the event table bd handle
  */
 
-
 //add function
 exports.add = function (sid, name) {
     return new Promise(function (resolver, rejector) {
@@ -31,7 +30,6 @@ exports.add = function (sid, name) {
         });
     });
 };
-
 
 //update function
 exports.update = function (id, sid, name) {
@@ -106,7 +104,7 @@ exports.remove = function (id) {
                 }
                 resolver(rows);
             });
-        })
+        });
     });
 };
 
