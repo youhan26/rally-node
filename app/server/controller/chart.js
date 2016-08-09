@@ -8,7 +8,7 @@ var router = express.Router();
 
 //root path: /chart
 
-router.use(authRouter);
+// router.use(authRouter);
 
 router.param('id', function (req, res, next, id) {
     // sample user, would actually fetch from DB, etc...
@@ -16,6 +16,28 @@ router.param('id', function (req, res, next, id) {
     next();
 });
 
+
+/**
+ *      /timeLine/chart/tree
+ */
+router.get('/tree', function (req, res) {
+    chart.get().then(function (data) {
+        res.send({
+            success: true,
+            data: setTree(data)
+        });
+        // res.send(setTree(data));
+    }).then(function () {
+        res.send({
+            success: false,
+            reason: error || 'error happen'
+        });
+    });
+});
+
+/**
+ *      /timeLine/chart/:id?
+ */
 router.route('/:id?')
     .all(function (req, res, next) {
         // runs for all HTTP verbs first
@@ -75,5 +97,24 @@ router.route('/:id?')
         });
     });
 
+function setTree(list) {
+    var data = {};
+    if (list && list.length > 0) {
+        for (var i in list) {
+            var temp = list[i];
+            var obj = {
+                pid: temp['parent_id'],
+                id: temp.id,
+                name: temp.name,
+                children: []
+            };
+            data[obj.id] = obj;
+            if (data[obj.pid]) {
+                data[obj.pid].children.push(obj);
+            }
+        }
+    }
+    return data[1];
+}
 
 module.exports = router;
