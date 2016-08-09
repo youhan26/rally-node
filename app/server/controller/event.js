@@ -2,17 +2,17 @@
  * Created by YouHan on 2016/8/5.
 ***REMOVED***
 var express = require('express');
-var chart = require('./../model/chart');
+var event = require('./../model/event');
 var router = express.Router();
 
-//root path: /chart
+//root path:/event
 
 router.get('/:id?', function (req, res) {
     var id;
     if (req.params) {
         id = req.params.id;
     }
-    chart.get(id).then(function (data) {
+    event.get(id).then(function (data) {
         res.send({
             success: true,
             data: data
@@ -27,7 +27,7 @@ router.get('/:id?', function (req, res) {
 
 router.post('/', function (req, res) {
     var params = req.params;
-    chart.add(params.pid, params.name).then(function (res) {
+    event.add(params.sid, params.name).then(function (res) {
         res.send({
             success: true
         ***REMOVED***
@@ -41,7 +41,7 @@ router.post('/', function (req, res) {
 
 router.patch('/:id', function (req, res) {
     var params = req.params;
-    chart.update(params.id, params.pid, params.name).then(function (res) {
+    event.update(params.id, params.sid, params.name).then(function (res) {
         res.send({
             success: true
         ***REMOVED***
@@ -55,7 +55,7 @@ router.patch('/:id', function (req, res) {
 
 router.delete('/:id', function (req, res) {
     var params = req.params;
-    chart.remove(params.id).then(function (res) {
+    event.remove(params.id).then(function (res) {
         res.send({
             success: true
         ***REMOVED***
