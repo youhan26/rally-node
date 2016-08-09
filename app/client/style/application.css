@@ -1,0 +1,22 @@
+body {
+    background-color: #e2e2e2;
+    font-family: Helvetica, Tahoma, Arial, "Microsoft YaHei", "微软雅黑", sans-serif;
+    margin: auto;
+    position: relative;
+    width: 960px;
+}
+
+path {
+    stroke: #fff;
+    fill-rule: evenodd;
+}
+
+.card {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.137255) 0px 1px 1px 0px, rgba(0, 0, 0, 0.117647) 0px 2px 1px -1px
+}
