@@ -2,7 +2,7 @@
  * Created by YouHan on 2016/8/4.
  */
 var mysql = require('mysql');
-var logger = require('./../helper/logger');
+var logger = require('./../utils/logger');
 
 logger.info('start create db tool', __dirname);
 
