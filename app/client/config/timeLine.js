@@ -1,2 +1,2 @@
 'use strict';
-require('./../js/timeLine');
+require('./../js/timeLine/timeLine');
