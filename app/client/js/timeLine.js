@@ -68,6 +68,7 @@ d3.json("../data/data.json", function (error, root) {
         });
 });
 
+var curSelect;
 function click(d) {
     svg.transition()
         .duration(750)
@@ -105,6 +106,7 @@ function click(d) {
         });
     $('#select').text(d.name);
     if (d.id) {
+        curSelect = d.id;
         loadData(d.id);
     }
 }
@@ -113,5 +115,36 @@ function loadData(id) {
 
 }
 
-
 d3.select(self.frameElement).style("height", height + "px");
+
+document.getElementById('sub-event-button').onclick = addSub;
+
+function addSub() {
+    var sub = $('[name="subEvent"]').val();
+    if (sub && sub.trim()) {
+        if (curSelect) {
+            $.ajax({
+                method: 'post',
+                url: '/timeLine/chart/' + curSelect.id,
+                datatype: 'json',
+                data: JSON.stringify({
+                    pid: curSelect,
+                    name: sub
+                }),
+                success: function (res) {
+                    debugger;
+                },
+                error: function (error) {
+                    alert(error);
+                }
+            });
+        }
+    }
+}
+
+function addProgress() {
+    var progress = $('[name="progress"]');
+    if (progress && progress.trim()) {
+
+    }
+}

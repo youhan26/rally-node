@@ -11,6 +11,8 @@ app.use(express.static(__dirname + '/app/client'));
 app.use('/timeLine', timeLine);
 app.use('/rally', rally);
 
+app.get('/', function (req, res) {
+    res.send('new world');
+});
+
 http.createServer(app).listen(3000);
-
-

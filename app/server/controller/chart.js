@@ -26,7 +26,6 @@ router.get('/tree', function (req, res) {
             success: true,
             data: setTree(data)
         });
-        // res.send(setTree(data));
     }).then(function () {
         res.send({
             success: false,
