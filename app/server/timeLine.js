@@ -14,4 +14,8 @@ router.get('/', function (req, res) {
     res.sendfile(path.resolve(__dirname + './../client/views/timeLine.html'));
 ***REMOVED***
 
+router.get('/image', function (req, res) {
+    res.sendfile(path.resolve(__dirname + './../client/views/image.html'));
+***REMOVED***
+
 module.exports = router;
