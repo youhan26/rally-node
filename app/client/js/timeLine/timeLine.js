@@ -39,8 +39,22 @@ var arc = d3.svg.arc()
     .outerRadius(function (d) {
         return Math.max(0, y(d.y + d.dy));
     ***REMOVED***
+$.ajax({
+    url: '/timeLine/chart/tree',
+    dataType: 'json',
+    success: function (res) {
+        if (res && res.success) {
+            loadChart(res.data);
+        } else {
+            console.error(res);
+        }
+    },
+    error: function (error) {
+        console.error(error);
+    }
+***REMOVED***
 
-d3.json("../data/data.json", function (error, root) {
+function loadChart(root) {
     svg.selectAll("path")
         .data(partition.nodes(root))
         .enter()
@@ -66,7 +80,7 @@ d3.json("../data/data.json", function (error, root) {
         .text(function (d) {
             return d.name;
         ***REMOVED***
-***REMOVED***
+}
 
 var curSelect;
 function click(d) {
@@ -112,7 +126,7 @@ function click(d) {
 }
 
 function loadData(id) {
-
+    //TODO
 }
 
 d3.select(self.frameElement).style("height", height + "px");
