@@ -119,15 +119,22 @@ function click(d) {
             };
         ***REMOVED***
     $('#select').text(d.name);
+    console.log(d);
+    console.log(curSelect);
     if (d.id) {
         curSelect = d.id;
+        console.log(curSelect);
         loadData(d.id);
     }
 }
 
 function loadData(id) {
-    //TODO
+    $.ajax({
+        method : 'POST',
+        url : '/timeLine/event/'
+    })
 }
+
 
 d3.select(self.frameElement).style("height", height + "px");
 
