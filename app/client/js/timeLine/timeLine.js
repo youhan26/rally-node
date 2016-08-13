@@ -1,7 +1,8 @@
 /**
  * Created by YouHan on 2016/8/2.
  */
-var width = 960,
+
+var width = $(window).width() / 2-200,
     height = 700,
     radius = Math.min(width, height) / 2;
 
@@ -119,20 +120,46 @@ function click(d) {
             };
         });
     $('#select').text(d.name);
-    console.log(d);
-    console.log(curSelect);
     if (d.id) {
         curSelect = d.id;
-        console.log(curSelect);
-        loadData(d.id);
+        loadData();
     }
 }
 
-function loadData(id) {
+function loadData() {
+    console.log(curSelect);
     $.ajax({
-        method : 'POST',
-        url : '/timeLine/event/'
+        method: 'GET',
+        url: '/timeLine/event/chart/' + curSelect,
+        dataType: 'json',
+        success: function (res) {
+            if (res && res.success) {
+                renderProgress(res.data);
+            } else {
+                alert('error when load event data');
+            }
+        }
     })
+}
+
+function renderProgress(data) {
+    if (data && data.length > 0) {
+        var el = $('#list');
+        el.empty();
+        var demo = $('#demo').clone();
+        for (var i in data) {
+            demo.find('.content').text(data[i].name);
+            var date = new Date(data[i].create_time);
+            demo.find('.date').text((date.getYear() + 1900) + '年' + date.getMonth() + '月 第' + getMonthWeek(date) + '周');
+            el.append(demo);
+            demo.show();
+        }
+    }
+}
+
+
+function getMonthWeek(date) {
+    return Math.ceil((date.getDate() + 6 - date.getDay()) / 7)
 }
 
 

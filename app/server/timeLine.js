@@ -11,11 +11,11 @@ router.use('/chart', chart);
 router.use('/event', event);
 
 router.get('/', function (req, res) {
-    res.sendfile(path.resolve(__dirname + './../client/views/timeLine/timeLine.html'));
+    res.sendFile(path.resolve(__dirname + './../client/views/timeLine/timeLine.html'));
 });
 
 router.get('/image', function (req, res) {
-    res.sendfile(path.resolve(__dirname + './../client/views/timeLine/image.html'));
+    res.sendFile(path.resolve(__dirname + './../client/views/timeLine/image.html'));
 });
 
 module.exports = router;

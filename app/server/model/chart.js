@@ -15,7 +15,7 @@ exports.add = function (pid, name) {
                 rejector('err happen when connect db');
                 throw err;
             }
-            var sql = "INSERT INTO tbl_chart ('pid', 'name', 'create_time', 'update_time') values (??, ?? , ?? , ??)";
+            var sql = "INSERT INTO tbl_chart ('pid', 'name', 'create_time', 'update_time') values (?, ? , ? , ?)";
             var inserts = [pid, name, new Date(), new Date()];
             sql = mysql.format(sql, inserts);
 
@@ -41,7 +41,7 @@ exports.update = function (id, pid, name) {
                 rejector('err happen when connect db');
                 throw err;
             }
-            var sql = "UPDATE tbl_chart SET pid = ??, name = ??, update_time = ??  WHERE id = ??";
+            var sql = "UPDATE tbl_chart SET pid = ?, name = ?, update_time = ?  WHERE id = ?";
             var inserts = [pid, name, new Date(), id];
             sql = mysql.format(sql, inserts);
 
@@ -66,7 +66,7 @@ exports.get = function (id) {
             }
             var sql;
             if (id) {
-                sql = mysql.format("SELECT * from tbl_chart where id= ??", [id]);
+                sql = mysql.format("SELECT * from tbl_chart where id= ?", [id]);
             } else {
                 sql = mysql.format("SELECT * from tbl_chart");
             }
@@ -93,8 +93,8 @@ exports.remove = function (id) {
                 rejector('err happen when connect db');
                 throw err;
             }
-            var sql = mysql.format("DELETE FROM tbl_chart WHERE id = ??;" +
-                "DELETE FROM tbl_event WHERE associate_id = ??", [id, id]);
+            var sql = mysql.format("DELETE FROM tbl_chart WHERE id = ?;" +
+                "DELETE FROM tbl_event WHERE associate_id = ?", [id, id]);
 
             conn.query(sql, function (err, rows) {
                 if (err) {
