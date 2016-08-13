@@ -20,7 +20,7 @@ exports.add = function (sid, name) {
                 throw err;
             }
             var sql = mysql.format("INSERT INTO tbl_event ('associate_id', 'name', 'create_time', " +
-                "'update_time') VALUES (??, ??, ??, ??)", [sid, name, new Date(), new Date()]);
+                "'update_time') VALUES (?, ?, ?, ?)", [sid, name, new Date(), new Date()]);
             conn.query(sql, function (err, rows) {
                 if (err) {
                     rejector('err happen when execute sql');
@@ -43,7 +43,7 @@ exports.update = function (id, sid, name) {
                 rejector('err happen when connect db');
                 throw err;
             }
-            var sql = "UPDATE tbl_event SET sid = ??, name = ??, update_time = ??  WHERE id = ??";
+            var sql = "UPDATE tbl_event SET sid = ?, name = ?, update_time = ?  WHERE id = ?";
             var inserts = [sid, name, new Date(), id];
             sql = mysql.format(sql, inserts);
 
@@ -68,7 +68,7 @@ exports.get = function (id) {
             }
             var sql;
             if (id) {
-                sql = mysql.format("SELECT * from tbl_event where id= ??", [id]);
+                sql = mysql.format("SELECT * from tbl_event where id= ?", [id]);
             } else {
                 sql = mysql.format("SELECT * from tbl_event");
             }
@@ -95,7 +95,7 @@ exports.remove = function (id) {
                 rejector('err happen when connect db');
                 throw err;
             }
-            var sql = mysql.format("DELETE FROM tbl_event WHERE id = ??", [id]);
+            var sql = mysql.format("DELETE FROM tbl_event WHERE id = ?", [id]);
 
             conn.query(sql, function (err, rows) {
                 if (err) {
@@ -108,3 +108,27 @@ exports.remove = function (id) {
     ***REMOVED***
 };
 
+
+//get by chart id
+exports.getByChartId = function (id) {
+    return new Promise(function (resolver, rejector) {
+        if (!id) {
+            rejector('no id');
+        }
+        pool.getConnection(function (err, conn) {
+            if (err) {
+                rejector('err happen when connect db');
+                throw err;
+            }
+
+            var sql = mysql.format("SELECT * FROM tbl_event WHERE associate_id = ?", [id]);
+            conn.query(sql, function (err, rows) {
+                if (err) {
+                    rejector('err happen when execute sql' + err);
+                    throw err;
+                }
+                resolver(rows);
+            ***REMOVED***
+        ***REMOVED***
+    ***REMOVED***
+};

@@ -16,6 +16,25 @@ router.param('id', function (req, res, next, id) {
     next();
 ***REMOVED***
 
+
+***REMOVED***
+ *      /timeLine/event/chart/:id
+***REMOVED***
+router.get('/chart/:id', function (req, res) {
+    event.getByChartId(req.params.id).then(function (data) {
+        res.send({
+            success: true,
+            data: data
+        ***REMOVED***
+    }).then(function () {
+        res.send({
+            success: false,
+            reason: error || 'error happen'
+        ***REMOVED***
+    ***REMOVED***
+***REMOVED***
+
+
 router.route('/:id?')
     .all(function (req, res, next) {
         // runs for all HTTP verbs first
