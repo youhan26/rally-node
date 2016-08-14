@@ -5,10 +5,12 @@ var express = require('express');
 var chart = require('./../model/chart');
 var authRouter = require('./../common/auth');
 var router = express.Router();
+var bodyParser = require('body-parser')
 
 //root path: /chart
 
 // router.use(authRouter);
+router.use(bodyParser.json());
 
 router.param('id', function (req, res, next, id) {
     // sample user, would actually fetch from DB, etc...
@@ -71,7 +73,7 @@ router.route('/:id?')
         ***REMOVED***
     })
     .post(function (req, res, next) {
-        var params = req.params;
+        var params = req.body;
         chart.add(params.pid, params.name).then(function (res) {
             res.send({
                 success: true
