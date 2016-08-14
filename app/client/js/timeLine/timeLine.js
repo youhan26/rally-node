@@ -2,7 +2,7 @@
  * Created by YouHan on 2016/8/2.
  */
 
-var width = $(window).width() / 2-200,
+var width = $(window).width() - 200,
     height = 700,
     radius = Math.min(width, height) / 2;
 
@@ -150,7 +150,7 @@ function renderProgress(data) {
         for (var i in data) {
             demo.find('.content').text(data[i].name);
             var date = new Date(data[i].create_time);
-            demo.find('.date').text((date.getYear() + 1900) + '年' + date.getMonth() + '月 第' + getMonthWeek(date) + '周');
+            demo.find('.date').text((date.getYear() + 1900) + '年' + (date.getMonth() + 1) + '月 第' + getMonthWeek(date) + '周');
             el.append(demo);
             demo.show();
         }
@@ -168,13 +168,15 @@ d3.select(self.frameElement).style("height", height + "px");
 document.getElementById('sub-event-button').onclick = addSub;
 
 function addSub() {
+    debugger;
     var sub = $('[name="subEvent"]').val();
     if (sub && sub.trim()) {
         if (curSelect) {
             $.ajax({
                 method: 'post',
-                url: '/timeLine/chart/' + curSelect.id,
+                url: '/timeLine/chart/' + curSelect,
                 datatype: 'json',
+                contentType: 'application/json',
                 data: JSON.stringify({
                     pid: curSelect,
                     name: sub
