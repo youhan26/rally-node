@@ -5,12 +5,9 @@ var express = require('express');
 var chart = require('./../model/chart');
 var authRouter = require('./../common/auth');
 var router = express.Router();
-var bodyParser = require('body-parser')
-
 //root path: /chart
 
 // router.use(authRouter);
-router.use(bodyParser.json());
 
 router.param('id', function (req, res, next, id) {
     // sample user, would actually fetch from DB, etc...
@@ -60,8 +57,8 @@ router.route('/:id?')
         });
     })
     .patch(function (req, res, next) {
-        var params = req.params;
-        chart.update(params.id, params.pid, params.name).then(function (res) {
+        var params = req.body;
+        chart.update(params.id, params.pid, params.name).then(function () {
             res.send({
                 success: true
             });
@@ -74,7 +71,7 @@ router.route('/:id?')
     })
     .post(function (req, res, next) {
         var params = req.body;
-        chart.add(params.pid, params.name).then(function (res) {
+        chart.add(params.pid, params.name).then(function () {
             res.send({
                 success: true
             });
@@ -86,7 +83,7 @@ router.route('/:id?')
         });
     })
     .delete(function (req, res, next) {
-        chart.remove(req.params.id).then(function (res) {
+        chart.remove(req.params.id).then(function () {
             res.send({
                 success: true
             });

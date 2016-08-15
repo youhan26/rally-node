@@ -33,6 +33,27 @@ router.get('/chart/:id', function (req, res) {
         });
     });
 });
+router.post('/chart/:id', function (req, res) {
+    if (!req.params.id || !req.body.name) {
+        res.send({
+            success: false,
+            reason: 'no id or no name'
+        });
+        return;
+    }
+
+    event.saveByChartId(req.params.id, req.body.name).then(function (data) {
+        res.send({
+            success: true,
+            data: data
+        });
+    }).then(function () {
+        res.send({
+            success: false,
+            reason: error || 'error happen'
+        });
+    });
+});
 
 
 router.route('/:id?')

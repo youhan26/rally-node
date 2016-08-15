@@ -19,13 +19,15 @@ exports.add = function (sid, name) {
                 rejector('err happen when conn pool');
                 throw err;
             }
-            var sql = mysql.format("INSERT INTO tbl_event ('associate_id', 'name', 'create_time', " +
-                "'update_time') VALUES (?, ?, ?, ?)", [sid, name, new Date(), new Date()]);
-            conn.query(sql, function (err, rows) {
+            var sql = mysql.format("INSERT INTO tbl_event (`associate_id`, `name`, `create_time`, " +
+                "`update_time`) VALUES (?, ?, ?, ?)");
+            var inserts = [sid, name, new Date(), new Date()];
+            conn.query(sql, inserts, function (err, rows) {
                 if (err) {
                     rejector('err happen when execute sql');
                 }
                 resolver(rows);
+                conn.release();
             });
         });
     });
@@ -53,6 +55,7 @@ exports.update = function (id, sid, name) {
                     throw err;
                 }
                 resolver(rows);
+                conn.release();
             });
         });
     });
@@ -78,6 +81,7 @@ exports.get = function (id) {
                     throw err;
                 }
                 resolver(rows);
+                conn.release();
             });
         });
     });
@@ -103,6 +107,7 @@ exports.remove = function (id) {
                     throw err;
                 }
                 resolver(rows);
+                conn.release();
             });
         });
     });
@@ -128,6 +133,29 @@ exports.getByChartId = function (id) {
                     throw err;
                 }
                 resolver(rows);
+                conn.release();
+            });
+        });
+    });
+};
+
+//save by chart id
+exports.saveByChartId = function (id, name) {
+    return new Promise(function (resolver, rejector) {
+        pool.getConnection(function (err, conn) {
+            if (err) {
+                rejector('err happen when connect db');
+                throw err;
+            }
+            var sql = 'INSERT INTO tbl_event (`associate_id`, `name`, `create_time`, `update_time`) values (?,?,?,?)';
+
+            conn.query(sql, [id, name, new Date(), new Date()], function (err, rows) {
+                if (err) {
+                    rejector('err happen when execute sql' + err);
+                    throw err;
+                }
+                resolver(rows);
+                conn.release();
             });
         });
     });
