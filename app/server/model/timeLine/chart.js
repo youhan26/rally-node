@@ -1,7 +1,7 @@
 /**
  * Created by YouHan on 2016/8/5.
  */
-var pool = require('./../db/pool');
+var pool = require('./../../db/pool');
 var mysql = require('mysql');
 
 //add function

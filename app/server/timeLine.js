@@ -4,8 +4,8 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var chart = require('./controller/chart');
-var event = require('./controller/event');
+var chart = require('./controller/timeLine/chart');
+var event = require('./controller/timeLine/event');
 
 router.use('/chart', chart);
 router.use('/event', event);

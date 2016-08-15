@@ -2,12 +2,13 @@
  * Created by YouHan on 2016/8/5.
  */
 var express = require('express');
-var chart = require('./../model/chart');
-var authRouter = require('./../common/auth');
+var event = require('./../../model/timeLine/event');
+var authRouter = require('./../../common/auth');
 var router = express.Router();
-//root path: /chart
 
-// router.use(authRouter);
+//root path:/event
+
+router.use(authRouter);
 
 router.param('id', function (req, res, next, id) {
     // sample user, would actually fetch from DB, etc...
@@ -17,13 +18,34 @@ router.param('id', function (req, res, next, id) {
 
 
 /**
- *      /timeLine/chart/tree
+ *      /timeLine/event/chart/:id
  */
-router.get('/tree', function (req, res) {
-    chart.get().then(function (data) {
+router.get('/chart/:id', function (req, res) {
+    event.getByChartId(req.params.id).then(function (data) {
         res.send({
             success: true,
-            data: setTree(data)
+            data: data
+        });
+    }).then(function () {
+        res.send({
+            success: false,
+            reason: error || 'error happen'
+        });
+    });
+});
+router.post('/chart/:id', function (req, res) {
+    if (!req.params.id || !req.body.name) {
+        res.send({
+            success: false,
+            reason: 'no id or no name'
+        });
+        return;
+    }
+
+    event.saveByChartId(req.params.id, req.body.name).then(function (data) {
+        res.send({
+            success: true,
+            data: data
         });
     }).then(function () {
         res.send({
@@ -33,18 +55,19 @@ router.get('/tree', function (req, res) {
     });
 });
 
-/**
- *      /timeLine/chart/:id?
- */
+
 router.route('/:id?')
     .all(function (req, res, next) {
         // runs for all HTTP verbs first
         // think of it as route specific middleware!
-        //TODO load data?
         next();
     })
     .get(function (req, res, next) {
-        chart.get(req.params.id).then(function (data) {
+        var id;
+        if (req.params) {
+            id = req.params.id;
+        }
+        event.get(id).then(function (data) {
             res.send({
                 success: true,
                 data: data
@@ -56,9 +79,9 @@ router.route('/:id?')
             });
         });
     })
-    .patch(function (req, res, next) {
-        var params = req.body;
-        chart.update(params.id, params.pid, params.name).then(function () {
+    .post(function (req, res, next) {
+        var params = req.params;
+        event.add(params.sid, params.name).then(function (res) {
             res.send({
                 success: true
             });
@@ -69,9 +92,9 @@ router.route('/:id?')
             });
         });
     })
-    .post(function (req, res, next) {
-        var params = req.body;
-        chart.add(params.pid, params.name).then(function () {
+    .patch(function (req, res, next) {
+        var params = req.params;
+        event.update(params.id, params.sid, params.name).then(function (res) {
             res.send({
                 success: true
             });
@@ -83,7 +106,8 @@ router.route('/:id?')
         });
     })
     .delete(function (req, res, next) {
-        chart.remove(req.params.id).then(function () {
+        var params = req.params;
+        event.remove(params.id).then(function (res) {
             res.send({
                 success: true
             });
@@ -94,25 +118,5 @@ router.route('/:id?')
             });
         });
     });
-
-function setTree(list) {
-    var data = {};
-    if (list && list.length > 0) {
-        for (var i in list) {
-            var temp = list[i];
-            var obj = {
-                pid: temp['parent_id'],
-                id: temp.id,
-                name: temp.name,
-                children: []
-            };
-            data[obj.id] = obj;
-            if (data[obj.pid]) {
-                data[obj.pid].children.push(obj);
-            }
-        }
-    }
-    return data[1];
-}
 
 module.exports = router;

@@ -193,9 +193,9 @@ function addProgress() {
 }
 
 function renderProgress(data) {
+    var list = $('#list');
+    list.empty();
     if (data && data.length > 0) {
-        var list = $('#list');
-        list.empty();
         for (var i in data) {
             var demo = $('#demo').clone();
             demo.find('.content').text(data[i].name);
