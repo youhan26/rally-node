@@ -2,9 +2,9 @@
  * Created by YouHan on 2016/8/2.
  */
 var curSelect;
-var width = $(window).width() - 200,
-    height = 700,
-    radius = Math.min(width, height) / 2;
+var width = $(window).width() - 100,
+    height = 500,
+    radius = Math.min(width, height - 50) / 2;
 var x = d3.scale.linear()
     .range([0, 2 * Math.PI]);
 var y = d3.scale.sqrt()
@@ -15,7 +15,7 @@ var svg = d3.select("svg")
     .attr("width", width)
     .attr("height", height)
     .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + (height / 2 + 10) + ")");
+    .attr("transform", "translate(" + height / 2 + "," + (height / 2 + 10) + ")");
 var partition = d3.layout.partition()
     .sort(null)
     .value(function (d) {
