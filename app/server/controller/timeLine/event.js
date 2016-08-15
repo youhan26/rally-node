@@ -2,8 +2,8 @@
  * Created by YouHan on 2016/8/5.
 ***REMOVED***
 var express = require('express');
-var event = require('./../model/event');
-var authRouter = require('./../common/auth');
+var event = require('./../../model/timeLine/event');
+var authRouter = require('./../../common/auth');
 var router = express.Router();
 
 //root path:/event
