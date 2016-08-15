@@ -33,6 +33,27 @@ router.get('/chart/:id', function (req, res) {
         ***REMOVED***
     ***REMOVED***
 ***REMOVED***
+router.post('/chart/:id', function (req, res) {
+    if (!req.params.id || !req.body.name) {
+        res.send({
+            success: false,
+            reason: 'no id or no name'
+        ***REMOVED***
+        return;
+    }
+
+    event.saveByChartId(req.params.id, req.body.name).then(function (data) {
+        res.send({
+            success: true,
+            data: data
+        ***REMOVED***
+    }).then(function () {
+        res.send({
+            success: false,
+            reason: error || 'error happen'
+        ***REMOVED***
+    ***REMOVED***
+***REMOVED***
 
 
 router.route('/:id?')

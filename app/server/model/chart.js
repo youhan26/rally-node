@@ -15,16 +15,17 @@ exports.add = function (pid, name) {
                 rejector('err happen when connect db');
                 throw err;
             }
-            var sql = "INSERT INTO tbl_chart ('pid', 'name', 'create_time', 'update_time') values (?, ? , ? , ?)";
+            var sql = "INSERT INTO tbl_chart (`parent_id`, `name`, `create_time`, `update_time`) values (?, ? , ? , ?)";
             var inserts = [pid, name, new Date(), new Date()];
-            sql = mysql.format(sql, inserts);
 
-            connection.query(sql, function (err, rows) {
+            connection.query(sql, inserts, function (err, rows) {
                 if (err) {
-                    rejector('err when execute sql');
+                    console.error(err);
+                    rejector(error);
                     throw err;
                 }
                 resolver(rows);
+                connection.release();
             ***REMOVED***
         ***REMOVED***
     })
@@ -43,14 +44,14 @@ exports.update = function (id, pid, name) {
             }
             var sql = "UPDATE tbl_chart SET pid = ?, name = ?, update_time = ?  WHERE id = ?";
             var inserts = [pid, name, new Date(), id];
-            sql = mysql.format(sql, inserts);
 
-            conn.query(sql, function (err, rows) {
+            conn.query(sql, inserts, function (err, rows) {
                 if (err) {
-                    rejector('err when execute sql');
+                    rejector(err);
                     throw err;
                 }
                 resolver(rows);
+                conn.release();
             ***REMOVED***
         ***REMOVED***
     ***REMOVED***
@@ -76,6 +77,7 @@ exports.get = function (id) {
                     throw err;
                 }
                 resolver(rows);
+                conn.release();
             ***REMOVED***
         ***REMOVED***
     ***REMOVED***
@@ -102,6 +104,7 @@ exports.remove = function (id) {
                     throw err;
                 }
                 resolver(rows);
+                conn.release();
             ***REMOVED***
         ***REMOVED***
     ***REMOVED***
