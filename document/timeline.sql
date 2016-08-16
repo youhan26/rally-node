@@ -31,6 +31,21 @@ CREATE TABLE `tbl_chart` (
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
+
+/*Table structure for table `tbl_event`***REMOVED***
+
+DROP TABLE IF EXISTS `tbl_event`;
+
+CREATE TABLE `tbl_event` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `associate_id` bigint(20) NOT NULL,
+  `name` varchar(128) NOT NULL COMMENT '终端名称',
+  `create_time` datetime DEFAULT NULL COMMENT '创建日期',
+  `update_time` datetime DEFAULT NULL COMMENT '更新日期',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE***REMOVED***;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS***REMOVED***;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS***REMOVED***;
