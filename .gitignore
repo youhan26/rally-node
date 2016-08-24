@@ -1,5 +1,6 @@
 node_modules/
 .idea/
+.idea/libraries/
 app/client/node_modules/
 app/client/.idea/
 app/server/utils/info.log
