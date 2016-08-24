@@ -3,15 +3,16 @@
 ***REMOVED***
 var express = require('express');
 var router = express.Router();
+var path = require('path');
 // var chart = require('./controller/chart');
 // var event = require('./controller/event');
 //
 // router.use('/chart', chart);
 // router.use('/event', event);
 //
-// router.get('/', function (req, res) {
-//     res.sendfile(path.resolve(__dirname + './../client/views/timeLine.html'));
-// ***REMOVED***
+router.get('/index', function (req, res) {
+    res.sendfile(path.resolve(__dirname + './../client/views/rally/index.html'));
+***REMOVED***
 router.get('/', function (req, res) {
     res.send('rally page');
 ***REMOVED***
