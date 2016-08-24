@@ -1,12 +1,15 @@
 var path = require('path');
 var fs = require('fs');
 var cheerio = require('cheerio');
+var utils = require('./tools/utils');
+
 
 module.exports = {
     entry: {
-        basic: './config/basic.js',
-        timeLine: './config/timeLine.js',
-        image: './config/image.js'
+        basic: './config/timeLine/basic.js',
+        timeLine: './config/timeLine/timeLine.js',
+        image: './config/timeLine/image.js',
+        rally: './config/rally/rally.js'
     },
     output: {
         // path: path.join(__dirname, "/bundle", "[hash]"),
@@ -19,28 +22,30 @@ module.exports = {
     },
     module: {
         loaders: [
-            {test: /\.js|jsx$/, loaders: ['jsx-loader']}
+            {
+                test : /\.js$/,
+                loader : 'jsx-loader'
+            },
+            {
+                test: /\.js$/,
+                exclude: /(node_modules)/,
+                loader: ['babel'],
+                query: {
+                    presets: ['es2015', 'react']
+                }
+            }
         ]
     },
     plugins: [
         function () {
+            this.plugin('compile', function () {
+                utils.deleteFolderRecursive(path.resolve(__dirname + '/bundle'));
+            });
             this.plugin("done", function (stats) {
-                //write file
-                // fs.writeFileSync(path.join(__dirname, "stats.json"), JSON.stringify(stats.toJson()));
                 var timeLine = path.resolve(__dirname, './views/timeLine/timeLine.html');
-                fs.readFile(timeLine, function (err, data) {
-                    var $ = cheerio.load(data.toString(), {
-                        recognizeSelfClosing: true
-                    });
-                    var el = $('body').find('script[src*=bundle]');
-                    for (var i = 0, ii = el.length; i < ii; i++) {
-                        var item = $(el[i]);
-                        item.attr('src', item.attr('src').replace(/bundle\.(.*)js/, 'bundle.' + stats.hash + '.js'));
-                    }
-                    fs.writeFile(timeLine, $.html(), function (err) {
-                        !err && console.log('Set has success: ' + stats.hash)
-                    })
-                });
+                var rally = path.resolve(__dirname, './views/rally/index.html');
+
+                utils.updateFile([timeLine, rally], stats);
             });
         }]
 };
