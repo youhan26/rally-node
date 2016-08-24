@@ -1,0 +1,6 @@
+node_modules
+.idea
+app/client/node_modules
+app/client/.idea
+app/server/utils/info.log
+app/server/utils/info.log
