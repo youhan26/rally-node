@@ -5,9 +5,11 @@ var React = require('react');
 var Render = require('react-dom');
 var Router = require('react-router');
 
+
 function HelloWorld(props) {
     var {name, checked, ...other} = props;
     return <div {...other} >{name}</div>
+    {/*return <div>{props.name}</div>*/}
 }
 
 
