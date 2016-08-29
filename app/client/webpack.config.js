@@ -2,7 +2,7 @@ var path = require('path');
 var fs = require('fs');
 var cheerio = require('cheerio');
 var utils = require('./tools/utils');
-
+var webpack = require('webpack');
 
 module.exports = {
     entry: {
