@@ -1,0 +1,56 @@
+.header {
+    position: fixed;
+    top: 10px;
+    width: 100%;
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.header > ul {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    font-weight: 800;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: .13em;
+    margin-top: 35px;
+}
+
+.header > ul > img {
+    width: 100px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.header > ul > li {
+    list-style: none;
+    flex: 1 1 25%;
+}
+
+.header > ul > li:nth-child(1), .header > ul > li:nth-child(2) {
+    text-align: left;
+}
+
+.header > ul > li:nth-child(3), .header > ul > li:nth-child(4) {
+    text-align: right;
+}
+
+li > a {
+    text-decoration: none;
+    color: #544a68;
+}
+
+li > a:hover {
+    color: #16bdc8;
+}

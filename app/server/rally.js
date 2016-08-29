@@ -4,12 +4,16 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-// var chart = require('./controller/chart');
-// var event = require('./controller/event');
-//
-// router.use('/chart', chart);
-// router.use('/event', event);
-//
+var rally = require('./controller/rally/rally');
+
+router.get('/home', function (req, res) {
+    res.sendFile(path.resolve(__dirname + './../client/views/rally/home.html'));
+});
+
+router.get('login', function (req, res) {
+    res.sendFile(path.resolve(__dirname + './../client/views/rally/login.html'));
+});
+
 router.get('/index', function (req, res) {
     res.sendfile(path.resolve(__dirname + './../client/views/rally/index.html'));
 });

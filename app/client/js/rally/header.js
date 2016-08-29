@@ -1,0 +1,31 @@
+/**
+ * Created by YouHan on 2016/8/29.
+ */
+var React = require('react');
+var router = require('react-router');
+
+var Link = router.Link;
+var browserHistory = router.browserHistory;
+
+
+var Header = React.createClass({
+    clickImg: function () {
+        browserHistory.push('/rally/index#');
+    },
+    render: function () {
+        return (
+            <div className="header">
+                <ul>
+                    <li><Link to="/story">Story</Link></li>
+                    <li><Link to="/bug">Bug</Link></li>
+                    <img src="./../images/rally/react-logo.png" onClick={this.clickImg}></img>
+                    <li><Link to="/report">Report</Link></li>
+                    <li><Link to="/config">config</Link></li>
+                </ul>
+            </div>
+        )
+    }
+});
+
+
+module.exports = Header;
