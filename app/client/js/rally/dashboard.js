@@ -3,6 +3,41 @@
 ***REMOVED***
 var React = require('react');
 var $ = require('jquery');
+var Section = require('./section');
+var utils = require('./../utils');
+var api = utils.api;
+
+
+var DashSection = React.createClass({
+    getDefaultProps: function () {
+        return {
+            data: {
+                regionName: '',
+                stories: []
+            }
+        }
+    },
+    render: function () {
+        function renderLi(item, key) {
+            <Section data={item} key={key}></Section>
+        }
+
+        console.log(this.props.data);
+
+        return (
+            <div className="dash-section">
+                <div className="dash-section-title" style={{
+                    textAlign: 'center',
+                    fontSize: '1rem',
+                }}>
+                    {this.props.data.regionName}
+                </div>
+                {this.props.data.stories}
+                {this.props.data.stories.map(renderLi)}
+            </div>
+        )
+    }
+***REMOVED***
 
 
 var Dashboard = React.createClass({
@@ -16,26 +51,30 @@ var Dashboard = React.createClass({
     },
     loadData: function () {
         var that = this;
-        $.ajax({
-            method: 'GET',
+        api.get({
             url: 'dashboard/dataList',
-            dataType: 'json',
-            success: function (res) {
-                if (res && res.success) {
-                    console.log(res.data);
-                    that.setState({
-                        list: res.data
-                    ***REMOVED***
-                } else {
-                    alert('error when load event data');
-                }
+        }).then(function (res) {
+            if (res && res.success) {
+                that.setState({
+                    list: res.data
+                ***REMOVED***
+            } else {
+                alert('error when load event data');
             }
+        }).then(function (error) {
+            console.log(error);
         ***REMOVED***
     },
     render: function () {
+        function renderLi(item, key) {
+            return (
+                <DashSection data={item} key={key}></DashSection>
+            )
+        }
+
         return (
-            <div className="content">
-                this is dashboard
+            <div className="dash-content">
+                {this.state.list.map(renderLi)}
             </div>
         )
     }

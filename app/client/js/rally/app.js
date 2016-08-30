@@ -21,7 +21,9 @@ var Report = require('./report');
 var App = React.createClass({
     render: function () {
         return (
-            <div>
+            <div style={{
+                height: '100%'
+            }}>
                 <Header></Header>
                 {this.props.children}
             </div>

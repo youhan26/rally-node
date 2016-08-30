@@ -1,10 +1,11 @@
+html, body {
+    height: 100%;
+}
 body {
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
     /*background-color: #bbbbbb;*/
     background-color: white;
     color: #544a68;
-}
-
-.content {
-    margin-top: 150px;
+    width: 100%;
+    margin: 0;
 }
