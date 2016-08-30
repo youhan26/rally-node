@@ -5,12 +5,11 @@ var React = require('react');
 var router = require('react-router');
 
 var Link = router.Link;
-var browserHistory = router.browserHistory;
 
 
 var Header = React.createClass({
     clickImg: function () {
-        browserHistory.push('/rally/index#');
+        window.location.href = 'index';
     },
     render: function () {
         return (

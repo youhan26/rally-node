@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 var path = require('path');
 var rally = require('./controller/rally/rally');
+var mock = require('./utils/mock');
 
 router.use('/', rally);
 
@@ -17,7 +18,11 @@ router.get('login', function (req, res) {
 });
 
 router.get('/index', function (req, res) {
-    res.sendfile(path.resolve(__dirname + './../client/views/rally/index.html'));
+    res.sendFile(path.resolve(__dirname + './../client/views/rally/index.html'));
+});
+
+router.get('/dashboard/dataList', function (req, res) {
+    res.send(mock.getDataList());
 });
 
 module.exports = router;

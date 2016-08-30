@@ -1,12 +1,13 @@
 .header {
     position: fixed;
-    top: 10px;
+    /*border-bottom: #bbbbbb 1px solid;*/
+    top: 0;
     width: 100%;
-    max-width: 1000px;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
+    background-color: white;
 }
 
 .header > ul {
@@ -23,7 +24,7 @@
 }
 
 .header > ul > img {
-    width: 100px;
+    width: 80px;
     position: absolute;
     left: 0;
     right: 0;

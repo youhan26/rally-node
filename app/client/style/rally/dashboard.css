@@ -1,0 +1,19 @@
+.dash-content {
+    display: flex;
+    margin-top: 75px;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.dash-section {
+    background-color: #eee;
+    max-width: 288px;
+    margin: 0px 5px 0px 5px;
+    flex-grow: 1;
+    display: flex;
+    padding: 10px;
+}
+
+.section {
+    background-color: white;
+}
