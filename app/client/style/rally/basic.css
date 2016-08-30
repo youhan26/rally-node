@@ -1,6 +1,7 @@
 html, body {
     height: 100%;
 }
+
 body {
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
     /*background-color: #bbbbbb;*/
@@ -8,4 +9,13 @@ body {
     color: #544a68;
     width: 100%;
     margin: 0;
+}
+
+.card {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.137255) 0px 1px 1px 0px, rgba(0, 0, 0, 0.117647) 0px 2px 1px -1px
 }

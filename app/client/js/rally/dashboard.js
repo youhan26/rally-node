@@ -19,10 +19,8 @@ var DashSection = React.createClass({
     },
     render: function () {
         function renderLi(item, key) {
-            <Section data={item} key={key}></Section>
+            return <Section data={item} key={key}></Section>;
         }
-
-        console.log(this.props.data);
 
         return (
             <div className="dash-section">
@@ -32,13 +30,11 @@ var DashSection = React.createClass({
                 }}>
                     {this.props.data.regionName}
                 </div>
-                {this.props.data.stories}
                 {this.props.data.stories.map(renderLi)}
             </div>
         )
     }
 });
-
 
 var Dashboard = React.createClass({
     getInitialState: function () {
@@ -61,8 +57,8 @@ var Dashboard = React.createClass({
             } else {
                 alert('error when load event data');
             }
-        }).then(function (error) {
-            console.log(error);
+        }, function (error) {
+            console.error(error);
         });
     },
     render: function () {

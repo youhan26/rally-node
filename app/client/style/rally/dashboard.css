@@ -1,8 +1,9 @@
 .dash-content {
+    flex-grow: 1;
     display: flex;
-    margin-top: 75px;
     flex-direction: row;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
+    margin: 10px;
 }
 
 .dash-section {
@@ -11,9 +12,41 @@
     margin: 0px 5px 0px 5px;
     flex-grow: 1;
     display: flex;
+    flex-direction: column;
     padding: 10px;
 }
 
 .section {
     background-color: white;
+    margin-top: 10px;
+}
+
+.dash-task {
+    margin-left: -10px;
+    border-left: #0647ff 3px solid;
+}
+
+.dash-task-item {
+    margin: 5px;
+    line-height: 23px;
+    height: 23px;
+}
+
+/*init task*/
+.dash-task-1 {
+    background-color: #00d8ff;
+}
+
+/*finish task*/
+.dash-task-2 {
+    background-color: #0effc9;
+}
+
+/*some trouble task*/
+.dash-task-3 {
+    background-color: #ff565b;
+}
+
+.dash-bug {
+
 }
