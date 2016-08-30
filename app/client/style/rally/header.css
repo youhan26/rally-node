@@ -55,3 +55,38 @@ li > a {
 li > a:hover {
     color: #16bdc8;
 }
+
+.horizon-header {
+    width: 200px;
+    position: relative;
+}
+
+.horizon-header > ul {
+    list-style: none;
+    color: #919191;
+    font-size: 1.5rem;
+    width: 100%;
+    padding: 0;
+    top: 20%;
+    position: absolute;
+    margin-left: 60px;
+}
+
+.horizon-header > ul > li {
+    margin-bottom: 20px;
+}
+
+.sub-list-parent {
+    margin-top: -15px;
+}
+
+.sub-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.sub-list > li {
+    color: #bbbbbb;
+    font-size: 1.2rem;
+}

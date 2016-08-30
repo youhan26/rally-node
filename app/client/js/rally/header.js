@@ -26,5 +26,28 @@ var Header = React.createClass({
     }
 ***REMOVED***
 
+var HorizonHeader = React.createClass({
+    render: function () {
+        return (
+            <div className="horizon-header">
+                <ul>
+                    <li><Link to="/story">Story</Link></li>
+                    <li><Link to="/bug">Bug</Link></li>
+                    <li><Link to="/report">Report</Link></li>
+                    <li className="sub-list-parent">
+                        <ul className="sub-list">
+                            <li><Link to="/">Index</Link></li>
+                            <li><Link to="/">Index</Link></li>
+                            <li><Link to="/">Index</Link></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        )
+    }
+***REMOVED***
 
-module.exports = Header;
+module.exports = {
+    Header: Header,
+    HorizonHeader: HorizonHeader
+};

@@ -6,10 +6,10 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        basic: './config/timeLine/basic.js',
-        timeLine: './config/timeLine/timeLine.js',
-        image: './config/timeLine/image.js',
-        rally: './config/rally/rally.js'
+        basic: path.resolve(__dirname, 'config/timeLine/basic.js'),
+        timeLine: path.resolve(__dirname, 'config/timeLine/timeLine.js'),
+        image: path.resolve(__dirname, 'config/timeLine/image.js'),
+        rally: path.resolve(__dirname, 'config/rally/rally.js'),
     },
     output: {
         // path: path.join(__dirname, "/bundle", "[hash]"),
