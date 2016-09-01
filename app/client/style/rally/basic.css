@@ -15,7 +15,25 @@ body {
     background-color: white;
     padding: 10px;
     margin-bottom: 10px;
-    overflow: hidden;
+    /*overflow: hidden;*/
     border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.137255) 0px 1px 1px 0px, rgba(0, 0, 0, 0.117647) 0px 2px 1px -1px
+}
+
+.word-wrap {
+    word-wrap: break-word;
+    word-border: break-all;
+}
+
+.point-cursor:hover {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: #544a68;
+}
+
+a:hover {
+    color: #16bdc8;
 }

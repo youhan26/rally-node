@@ -17,6 +17,7 @@ var Story = require('./story');
 var Bug = require('./bug');
 var Config = require('./config');
 var Report = require('./report');
+var StoryList = require('./storyList');
 
 var App = React.createClass({
     render: function () {
@@ -38,7 +39,8 @@ Render.render(
     <Router history={hashHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Dashboard}/>
-            <Route path="story" component={Story}/>
+            <Route path="stories" component={StoryList}/>
+            <Route path="stories/:storyId" component={Story}/>
             <Route path="bug" component={Bug}>
                 {/*<IndexRoute component={InboxStats}/>*/}
                 {/*<Route path="messages/:id" component={Message}/>*/}
