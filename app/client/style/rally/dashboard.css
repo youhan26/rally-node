@@ -21,25 +21,25 @@
     margin-top: 10px;
 }
 
-.dash-task {
+.dash-task:hover {
     margin-left: -10px;
     border-left: #0647ff 3px solid;
+    padding-left: 7px;
 }
 
 .dash-task-item {
     margin: 5px;
-    line-height: 23px;
-    height: 23px;
+    padding-left: 5px;
 }
 
 /*init task*/
 .dash-task-1 {
-    background-color: #00d8ff;
+    background-color: #eeeeee;
 }
 
 /*finish task*/
 .dash-task-2 {
-    background-color: #0effc9;
+    background-color: rgba(14, 255, 201, 0.22);
 }
 
 /*some trouble task*/
@@ -49,4 +49,30 @@
 
 .dash-bug {
 
+}
+
+.dash-bug:hover {
+    margin-left: -10px;
+    border-left: #0647ff 3px solid;
+    padding-left: 7px;
+}
+
+.dash-bug-item {
+    margin: 5px;
+    padding-left: 5px;
+}
+
+/*init task*/
+.dash-bug-1 {
+    background-color: #eeeeee;
+}
+
+/*finish task*/
+.dash-bug-2 {
+    background-color: rgba(14, 255, 201, 0.22);
+}
+
+/*some trouble task*/
+.dash-bug-3 {
+    background-color: #ff565b;
 }

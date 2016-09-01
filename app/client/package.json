@@ -8,12 +8,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^3.3.7",
-    "jquery": "^3.1.0",
     "lodash": "^4.15.0",
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",
+    "react-motion": "^0.4.4",
     "react-router": "^2.7.0"
   },
   "devDependencies": {

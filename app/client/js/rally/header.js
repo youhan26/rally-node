@@ -31,8 +31,8 @@ var HorizonHeader = React.createClass({
         return (
             <div className="horizon-header">
                 <ul>
-                    <li><Link to="/story">Story</Link></li>
-                    <li><Link to="/bug">Bug</Link></li>
+                    <li><Link to="/stories">Story</Link></li>
+                    <li><Link to="/bugs">Bug</Link></li>
                     <li><Link to="/report">Report</Link></li>
                     <li className="sub-list-parent">
                         <ul className="sub-list">

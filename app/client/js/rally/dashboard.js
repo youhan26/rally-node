@@ -2,10 +2,76 @@
  * Created by YouHan on 2016/8/29.
 ***REMOVED***
 var React = require('react');
-var $ = require('jquery');
-var Section = require('./section');
 var utils = require('./../utils');
 var api = utils.api;
+var router = require('react-router');
+var Link = router.Link;
+
+var Section = React.createClass({
+    getDefaultProps: function () {
+        return {
+            data: {
+                name: '',
+                bugs: [],
+                tasks: []
+            }
+        }
+    },
+    onDrag: function () {
+        console.log(arguments);
+    },
+
+
+    render: function () {
+        function renderBugs(item, key) {
+            var className = 'dash-bug-item';
+            className += ' dash-bug-' + item.status;
+            return <div key={key} className={className}>
+                <Link to={`/bugs/${item.id}`} target="_blank">{item.name}</Link>
+            </div>
+        }
+
+        function renderTasks(item, key) {
+            var className = 'dash-task-item';
+            className += ' dash-task-' + item.status;
+            return <div key={key} className={className}>
+                <span><Link to={`/tasks/${item.id}`} target="_blank">{item.name}</Link>
+                </span>
+                <p>
+                    TODO : {item.todo}
+                </p>
+            </div>
+        }
+
+        var btnClass = 'section card';
+        return (
+            <div className={btnClass} draggable={true}>
+                <div style={{
+                    marginLeft: '5px',
+                    marginBottom: '10px'
+                }} className="word-wrap">
+                    <span className="point-cursor">
+                        <Link to={`/stories/${this.props.data.id}`}
+                              target="_blank">{this.props.data.name}</Link> </span>
+                    <span style={{
+                        float: 'right',
+                        cursor: 'move'
+                    }}>
+                        <i className="fa fa-list"
+                           aria-hidden="true"></i></span>
+                </div>
+                <div className="dash-bug">
+                    {this.props.data.bugs.map(renderBugs)}
+                </div>
+                <div className="dash-task" style={{
+                    marginTop: '10px'
+                }}>
+                    {this.props.data.tasks.map(renderTasks)}
+                </div>
+            </div>
+        )
+    }
+***REMOVED***
 
 
 var DashSection = React.createClass({
