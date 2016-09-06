@@ -6,10 +6,10 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: {
-        basic: path.resolve(__dirname, 'config/timeLine/basic.js'),
+        basic: ['babel-polyfill', path.resolve(__dirname, 'config/timeLine/basic.js')],
         timeLine: path.resolve(__dirname, 'config/timeLine/timeLine.js'),
         image: path.resolve(__dirname, 'config/timeLine/image.js'),
-        rally: path.resolve(__dirname, 'config/rally/rally.js'),
+        rally: [path.resolve(__dirname, 'config/rally/rally.js')]
     },
     output: {
         // path: path.join(__dirname, "/bundle", "[hash]"),
