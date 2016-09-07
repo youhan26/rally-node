@@ -1,8 +1,8 @@
 /**
  * Created by YouHan on 2016/8/31.
  */
-
 /* @flow */
+
 "use strict";
 var React = require('react');
 
@@ -40,27 +40,28 @@ var StoryList = React.createClass({
                     name: 'order 8'
                 }]
             }],
-            currentItem: null,
-            currentParent: null
+            currentItem: undefined,
+            currentParent: undefined
         }
     },
-    onDrop: function (item, key) {
+    onDrop: function () {
         console.log('drop');
         debugger;
         this.state.currentItem = null;
     },
-    onDragStart: function (item, key, parent) {
+    onDragStart: function (item: {}, key: number, parent: {list : []}) {
         console.log('start');
         this.state.currentItem = item;
         this.state.currentParent = parent.list;
     },
-    onDragOver: function (item, key, parent) {
+    onDragOver: function (item: {}, key: number, parent: {list : []}) {
         console.log('over');
-        this.__exchange(item, this.state.currentItem, parent.list);
+        this.state.currentItem && this.__exchange(item, this.state.currentItem, parent.list);
     },
-    onDragEnter: function (item, key) {
+    onDragEnter: function (item: {list : []}) {
         var drag = this.state.currentItem;
         var parent = this.state.currentParent;
+        if (!drag || !parent)return;
 
         var index = item.list.indexOf(drag);
         if (index == -1) {
@@ -77,7 +78,7 @@ var StoryList = React.createClass({
         this.state.currentParent = null;
         //TODO save
     },
-    __exchange: function (from, to, list) {
+    __exchange: function (from: {}, to: {}, list: []) {
         if (!from || !to || typeof list !== 'object' || list.length < 0) {
             return;
         }
