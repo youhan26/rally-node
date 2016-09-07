@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "lodash": "^4.15.0",
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",

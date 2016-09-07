@@ -19,7 +19,7 @@ function serialize(obj) {
     return str.join("&");
 }
 
-function get(option) {
+function get(option: {url : string, contentType : string, params: {}}) {
     return new Promise(function (resolver, rejector) {
         var xhr = new XMLHttpRequest();
         var url = option.url;
@@ -33,7 +33,7 @@ function get(option) {
             rejector(error);
         };
         xhr.onreadystatechange = function (e) {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            if (xhr.readyState === 4 && xhr.status === 200) {
                 resolver(JSON.parse(xhr.responseText));
             }
         };
@@ -44,7 +44,7 @@ function get(option) {
     ***REMOVED***
 }
 
-function post(option) {
+function post(option: {url : string, contentType : string, data: {}}) {
     return new Promise(function (resolver, rejector) {
         var xhr = new XMLHttpRequest();
         xhr.setRequestHeader('Content-Type', option.contentType || 'application/json;charset=UTF-8');
@@ -55,7 +55,7 @@ function post(option) {
             rejector(error);
         };
         xhr.onreadystatechange = function (e) {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            if (xhr.readyState === 4 && xhr.status === 200) {
                 resolver(JSON.parse(xhr.responseText));
             }
         };

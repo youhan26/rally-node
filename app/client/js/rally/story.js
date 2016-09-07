@@ -3,6 +3,7 @@
 ***REMOVED***
 
 /* @flow***REMOVED***
+
 "use strict";
 
 import {Motion, spring} from "react-motion";
