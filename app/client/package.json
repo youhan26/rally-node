@@ -4,7 +4,9 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "flow_check": "flow check || exit 0"
+    "flow_check": "flow check || exit 0",
+    "flow": "flow || exit 0",
+    "flow_stop": "flow stop || exit 0"
   },
   "author": "",
   "license": "ISC",
