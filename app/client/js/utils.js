@@ -2,6 +2,9 @@
  * Created by YouHan on 2016/8/30.
 ***REMOVED***
 
+/* @flow***REMOVED***
+"use strict";
+
 var api = {
     get: get,
     post: post

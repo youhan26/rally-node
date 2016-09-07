@@ -1,6 +1,9 @@
 ***REMOVED***
  * Created by YouHan on 2016/8/31.
 ***REMOVED***
+
+/* @flow***REMOVED***
+"use strict";
 var React = require('react');
 
 var StoryList = React.createClass({
