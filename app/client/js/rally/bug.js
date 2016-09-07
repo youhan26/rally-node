@@ -1,6 +1,8 @@
 /**
  * Created by YouHan on 2016/8/29.
  */
+/* @flow */
+'use strict';
 var React = require('react');
 
 

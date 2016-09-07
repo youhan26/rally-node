@@ -1,6 +1,10 @@
 /**
  * Created by YouHan on 2016/8/29.
  */
+
+/* @flow */
+"use strict";
+
 import {Motion, spring} from "react-motion";
 import React from "react";
 
