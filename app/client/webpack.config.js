@@ -29,7 +29,7 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
-                loader: ['babel'],
+                loader: ['babel', 'eslint-loader'],
                 query: {
                     presets: ['es2015', 'react', 'stage-1']
                 }

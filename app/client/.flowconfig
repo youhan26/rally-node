@@ -1,4 +1,25 @@
 [ignore]
 .*/__tests__/.*
-.*/node_modules/.*
+.*/node_modules/fbjs/.*
+.*/node_modules/react-motion/src/stepper.js
+.*/node_modules/react-motion/src/Types.js
+.*/node_modules/react-motion/src/TransitionMotion.js
+.*/node_modules/react-motion/src/Motion.js
+.*/node_modules/react-motion/src/StaggeredMotion.js
+.*/node_modules/react-motion/src/spring.js
+.*/node_modules/react-motion/src/stripStyle.js
+.*/node_modules/react-motion/src/shouldStopAnimation.js
+.*/node_modules/react-motion/src/react-motion.js
+.*/node_modules/react-motion/src/mergeDiff.js
+.*/node_modules/react-motion/src/mapToZero.js
+
 [libs]
+interfaces/
+
+[include]
+
+
+[options]
+module.ignore_non_literal_requires=true
+module.use_strict=true
+suppress_comment= \\(.\\|\n\\)*\\$FlowFixMe
