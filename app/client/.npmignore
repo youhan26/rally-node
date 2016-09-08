@@ -1,0 +1,15 @@
+/.gitignore
+
+/bower_components/
+
+/coverage/
+/demos/
+/test/
+
+/app/client/karma.conf.js
+/webpack.*
+/server.js
+
+# sublime
+/*.sublime-project
+/*.sublime-workspace

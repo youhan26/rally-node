@@ -3,10 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "flow_check": "flow check || exit 0",
-    "flow": "flow || exit 0",
-    "flow_stop": "flow stop || exit 0"
+    "flow": "flow || exit 0"
   },
   "author": "",
   "license": "ISC",
@@ -29,8 +27,21 @@
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-1": "^6.13.0",
     "cheerio": "^0.20.0",
+    "eslint": "^3.4.0",
+    "eslint-config-airbnb": "^11.0.0",
+    "eslint-loader": "^1.5.0",
+    "eslint-plugin-import": "^1.14.0",
+    "eslint-plugin-jsx-a11y": "^2.2.1",
+    "eslint-plugin-react": "^6.2.0",
     "flow-bin": "^0.32.0",
     "jsx-loader": "^0.13.2",
+    "karma": "^1.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-jasmine-diff-reporter": "^0.6.2",
+    "karma-phantomjs-launcher": "^1.0.2",
+    "karma-webpack": "^1.8.0",
+    "phantomjs": "^2.1.7",
     "webpack": "^1.13.1"
   }
 }
