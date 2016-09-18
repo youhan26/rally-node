@@ -4,11 +4,9 @@
 
 "use strict";
 
-var React = require('react');
-var utils = require('./../utils');
-var api = utils.api;
-var router = require('react-router');
-var Link = router.Link;
+import React from "react";
+import {Link} from "react-router";
+import {api} from "mimikiyru-utils";
 
 var Section = React.createClass({
     getDefaultProps: function () {
@@ -23,8 +21,6 @@ var Section = React.createClass({
     onDrag: function () {
         console.log(arguments);
     },
-
-
     render: function () {
         function renderBugs(item, key) {
             var className = 'dash-bug-item';

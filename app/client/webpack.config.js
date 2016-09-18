@@ -1,24 +1,24 @@
 var path = require('path');
 var fs = require('fs');
 var cheerio = require('cheerio');
-var utils = require('./tools/utils');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: {
-        timeLine: path.resolve(__dirname, 'config/timeLine/timeLine.js'),
-        image: path.resolve(__dirname, 'config/timeLine/image.js'),
-        rally: [path.resolve(__dirname, 'config/rally/rally.js')],
-        basic: ['babel-polyfill', path.resolve(__dirname, 'config/timeLine/basic.js')]
+        // timeLine: path.resolve(__dirname, 'config/timeLine.js'),
+        rally: ['babel-polyfill', path.resolve(__dirname, 'config/rally.js')],
     },
     output: {
         // path: path.join(__dirname, "/bundle", "[hash]"),
-        path: path.join(__dirname, "/bundle"),
         // filename: "[name].bundle.[hash].js",
+        path: path.join(__dirname, "/bundle"),
         filename: "[name].bundle.js",
-        chunkFilename: "[id].bundle.js"
+        chunkFilename: "[id].bundle.js",
+        pathinfo: true
     },
+    // devtool: 'eval-source-map',
+    devtool: 'eval',
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
@@ -40,22 +40,40 @@ module.exports = {
         ]
     },
     plugins: [
-        new HtmlWebpackPlugin({
-            filename: path.resolve(__dirname, './views/timeLine.html'),
-            template: path.resolve(__dirname, './views/timeLine/timeLine.html'),
-            inject: 'body',
-            hash: true,
-            cache: true,
-            chunks: ['basic', 'timeLine'],
-            chunksSortMode: 'dependency'
+        // new webpack.DefinePlugin({
+        //     'process.env': {
+        //         'NODE_ENV': JSON.stringify('production')
+        //     }
+        // }),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //         warnings: false,
+        //     },
+        //     mangle: {
+        //         except: ['_', '$', 'exports', 'require', 'module']
+        //     }
+        // }),
+        //Typically you'd have plenty of other plugins here as well
+        new webpack.DllReferencePlugin({
+            context: path.resolve(__dirname, 'bundle'),
+            manifest: require('./bundle/vendor-manifest.json'),
         }),
+        // new HtmlWebpackPlugin({
+        //     filename: path.resolve(__dirname, './views/timeLine.html'),
+        //     template: path.resolve(__dirname, './views/timeLine/timeLine.html'),
+        //     inject: 'body',
+        //     hash: true,
+        //     cache: true,
+        //     chunks: ['timeLine'],
+        //     chunksSortMode: 'dependency'
+        // }),
         new HtmlWebpackPlugin({
             filename: path.resolve(__dirname, './views/rally.html'),
             template: path.resolve(__dirname, './views/rally/index.html'),
             inject: 'body',
             hash: true,
             cache: true,
-            chunks: ['basic', 'rally'],
+            chunks: ['rally'],
             chunksSortMode: 'dependency'
         })]
 };

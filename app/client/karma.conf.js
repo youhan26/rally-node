@@ -36,7 +36,7 @@ var webpackConfig = {
 
 module.exports = function (config) {
   config.set({
-    basePath: '../../),
+    basePath: '../../',
     frameworks: ['jasmine'],
     files: [
       'node_modules/babel-core/browser-polyfill.js',
