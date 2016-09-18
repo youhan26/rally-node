@@ -18,7 +18,7 @@ router.get('login', function (req, res) {
 });
 
 router.get('/index', function (req, res) {
-    res.sendFile(path.resolve(__dirname + './../client/views/rally/index.html'));
+    res.sendFile(path.resolve(__dirname + './../client/views/rally.html'));
 });
 
 router.get('/dashboard/dataList', function (req, res) {

@@ -34,6 +34,7 @@
     "eslint-plugin-jsx-a11y": "^2.2.1",
     "eslint-plugin-react": "^6.2.0",
     "flow-bin": "^0.32.0",
+    "html-webpack-plugin": "^2.22.0",
     "jsx-loader": "^0.13.2",
     "karma": "^1.2.0",
     "karma-coverage": "^1.1.1",

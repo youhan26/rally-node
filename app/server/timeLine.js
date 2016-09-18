@@ -11,7 +11,7 @@ router.use('/chart', chart);
 router.use('/event', event);
 
 router.get('/', function (req, res) {
-    res.sendFile(path.resolve(__dirname + './../client/views/timeLine/timeLine.html'));
+    res.sendFile(path.resolve(__dirname + './../client/views/timeLine.html'));
 });
 
 router.get('/image', function (req, res) {

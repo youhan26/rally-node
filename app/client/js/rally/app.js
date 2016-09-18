@@ -19,6 +19,7 @@ var Bug = require('./bug');
 var Config = require('./config');
 var Report = require('./report');
 var StoryList = require('./storyList');
+import Share from "./share";
 
 var App = React.createClass({
     render: function () {
@@ -48,6 +49,7 @@ Render.render(
             </Route>
             <Route path="config" component={Config}/>
             <Route path="report" component={Report}/>
+            <Route path="share" component={Share}/>
         </Route>
     </Router>
     , document.getElementById('root'));
