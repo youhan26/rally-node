@@ -39,11 +39,12 @@ var HorizonHeader = React.createClass({
                     <li><Link to="/report">Report</Link></li>
                     <li className="sub-list-parent">
                         <ul className="sub-list">
-                            <li><Link to="/">Index</Link></li>
-                            <li><Link to="/">Index</Link></li>
-                            <li><Link to="/">Index</Link></li>
+                            <li><Link to="/">Report sub 1</Link></li>
+                            <li><Link to="/">Report sub 2</Link></li>
+                            <li><Link to="/">Report sub 3</Link></li>
                         </ul>
                     </li>
+                    <li><Link to="/share">Share</Link></li>
                 </ul>
             </div>
         )
