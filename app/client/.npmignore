@@ -6,7 +6,7 @@
 /demos/
 /test/
 
-/app/client/karma.conf.js
+/karma.conf.js
 /webpack.*
 /server.js
 
