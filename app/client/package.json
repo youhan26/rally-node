@@ -4,13 +4,17 @@
   "description": "",
   "scripts": {
     "flow_check": "flow check || exit 0",
-    "flow": "flow || exit 0"
+    "flow": "flow || exit 0",
+    "build:dll": "webpack --config ./config/vendor.js",
+    "build:dev": "webpack --watch --progress",
+    "build:prod": "webpack webpack.prod.config.js"
   },
-  "author": "",
+  "author": "YouHan",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "lodash": "^4.15.0",
+    "mimikiyru-utils": "0.0.6",
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",
