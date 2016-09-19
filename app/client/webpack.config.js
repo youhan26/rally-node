@@ -25,11 +25,11 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.js|jsx$/,
+                test: /\.jsx$/,
                 exclude: /(node_modules)/,
                 loader: 'jsx-loader'
             }, {
-                test: /\.js$/,
+                test: /\.js|jsx$/,
                 exclude: /node_modules/,
                 loader: "babel-loader"
             }
