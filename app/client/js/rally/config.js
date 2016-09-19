@@ -14,5 +14,4 @@ var Config = React.createClass({
     }
 });
 
-
-module.exports = Config;
+export default Config;

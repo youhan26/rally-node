@@ -44,6 +44,7 @@ var HorizonHeader = React.createClass({
                             <li><Link to="/">Report sub 3</Link></li>
                         </ul>
                     </li>
+                    <li><Link to="/manage">Manage</Link></li>
                     <li><Link to="/share">Share</Link></li>
                 </ul>
             </div>
@@ -51,7 +52,5 @@ var HorizonHeader = React.createClass({
     }
 });
 
-module.exports = {
-    Header: Header,
-    HorizonHeader: HorizonHeader
-};
+
+export {HorizonHeader, Header};

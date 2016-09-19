@@ -30,5 +30,4 @@ var Story = React.createClass({
     }
 });
 
-
-module.exports = Story;
+export default Story;

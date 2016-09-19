@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var rally = require('./controller/rally/rally');
+var rally = require('./controller/rally');
 var mock = require('./utils/mock');
 
 router.use('/', rally);

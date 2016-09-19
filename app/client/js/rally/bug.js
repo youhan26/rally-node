@@ -15,5 +15,4 @@ var Bug = React.createClass({
     }
 });
 
-
-module.exports = Bug;
+export default Bug;

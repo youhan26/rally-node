@@ -14,7 +14,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "lodash": "^4.15.0",
-    "mimikiyru-utils": "0.0.6",
+    "mimikiyru-utils": "0.0.8",
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",
