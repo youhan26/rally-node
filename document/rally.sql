@@ -48,6 +48,7 @@ DROP TABLE IF EXISTS `tbl_project`;
 
 CREATE TABLE `tbl_project` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `team_id` BIGINT(20) NOT NULL,
   `name` VARCHAR(45) NULL,
   `status` INT NULL COMMENT '0: set up\n1 : run\n2 : abort',
   `current_release_id` BIGINT(20) NULL,
@@ -87,9 +88,7 @@ CREATE TABLE `tbl_story` (
   `project_id` BIGINT(20) NOT NULL,
   `pid` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`, `project_id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  INDEX `fk_story_release1_idx` (`release_id` ASC),
-  INDEX `fk_story_project1_idx` (`project_id` ASC)
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- -----------------------------------------------------
@@ -103,7 +102,6 @@ CREATE TABLE `tbl_member` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(128) NOT NULL,
   `introduction` TEXT NULL,
-  `group_id` BIGINT(20) NULL,
   `team_id` BIGINT(20) NULL,
   `role_id` BIGINT(20) NULL,
   `create_time` DATETIME NULL,
@@ -128,27 +126,6 @@ CREATE TABLE `tbl_story_member` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
 )ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-
--- -----------------------------------------------------
--- Table `rally`.`group`
--- -----------------------------------------------------
-/*Table structure for table `tbl_group`***REMOVED***
-
-DROP TABLE IF EXISTS `tbl_group`;
-
-CREATE TABLE `tbl_group` (
-  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(128) NULL,
-  `desc` TEXT NULL,
-  `create_time` DATETIME NULL,
-  `update_time` DATETIME NULL,
-  `pid` BIGINT(20) NULL COMMENT 'parent group id',
-  PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
 
 
 -- -----------------------------------------------------
@@ -184,8 +161,7 @@ CREATE TABLE `tbl_role` (
   `create_time` DATETIME NULL,
   `update_time` DATETIME NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  UNIQUE INDEX `name_UNIQUE` (`name` ASC)
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC)
 )ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
@@ -258,8 +234,7 @@ CREATE TABLE `tbl_bug` (
   `dev_id` BIGINT(20) NULL,
   `story_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  INDEX `fk_bug_story1_idx` (`story_id` ASC)
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC)
 )ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
@@ -278,8 +253,7 @@ CREATE TABLE `tbl_change_log` (
   `owner_id` BIGINT(20) NOT NULL,
   `story_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`, `story_id`),
-  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
-  INDEX `fk_change_log_story1_idx` (`story_id` ASC)
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC)
 )ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 
@@ -312,28 +286,8 @@ DROP TABLE IF EXISTS `tbl_member_has_role`;
 CREATE TABLE `tbl_member_has_role` (
   `member_id` BIGINT(20) NOT NULL,
   `role_id` BIGINT(20) NOT NULL,
-  PRIMARY KEY (`member_id`, `role_id`),
-  INDEX `fk_member_has_role_role1_idx` (`role_id` ASC),
-  INDEX `fk_member_has_role_member1_idx` (`member_id` ASC)
+  PRIMARY KEY (`member_id`, `role_id`)
 )ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-
--- -----------------------------------------------------
--- Table `rally`.`member_has_group`
--- -----------------------------------------------------
-/*Table structure for table `tbl_member_has_group`***REMOVED***
-
-DROP TABLE IF EXISTS `tbl_member_has_group`;
-
-CREATE TABLE `tbl_member_has_group` (
-  `member_id` BIGINT(20) NOT NULL,
-  `group_id` BIGINT(20) NOT NULL,
-  PRIMARY KEY (`member_id`, `group_id`),
-  INDEX `fk_member_has_group_group1_idx` (`group_id` ASC),
-  INDEX `fk_member_has_group_member1_idx` (`member_id` ASC)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
-
 
 -- -----------------------------------------------------
 -- Table `rally`.`member_has_team`
@@ -345,9 +299,7 @@ DROP TABLE IF EXISTS `tbl_member_has_team`;
 CREATE TABLE `tbl_member_has_team` (
   `member_id` BIGINT(20) NOT NULL,
   `team_id` BIGINT(20) NOT NULL,
-  PRIMARY KEY (`member_id`, `team_id`),
-  INDEX `fk_member_has_team_team1_idx` (`team_id` ASC),
-  INDEX `fk_member_has_team_member1_idx` (`member_id` ASC)
+  PRIMARY KEY (`member_id`, `team_id`)
 )ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 

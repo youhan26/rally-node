@@ -14,5 +14,4 @@ var Config = React.createClass({
     }
 ***REMOVED***
 
-
-module.exports = Config;
+export default Config;

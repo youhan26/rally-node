@@ -17,4 +17,4 @@ var Report = React.createClass({
 ***REMOVED***
 
 
-module.exports = Report;
+export default Report;

@@ -141,5 +141,4 @@ var Dashboard = React.createClass({
     }
 ***REMOVED***
 
-
-module.exports = Dashboard;
+export default Dashboard;

@@ -17,4 +17,4 @@ var Share = React.createClass({
 ***REMOVED***
 
 
-module.exports = Share;
+export default Share;

@@ -4,22 +4,18 @@
 
 "use strict";
 
-var React = require('react');
-var Render = require('react-dom');
-var router = require('react-router');
-var Router = router.Router;
-var hashHistory = router.hashHistory;
-var Route = router.Route;
-var IndexRoute = router.IndexRoute;
-
-var Header = require('./header').HorizonHeader;
-var Dashboard = require('./dashboard');
-var Story = require('./story');
-var Bug = require('./bug');
-var Config = require('./config');
-var Report = require('./report');
-var StoryList = require('./storyList');
+import React from "react";
+import Render from "react-dom";
+import {Router, hashHistory, Route, IndexRoute} from "react-router";
 import Share from "./share";
+import Management from "./manage";
+import {HorizonHeader} from "./header";
+import Dashboard from "./dashboard";
+import Story from "./story";
+import Bug from "./bug";
+import Config from "./config";
+import Report from "./report";
+import StoryList from "./storyList";
 
 var App = React.createClass({
     render: function () {
@@ -29,7 +25,7 @@ var App = React.createClass({
                 width: '100%',
                 display: 'flex'
             }}>
-                <Header></Header>
+                <HorizonHeader></HorizonHeader>
                 {this.props.children}
             </div>
         )
@@ -43,13 +39,13 @@ Render.render(
             <IndexRoute component={Dashboard}/>
             <Route path="stories" component={StoryList}/>
             <Route path="stories/:storyId" component={Story}/>
-            <Route path="bug" component={Bug}>
+            <Route path="bugs" component={Bug}>
                 {/*<IndexRoute component={InboxStats}/>*/}
                 {/*<Route path="messages/:id" component={Message}/>*/}
             </Route>
             <Route path="config" component={Config}/>
             <Route path="report" component={Report}/>
             <Route path="share" component={Share}/>
+            <Route path="manage" component={Management}/>
         </Route>
-    </Router>
-    , document.getElementById('root'));
+    </Router>, document.getElementById('root'));
