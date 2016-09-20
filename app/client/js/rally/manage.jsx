@@ -13,13 +13,20 @@ class Project extends React.Component {
             project: '',
             list: []
         };
+        this.updateProject = this.updateProject.bind(this);
+    }
+
+    updateProject(e) {
+        this.setState({
+            project: e.target.value
+        ***REMOVED***
     }
 
     render() {
         return (
             <div className="project-manage">
                 this is project
-                <input value={this.state.project}/>
+                <input value={this.state.project} onChange={this.updateProject}/>
                 {this.state.list.map((item, key)=> {
                     return <div key={key}>
                         <p>name : {item.name}</p>
