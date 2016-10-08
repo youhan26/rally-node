@@ -5,7 +5,7 @@
 "use strict";
 
 import React from "react";
-import Api from './api';
+import Api from "./api";
 
 class Project extends React.Component {
     constructor(props) {
@@ -28,10 +28,13 @@ class Project extends React.Component {
     addProject() {
         var project = this.state.project;
         if (project) {
-            Api.Project.add(project).then(function (res) {
-
+            Api.Project.add({
+                name: project,
+                teamId: 1,
+            }).then(function (res) {
+                debugger;
             }, function (error) {
-                //TODO
+                debugger;
             });
         }
     }
@@ -40,7 +43,7 @@ class Project extends React.Component {
         return (
             <div className="project-manage">
                 <input value={this.state.project} onChange={this.updateProject}/>
-                <button onClick={this.addProject} disabled={this.state.project ? false : true}>Add New Project</button>
+                <button onClick={this.addProject} disabled={this.state.project ? false : true}>Add</button>
                 {this.state.list.map((item, key)=> {
                     return <div key={key}>
                         <p>name : {item.name}</p>
