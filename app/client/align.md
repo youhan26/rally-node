@@ -5,7 +5,7 @@
     * server side page sort
 - [ ] less learn change package css
 - [ ] popup confirm, success, error
-
+- [ ] test(front-end and back-end)
 
 ### about data request
 * all select data use 
@@ -31,3 +31,7 @@
     600 : http request promise error
     601 : server side success false
 ```
+
+### backend
+* data validate
+dao must validate the data

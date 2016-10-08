@@ -5,3 +5,11 @@ app/client/.idea/
 app/server/utils/info.log
 app/server/utils/exceptions.log
 app/client/bundle/
+document/rally.mwb.bak
+app/server/db/pool.js
+app/server/controller/timeLine
+app/server/timeLine.js
+app/server/model/timeLine
+app/client/js/timeLine
+app/client/style/timeLine
+app/client/views/timeLine

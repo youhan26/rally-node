@@ -4,17 +4,17 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var rally = require('./controller/rally');
+var project = require('./controller/project');
+// var team = require('./controller/team');
+
 var mock = require('./utils/mock');
 
-router.use('/', rally);
-
 router.get('/home', function (req, res) {
-    res.sendFile(path.resolve(__dirname + './../client/views/rally/home.html'));
+    res.sendFile(path.resolve(__dirname + './../client/views/home.html'));
 ***REMOVED***
 
 router.get('login', function (req, res) {
-    res.sendFile(path.resolve(__dirname + './../client/views/rally/login.html'));
+    res.sendFile(path.resolve(__dirname + './../client/views/login.html'));
 ***REMOVED***
 
 router.get('/index', function (req, res) {
@@ -24,5 +24,8 @@ router.get('/index', function (req, res) {
 router.get('/dashboard/dataList', function (req, res) {
     res.send(mock.getDataList());
 ***REMOVED***
+
+router.use('/project', project);
+// router.use('/team', team);
 
 module.exports = router;

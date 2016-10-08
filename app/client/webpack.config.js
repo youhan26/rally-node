@@ -65,7 +65,7 @@ module.exports = {
         // }),
         new HtmlWebpackPlugin({
             filename: path.resolve(__dirname, './views/rally.html'),
-            template: path.resolve(__dirname, './views/rally/index.html'),
+            template: path.resolve(__dirname, './views/index.html'),
             inject: 'body',
             hash: true,
             cache: true,

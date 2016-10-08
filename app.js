@@ -3,7 +3,6 @@
 ***REMOVED***
 var express = require('express');
 var app = express();
-var timeLine = require('./app/server/timeLine');
 var rally = require('./app/server/rally');
 var http = require('http');
 var bodyParser = require('body-parser');
@@ -30,11 +29,6 @@ app.use(express.static(__dirname + '/app/client'));
 ***REMOVED***
  * dispatch route
 ***REMOVED***
-app.use('/timeLine', timeLine);
-app.use('/rally', rally);
-
-app.get('/', function (req, res) {
-    res.send('new world');
-***REMOVED***
+app.use('/', rally);
 
 http.createServer(app).listen(3000, "0.0.0.0");
