@@ -2,8 +2,8 @@
  * Created by YouHan on 2016/8/5.
 ***REMOVED***
 var express = require('express');
-var chart = require('./../../model/timeLine/chart');
-var authRouter = require('./../../common/auth');
+var chart = require('./model\'/timeLine/chart');
+var authRouter = require('./../../app/server/common/auth');
 var router = express.Router();
 //root path: /chart
 

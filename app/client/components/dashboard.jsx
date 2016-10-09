@@ -4,6 +4,8 @@
 
 "use strict";
 
+require('./../style/dashboard.css');
+
 import React from "react";
 import {Link} from "react-router";
 import {api} from "mimikiyru-utils";

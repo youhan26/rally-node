@@ -1,6 +1,8 @@
 /* @flow***REMOVED***
 'use strict';
 
+require('./../style/storyList.css');
+
 import React from "react";
 
 var StoryList = React.createClass({

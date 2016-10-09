@@ -1,2 +1,2 @@
 'use strict';
-require('./../js/timeLine/image');
+require('./../.././image');

@@ -37,12 +37,3 @@ a {
 a:hover {
     color: #16bdc8;
 }
-
-button {
-    height: 28px;
-}
-
-input {
-    height: 22px;
-    line-height: 22px;
-}

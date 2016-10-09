@@ -1,7 +1,7 @@
 ***REMOVED***
  * Created by YouHan on 2016/9/19.
 ***REMOVED***
-var dao = require('./../model/project');
+var dao = require('./../model/team');
 
 
 exports.add = function (data) {

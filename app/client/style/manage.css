@@ -4,6 +4,10 @@
     height: 100%;
 }
 
+.project-manage {
+    padding: 12px 30px;
+}
+
 .manage-header {
     width: 100%;
     height: 50px;

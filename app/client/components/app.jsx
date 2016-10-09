@@ -4,11 +4,13 @@
 
 "use strict";
 
+require('./../style/basic.css');
+
 import React from "react";
 import Render from "react-dom";
 import {Router, hashHistory, Route, IndexRoute} from "react-router";
 import Share from "./share";
-import Management from "./manage";
+import Management from "./manage/manage";
 import {HorizonHeader} from "./header";
 import Dashboard from "./dashboard";
 import Story from "./story";
