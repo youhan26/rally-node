@@ -12,29 +12,18 @@ var logger = require('./../utils/logger');
 //add function
 exports.add = function (data) {
     return new Promise(function (resolver, rejector) {
-        if (!data || !data.teamId) {
-            logger.info('error happen when insert to tbl_project', 'no team id');
-            rejector('no team id');
-            return;
-        }
-
-
-        builder.insert('tbl_project', [{
-            'team_id': data.teamId,
+        builder.insert('tbl_team', [{
             'name': data.name,
-            'status': cons.project.status.normal,
-            'current_release_id': data.crrentReleaseId,
-            'release_interval': data.releaseInterval,
-            'release_unit': data.releaseUnit,
+            'desc': data.desc,
             'create_time': new Date(),
             'update_time': new Date()
         }])
             .end()
             .then(function (res) {
-                logger.info('insert to tbl_project', res, data);
+                logger.info('insert to tbl_team', res, data);
                 resolver(res);
             }, function (error) {
-                logger.error('error happen when insert to tbl_project', error);
+                logger.error('error happen when insert to tbl_team', error);
                 rejector(error);
             });
     })
@@ -44,7 +33,7 @@ exports.add = function (data) {
 //get function
 exports.get = function (id) {
     return new Promise(function (resolver, rejector) {
-        builder.select('tbl_project')
+        builder.select('tbl_team')
             .where({
                 id: id
             })
@@ -64,7 +53,7 @@ exports.get = function (id) {
 //get all function
 exports.getAll = function () {
     return new Promise(function (resolver, rejector) {
-        builder.select('tbl_project')
+        builder.select('tbl_team')
             .orderBy(['id desc', 'create_time'])
             .end()
             .then(function (res) {

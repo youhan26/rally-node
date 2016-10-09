@@ -1,7 +1,14 @@
 {
   "plugins": [
     "syntax-flow",
-    "transform-flow-strip-types"
+    "transform-flow-strip-types",
+    [
+      "import",
+      {
+        "libraryName": "antd",
+        "style": "css"
+      }
+    ]
   ],
   "presets": [
     "es2015",

@@ -1,7 +1,7 @@
 /**
  * Created by YouHan on 2016/9/19.
  */
-var dao = require('./../model/project');
+var dao = require('./../model/team');
 
 
 exports.add = function (data) {

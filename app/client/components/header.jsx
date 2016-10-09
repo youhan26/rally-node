@@ -4,6 +4,9 @@
 
 "use strict";
 
+require('./../style/header.css');
+
+
 var React = require('react');
 var router = require('react-router');
 

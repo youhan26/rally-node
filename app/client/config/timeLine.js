@@ -2,4 +2,4 @@
 require('bootstrap');
 
 
-require('./../js/timeLine/timeLine');
+require('./../.././timeLine');
