@@ -18,6 +18,8 @@ import Bug from "./bug";
 import Config from "./config";
 import Report from "./report";
 import StoryList from "./storyList";
+import FontSizeConverter from "./tools/font-size-converter";
+
 
 var App = React.createClass({
     render: function () {
@@ -49,5 +51,6 @@ Render.render(
             <Route path="report" component={Report}/>
             <Route path="share" component={Share}/>
             <Route path="manage" component={Management}/>
+            <Route path="font-size-converter" component={FontSizeConverter}/>
         </Route>
     </Router>, document.getElementById('root'));

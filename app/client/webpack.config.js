@@ -4,21 +4,27 @@ var cheerio = require('cheerio');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
 module.exports = {
     entry: {
-        // timeLine: path.resolve(__dirname, 'config/timeLine.js'),
-        rally: ['babel-polyfill', path.resolve(__dirname, 'config/rally.js')],
+        rally: ['babel-polyfill',
+            path.resolve(__dirname, 'config/rally.js'),
+            'webpack-hot-middleware/client?reload=true',
+            // 'webpack/hot/dev-server'
+        ]
     },
     output: {
         // path: path.join(__dirname, "/bundle", "[hash]"),
         // filename: "[name].bundle.[hash].js",
+        publicPath: "http://localhost:3000/bundle",
         path: path.join(__dirname, "/bundle"),
         filename: "[name].bundle.js",
         chunkFilename: "[id].bundle.js",
         pathinfo: true
     },
-    // devtool: 'eval-source-map',
-    devtool: 'eval',
+    //enable sourceMap
+    devtool: 'eval-source-map',
+    // devtool: 'eval',
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
@@ -40,6 +46,9 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
         // new webpack.DefinePlugin({
         //     'process.env': {
         //         'NODE_ENV': JSON.stringify('production')

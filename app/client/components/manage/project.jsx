@@ -3,7 +3,7 @@
 
 import React from "react";
 import Api from "../api";
-import {Form, Input, Button, Checkbox, Radio, Tooltip, Icon, Tabs, Card, Col, Row, DatePicker} from "antd";
+import {Form, Input, Checkbox, Radio, Tooltip, Icon, Tabs, Card, Col, Row, DatePicker} from "antd";
 
 const FormItem = Form.Item;
 
@@ -40,7 +40,7 @@ class Project extends React.Component {
             if (res && res.success) {
                 this.setState({
                     list: res.data
-                })
+                ***REMOVED***
             }
         })
     }

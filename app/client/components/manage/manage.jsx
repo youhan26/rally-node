@@ -8,9 +8,8 @@ require('./../../style/manage.css');
 
 import React from "react";
 import {Tabs} from "antd";
-
 import Project from "./project";
-import Team from './team';
+import Team from "./team";
 
 const TabPane = Tabs.TabPane;
 
@@ -53,8 +52,11 @@ class Management extends React.Component {
     render() {
         return (
             <div className="manage">
-                <Tabs defaultActiveKey="1">
-                    <TabPane tab="Project" key="1">
+                <Tabs defaultActiveKey="1" tabPosition={'left'} style={{
+                    backgroundColor : 'white',
+                    height : '100%'
+                }}>
+                    <TabPane tab='Project' key="1">
                         <Project></Project>
                     </TabPane>
                     <TabPane tab="Team" key="2">
