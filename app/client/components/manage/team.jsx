@@ -21,7 +21,9 @@ class Item extends React.Component {
 
     render() {
         return (
-            <Card>
+            <Card style={{
+                    marginBottom : '15px'
+                }}>
                 <Form horizontal>
                     <Row gutter={16}>
                         <Col sm={8}>
@@ -85,10 +87,11 @@ class Team extends React.Component {
 
     render() {
         return (
-            <div>
-                <Item onSave={this.save.bind(this)} style={{
-                    padding : '12px 30px'
-                }}></Item>
+            <div style={{
+                padding : '12px 30px',
+                width : '100%'
+            }}>
+                <Item onSave={this.save.bind(this)}></Item>
                 {this.state.list.map((item, key) => {
                     return (
                         <Item data={item} key={key}></Item>
