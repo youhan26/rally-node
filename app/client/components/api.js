@@ -58,6 +58,39 @@ var Api = {
                 url: '/team/' + id
             });
         }
+    },
+    Role: {
+        add: (data) => {
+            return api.post({
+                url: '/role',
+                data: data
+            })
+        },
+        get: (id) => {
+            if (id) {
+                return api.get({
+                    url: '/role',
+                    params: {
+                        id: id
+                    }
+                });
+            } else {
+                return api.get({
+                    url: '/role/all'
+                });
+            }
+        },
+        update: (data) => {
+            return api.patch({
+                url: '/role/' + data.id,
+                data: data
+            });
+        },
+        del: (id) => {
+            return api.del({
+                url: '/role/' + id
+            });
+        }
     }
 };
 
