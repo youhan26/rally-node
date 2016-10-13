@@ -12,6 +12,11 @@ exports.get = function (id) {
     return dao.get(id);
 };
 
+exports.update = function (data) {
+    return dao.update(data);
+};
+
+
 exports.getAll = function () {
     return dao.getAll();
 };

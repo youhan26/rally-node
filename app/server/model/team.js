@@ -49,6 +49,32 @@ exports.get = function (id) {
     });
 };
 
+exports.update = function (data) {
+    return new Promise(function (resolver, rejector) {
+        if (!data.id) {
+            rejector('no id');
+            return;
+        }
+        builder.update('tbl_team', {
+            'name': data.name,
+            'desc': data.desc,
+            'create_time': new Date(),
+            'update_time': new Date()
+        })
+            .where({
+                id: data.id
+            })
+            .end()
+            .then(function (res) {
+                logger.info('update success ', res);
+                resolver(res);
+            }, function (error) {
+                logger.error('error happen update project', error);
+                rejector(error);
+            });
+    });
+};
+
 
 //get all function
 exports.getAll = function () {

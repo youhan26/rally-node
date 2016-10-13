@@ -46,6 +46,17 @@ var Api = {
                     url: '/team/all'
                 });
             }
+        },
+        update: (data) => {
+            return api.patch({
+                url: '/team/' + data.id,
+                data: data
+            });
+        },
+        del: (id) => {
+            return api.del({
+                url: '/team/' + id
+            });
         }
     }
 };
