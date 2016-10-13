@@ -37,6 +37,5 @@ var map = {
 
 
 exports.pt2rem = function (data) {
-    console.log(data);
     return map.pt2rem[data.pt] / 20;
 };

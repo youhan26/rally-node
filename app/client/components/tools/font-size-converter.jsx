@@ -43,10 +43,6 @@ const Pt2Rem = React.createClass({
                                     this.setState(this.state);
                                 }} min={1} disabled={true}/>
                         </FormItem>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col span="8">
                         <FormItem
                             label="PT"
                             labelCol={{ span: 10 }}
@@ -58,27 +54,27 @@ const Pt2Rem = React.createClass({
                                 }} min={6} max={36}/>
                         </FormItem>
                     </Col>
-                </Row>
-                <Row>
-                    <Col span="8" offset={8}>
+                    <Col span="8" style={{textAlign : 'center'}}>
                         <FormItem>
                             <Button type="primary" onClick={this.convertPt}>Convert</Button>
                         </FormItem>
                     </Col>
+                    <Col span="8">
+                        {this.state.pt.showResult ?
+                            <Row>
+                                <Col span="8">
+                                    <FormItem
+                                        label="转换后的结果"
+                                        labelCol={{ span: 19 }}
+                                        wrapperCol={{ span: 5 }}
+                                    >
+                                        {this.state.pt.result}rem
+                                    </FormItem>
+                                </Col>
+                            </Row>
+                            : null}
+                    </Col>
                 </Row>
-                {this.state.pt.showResult ?
-                    <Row>
-                        <Col span="8">
-                            <FormItem
-                                label="转换后的结果"
-                                labelCol={{ span: 10 }}
-                                wrapperCol={{ span: 14 }}
-                            >
-                                {this.state.pt.result}rem
-                            </FormItem>
-                        </Col>
-                    </Row>
-                    : null}
             </Form>
         </Card>
     }

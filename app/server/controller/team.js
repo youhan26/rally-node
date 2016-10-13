@@ -63,6 +63,19 @@ router.route('/:id?')
                 reason: error || 'error happen'
             ***REMOVED***
         ***REMOVED***
+    })
+    .patch(function (req, res, next) {
+        var params = req.body;
+        team.update(params).then(function () {
+            res.send({
+                success: true
+            ***REMOVED***
+        }, function (error) {
+            res.send({
+                success: false,
+                reason: error || 'error happen'
+            ***REMOVED***
+        ***REMOVED***
     ***REMOVED***
 
 module.exports = router;

@@ -46,6 +46,17 @@ var Api = {
                     url: '/team/all'
                 ***REMOVED***
             }
+        },
+        update: (data) => {
+            return api.patch({
+                url: '/team/' + data.id,
+                data: data
+            ***REMOVED***
+        },
+        del: (id) => {
+            return api.del({
+                url: '/team/' + id
+            ***REMOVED***
         }
     }
 };
