@@ -91,6 +91,39 @@ var Api = {
                 url: '/role/' + id
             ***REMOVED***
         }
+    },
+    Member: {
+        add: (data) => {
+            return api.post({
+                url: '/member',
+                data: data
+            })
+        },
+        get: (id) => {
+            if (id) {
+                return api.get({
+                    url: '/member',
+                    params: {
+                        id: id
+                    }
+                ***REMOVED***
+            } else {
+                return api.get({
+                    url: '/member/all'
+                ***REMOVED***
+            }
+        },
+        update: (data) => {
+            return api.patch({
+                url: '/member/' + data.id,
+                data: data
+            ***REMOVED***
+        },
+        del: (id) => {
+            return api.del({
+                url: '/member/' + id
+            ***REMOVED***
+        }
     }
 };
 

@@ -7,6 +7,7 @@ var path = require('path');
 var project = require('./controller/project');
 var team = require('./controller/team');
 var role = require('./controller/role');
+var member = require('./controller/member');
 
 var tools = require('./controller/tools');
 
@@ -28,9 +29,11 @@ router.get('/dashboard/dataList', function (req, res) {
     res.send(mock.getDataList());
 ***REMOVED***
 
+router.use('/tools', tools);
 router.use('/project', project);
 router.use('/team', team);
 router.use('/role', role);
-router.use('/tools', tools);
+router.use('/member', member);
+
 
 module.exports = router;

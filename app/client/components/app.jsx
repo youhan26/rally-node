@@ -19,7 +19,7 @@ import Config from "./config";
 import Report from "./report";
 import StoryList from "./storyList";
 import FontSizeConverter from "./tools/font-size-converter";
-import Code from './tools/qrcode';
+import Code from "./tools/qrcode";
 
 
 var App = React.createClass({
@@ -30,7 +30,7 @@ var App = React.createClass({
                 width: '100%',
                 display: 'flex'
             }}>
-                <HorizonHeader></HorizonHeader>
+                <HorizonHeader/>
                 {this.props.children}
             </div>
         )

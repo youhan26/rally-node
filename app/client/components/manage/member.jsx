@@ -27,7 +27,7 @@ const Item = React.createClass({
                     <Row gutter={0}>
                         <Col span={8}>
                             <FormItem
-                                label="Team Name"
+                                label="Member Name"
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
@@ -40,11 +40,11 @@ const Item = React.createClass({
                     <Row gutter={0}>
                         <Col span={16}>
                             <FormItem
-                                label="Team Description"
+                                label="Member Description"
                                 labelCol={{span : 5}}
                                 wrapperCol={{span : 19}}
                             >
-                                <Input type="textarea" rows={4} value={this.props.data.desc}
+                                <Input type="textarea" rows={4} value={this.props.data.introduction}
                                        onChange={descChange}/>
                             </FormItem>
                         </Col>
@@ -65,7 +65,7 @@ const Item = React.createClass({
     }
 ***REMOVED***
 
-const Team = React.createClass({
+const Member = React.createClass({
     getInitialState(){
         return {
             list: [],
@@ -76,7 +76,7 @@ const Team = React.createClass({
         this.loadData();
     },
     loadData (){
-        Api.Team.get().then((res) => {
+        Api.Member.get().then((res) => {
             if (res && res.data) {
                 this.setState({
                     list: res.data,
@@ -88,16 +88,16 @@ const Team = React.createClass({
     save(key){
         var me = this;
         if (key) {
-            Api.Team.update(this.state.list[key-1]).then((res) => {
+            Api.Member.update(this.state.list[key - 1]).then((res) => {
                 if (res && res.success) {
                     message.success('Save Success!');
                     me.loadData();
                 }
             ***REMOVED***
         } else {
-            Api.Team.add({
+            Api.Member.add({
                 name: this.state.obj.name,
-                desc: this.state.obj.desc
+                introduction: this.state.obj.introduction
             }).then((res) => {
                 if (res && res.success) {
                     message.success('Save Success!');
@@ -109,7 +109,7 @@ const Team = React.createClass({
     nameChange (key, e){
         var value = e.target.value;
         if (key) {
-            this.state.list[key-1].name = value;
+            this.state.list[key - 1].name = value;
         } else {
             this.state.obj.name = value;
         }
@@ -118,9 +118,9 @@ const Team = React.createClass({
     descChange(key, e){
         var value = e.target.value;
         if (key) {
-            this.state.list[key-1].desc = value;
+            this.state.list[key - 1].introduction = value;
         } else {
-            this.state.obj.desc = value;
+            this.state.obj.introduction = value;
         }
         this.setState(this.state)
     },
@@ -128,7 +128,9 @@ const Team = React.createClass({
         return (
             <div style={{
                 padding : '12px 30px',
-                width : '100%'
+                width : '100%',
+                height : window.innerHeight,
+                overflow : 'auto'
             }}>
                 <Item save={this.save.bind(this, null)}
                       nameChange={this.nameChange.bind(this, null)}
@@ -149,4 +151,4 @@ const Team = React.createClass({
     }
 ***REMOVED***
 
-export default Team;
+export default Member;
