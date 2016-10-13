@@ -7,3 +7,7 @@
 .project-manage {
     padding: 12px 30px;
 }
+
+.tab-panel {
+    height: 100%;
+}

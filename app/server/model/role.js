@@ -11,18 +11,18 @@ var logger = require('./../utils/logger');
 //add function
 exports.add = function (data) {
     return new Promise(function (resolver, rejector) {
-        builder.insert('tbl_team', [{
+        builder.insert('tbl_role', [{
             'name': data.name,
-            'desc': data.desc,
+            'introduction': data.introduction,
             'create_time': new Date(),
             'update_time': new Date()
         }])
             .end()
             .then(function (res) {
-                logger.info('insert to tbl_team', res, data);
+                logger.info('insert to tbl_role', res, data);
                 resolver(res);
             }, function (error) {
-                logger.error('error happen when insert to tbl_team', error);
+                logger.error('error happen when insert to tbl_role', error);
                 rejector(error);
             ***REMOVED***
     })
@@ -32,7 +32,7 @@ exports.add = function (data) {
 //get function
 exports.get = function (id) {
     return new Promise(function (resolver, rejector) {
-        builder.select('tbl_team')
+        builder.select('tbl_role')
             .where({
                 id: id
             })
@@ -54,9 +54,9 @@ exports.update = function (data) {
             rejector('no id');
             return;
         }
-        builder.update('tbl_team', {
+        builder.update('tbl_role', {
             'name': data.name,
-            'desc': data.desc,
+            'introduction': data.introduction,
             'create_time': new Date(),
             'update_time': new Date()
         })
@@ -78,7 +78,7 @@ exports.update = function (data) {
 //get all function
 exports.getAll = function () {
     return new Promise(function (resolver, rejector) {
-        builder.select('tbl_team')
+        builder.select('tbl_role')
             .orderBy(['id desc', 'create_time'])
             .end()
             .then(function (res) {

@@ -10,45 +10,12 @@ import React from "react";
 import {Tabs} from "antd";
 import Project from "./project";
 import Team from "./team";
+import Member from "./member";
+import Role from "./role";
 
 const TabPane = Tabs.TabPane;
 
-class Member extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-    render() {
-        return (
-            <div>
-                this is member
-            </div>
-        )
-    }
-}
-
-class Role extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
-    render() {
-        return (
-            <div>
-                this is role
-            </div>
-        )
-    }
-}
-
-
-class Management extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
+const Management = React.createClass({
     render() {
         return (
             <div className="manage">
@@ -56,22 +23,22 @@ class Management extends React.Component {
                     backgroundColor : 'white',
                     height : '100%'
                 }}>
-                    <TabPane tab='Project' key="1">
-                        <Project></Project>
+                    <TabPane tab='Project' key="1" className='tab-panel'>
+                        <Project/>
                     </TabPane>
-                    <TabPane tab="Team" key="2">
-                        <Team></Team>
+                    <TabPane tab="Team" key="2" className='tab-panel'>
+                        <Team/>
                     </TabPane>
-                    <TabPane tab="Member" key="3">
-                        <Member></Member>
+                    <TabPane tab="Member" key="3" className='tab-panel'>
+                        <Member/>
                     </TabPane>
-                    <TabPane tab="Role" key="4">
-                        <Role></Role>
+                    <TabPane tab="Role" key="4" className='tab-panel'>
+                        <Role/>
                     </TabPane>
                 </Tabs>
             </div>
         )
     }
-}
+***REMOVED***
 
 export default Management;

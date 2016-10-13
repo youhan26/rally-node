@@ -4,12 +4,7 @@
 import React from "react";
 import {api} from "mimikiyru-utils";
 
-class TeamSelect extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
+const TeamSelect = React.createClass({
     componentWillMount() {
         api.get({
             url: '/team/all'
@@ -18,8 +13,7 @@ class TeamSelect extends React.Component {
                 //TODO
             }
         ***REMOVED***
-    }
-
+    },
     render() {
         return (
             <Select {...this.props}>
@@ -29,6 +23,6 @@ class TeamSelect extends React.Component {
             </Select>
         )
     }
-}
+***REMOVED***
 
 export default TeamSelect;
