@@ -7,6 +7,8 @@
 import React from "react";
 import {Form, Input, Card, Col, Row, Button, message} from "antd";
 import Api from "./../api";
+import CommonSelect from "./../common/commonSelect";
+
 
 const FormItem = Form.Item;
 
@@ -17,7 +19,7 @@ const Item = React.createClass({
         }
     },
     render() {
-        const {nameChange, descChange, save} = this.props;
+        const {nameChange, descChange, save, roleSelect} = this.props;
 
         return (
             <Card style={{
@@ -34,6 +36,19 @@ const Item = React.createClass({
                                 <Input size="default" value={this.props.data.name}
                                        onChange={nameChange}
                                 />
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={8}>
+                            <FormItem
+                                label='Role'
+                                labelCol={{span :10}}
+                                wrapperCol={{span :14}}
+                            >
+                                <CommonSelect value={this.props.data.role_id}
+                                              onChange={roleSelect}
+                                              url="/role/all"/>
                             </FormItem>
                         </Col>
                     </Row>
@@ -95,10 +110,7 @@ const Member = React.createClass({
                 }
             ***REMOVED***
         } else {
-            Api.Member.add({
-                name: this.state.obj.name,
-                introduction: this.state.obj.introduction
-            }).then((res) => {
+            Api.Member.add(this.state.obj).then((res) => {
                 if (res && res.success) {
                     message.success('Save Success!');
                     me.loadData();
@@ -124,6 +136,14 @@ const Member = React.createClass({
         }
         this.setState(this.state)
     },
+    roleSelect(key, value){
+        if (key) {
+            this.state.list[key - 1].role_id = value;
+        } else {
+            this.state.obj.role_id = value;
+        }
+        this.setState(this.state);
+    },
     render() {
         return (
             <div style={{
@@ -136,6 +156,7 @@ const Member = React.createClass({
                       nameChange={this.nameChange.bind(this, null)}
                       descChange={this.descChange.bind(this, null)}
                       data={this.state.obj}
+                      roleSelect={this.roleSelect.bind(this, null)}
                 />
                 {this.state.list.map((item, key) => {
                     return (
@@ -143,6 +164,7 @@ const Member = React.createClass({
                               save={this.save.bind(this, key+1)}
                               nameChange={this.nameChange.bind(this, key+1)}
                               descChange={this.descChange.bind(this, key+1)}
+                              roleSelect={this.roleSelect.bind(this, key+1)}
                         />
                     )
                 })}
