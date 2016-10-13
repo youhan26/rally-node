@@ -6,6 +6,7 @@ var router = express.Router();
 var path = require('path');
 var project = require('./controller/project');
 var team = require('./controller/team');
+var tools = require('./controller/tools');
 
 var mock = require('./utils/mock');
 
@@ -27,6 +28,6 @@ router.get('/dashboard/dataList', function (req, res) {
 
 router.use('/project', project);
 router.use('/team', team);
-// router.use('/team', team);
+router.use('/tools', tools);
 
 module.exports = router;
