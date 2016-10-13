@@ -99,20 +99,25 @@ const FontSizeConverter = React.createClass({
     },
     fileChange(e){
         var me = this;
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var image = new Image();
-            image.onload = function () {
-                var that = this;
-                me.setState({
-                    width: that.width,
-                    height: that.height,
-                    img: e.target.result
-                })
+        var file = e.target.files[0];
+        if (file && file.type && file.type.split('/')[0] === 'image') {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                var image = new Image();
+                image.onload = function () {
+                    var that = this;
+                    me.setState({
+                        width: that.width,
+                        height: that.height,
+                        img: e.target.result
+                    })
+                };
+                image.src = e.target.result;
             };
-            image.src = e.target.result;
-        };
-        reader.readAsDataURL(e.target.files[0]);
+            reader.readAsDataURL(file);
+        } else {
+            me.setState({})
+        }
     },
     render (){
         return <div style={{width : '100%',
@@ -144,12 +149,9 @@ const FontSizeConverter = React.createClass({
                         </Col>
                     </Row>
                 </div>
-
             </Card>
         </div>
-    },
-
+    }
 });
-
 
 export default  FontSizeConverter;
