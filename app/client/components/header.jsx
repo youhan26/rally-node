@@ -70,7 +70,9 @@ const HorizonHeader = React.createClass({
                     <Menu.Item key="9">
                         <Link to="/font-size-converter">Font Size Converter</Link>
                     </Menu.Item>
-                    <Menu.Item key="10">Option 10</Menu.Item>
+                    <Menu.Item key="/code">
+                        <Link to="/code">QRCode</Link>
+                    </Menu.Item>
                     <Menu.Item key="11">Option 11</Menu.Item>
                     <Menu.Item key="12">Option 12</Menu.Item>
                 </SubMenu>
