@@ -88,7 +88,7 @@ const Team = React.createClass({
     save(key){
         var me = this;
         if (key) {
-            Api.Team.update(this.state.list[key-1]).then((res) => {
+            Api.Team.update(this.state.list[key - 1]).then((res) => {
                 if (res && res.success) {
                     message.success('Save Success!');
                     me.loadData();
@@ -109,7 +109,7 @@ const Team = React.createClass({
     nameChange (key, e){
         var value = e.target.value;
         if (key) {
-            this.state.list[key-1].name = value;
+            this.state.list[key - 1].name = value;
         } else {
             this.state.obj.name = value;
         }
@@ -118,7 +118,7 @@ const Team = React.createClass({
     descChange(key, e){
         var value = e.target.value;
         if (key) {
-            this.state.list[key-1].desc = value;
+            this.state.list[key - 1].desc = value;
         } else {
             this.state.obj.desc = value;
         }
@@ -128,7 +128,9 @@ const Team = React.createClass({
         return (
             <div style={{
                 padding : '12px 30px',
-                width : '100%'
+                width : '100%',
+                height : window.innerHeight,
+                overflow : 'auto'
             }}>
                 <Item save={this.save.bind(this, null)}
                       nameChange={this.nameChange.bind(this, null)}
