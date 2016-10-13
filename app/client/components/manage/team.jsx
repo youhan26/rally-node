@@ -7,6 +7,7 @@
 import React from "react";
 import {Form, Input, Card, Col, Row, Button, message} from "antd";
 import Api from "./../api";
+import CommonSelect from "./../common/commonSelect";
 
 const FormItem = Form.Item;
 
@@ -17,7 +18,7 @@ const Item = React.createClass({
         }
     },
     render() {
-        const {nameChange, descChange, save} = this.props;
+        const {nameChange, descChange, save, memberSelect} = this.props;
 
         return (
             <Card style={{
@@ -34,6 +35,19 @@ const Item = React.createClass({
                                 <Input size="default" value={this.props.data.name}
                                        onChange={nameChange}
                                 />
+                            </FormItem>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col span={16}>
+                            <FormItem
+                                label='Member'
+                                labelCol={{span :5}}
+                                wrapperCol={{span :19}}
+                            >
+                                <CommonSelect value={this.props.data.member_ids}
+                                              onChange={memberSelect}
+                                              url="/member/all" multiple={true}/>
                             </FormItem>
                         </Col>
                     </Row>
@@ -124,6 +138,14 @@ const Team = React.createClass({
         }
         this.setState(this.state)
     },
+    memberSelect (key, value){
+        if (key) {
+            this.state.list[key - 1].member_ids = value;
+        } else {
+            this.state.obj.member_ids = value;
+        }
+        this.setState(this.state)
+    },
     render() {
         return (
             <div style={{
@@ -135,6 +157,7 @@ const Team = React.createClass({
                 <Item save={this.save.bind(this, null)}
                       nameChange={this.nameChange.bind(this, null)}
                       descChange={this.descChange.bind(this, null)}
+                      memberSelect={this.memberSelect.bind(this, null)}
                       data={this.state.obj}
                 />
                 {this.state.list.map((item, key) => {
@@ -143,6 +166,7 @@ const Team = React.createClass({
                               save={this.save.bind(this, key+1)}
                               nameChange={this.nameChange.bind(this, key+1)}
                               descChange={this.descChange.bind(this, key+1)}
+                              memberSelect={this.memberSelect.bind(this, key+1)}
                         />
                     )
                 })}
