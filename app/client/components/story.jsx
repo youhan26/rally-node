@@ -2,7 +2,6 @@
  * Created by YouHan on 2016/8/29.
 ***REMOVED***
 
-/* @flow***REMOVED***
 
 "use strict";
 

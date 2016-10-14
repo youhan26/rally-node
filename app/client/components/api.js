@@ -53,6 +53,19 @@ var Api = {
                 data: data
             ***REMOVED***
         },
+        save: (data) => {
+            if (data.id) {
+                return api.patch({
+                    url: '/team/' + data.id,
+                    data: data
+                ***REMOVED***
+            } else {
+                return api.post({
+                    url: '/team',
+                    data: data
+                })
+            }
+        },
         del: (id) => {
             return api.del({
                 url: '/team/' + id
@@ -86,6 +99,19 @@ var Api = {
                 data: data
             ***REMOVED***
         },
+        save: (data) => {
+            if (data.id) {
+                return api.patch({
+                    url: '/role/' + data.id,
+                    data: data
+                ***REMOVED***
+            } else {
+                return api.post({
+                    url: '/role',
+                    data: data
+                })
+            }
+        },
         del: (id) => {
             return api.del({
                 url: '/role/' + id
@@ -118,6 +144,19 @@ var Api = {
                 url: '/member/' + data.id,
                 data: data
             ***REMOVED***
+        },
+        save: (data) => {
+            if (data.id) {
+                return api.patch({
+                    url: '/member/' + data.id,
+                    data: data
+                ***REMOVED***
+            } else {
+                return api.post({
+                    url: '/member',
+                    data: data
+                })
+            }
         },
         del: (id) => {
             return api.del({

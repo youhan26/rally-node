@@ -59,7 +59,7 @@ var Section = React.createClass({
                         cursor: 'move'
                     }}>
                         <i className="fa fa-list"
-                           aria-hidden="true"></i></span>
+                           aria-hidden="true"/></span>
                 </div>
                 <div className="dash-bug">
                     {this.props.data.bugs.map(renderBugs)}
@@ -86,7 +86,7 @@ var DashSection = React.createClass({
     },
     render: function () {
         function renderLi(item, key) {
-            return <Section data={item} key={key}></Section>;
+            return <Section data={item} key={key}/>;
         }
 
         return (
@@ -131,7 +131,7 @@ var Dashboard = React.createClass({
     render: function () {
         function renderLi(item, key) {
             return (
-                <DashSection data={item} key={key}></DashSection>
+                <DashSection data={item} key={key}/>
             )
         }
 

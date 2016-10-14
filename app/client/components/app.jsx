@@ -53,6 +53,6 @@ Render.render(
             <Route path="share" component={Share}/>
             <Route path="manage" component={Management}/>
             <Route path="font-size-converter" component={FontSizeConverter}/>
-            <Route path="code" component={Code}/>
+            <Route path="qrcode" component={Code}/>
         </Route>
     </Router>, document.getElementById('root'));

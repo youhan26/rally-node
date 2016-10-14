@@ -1,6 +1,7 @@
 [ignore]
 .*/__tests__/.*
 .*/node_modules/fbjs/.*
+.*/node_modules/draft-js/.*
 .*/node_modules/react-motion/src/stepper.js
 .*/node_modules/react-motion/src/Types.js
 .*/node_modules/react-motion/src/TransitionMotion.js
@@ -17,7 +18,6 @@
 interfaces/
 
 [include]
-
 
 [options]
 module.ignore_non_literal_requires=true
