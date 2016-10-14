@@ -4,18 +4,27 @@
 /* @flow */
 "use strict";
 
-import React from "react";
+import React, {PropTypes} from "react";
 import {Form, Input, Card, Col, Row, Button, message} from "antd";
 import Api from "./../api";
 import CommonSelect from "./../common/commonSelect";
-
+import type {memberData} from "./../common/types";
 
 const FormItem = Form.Item;
 
 const Item = React.createClass({
+    propTypes: {
+        name: PropTypes.string,
+        role_id: PropTypes.any,
+        introduction: PropTypes.string,
+        id: PropTypes.any
+    },
     getDefaultProps(){
         return {
-            data: {}
+            name: '',
+            role_id: undefined,
+            introduction: '',
+            id: undefined
         }
     },
     render() {
@@ -33,7 +42,7 @@ const Item = React.createClass({
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
-                                <Input size="default" value={this.props.data.name}
+                                <Input size="default" value={this.props.name}
                                        onChange={nameChange}
                                 />
                             </FormItem>
@@ -46,7 +55,7 @@ const Item = React.createClass({
                                 labelCol={{span :10}}
                                 wrapperCol={{span :14}}
                             >
-                                <CommonSelect value={this.props.data.role_id}
+                                <CommonSelect value={this.props.role_id}
                                               onChange={roleSelect}
                                               url="/role/all"/>
                             </FormItem>
@@ -59,7 +68,7 @@ const Item = React.createClass({
                                 labelCol={{span : 5}}
                                 wrapperCol={{span : 19}}
                             >
-                                <Input type="textarea" rows={4} value={this.props.data.introduction}
+                                <Input type="textarea" rows={4} value={this.props.introduction}
                                        onChange={descChange}/>
                             </FormItem>
                         </Col>
@@ -69,7 +78,7 @@ const Item = React.createClass({
                                 wrapperCol={{span : 14}}
                             >
                                 <Button type="primary" onClick={save}>{
-                                    this.props.data.id ? 'Update' : 'Save'
+                                    this.props.id ? 'Update' : 'Save'
                                 }</Button>
                             </FormItem>
                         </Col>
@@ -81,67 +90,49 @@ const Item = React.createClass({
 });
 
 const Member = React.createClass({
+    emptyObj: {
+        name: '',
+        introduction: '',
+        id: undefined,
+        role_id: undefined
+    },
     getInitialState(){
         return {
-            list: [],
-            obj: {}
+            list: [this.emptyObj]
         }
     },
     componentWillMount() {
         this.loadData();
     },
     loadData (){
-        Api.Member.get().then((res) => {
+        var me = this;
+        Api.Member.get().then((res: {success: boolean, data: memberData}) => {
             if (res && res.data) {
-                this.setState({
-                    list: res.data,
-                    obj: {}
+                me.setState({
+                    list: [this.emptyObj].concat(res.data)
                 })
             }
         });
     },
-    save(key){
+    save(key: number){
         var me = this;
-        if (key) {
-            Api.Member.update(this.state.list[key - 1]).then((res) => {
+        Api.Member.save(this.state.list[key]).then((res) => {
                 if (res && res.success) {
                     message.success('Save Success!');
                     me.loadData();
                 }
             });
-        } else {
-            Api.Member.add(this.state.obj).then((res) => {
-                if (res && res.success) {
-                    message.success('Save Success!');
-                    me.loadData();
-                }
-            });
-        }
     },
-    nameChange (key, e){
-        var value = e.target.value;
-        if (key) {
-            this.state.list[key - 1].name = value;
-        } else {
-            this.state.obj.name = value;
-        }
+    nameChange (key: number, e: {target : {value : string}}){
+        this.state.list[key].name = e.target.value;
         this.setState(this.state);
     },
-    descChange(key, e){
-        var value = e.target.value;
-        if (key) {
-            this.state.list[key - 1].introduction = value;
-        } else {
-            this.state.obj.introduction = value;
-        }
+    descChange(key: number, e: {target:{value : string}}){
+        this.state.list[key].introduction = e.target.value;
         this.setState(this.state)
     },
-    roleSelect(key, value){
-        if (key) {
-            this.state.list[key - 1].role_id = value;
-        } else {
-            this.state.obj.role_id = value;
-        }
+    roleSelect(key: number, value: number){
+        this.state.list[key].role_id = value;
         this.setState(this.state);
     },
     render() {
@@ -152,19 +143,16 @@ const Member = React.createClass({
                 height : window.innerHeight,
                 overflow : 'auto'
             }}>
-                <Item save={this.save.bind(this, null)}
-                      nameChange={this.nameChange.bind(this, null)}
-                      descChange={this.descChange.bind(this, null)}
-                      data={this.state.obj}
-                      roleSelect={this.roleSelect.bind(this, null)}
-                />
                 {this.state.list.map((item, key) => {
                     return (
-                        <Item data={item} key={key}
-                              save={this.save.bind(this, key+1)}
-                              nameChange={this.nameChange.bind(this, key+1)}
-                              descChange={this.descChange.bind(this, key+1)}
-                              roleSelect={this.roleSelect.bind(this, key+1)}
+                        <Item id={item.id} key={key}
+                              introduction={item.introduction}
+                              role_id={item.role_id}
+                              name={item.name}
+                              save={this.save.bind(this, key)}
+                              nameChange={this.nameChange.bind(this, key)}
+                              descChange={this.descChange.bind(this, key)}
+                              roleSelect={this.roleSelect.bind(this, key)}
                         />
                     )
                 })}

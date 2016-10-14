@@ -1,69 +1,58 @@
-/* @flow */
 "use strict";
+/* @flow */
 
 import React from "react";
 import Api from "../api";
 import {Form, Input, Checkbox, Radio, Tooltip, Icon, Tabs, Card, Col, Row, DatePicker} from "antd";
-
+import type {res} from "./../common/types";
 const FormItem = Form.Item;
 
-class Project extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+const Project = React.createClass({
+    getInitialState(){
+        return {
             project: '',
             list: []
-        };
-        this.addProject = this.addProject.bind(this);
-    }
-
+        }
+    },
     addProject() {
         var project = this.state.project;
         if (project) {
             Api.Project.add({
                 name: project,
                 teamId: 1,
-            }).then(function (res) {
+            }).then(res=> {
                 debugger;
-            }, function (error) {
+            }, error=> {
                 debugger;
             });
         }
-    }
-
+    },
     componentWillMount() {
         this.loadData();
-    }
-
+    },
     loadData() {
-        Api.Project.get().then((res) => {
+        Api.Project.get().then((res: res) => {
             if (res && res.success) {
                 this.setState({
                     list: res.data
                 });
             }
         })
-    }
-
+    },
     render() {
         return (
             <div className="project-manage">
                 {this.state.list.map((item, key)=> {
                     return (
-                        <Item data={item} key={key}></Item>
+                        <Item data={item} key={key}/>
                     );
                 })}
             </div>
         );
     }
-}
+});
 
-class Item extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-    }
-
+const Item = React.createClass({
     render() {
         return (
             <Card
@@ -146,6 +135,6 @@ class Item extends React.Component {
             </Card>
         )
     }
-}
+});
 
 export default Project;

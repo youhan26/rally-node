@@ -1,21 +1,34 @@
 /**
  * Created by YouHan on 2016/9/19.
  */
+
 /* @flow */
 "use strict";
 
-import React from "react";
+import React, {PropTypes} from "react";
 import {Form, Input, Card, Col, Row, Button, message} from "antd";
 import Api from "./../api";
 import CommonSelect from "./../common/commonSelect";
+import type {res, event} from "./../common/types";
+
 
 const FormItem = Form.Item;
 
 const Item = React.createClass({
     getDefaultProps(){
         return {
-            data: {}
+            id: undefined,
+            name: '',
+            desc: '',
+            memberIds: []
         }
+    },
+    //TODO add custom props type
+    propsType: {
+        id: PropTypes.any,
+        name: PropTypes.string,
+        desc: PropTypes.string,
+        memberIds: PropTypes.arrayOf(PropTypes.any)
     },
     render() {
         const {nameChange, descChange, save, memberSelect} = this.props;
@@ -32,7 +45,7 @@ const Item = React.createClass({
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
-                                <Input size="default" value={this.props.data.name}
+                                <Input size="default" value={this.props.name}
                                        onChange={nameChange}
                                 />
                             </FormItem>
@@ -45,7 +58,7 @@ const Item = React.createClass({
                                 labelCol={{span :5}}
                                 wrapperCol={{span :19}}
                             >
-                                <CommonSelect value={this.props.data.member_ids}
+                                <CommonSelect value={this.props.memberIds}
                                               onChange={memberSelect}
                                               url="/member/all" multiple={true}/>
                             </FormItem>
@@ -58,7 +71,7 @@ const Item = React.createClass({
                                 labelCol={{span : 5}}
                                 wrapperCol={{span : 19}}
                             >
-                                <Input type="textarea" rows={4} value={this.props.data.desc}
+                                <Input type="textarea" rows={4} value={this.props.desc}
                                        onChange={descChange}/>
                             </FormItem>
                         </Col>
@@ -68,7 +81,7 @@ const Item = React.createClass({
                                 wrapperCol={{span : 14}}
                             >
                                 <Button type="primary" onClick={save}>{
-                                    this.props.data.id ? 'Update' : 'Save'
+                                    this.props.id ? 'Update' : 'Save'
                                 }</Button>
                             </FormItem>
                         </Col>
@@ -80,71 +93,50 @@ const Item = React.createClass({
 });
 
 const Team = React.createClass({
+    emptyObj: {
+        id: undefined,
+        desc: '',
+        name: '',
+        memberIds: []
+    },
     getInitialState(){
         return {
-            list: [],
-            obj: {}
+            list: [this.emptyObj]
         }
     },
     componentWillMount() {
         this.loadData();
     },
     loadData (){
-        Api.Team.get().then((res) => {
+        var me = this;
+        Api.Team.get().then((res: res) => {
             if (res && res.data) {
-                this.setState({
-                    list: res.data,
-                    obj: {}
+                me.setState({
+                    list: [me.emptyObj].concat(res.data),
                 })
             }
         });
     },
-    save(key){
+    save(key: number){
         var me = this;
-        if (key) {
-            Api.Team.update(this.state.list[key - 1]).then((res) => {
-                if (res && res.success) {
-                    message.success('Save Success!');
-                    me.loadData();
-                }
-            });
-        } else {
-            Api.Team.add({
-                name: this.state.obj.name,
-                desc: this.state.obj.desc
-            }).then((res) => {
-                if (res && res.success) {
-                    message.success('Save Success!');
-                    me.loadData();
-                }
-            });
-        }
+        Api.Team.save(this.state.list[key]).then((res: res) => {
+            if (res && res.success) {
+                message.success('Save Success!');
+                me.loadData();
+            }
+        });
     },
-    nameChange (key, e){
-        var value = e.target.value;
-        if (key) {
-            this.state.list[key - 1].name = value;
-        } else {
-            this.state.obj.name = value;
-        }
+    nameChange (key: number, e: event){
+        this.state.list[key].name = e.target.value;
         this.setState(this.state);
     },
-    descChange(key, e){
-        var value = e.target.value;
-        if (key) {
-            this.state.list[key - 1].desc = value;
-        } else {
-            this.state.obj.desc = value;
-        }
-        this.setState(this.state)
+    descChange(key: number, e: event){
+        this.state.list[key].desc = e.target.value;
+        this.setState(this.state);
     },
-    memberSelect (key, value){
-        if (key) {
-            this.state.list[key - 1].member_ids = value;
-        } else {
-            this.state.obj.member_ids = value;
-        }
-        this.setState(this.state)
+    memberSelect (key: number, value: []){
+        this.state.list[key].memberIds = value;
+        this.setState(this.state);
     },
     render() {
         return (
@@ -154,19 +146,17 @@ const Team = React.createClass({
                 height : window.innerHeight,
                 overflow : 'auto'
             }}>
-                <Item save={this.save.bind(this, null)}
-                      nameChange={this.nameChange.bind(this, null)}
-                      descChange={this.descChange.bind(this, null)}
-                      memberSelect={this.memberSelect.bind(this, null)}
-                      data={this.state.obj}
-                />
                 {this.state.list.map((item, key) => {
                     return (
                         <Item data={item} key={key}
-                              save={this.save.bind(this, key+1)}
-                              nameChange={this.nameChange.bind(this, key+1)}
-                              descChange={this.descChange.bind(this, key+1)}
-                              memberSelect={this.memberSelect.bind(this, key+1)}
+                              name={item.name}
+                              id={item.id}
+                              desc={item.desc}
+                              memberIds={item.memberIds}
+                              save={this.save.bind(this, key)}
+                              nameChange={this.nameChange.bind(this, key)}
+                              descChange={this.descChange.bind(this, key)}
+                              memberSelect={this.memberSelect.bind(this, key)}
                         />
                     )
                 })}

@@ -1,4 +1,3 @@
-/* @flow */
 'use strict';
 
 require('./../style/storyList.css');

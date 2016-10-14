@@ -16,7 +16,10 @@ exports.update = function (data) {
     return dao.update(data);
 };
 
-
 exports.getAll = function () {
     return dao.getAll();
+};
+
+exports.updateTeam = function (memberIds, teamId) {
+    return dao.updateTeam(memberIds, teamId);
 };

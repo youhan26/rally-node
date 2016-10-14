@@ -1,4 +1,3 @@
-/* @flow */
 'use strict';
 
 import React from "react";
@@ -119,7 +118,7 @@ const FontSizeConverter = React.createClass({
         return <div style={{width : '100%',
             padding : '20px'
         }}>
-            <Pt2Rem></Pt2Rem>
+            <Pt2Rem/>
             <Card style={{ width: '100%',marginTop:'20px' }} title="上传图片显示大小">
                 <div style={{
                     width : '100%'

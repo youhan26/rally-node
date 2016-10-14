@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "flow_check": "flow check || exit 0",
-    "flow": "flow || exit 0",
+    "flow:check": "flow check || exit 0",
+    "flow:start": "flow start || exit 0",
+    "flow:end": "flow end || exit 0",
+    "flow": "flow status || exit 0",
     "build:dll": "webpack --config ./config/vendor.js",
     "build:dev": "webpack --watch --progress",
     "build:prod": "webpack webpack.prod.config.js"

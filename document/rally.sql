@@ -35,7 +35,7 @@ CREATE TABLE `tbl_release` (
     `update_time` DATETIME NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `id_UNIQUE` (`id` ASC)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -56,7 +56,7 @@ CREATE TABLE `tbl_project` (
   `release_unit` INT NULL COMMENT '0: day\n1: week\n2: month\n3: year //no use',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- -----------------------------------------------------
 -- Table `rally`.`story`
@@ -89,7 +89,7 @@ CREATE TABLE `tbl_story` (
   `pid` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`, `project_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- -----------------------------------------------------
 -- Table `rally`.`member`
@@ -107,7 +107,7 @@ CREATE TABLE `tbl_member` (
   `create_time` DATETIME NULL,
   `update_time` DATETIME NULL,
   PRIMARY KEY (`id`)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -125,7 +125,7 @@ CREATE TABLE `tbl_story_member` (
   `member_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -143,7 +143,7 @@ CREATE TABLE `tbl_team` (
   `update_time` DATETIME NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 
@@ -162,7 +162,7 @@ CREATE TABLE `tbl_role` (
   `update_time` DATETIME NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -185,7 +185,7 @@ CREATE TABLE `tbl_test_case` (
   `owner_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`, `story_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 
@@ -209,7 +209,7 @@ CREATE TABLE `tbl_task` (
   `story_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`, `story_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -235,7 +235,7 @@ CREATE TABLE `tbl_bug` (
   `story_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -254,7 +254,7 @@ CREATE TABLE `tbl_change_log` (
   `story_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`, `story_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 
@@ -273,7 +273,7 @@ CREATE TABLE `tbl_story_change_log` (
   `update_time` DATETIME NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 -- -----------------------------------------------------
@@ -287,7 +287,7 @@ CREATE TABLE `tbl_member_has_role` (
   `member_id` BIGINT(20) NOT NULL,
   `role_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`member_id`, `role_id`)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- -----------------------------------------------------
 -- Table `rally`.`member_has_team`
@@ -297,10 +297,11 @@ CREATE TABLE `tbl_member_has_role` (
 DROP TABLE IF EXISTS `tbl_member_has_team`;
 
 CREATE TABLE `tbl_member_has_team` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `member_id` BIGINT(20) NOT NULL,
   `team_id` BIGINT(20) NOT NULL,
-  PRIMARY KEY (`member_id`, `team_id`)
-)ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

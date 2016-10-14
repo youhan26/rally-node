@@ -1,20 +1,29 @@
 /**
  * Created by YouHan on 2016/9/19.
  */
+
 /* @flow */
 "use strict";
 
-import React from "react";
+import React, {PropTypes} from "react";
 import {Form, Input, Card, Col, Row, Button, message} from "antd";
 import Api from "./../api";
+import type {res} from "./../common/types";
 
 const FormItem = Form.Item;
 
 const Item = React.createClass({
     getDefaultProps(){
         return {
-            data: {}
+            id: undefined,
+            name: '',
+            introduction: ''
         }
+    },
+    propsType: {
+        name: PropTypes.string,
+        id: PropTypes.any,
+        introduction: PropTypes.string
     },
     render() {
         const {nameChange, descChange, save} = this.props;
@@ -31,7 +40,7 @@ const Item = React.createClass({
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
-                                <Input size="default" value={this.props.data.name}
+                                <Input size="default" value={this.props.name}
                                        onChange={nameChange}
                                 />
                             </FormItem>
@@ -44,7 +53,7 @@ const Item = React.createClass({
                                 labelCol={{span : 5}}
                                 wrapperCol={{span : 19}}
                             >
-                                <Input type="textarea" rows={4} value={this.props.data.introduction}
+                                <Input type="textarea" rows={4} value={this.props.introduction}
                                        onChange={descChange}/>
                             </FormItem>
                         </Col>
@@ -54,7 +63,7 @@ const Item = React.createClass({
                                 wrapperCol={{span : 14}}
                             >
                                 <Button type="primary" onClick={save}>{
-                                    this.props.data.id ? 'Update' : 'Save'
+                                    this.props.id ? 'Update' : 'Save'
                                 }</Button>
                             </FormItem>
                         </Col>
@@ -66,63 +75,45 @@ const Item = React.createClass({
 });
 
 const Role = React.createClass({
+    emptyObj: {
+        name: '',
+        id: undefined,
+        introduction: ''
+    },
     getInitialState(){
         return {
-            list: [],
-            obj: {}
+            list: [this.emptyObj]
         }
     },
     componentWillMount() {
         this.loadData();
     },
     loadData (){
-        Api.Role.get().then((res) => {
+        var me = this;
+        Api.Role.get().then((res: {success :boolean, data:[]}) => {
             if (res && res.data) {
-                this.setState({
-                    list: res.data,
-                    obj: {}
+                me.setState({
+                    list: [me.emptyObj].concat(res.data)
                 })
             }
         });
     },
-    save(key){
+    save(key: number){
         var me = this;
-        if (key) {
-            Api.Role.update(this.state.list[key - 1]).then((res) => {
-                if (res && res.success) {
-                    message.success('Save Success!');
-                    me.loadData();
-                }
-            });
-        } else {
-            Api.Role.add({
-                name: this.state.obj.name,
-                introduction: this.state.obj.introduction
-            }).then((res) => {
-                if (res && res.success) {
-                    message.success('Save Success!');
-                    me.loadData();
-                }
-            });
-        }
+        Api.Role.save(this.state.list[key]).then((res: res) => {
+            if (res && res.success) {
+                message.success('Save Success!');
+                me.loadData();
+            }
+        });
     },
-    nameChange (key, e){
-        var value = e.target.value;
-        if (key) {
-            this.state.list[key - 1].name = value;
-        } else {
-            this.state.obj.name = value;
-        }
+    nameChange (key: number, e: {target:{value : string}}){
+        this.state.list[key].name = e.target.value;
         this.setState(this.state);
     },
-    descChange(key, e){
-        var value = e.target.value;
-        if (key) {
-            this.state.list[key - 1].introduction = value;
-        } else {
-            this.state.obj.introduction = value;
-        }
-        this.setState(this.state)
+    descChange(key: number, e: {target:{value : string}}){
+        this.state.list[key].introduction = e.target.value;
+        this.setState(this.state);
     },
     render() {
         return (
@@ -132,17 +123,14 @@ const Role = React.createClass({
                 height : window.innerHeight,
                 overflow : 'auto'
             }}>
-                <Item save={this.save.bind(this, null)}
-                      nameChange={this.nameChange.bind(this, null)}
-                      descChange={this.descChange.bind(this, null)}
-                      data={this.state.obj}
-                />
                 {this.state.list.map((item, key) => {
                     return (
-                        <Item data={item} key={key}
-                              save={this.save.bind(this, key+1)}
-                              nameChange={this.nameChange.bind(this, key+1)}
-                              descChange={this.descChange.bind(this, key+1)}
+                        <Item key={key} id={item.id}
+                              name={item.name}
+                              introduction={item.introduction}
+                              save={this.save.bind(this, key)}
+                              nameChange={this.nameChange.bind(this, key)}
+                              descChange={this.descChange.bind(this, key)}
                         />
                     )
                 })}
