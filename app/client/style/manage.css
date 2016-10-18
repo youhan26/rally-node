@@ -11,3 +11,7 @@
 .tab-panel {
     height: 100%;
 }
+
+.ant-tabs-content {
+    background-color: #efefef;
+}

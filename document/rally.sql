@@ -102,7 +102,6 @@ CREATE TABLE `tbl_member` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(128) NOT NULL,
   `introduction` TEXT NULL,
-  `team_id` BIGINT(20) NULL,
   `role_id` BIGINT(20) NULL,
   `create_time` DATETIME NULL,
   `update_time` DATETIME NULL,

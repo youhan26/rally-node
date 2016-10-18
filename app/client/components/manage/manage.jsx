@@ -13,6 +13,9 @@ import Team from "./team";
 import Member from "./member";
 import Role from "./role";
 
+const router = require('react-router');
+const Link = router.Link;
+
 const TabPane = Tabs.TabPane;
 
 const Management = React.createClass({
@@ -23,16 +26,24 @@ const Management = React.createClass({
                     backgroundColor : 'white',
                     height : '100%'
                 }}>
-                    <TabPane tab='Project' key="1" className='tab-panel'>
+                    <TabPane tab={
+                        <Link to="/manage/project">Project</Link>
+                    } key="1" className='tab-panel'>
                         <Project/>
                     </TabPane>
-                    <TabPane tab="Team" key="2" className='tab-panel'>
+                    <TabPane tab={
+                        <Link to="/manage/team">Team</Link>
+                    } key="2" className='tab-panel'>
                         <Team/>
                     </TabPane>
-                    <TabPane tab="Member" key="3" className='tab-panel'>
+                    <TabPane tab={
+                        <Link to="/manage/member">Member</Link>
+                    } key="3" className='tab-panel'>
                         <Member/>
                     </TabPane>
-                    <TabPane tab="Role" key="4" className='tab-panel'>
+                    <TabPane tab={
+                        <Link to="/manage/role">Role</Link>
+                    } key="4" className='tab-panel'>
                         <Role/>
                     </TabPane>
                 </Tabs>

@@ -15,15 +15,17 @@ const CommonSelect = React.createClass({
         }
     },
     componentWillMount() {
-        api.get({
-            url: this.props.url
-        }).then((res: res) => {
-            if (res && res.data) {
-                this.setState({
-                    list: res.data
-                })
-            }
-        });
+        if (this.props.url) {
+            api.get({
+                url: this.props.url
+            }).then((res: res) => {
+                if (res && res.data) {
+                    this.setState({
+                        list: res.data
+                    })
+                }
+            })
+        }
     },
     render() {
         return (

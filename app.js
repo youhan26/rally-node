@@ -7,6 +7,8 @@ var rally = require('./app/server/rally');
 var http = require('http');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+var compression = require('compression');
+var helmet = require('helmet');
 
 var webpack = require('webpack'),
     webpackDevMiddleware = require('webpack-dev-middleware'),
@@ -26,6 +28,11 @@ app.use(webpackDevMiddleware(compiler, {
 }));
 app.use(webpackHotMiddleware(compiler));
 
+//use gzip compression--生产环境中应放置在反向代理环节
+app.use(compression());
+
+
+app.use(helmet());
 
 /**
  * body parser

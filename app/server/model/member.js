@@ -94,21 +94,3 @@ exports.getAll = function () {
             });
     })
 };
-
-exports.updateTeam = function (members, team) {
-    return new Promise(function (resolver, rejector) {
-        builder.update('tbl_member', {
-            'team_id': team
-        }).where({
-            id: members
-        })
-            .end()
-            .then(function (res) {
-                logger.info('update team  success', res);
-                resolver(res)
-            }, function (error) {
-                logger.error('error happen update team', error);
-                rejector(error);
-            });
-    });
-};

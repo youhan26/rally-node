@@ -15,3 +15,7 @@ exports.get = function (id) {
 exports.getAll = function () {
     return dao.getAll();
 };
+
+exports.update = function (data) {
+    return dao.update(data);
+};

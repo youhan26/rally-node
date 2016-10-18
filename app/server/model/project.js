@@ -11,68 +11,50 @@ var logger = require('./../utils/logger');
 
 //add function
 exports.add = function (data) {
-    return new Promise(function (resolver, rejector) {
-        if (!data || !data.teamId) {
-            logger.info('error happen when insert to tbl_project', 'no team id');
-            rejector('no team id');
-            return;
-        }
-
-
-        builder.insert('tbl_project', [{
-            'team_id': data.teamId,
-            'name': data.name,
-            'status': cons.project.status.normal,
-            'current_release_id': data.crrentReleaseId,
-            'release_interval': data.releaseInterval,
-            'release_unit': data.releaseUnit,
-            'create_time': new Date(),
-            'update_time': new Date()
-        }])
-            .end()
-            .then(function (res) {
-                logger.info('insert to tbl_project', res, data);
-                resolver(res);
-            }, function (error) {
-                logger.error('error happen when insert to tbl_project', error);
-                rejector(error);
-            });
-    })
+    return builder.insert('tbl_project', [{
+        'team_id': data.team_id,
+        'name': data.name,
+        'status': data.status,
+        // 'current_release_id': data.crrent_releaseId,
+        'release_interval': data.release_interval,
+        'release_unit': data.release_unit,
+        'create_time': new Date(),
+        'update_time': new Date()
+    }])
+        .end();
 };
 
 
 //get function
 exports.get = function (id) {
-    return new Promise(function (resolver, rejector) {
-        builder.select('tbl_project')
-            .where({
-                id: id
-            })
-            .orderBy(['id desc', 'create_time'])
-            .end()
-            .then(function (res) {
-                logger.info('get success ', res, id);
-                resolver(res);
-            }, function (error) {
-                logger.error('error happen get project', error, id);
-                rejector(error);
-            });
-    });
+    return builder.select('tbl_project')
+        .where({
+            id: id
+        })
+        .orderBy(['id desc', 'create_time'])
+        .end();
 };
 
 
 //get all function
 exports.getAll = function () {
-    return new Promise(function (resolver, rejector) {
-        builder.select('tbl_project')
-            .orderBy(['id desc', 'create_time'])
-            .end()
-            .then(function (res) {
-                logger.info('get success');
-                resolver(res)
-            }, function (error) {
-                logger.error('error happen ', error);
-                rejector(error);
-            });
+    return builder.select('tbl_project')
+        .orderBy(['id desc', 'create_time'])
+        .end();
+};
+
+exports.update = function (data) {
+    return builder.update('tbl_project', {
+        'team_id': data.team_id,
+        'name': data.name,
+        'status': data.status,
+        // 'current_release_id': data.crrent_releaseId,
+        'release_interval': data.release_interval,
+        'release_unit': data.release_unit,
+        'update_time': new Date()
     })
+        .select({
+            id: data.id
+        })
+        .end();
 };
