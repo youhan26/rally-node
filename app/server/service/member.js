@@ -1,25 +1,20 @@
 ***REMOVED***
  * Created by YouHan on 2016/9/19.
 ***REMOVED***
-var dao = require('./../model/member');
-
+var member = require('./../model/member');
 
 exports.add = function (data) {
-    return dao.add(data);
+    return member.add(data);
 };
 
 exports.get = function (id) {
-    return dao.get(id);
+    return member.get(id);
 };
 
 exports.update = function (data) {
-    return dao.update(data);
+    return member.update(data);
 };
 
 exports.getAll = function () {
-    return dao.getAll();
-};
-
-exports.updateTeam = function (memberIds, teamId) {
-    return dao.updateTeam(memberIds, teamId);
+    return member.getAll();
 };

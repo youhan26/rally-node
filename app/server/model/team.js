@@ -77,16 +77,34 @@ exports.update = function (data) {
 
 //get all function
 exports.getAll = function () {
-    return new Promise(function (resolver, rejector) {
-        builder.select('tbl_team')
-            .orderBy(['id desc', 'create_time'])
-            .end()
-            .then(function (res) {
-                logger.info('get success');
-                resolver(res)
-            }, function (error) {
-                logger.error('error happen ', error);
-                rejector(error);
-            ***REMOVED***
-    })
+    var sql = 'SELECT t.*, mht.`member_id` ' +
+        'FROM `tbl_team` t LEFT JOIN `tbl_member_has_team` mht ON t.`id` = mht.`team_id` ' +
+        'ORDER BY t.`create_time` DESC';
+    return builder.run(sql).then(function (datas) {
+        var temp = {};
+        var results = [];
+        if (datas && datas.length > 0) {
+            for (var i = 0; i < datas.length; i++) {
+                var item = datas[i];
+                var id = item.id;
+                if (temp[id] === undefined) {
+                    temp[id] = {
+                        id: item.id,
+                        name: item.name,
+                        desc: item.desc,
+                        create_time: item.create_time,
+                        update_time: item.update_time,
+                        memberIds: []
+                    };
+                }
+                if (item.member_id != null) {
+                    temp[id].memberIds.push(item.member_id);
+                }
+            }
+        }
+        for (var key in temp) {
+            results.push(temp[key]);
+        }
+        return results;
+    ***REMOVED***
 };

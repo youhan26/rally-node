@@ -5,6 +5,19 @@ import {api} from "mimikiyru-utils";
 
 var Api = {
     Project: {
+        save: (data) => {
+            if (data.id) {
+                return api.patch({
+                    url: '/project/' + data.id,
+                    data: data
+                ***REMOVED***
+            } else {
+                return api.post({
+                    url: '/project',
+                    data: data
+                ***REMOVED***
+            }
+        },
         add: (data) => {
             return api.post({
                 url: '/project',

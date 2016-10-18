@@ -5,7 +5,6 @@ var express = require('express');
 var path = require('path');
 var router = express.Router();
 var team = require('./../service/team');
-var Member = require('./../service/member');
 
 router.param('id', function (req, res, next, id) {
     // sample user, would actually fetch from DB, etc...
@@ -21,6 +20,11 @@ router.get('/all', function (req, res) {
             data: data
         ***REMOVED***
     }, function (error) {
+        res.send({
+            success: false,
+            reason: error || 'error happen'
+        ***REMOVED***
+    }).catch(function (error) {
         res.send({
             success: false,
             reason: error || 'error happen'
@@ -50,20 +54,26 @@ router.route('/:id?')
                 success: false,
                 reason: reason || 'error happen'
             ***REMOVED***
+        }).catch(function (error) {
+            res.send({
+                success: false,
+                reason: error || 'error happen'
+            ***REMOVED***
         ***REMOVED***
     })
     .post(function (req, res, next) {
         var params = req.body;
         team.add(params).then(function (data) {
-            if (params.memberIds && data.insertId) {
-                Member.updateTeam(params.memberIds, data.insertId).then(function (data2) {
-                    res.send({
-                        success: true,
-                        data: data
-                    ***REMOVED***
-                })
-            }
+            res.send({
+                success: true,
+                data: data
+            ***REMOVED***
         }, function (error) {
+            res.send({
+                success: false,
+                reason: error || 'error happen'
+            ***REMOVED***
+        }).catch(function (error) {
             res.send({
                 success: false,
                 reason: error || 'error happen'
@@ -73,13 +83,16 @@ router.route('/:id?')
     .patch(function (req, res, next) {
         var params = req.body;
         team.update(params).then(function (data) {
-            Member.updateTeam(params.memberIds, params.id).then(function () {
-                res.send({
-                    success: true,
-                    data: data
-                ***REMOVED***
+            res.send({
+                success: true,
+                data: data
             ***REMOVED***
         }, function (error) {
+            res.send({
+                success: false,
+                reason: error || 'error happen'
+            ***REMOVED***
+        }).catch(function (error) {
             res.send({
                 success: false,
                 reason: error || 'error happen'

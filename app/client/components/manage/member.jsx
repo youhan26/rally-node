@@ -8,7 +8,7 @@ import React, {PropTypes} from "react";
 import {Form, Input, Card, Col, Row, Button, message} from "antd";
 import Api from "./../api";
 import CommonSelect from "./../common/commonSelect";
-import type {memberData} from "./../common/types";
+import type {memberData, event} from "./../common/types";
 
 const FormItem = Form.Item;
 
@@ -123,11 +123,11 @@ const Member = React.createClass({
                 }
             ***REMOVED***
     },
-    nameChange (key: number, e: {target : {value : string}}){
+    nameChange (key: number, e: event){
         this.state.list[key].name = e.target.value;
         this.setState(this.state);
     },
-    descChange(key: number, e: {target:{value : string}}){
+    descChange(key: number, e: event){
         this.state.list[key].introduction = e.target.value;
         this.setState(this.state)
     },

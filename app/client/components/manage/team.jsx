@@ -93,15 +93,14 @@ const Item = React.createClass({
 ***REMOVED***
 
 const Team = React.createClass({
-    emptyObj: {
-        id: undefined,
-        desc: '',
-        name: '',
-        memberIds: []
-    },
     getInitialState(){
         return {
-            list: [this.emptyObj]
+            list: [{
+                id: undefined,
+                desc: '',
+                name: '',
+                memberIds: []
+            }]
         }
     },
     componentWillMount() {
@@ -112,7 +111,12 @@ const Team = React.createClass({
         Api.Team.get().then((res: res) => {
             if (res && res.data) {
                 me.setState({
-                    list: [me.emptyObj].concat(res.data),
+                    list: [{
+                        id: undefined,
+                        desc: '',
+                        name: '',
+                        memberIds: []
+                    }].concat(res.data),
                 })
             }
         ***REMOVED***

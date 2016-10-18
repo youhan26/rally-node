@@ -14,17 +14,24 @@ router.param('id', function (req, res, next, id) {
 
 
 router.get('/all', function (req, res) {
-    project.getAll().then(function (data) {
-        res.send({
-            success: true,
-            data: data
+    project.getAll()
+        .then(function (data) {
+            res.send({
+                success: true,
+                data: data
+            ***REMOVED***
+        }, function (error) {
+            res.send({
+                success: false,
+                reason: error || 'error happen'
+            ***REMOVED***
+        })
+        .catch(function (error) {
+            res.send({
+                success: false,
+                reason: error || 'error happen'
+            ***REMOVED***
         ***REMOVED***
-    }, function (error) {
-        res.send({
-            success: false,
-            reason: error || 'error happen'
-        ***REMOVED***
-    ***REMOVED***
 
 ***REMOVED***
 
@@ -39,25 +46,71 @@ router.route('/:id?')
         next();
     })
     .get(function (req, res, next) {
-        project.get(req.params.id).then(function (data) {
-            res.send({
-                success: true,
-                data: data
-            ***REMOVED***
-        }, function (reason) {
+        var id = req.params.id;
+        if (!id) {
             res.send({
                 success: false,
-                reason: reason || 'error happen'
+                reason: 'no id'
+            ***REMOVED***
+            return;
+        }
+        project.get(req.params.id)
+            .then(function (data) {
+                res.send({
+                    success: true,
+                    data: data
+                ***REMOVED***
+            }, function (reason) {
+                res.send({
+                    success: false,
+                    reason: reason || 'error happen'
+                ***REMOVED***
+            }).catch(function (error) {
+            res.send({
+                success: false,
+                reason: error || 'error happen'
             ***REMOVED***
         ***REMOVED***
     })
     .post(function (req, res, next) {
         var params = req.body;
-        project.add(params).then(function () {
+        project.add(params)
+            .then(function () {
+                res.send({
+                    success: true
+                ***REMOVED***
+            }, function (error) {
+                res.send({
+                    success: false,
+                    reason: error || 'error happen'
+                ***REMOVED***
+            }).catch(function (error) {
             res.send({
-                success: true
+                success: false,
+                reason: error || 'error happen'
             ***REMOVED***
-        }, function (error) {
+        ***REMOVED***
+    })
+    .patch(function (req, res, next) {
+        var params = req.body;
+        if (!params.id) {
+            res.send({
+                success: false,
+                reason: 'no id'
+            ***REMOVED***
+            return;
+        }
+        project.update(params)
+            .then(function () {
+                res.send({
+                    success: true
+                ***REMOVED***
+            }, function (error) {
+                res.send({
+                    success: false,
+                    reason: error || 'error happen'
+                ***REMOVED***
+            }).catch(function (error) {
             res.send({
                 success: false,
                 reason: error || 'error happen'

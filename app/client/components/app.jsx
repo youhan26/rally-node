@@ -20,6 +20,10 @@ import Report from "./report";
 import StoryList from "./storyList";
 import FontSizeConverter from "./tools/font-size-converter";
 import Code from "./tools/qrcode";
+import Project from './manage/project';
+import Team from './manage/team';
+import Member from './manage/member';
+import Role from './manage/role';
 
 
 var App = React.createClass({
@@ -51,7 +55,13 @@ Render.render(
             <Route path="config" component={Config}/>
             <Route path="report" component={Report}/>
             <Route path="share" component={Share}/>
-            <Route path="manage" component={Management}/>
+            <Route path="manage" component={Management}>
+                <IndexRoute component={Project}/>
+                <Route path="project" component={Project}/>
+                <Route path="team" component={Team}/>
+                <Route path="member" component={Member}/>
+                <Route path="role" component={Role}/>
+            </Route>
             <Route path="font-size-converter" component={FontSizeConverter}/>
             <Route path="qrcode" component={Code}/>
         </Route>
