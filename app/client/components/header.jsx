@@ -47,22 +47,22 @@ const HorizonHeader = React.createClass({
                 className="header"
             >
                 <Menu.Item key="1">
-                    <Link to="/stories">Story</Link>
+                    <Link to="/dashboard">Dashboard</Link>
                 </Menu.Item>
                 <Menu.Item key="2">
-                    <Link to="/bugs">Bug</Link>
+                    <Link to="/stories">Story</Link>
                 </Menu.Item>
                 <Menu.Item key="3">
-                    <Link to="/report">Report</Link>
+                    <Link to="/bugs">Bug</Link>
                 </Menu.Item>
                 <Menu.Item key="4">
-                    <Link to="/manage">Manage</Link>
+                    <Link to="/report">Report</Link>
                 </Menu.Item>
                 <Menu.Item key="5">
                     <Link to="/share">Share</Link>
                 </Menu.Item>
                 <Menu.Item key="6">
-                    <Link to="/stories">Story</Link>
+                    <Link to="/manage">Manage</Link>
                 </Menu.Item>
                 <SubMenu key="sub1" title={
                     <span><Icon type="setting" /><span>Tool</span></span>

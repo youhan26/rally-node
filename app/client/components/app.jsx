@@ -9,15 +9,15 @@ require('./../style/basic.css');
 import React from "react";
 import Render from "react-dom";
 import {Router, hashHistory, Route, IndexRoute} from "react-router";
-import Share from "./share";
+import Share from "./share/share";
 import Management from "./manage/manage";
 import {HorizonHeader} from "./header";
 import Dashboard from "./dashboard";
-import Story from "./story";
-import Bug from "./bug";
+import Story from "./story/story";
+import Bug from "./bug/bug";
 import Config from "./config";
-import Report from "./report";
-import StoryList from "./storyList";
+import Report from "./report/report";
+import StoryList from "./story/storyList";
 import FontSizeConverter from "./tools/font-size-converter";
 import Code from "./tools/qrcode";
 import Project from './manage/project';
@@ -46,6 +46,7 @@ Render.render(
     <Router history={hashHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Dashboard}/>
+            <Route path="dashboard" component={Dashboard}/>
             <Route path="stories" component={StoryList}/>
             <Route path="stories/:storyId" component={Story}/>
             <Route path="bugs" component={Bug}>
