@@ -1,6 +1,6 @@
 'use strict';
 
-require('./../style/storyList.css');
+require('./../../style/storyList.css');
 
 import React from "react";
 
