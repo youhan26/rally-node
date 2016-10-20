@@ -2,17 +2,7 @@
 .*/__tests__/.*
 .*/node_modules/fbjs/.*
 .*/node_modules/draft-js/.*
-.*/node_modules/react-motion/src/stepper.js
-.*/node_modules/react-motion/src/Types.js
-.*/node_modules/react-motion/src/TransitionMotion.js
-.*/node_modules/react-motion/src/Motion.js
-.*/node_modules/react-motion/src/StaggeredMotion.js
-.*/node_modules/react-motion/src/spring.js
-.*/node_modules/react-motion/src/stripStyle.js
-.*/node_modules/react-motion/src/shouldStopAnimation.js
-.*/node_modules/react-motion/src/react-motion.js
-.*/node_modules/react-motion/src/mergeDiff.js
-.*/node_modules/react-motion/src/mapToZero.js
+#.*/node_modules/react-motion/lib/Motion.js
 
 [libs]
 interfaces/

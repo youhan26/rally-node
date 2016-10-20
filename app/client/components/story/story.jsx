@@ -22,6 +22,7 @@ const Test = React.createClass({
     render() {
         return (
             <Motion defaultStyle={{x: 0}} style={{x: spring(10)}}>
+                {/* TODO warn for the Motion flow check error*/}
                 {value => <div>{value.x}</div>}
             </Motion>
         )
@@ -95,7 +96,8 @@ const StoryDetails = React.createClass({
             est: 0,
             todo: 0,
             taskEst: 0,
-            editorId: editorId
+            editorId: editorId,
+            status: ''
         }
     },
     titleChange(){
@@ -197,6 +199,7 @@ const StoryDetails = React.createClass({
                     width : '100%',
                     height : '300px'
                 }} placeholder='Input Description of Story....' onChange={this.descChange} value={this.state.desc}/>
+                <Input type="textarea" rows="4"/>
             </Card>
         </div>
     }

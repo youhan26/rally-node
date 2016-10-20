@@ -2,7 +2,6 @@
  * Created by YouHan on 2016/10/20.
  */
 
-/* @flow */
 'use strict';
 
 require('./../../node_modules/quill/dist/quill.snow.css');
@@ -21,13 +20,17 @@ import uuid from "uuid";
 const RichText = React.createClass({
     propTypes: {
         onChange: PropTypes.func,
-        placeholder: PropTypes.string
+        placeholder: PropTypes.string,
+        value: PropTypes.string,
+        readOnly: PropTypes.bool
     },
     getDefaultProps (){
         return {
             placeholder: '',
             readOnly: false,
-            value: ''
+            value: '',
+            onChange: () => {
+            }
         };
     },
     getInitialState(){
@@ -37,7 +40,7 @@ const RichText = React.createClass({
         }
     },
     componentWillReceiveProps: function (nextProps) {
-        var editor = this._editor;
+        const editor = this._editor;
         if (editor) {
             if ('value' in nextProps) {
                 if (nextProps.value != this.getEditorContents()) {
@@ -52,8 +55,9 @@ const RichText = React.createClass({
         }
     },
     getEditorContents(){
-        if (this._editor) {
-            return JSON.stringify(this._editor.getContents());
+        const editor = this._editor;
+        if (editor && editor.getContents) {
+            return JSON.stringify(editor.getContents());
         }
     },
     setEditorContents(value){
@@ -61,36 +65,39 @@ const RichText = React.createClass({
             this._editor.setContents(JSON.parse(value));
         }
     },
+    getQuill (){
+        const me = this;
+        return new Quill(this._editorEl, {
+            modules: {
+                toolbar: [
+                    ['bold', 'italic', 'underline', 'strike'],
+                    [{'list': 'ordered'}, {'list': 'bullet'}],
+                    [{'script': 'sub'}, {'script': 'super'}],
+                    [{'header': [1, 2, 3, 4, 5, 6, false]}],
+                    [{'color': []}, {'background': []}],
+                    [{'font': []}],
+                    [{'align': []}],
+                    ['image']
+                ]
+            },
+            placeholder: me.props.placeholder,
+            theme: 'snow',
+            readOnly: me.props.readOnly,
+            strict: true
+        })
+    },
     componentDidMount(){
-        var me = this;
+        const me = this;
         if (this._editorEl) {
-            me._editor = new Quill(this._editorEl, {
-                modules: {
-                    toolbar: [
-                        ['bold', 'italic', 'underline', 'strike'],
-                        [{'list': 'ordered'}, {'list': 'bullet'}],
-                        [{'script': 'sub'}, {'script': 'super'}],
-                        [{'header': [1, 2, 3, 4, 5, 6, false]}],
-                        [{'color': []}, {'background': []}],
-                        [{'font': []}],
-                        [{'align': []}],
-                        ['image']
-                    ]
-                },
-                placeholder: me.props.placeholder,
-                theme: 'snow',
-                readOnly: me.props.readOnly,
-                strict: true
-            });
+            me._editor = me.getQuill();
             me._editor.on('text-change', function (newData, oldData, source) {
-                if(source === 'user'){
-                    var value = me._editor.getContents();
-                    me.props.onChange && me.props.onChange(me.getEditorContents());
+                if (source === 'user') {
+                    me.props.onChange(me.getEditorContents());
                 }
             });
         }
     },
-    onChange(event){
+    onChange(event: Event){
         event.preventDefault();
         event.stopPropagation();
     },
@@ -104,7 +111,3 @@ const RichText = React.createClass({
 
 
 export default RichText;
-
-
-
-
