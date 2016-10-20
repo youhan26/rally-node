@@ -18,10 +18,12 @@
     "lodash": "^4.15.0",
     "mimikiyru-utils": "0.0.13",
     "qrcode.react": "^0.6.1",
+    "quill": "^1.1.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "react-motion": "^0.4.4",
-    "react-router": "^2.7.0"
+    "react-router": "^2.7.0",
+    "uuid": "^2.0.3"
   },
   "devDependencies": {
     "babel-core": "^6.13.2",

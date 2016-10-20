@@ -103,7 +103,7 @@ const Project = React.createClass({
                 status: '1',
                 release_interval: 2,
                 release_unit: '1',
-                team_id: null
+                team_id: undefined
             }]
         }
     },
@@ -146,7 +146,7 @@ const Project = React.createClass({
         this.state.list[key].name = e.target.value;
         this.setState(this.state);
     },
-    statusChange(key: number, value: number){
+    statusChange(key: number, value: string){
         this.state.list[key].status = value;
         this.setState(this.state);
     },
@@ -154,7 +154,7 @@ const Project = React.createClass({
         this.state.list[key].release_interval = value;
         this.setState(this.state);
     },
-    unitChange(key: number, value: number){
+    unitChange(key: number, value: string){
         this.state.list[key].release_unit = value;
         this.setState(this.state);
     },
@@ -168,7 +168,7 @@ const Project = React.createClass({
                 {this.state.list.map((item, key)=> {
                     return (
                         <Item key={key}
-                              id={item.id}
+                              id={item.id || null}
                               name={item.name}
                               status={item.status}
                               release_interval={item.release_interval}
