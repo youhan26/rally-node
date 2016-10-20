@@ -109,3 +109,8 @@
 .ant-menu-submenu-title {
     font-size: 16px !important;
 }
+
+.header{
+    background-color: #222433;
+    color : #9fa0a0 !important;
+}
