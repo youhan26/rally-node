@@ -47,6 +47,7 @@ const StoryDetails = React.createClass({
     ownerChange (value){
         this.state.owner = value;
         this.setState(this.state);
+        this.props.ownerChange(value);
     },
     projectChange(value){
         this.state.project = value;
