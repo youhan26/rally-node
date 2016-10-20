@@ -9,9 +9,17 @@ import type {res} from "./types";
 const Option = Select.Option;
 
 const CommonSelect = React.createClass({
+    propTypes: {
+        data: React.PropTypes.array
+    },
     getInitialState(){
         return {
             list: []
+        }
+    },
+    getDefaultProps (){
+        return {
+            data: []
         }
     },
     componentWillMount() {
@@ -25,6 +33,11 @@ const CommonSelect = React.createClass({
                     })
                 }
             })
+        }
+        if (this.props.data && this.props.data.length > 0) {
+            this.setState({
+                list: this.props.data
+            ***REMOVED***
         }
     },
     render() {

@@ -2,64 +2,55 @@
 'use strict';
 
 import React from "react";
-import {Select} from "antd";
-
-const Option = Select.Option;
+import CommonSelect from "./commonSelect";
 
 exports.ProjectStatus = React.createClass({
-    getInitialState(){
-        return {
-            list: []
-        }
-    },
-    componentWillMount() {
-        this.setState({
-            list: [{
-                name: '正常',
-                id: '1'
-            }, {
-                name: '终止',
-                id: '2'
-            }]
-        })
-    },
-    render() {
-        return (
-            <Select {...this.props}>
-                {this.state.list.map((item, key) => {
-                    return <Option value={item.id} key={key}>{item.name}</Option>
-                })}
-            </Select>
-        )
+    render (){
+        const data = [{
+            name: '正常',
+            id: '1'
+        }, {
+            name: '终止',
+            id: '2'
+        },];
+        return <CommonSelect data={data} {...this.props}/>
     }
 ***REMOVED***
+
 exports.ReleaseIntervalUnit = React.createClass({
-    getInitialState(){
-        return {
-            list: []
-        }
-    },
-    componentWillMount() {
-        this.setState({
-            list: [{
-                name: 'Day',
-                id: '1'
-            }, {
-                name: 'Week',
-                id: '2'
-            }, {
-                name: 'Month',
-                id: '3'
-            }]
-        })
-    },
-    render() {
-        return (
-            <Select {...this.props}>
-                {this.state.list.map((item, key) => {
-                    return <Option value={item.id} key={key}>{item.name}</Option>
-                })}
-            </Select>
-        )
+    render (){
+        const data = [{
+            name: 'Day',
+            id: '1'
+        }, {
+            name: 'Week',
+            id: '2'
+        }, {
+            name: 'Month',
+            id: '3'
+        },];
+        return <CommonSelect data={data} {...this.props}/>
+    }
+***REMOVED***
+
+exports.StoryStatus = React.createClass({
+    render (){
+        const data = [{
+            name: 'Defined',
+            id: '1'
+        }, {
+            name: 'In-Progress',
+            id: '2',
+        }, {
+            name: 'Completed',
+            id: '3',
+        }, {
+            name: 'Tested',
+            id: '4',
+        }, {
+            name: 'Accepted',
+            id: '5',
+        },];
+        return <CommonSelect data={data} {...this.props}/>
     }
 ***REMOVED***

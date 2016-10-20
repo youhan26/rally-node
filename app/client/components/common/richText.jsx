@@ -61,7 +61,7 @@ const RichText = React.createClass({
         }
     },
     setEditorContents(value){
-        if (this._editor) {
+        if (this._editor && value) {
             this._editor.setContents(JSON.parse(value));
         }
     },
