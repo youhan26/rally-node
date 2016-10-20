@@ -10,6 +10,7 @@ demo rally: [https://github.com/YouHan26/Rrally]
 * [ ] eslint check
 * [ ] environment split
 * [ ] wait quill npm release update
+* [ ] remove flow any type
 
 
 ### back-end

@@ -13,7 +13,7 @@ const FormItem = Form.Item;
 
 const Item = React.createClass({
     propTypes: {
-        id: PropTypes.any,
+        id: PropTypes.oneOfType([, PropTypes.number, PropTypes.string]),
         name: PropTypes.string,
         status: PropTypes.string,
         release_interval: PropTypes.number,
