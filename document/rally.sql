@@ -83,7 +83,7 @@ CREATE TABLE `tbl_story` (
   `qa` BIGINT(20) NULL,
   `pm` BIGINT(20) NULL,
   `fe` BIGINT(20) NULL,
-  `dev` BIGINT(20) NULL,
+  `rd` BIGINT(20) NULL,
   `release_id` BIGINT(20) NOT NULL,
   `project_id` BIGINT(20) NOT NULL,
   `pid` BIGINT(20) NOT NULL,

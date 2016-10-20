@@ -15,15 +15,14 @@ import {HorizonHeader} from "./header";
 import Dashboard from "./dashboard";
 import Story from "./story/story";
 import Bug from "./bug/bug";
-import Config from "./config";
 import Report from "./report/report";
 import StoryList from "./story/storyList";
 import FontSizeConverter from "./tools/font-size-converter";
 import Code from "./tools/qrcode";
-import Project from './manage/project';
-import Team from './manage/team';
-import Member from './manage/member';
-import Role from './manage/role';
+import Project from "./manage/project";
+import Team from "./manage/team";
+import Member from "./manage/member";
+import Role from "./manage/role";
 
 
 var App = React.createClass({
@@ -48,12 +47,12 @@ Render.render(
             <IndexRoute component={Dashboard}/>
             <Route path="dashboard" component={Dashboard}/>
             <Route path="stories" component={StoryList}/>
-            <Route path="stories/:storyId" component={Story}/>
+            <Route path="story/:id" component={Story}/>
+            <Route path="story" component={Story}/>
             <Route path="bugs" component={Bug}>
                 {/*<IndexRoute component={InboxStats}/>*/}
                 {/*<Route path="messages/:id" component={Message}/>*/}
             </Route>
-            <Route path="config" component={Config}/>
             <Route path="report" component={Report}/>
             <Route path="share" component={Share}/>
             <Route path="manage" component={Management}>

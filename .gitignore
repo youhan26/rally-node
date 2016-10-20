@@ -7,9 +7,5 @@ app/server/utils/exceptions.log
 app/client/bundle/
 document/rally.mwb.bak
 app/server/db/pool.js
-app/server/controller/timeLine
-app/server/timeLine.js
 document/nouse/model'/timeLine
 document/nouse/timeLine
-app/client/style/timeLine
-app/client/views/timeLine

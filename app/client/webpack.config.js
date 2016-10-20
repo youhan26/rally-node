@@ -23,20 +23,23 @@ module.exports = {
         pathinfo: true
     },
     //enable sourceMap
-    devtool: 'eval-source-map',
+    devtool: 'source-map',
     // devtool: 'eval',
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
     module: {
+        noParse: [
+            path.resolve(__dirname, './node_modules/quill/dist/quill.js')
+        ],
         loaders: [
             {
                 test: /\.jsx$/,
-                exclude: /(node_modules)/,
+                exclude: path.resolve(__dirname, './node_modules/'),
                 loader: 'jsx-loader'
             }, {
                 test: /\.js|jsx$/,
-                exclude: /node_modules/,
+                exclude: path.resolve(__dirname, './node_modules/'),
                 loader: "babel-loader"
             },
             {
@@ -45,9 +48,18 @@ module.exports = {
             },
         ]
     },
+    /**
+     * prod need change to false
+     */
+    debug: true,
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
+        /**
+         * for the prod
+         */
+        // new webpack.optimize.UglifyJsPlugin(),
+        // new webpack.optimize.OccurenceOrderPlugin()
         new webpack.NoErrorsPlugin(),
         // new webpack.DefinePlugin({
         //     'process.env': {

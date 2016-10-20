@@ -9,6 +9,7 @@ demo rally: [https://github.com/YouHan26/Rrally]
 * [ ] minify bundle file
 * [ ] eslint check
 * [ ] environment split
+* [ ] wait quill npm release update
 
 
 ### back-end

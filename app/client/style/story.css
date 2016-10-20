@@ -1,0 +1,15 @@
+.story-content {
+    width: 100%;
+    height: 100%;
+    background-color: #efefef;
+    padding: 10px;
+}
+
+.ant-tabs-bar {
+    margin-bottom: 0;
+    background-color: white;
+}
+
+.ant-card-body {
+    padding: 12px !important;
+}
