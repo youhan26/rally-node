@@ -54,3 +54,20 @@ exports.StoryStatus = React.createClass({
         return <CommonSelect data={data} {...this.props}/>
     }
 ***REMOVED***
+
+
+exports.TaskStatus = React.createClass({
+    render (){
+        const data = [{
+            name: 'Defined',
+            id: '1'
+        }, {
+            name: 'In-Progress',
+            id: '2',
+        }, {
+            name: 'Completed',
+            id: '3',
+        }];
+        return <CommonSelect data={data} {...this.props}/>
+    }
+***REMOVED***
