@@ -9,7 +9,7 @@ import React, {PropTypes} from "react";
 import {Card, Row, Col, Form, message, Input, DatePicker, Tabs, InputNumber} from "antd";
 import CommonSelect from "./../common/commonSelect";
 import RichText from "./../common/richText";
-import {StoryStatus} from './../common/constSelect';
+import {StoryStatus} from "./../common/constSelect";
 
 const FormItem = Form.Item;
 
@@ -85,12 +85,14 @@ const StoryDetails = React.createClass({
                             </FormItem>
                         </Col>
                     </Row>
+                </Form>
+                <Form>
                     <Row>
                         <Col span="8">
                             <FormItem
                                 label="Story Owner"
                                 labelCol={{span : 10}}
-                                wrapperCol={{ span: 14 }}
+                                wrapperCol={{span : 14}}
                             >
                                 <CommonSelect url="/member/all" value={this.state.owner} onChange={this.ownerChange}/>
                             </FormItem>
@@ -99,7 +101,7 @@ const StoryDetails = React.createClass({
                             <FormItem
                                 label="Project"
                                 labelCol={{span : 10}}
-                                wrapperCol={{ span: 14 }}
+                                wrapperCol={{span : 14}}
                             >
                                 <CommonSelect url="/project/all" value={this.state.project}
                                               onChange={this.projectChange}/>
@@ -109,7 +111,7 @@ const StoryDetails = React.createClass({
                             <FormItem
                                 label="Status"
                                 labelCol={{span : 10}}
-                                wrapperCol={{ span: 14 }}
+                                wrapperCol={{span : 14}}
                             >
                                 <StoryStatus value={this.state.status} onChange={this.statusChange}/>
                             </FormItem>

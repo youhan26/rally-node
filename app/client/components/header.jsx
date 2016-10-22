@@ -45,6 +45,7 @@ const HorizonHeader = React.createClass({
                 onOpenChange={this.onOpenChange}
                 onClick={this.handleClick}
                 className="header"
+                theme="dark"
             >
                 <Menu.Item key="1">
                     <Link to="/dashboard">Dashboard</Link>

@@ -13,3 +13,7 @@
 .ant-card-body {
     padding: 12px !important;
 }
+
+.ant-form-item-label{
+    text-align: center;
+}
