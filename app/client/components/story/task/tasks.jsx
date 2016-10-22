@@ -6,9 +6,9 @@
 "use strict";
 
 import React, {PropTypes} from "react";
-import {Card, Row, Col, Form, message, Input, DatePicker, Tabs, InputNumber} from "antd";
-import CommonSelect from "./../common/commonSelect";
-import {TaskStatus} from "./../common/constSelect";
+import {Card, Row, Col, Form, message, Input, DatePicker, Tabs, InputNumber, Button} from "antd";
+import CommonSelect from "../../common/commonSelect";
+import {TaskStatus} from "../../common/constSelect";
 
 const FormItem = Form.Item;
 
@@ -33,7 +33,7 @@ const TaskItem = React.createClass({
         }
     },
     render (){
-        const {titleChange, ownerChange, taskEstChange, todoEstChange, descChange, statusChange} = {...this.props};
+        const {titleChange, ownerChange, taskEstChange, todoEstChange, descChange, statusChange, save} = {...this.props};
         return (
             <Card style={{marginTop:'6px'}}>
                 <Form horizontal>
@@ -47,8 +47,8 @@ const TaskItem = React.createClass({
                         <Col span="8">
                             <FormItem
                                 label="Task Owner"
-                                labelCol={{span : 10}}
-                                wrapperCol={{ span: 14 }}
+                                labelCol={{span : 9}}
+                                wrapperCol={{ span: 15 }}
                             >
                                 <CommonSelect url="/member/all" value={this.props.owner} onChange={ownerChange}/>
                             </FormItem>
@@ -56,8 +56,8 @@ const TaskItem = React.createClass({
                         <Col span="8">
                             <FormItem
                                 label="Status"
-                                labelCol={{span : 10}}
-                                wrapperCol={{ span: 14 }}
+                                labelCol={{span : 9}}
+                                wrapperCol={{ span: 15 }}
                             >
                                 <TaskStatus value={this.props.status} onChange={statusChange}/>
                             </FormItem>
@@ -65,8 +65,8 @@ const TaskItem = React.createClass({
                         <Col span="4">
                             <FormItem
                                 label="Task Est"
-                                labelCol={{span : 10}}
-                                wrapperCol={{ span: 14 }}
+                                labelCol={{span : 9}}
+                                wrapperCol={{ span: 15 }}
                             >
                                 <InputNumber value={this.props.taskEst} onChange={taskEstChange}/>
                             </FormItem>
@@ -74,22 +74,14 @@ const TaskItem = React.createClass({
                         <Col span="4">
                             <FormItem
                                 label="TODO Est"
-                                labelCol={{span : 10}}
-                                wrapperCol={{ span: 14 }}
+                                labelCol={{span : 9}}
+                                wrapperCol={{ span: 15 }}
                             >
                                 <InputNumber value={this.props.todoEst} onChange={todoEstChange}/>
                             </FormItem>
                         </Col>
-                    </Row>
-                    <Row>
-                        <Col span="24">
-                            <FormItem
-                                label="Description"
-                                labelCol={{span : 2}}
-                                wrapperCol={{ span: 14 }}
-                            >
-                                <Input type="textarea" rows="4" value={this.props.desc} onChange={descChange}/>
-                            </FormItem>
+                        <Col span="8" offset={9}>
+                            <Button type="primary" onClick={save}>{this.props.id ? 'Update' : 'Save'}</Button>
                         </Col>
                     </Row>
                 </Form>
@@ -141,7 +133,8 @@ const Tasks = React.createClass({
         this.state.list[key].owner = value;
         this.setState(this.state);
     },
-    save(){
+    save(key){
+        //TODO
 
     },
     render(){

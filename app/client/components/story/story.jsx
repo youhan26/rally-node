@@ -11,7 +11,7 @@ import {Motion, spring} from "react-motion";
 import React from "react";
 import {Tabs} from "antd";
 import StoryDetails from "./storyDetail";
-import Tasks from "./tasks";
+import TaskList from "./task/taskList";
 import TestCases from "./testCase";
 import Defects from "./defect";
 
@@ -47,7 +47,7 @@ const Story = React.createClass({
                         <StoryDetails storyId={this.state.id} ownerChange={this.ownerChange}/>
                     </TabPane>
                     <TabPane tab="Tasks" key="2" disabled={this.state.id ? false : true}>
-                        <Tasks storyId={this.state.id}
+                        <TaskList storyId={this.state.id}
                                owner={this.state.owner}
                         />
                     </TabPane>
