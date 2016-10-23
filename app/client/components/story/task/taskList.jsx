@@ -48,8 +48,6 @@ const TaskList = React.createClass({
             message: '正在保存',
             duration: 1,
         ***REMOVED***
-        this.state.loading = true;
-        this.setState(this.state);
         Api.Task.save(this.state.data[index])
             .then((res) => {
                 if (res.success) {
@@ -60,8 +58,6 @@ const TaskList = React.createClass({
                 } else {
                     message.error('Error happen when save!');
                 }
-                this.state.loading = false;
-                this.setState(this.state);
             ***REMOVED***
     },
     change(index, field, e){
