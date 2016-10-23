@@ -176,6 +176,47 @@ var Api = {
                 url: '/member/' + id
             });
         }
+    },
+    Task : {
+        add: (data) => {
+            return api.post({
+                url: '/task',
+                data: data
+            })
+        },
+        get: (id) => {
+            if (id) {
+                return api.get({
+                    url: '/task',
+                    params: {
+                        id: id
+                    }
+                });
+            } else {
+                return api.get({
+                    url: '/task/all'
+                });
+            }
+        },
+        update: (data) => {
+            return api.patch({
+                url: '/task/' + data.id,
+                data: data
+            });
+        },
+        save: (data) => {
+            if (data.id) {
+                return api.patch({
+                    url: '/task/' + data.id,
+                    data: data
+                });
+            } else {
+                return api.post({
+                    url: '/task',
+                    data: data
+                })
+            }
+        }
     }
 };
 
