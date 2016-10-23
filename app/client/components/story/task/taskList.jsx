@@ -5,8 +5,11 @@
 /* @flow***REMOVED***
 "use strict";
 
+require('./../../../style/task.css');
+
+
 import React from "react";
-import {Card, Form, message, Input, DatePicker, Tabs, InputNumber, Table, Button} from "antd";
+import {Card, Form, message, Input, DatePicker, Tabs, InputNumber, Table, Button, notification} from "antd";
 import CommonSelect from "./../../common/commonSelect";
 import {TaskStatus} from "./../../common/constSelect";
 import Api from './../../api';
@@ -31,6 +34,7 @@ const TaskList = React.createClass({
             if (data && data.length > 0) {
                 data.forEach((item) => {
                     item.key = item.id;
+                    item.status = '' + item.status;
                 ***REMOVED***
             }
             this.setState({
@@ -39,76 +43,88 @@ const TaskList = React.createClass({
             })
         ***REMOVED***
     },
-    save(key){
-        //TODO
+    save(index){
+        notification['info']({
+            message: '正在保存',
+            duration: 1,
+        ***REMOVED***
+        this.state.loading = true;
+        this.setState(this.state);
+        Api.Task.save(this.state.data[index])
+            .then((res) => {
+                if (res.success) {
+                    notification['success']({
+                        message: '保存成功',
+                        duration: 1,
+                    ***REMOVED***
+                } else {
+                    message.error('Error happen when save!');
+                }
+                this.state.loading = false;
+                this.setState(this.state);
+            ***REMOVED***
     },
-    change(record, value){
-        console.log('222');
+    change(index, field, e){
+        this.state.data[index][field] = (e.target ? e.target.value : e);
+        // this.save(this.state.data[index]);
+        this.setState(this.state);
     },
     render(){
         const columns = [{
             title: 'Title',
             dataIndex: 'title',
-            key: 'title'
+            key: 'title',
+            render: (value, record, index) => {
+                return <Input className="full-width" value={value}
+                              onBlur={this.save.bind(this, index)}
+                              onChange={this.change.bind(this, index, 'title')}/>
+            }
         }, {
             title: 'Owner',
             dataIndex: 'ownerId',
             key: 'ownerId',
-            render: (value, record) => {
-                return <CommonSelect value={value} url="/member/all" onChange={this.change.bind(this, record)}/>
+            render: (value, record, index) => {
+                return <CommonSelect value={value} url="/member/all" className="full-width"
+                                     onBlur={this.save.bind(this, index)}
+                                     onChange={this.change.bind(this, index, 'ownerId')}/>
             }
         }, {
             title: 'Task Est',
             dataIndex: 'est',
-            key: 'est'
+            key: 'est',
+            width: 140,
+            render: (value, record, index) => {
+                return <InputNumber value={value} className="full-width"
+                                    onBlur={this.save.bind(this, index)}
+                                    onChange={this.change.bind(this, index, 'est')}/>
+            }
         }, {
             title: 'TODO Est',
             dataIndex: 'todo',
-            key: 'todo'
+            key: 'todo',
+            width: 140,
+            render: (value, record, index) => {
+                return <InputNumber value={value} className="full-width"
+                                    onBlur={this.save.bind(this, index)}
+                                    onChange={this.change.bind(this, index, 'todo')}/>
+            }
         }, {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-            width : 140,
-            render: (value) => {
-                return <TaskStatus value={value}/>
-            }
-        }, {
-            title: 'Operation',
-            dataIndex: '',
-            key: 'operation',
-            render: (value, record) => {
-                return <Button type='primary'>{record.id ? 'Update' : 'Save'}</Button>
+            width: 140,
+            render: (value, record, index) => {
+                return <TaskStatus value={value} className="full-width"
+                                   onBlur={this.save.bind(this, index)}
+                                   onChange={this.change.bind(this, index, 'status')}/>
             }
         }];
-        const data = [
-            {
-                key: 1,
-                name: 'John Brown',
-                age: 32,
-                address: 'New York No. 1 Lake Park',
-                title: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.'
-            },
-            {
-                key: 2,
-                name: 'Jim Green',
-                age: 42,
-                address: 'London No. 1 Lake Park',
-                description: 'My name is Jim Green, I am 42 years old, living in London No. 1 Lake Park.'
-            },
-            {
-                key: 3,
-                name: 'Joe Black',
-                age: 32,
-                address: 'Sidney No. 1 Lake Park',
-                description: 'My name is Joe Black, I am 32 years old, living in Sidney No. 1 Lake Park.'
-            },
-        ];
         return <div style={{
-            margin : '12px 0',
-            backgroundColor: 'white'
-        }}>
+                margin : '12px 0',
+                backgroundColor: 'white'
+            }}>
             <Table
+                pagination={false}
                 size="small"
                 columns={columns}
                 dataSource={this.state.data}
