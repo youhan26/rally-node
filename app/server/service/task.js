@@ -36,14 +36,20 @@ exports.update = function (data) {
     } else {
         return dao.get(data.id)
             .then(function (oriData) {
-                if (data.title != null) oriData.title = data.title;
-                if (data.desc != null) oriData.desc = data.desc;
-                if (data.status != null) oriData.status = data.status;
-                if (data.owner_id != null) oriData.owner_id = data.owner_id;
-                if (data.est != null) oriData.est = data.est;
-                if (data.todo != null) oriData.todo = data.todo;
-                if (data.story_id != null) oriData.story_id = data.story_id;
-                return dao.update(oriData);
+                if(oriData && oriData.length==1){
+                    var temp = oriData[0];
+                    if (data.title != null) temp.title = data.title;
+                    if (data.desc != null) temp.desc = data.desc;
+                    if (data.status != null) temp.status = data.status;
+                    if (data.owner_id != null) temp.owner_id = data.owner_id;
+                    if (data.est != null) temp.est = data.est;
+                    if (data.todo != null) temp.todo = data.todo;
+                    if (data.story_id != null) temp.story_id = data.story_id;
+                    return dao.update(temp);
+                }else{
+                    logger.error('can get by id');
+                    throw new Error();
+                }
             })
             .catch(function (error) {
                 logger.error(error);
