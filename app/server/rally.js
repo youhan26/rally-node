@@ -8,6 +8,7 @@ var project = require('./controller/project');
 var team = require('./controller/team');
 var role = require('./controller/role');
 var member = require('./controller/member');
+var task = require('./controller/task');
 
 var tools = require('./controller/tools');
 
@@ -34,6 +35,7 @@ router.use('/project', project);
 router.use('/team', team);
 router.use('/role', role);
 router.use('/member', member);
+router.use('/task', task);
 
 
 module.exports = router;

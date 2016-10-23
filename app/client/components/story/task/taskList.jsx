@@ -9,23 +9,41 @@ import React from "react";
 import {Card, Form, message, Input, DatePicker, Tabs, InputNumber, Table, Button} from "antd";
 import CommonSelect from "./../../common/commonSelect";
 import {TaskStatus} from "./../../common/constSelect";
+import Api from './../../api';
 
 const FormItem = Form.Item;
 
 const TaskList = React.createClass({
     getInitialState(){
         return {
-            list: [{}]
+            data: [],
+            loading: false
         }
     },
     componentWillMount(){
         this.loadData();
     },
     loadData(){
-        //TODO
+        this.state.loading = true;
+        this.setState(this.state);
+        Api.Task.get().then((result) => {
+            var data = result.data;
+            if (data && data.length > 0) {
+                data.forEach((item) => {
+                    item.key = item.id;
+                ***REMOVED***
+            }
+            this.setState({
+                data: data,
+                loading: false
+            })
+        ***REMOVED***
     },
     save(key){
         //TODO
+    },
+    change(record, value){
+        console.log('222');
     },
     render(){
         const columns = [{
@@ -34,25 +52,26 @@ const TaskList = React.createClass({
             key: 'title'
         }, {
             title: 'Owner',
-            dataIndex: 'owner',
-            key: 'owner',
-            render: (value) => {
-                return <CommonSelect value={value} disabled={true}/>
+            dataIndex: 'ownerId',
+            key: 'ownerId',
+            render: (value, record) => {
+                return <CommonSelect value={value} url="/member/all" onChange={this.change.bind(this, record)}/>
             }
         }, {
             title: 'Task Est',
-            dataIndex: 'taskEst',
-            key: 'taskEst'
+            dataIndex: 'est',
+            key: 'est'
         }, {
             title: 'TODO Est',
-            dataIndex: 'todoEst',
-            key: 'todoEst'
+            dataIndex: 'todo',
+            key: 'todo'
         }, {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
+            width : 140,
             render: (value) => {
-                return <TaskStatus value={value} disabled={true}/>
+                return <TaskStatus value={value}/>
             }
         }, {
             title: 'Operation',
@@ -92,7 +111,7 @@ const TaskList = React.createClass({
             <Table
                 size="small"
                 columns={columns}
-                dataSource={data}
+                dataSource={this.state.data}
                 loading={this.state.loading}
                 className="task-list-table"
             />
