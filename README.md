@@ -1,6 +1,32 @@
 # rally-node
 rally project of node version 
 
+### Development
+* install back-end
+``` shell
+npm install
+```
+* install front-end
+``` shell
+npm install
+npm run build:dll
+npm run
+```
+
+* import sql table
+
+* run server
+``` shell
+node app.js
+```
+
+* flow check(OPTION)
+``` shell
+npm run flow:start
+npm run flow
+```
+
+
 
 demo rally: [https://github.com/YouHan26/Rrally]
 
