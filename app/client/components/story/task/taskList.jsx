@@ -14,8 +14,6 @@ import CommonSelect from "./../../common/commonSelect";
 import {TaskStatus} from "./../../common/constSelect";
 import Api from "./../../api";
 
-const FormItem = Form.Item;
-
 const TaskList = React.createClass({
     getInitialState(){
         return {

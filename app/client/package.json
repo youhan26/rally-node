@@ -16,7 +16,7 @@
   "dependencies": {
     "antd": "^2.0.1",
     "lodash": "^4.15.0",
-    "mimikiyru-utils": "0.0.14",
+    "mimikiyru-utils": "0.0.15",
     "qrcode.react": "^0.6.1",
     "quill": "^1.1.0",
     "react": "^15.3.1",
