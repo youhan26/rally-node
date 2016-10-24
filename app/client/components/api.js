@@ -216,6 +216,11 @@ var Api = {
                     data: data
                 })
             }
+        },
+        del: (id) => {
+            return api.del({
+                url: '/task/' + id
+            });
         }
     }
 };

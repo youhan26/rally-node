@@ -58,6 +58,20 @@ exports.update = function (data) {
     }
 };
 
+exports.del = function (id) {
+    if (!id) {
+        return new Promise(function (resolve, reject) {
+            reject('no task id');
+        });
+    } else {
+        return dao.del(id)
+            .catch(function (error) {
+                logger.error(error);
+                throw new Error('error happen when del task');
+            });
+    }
+};
+
 
 exports.getAll = function () {
     return dao.getAll().catch(function (error) {
