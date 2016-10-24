@@ -11,9 +11,9 @@ exports.changeToBO = function (vo) {
     bo.owner_id = vo.ownerId;
     bo.est = vo.est;
     bo.todo = vo.todo;
-    vo.story_id = vo.storyId;
-    vo.create_time = vo.createTime;
-    vo.update_time = vo.updateTime;
+    bo.story_id = vo.storyId;
+    bo.create_time = vo.createTime;
+    bo.update_time = vo.updateTime;
     return bo;
 };
 

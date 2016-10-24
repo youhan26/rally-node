@@ -13,7 +13,6 @@ import {Card, Form, message, Input, DatePicker, Tabs, InputNumber, Table, notifi
 import CommonSelect from "./../../common/commonSelect";
 import {TaskStatus} from "./../../common/constSelect";
 import Api from "./../../api";
-import {basic} from "mimikiyru-utils";
 
 const FormItem = Form.Item;
 
@@ -28,23 +27,28 @@ const TaskList = React.createClass({
         this.loadData();
     },
     loadData(){
-        this.state.loading = true;
-        this.setState(this.state);
+        const me = this;
+        me.state.loading = true;
+        me.setState(me.state);
 
         Api.Task.get().then((result) => {
             const data = result.data;
+
+            //update ori data for compare
+            me.oriData = JSON.parse(JSON.stringify([me.getEmptyData()].concat(data)));
+
             if (data && data.length > 0) {
                 data.forEach((item) => {
                     item.key = item.id;
                     item.status = '' + item.status;
                 ***REMOVED***
             }
-            this.oriData = [];
-            basic.baseExtend(this.oriData, [data], true);
-            this.setState({
-                data: data,
+
+            me.setState({
+                data: [me.getEmptyData()].concat(data),
                 loading: false
             ***REMOVED***
+
         ***REMOVED***
     },
     getEmptyData(){
@@ -53,31 +57,42 @@ const TaskList = React.createClass({
             ownerId: undefined,
             est: 0,
             todo: 0,
-            status: '1'
+            status: '1',
+            storyId: this.props.storyId
         };
     },
-    save(index, field){
-        if (field) {
-            if (this.oriData[index][field] == this.state.data[index][field]) {
-                return;
-            }
-            this.oriData[index][field] = this.state.data[index][field];
-        }
+    save(data, needReload){
+        const me = this;
         notification['info']({
             message: 'Saving',
             duration: 1,
         ***REMOVED***
-        Api.Task.save(this.state.data[index])
+        Api.Task.save(data)
             .then((res) => {
                 if (res.success) {
                     notification['success']({
                         message: 'Saved Successfully',
                         duration: 1,
                     ***REMOVED***
+                    if (needReload) {
+                        me.loadData();
+                    }
                 } else {
                     message.error('Error happen when save!');
                 }
             ***REMOVED***
+    },
+    blur(index, field){
+        //if new value
+        if (!this.state.data[index].id) {
+            return;
+        }
+        //if data no change
+        if (this.oriData[index][field] == this.state.data[index][field]) {
+            return;
+        }
+        this.oriData[index][field] = this.state.data[index][field];
+        this.save(this.state.data[index]);
     },
     remove(index){
         const me = this;
@@ -103,17 +118,26 @@ const TaskList = React.createClass({
         if (record.id) {
             this.remove(index);
         } else {
-            this.save(index);
+            this.save(this.state.data[index], true);
         }
     },
     render(){
         const columns = [{
+            title: 'TASK No.',
+            dataIndex: 'id',
+            key: 'no',
+            render: (value, record, index) => {
+                if (value) {
+                    return <a style={{textAlign : 'center'}} href={'/index#/tasks/' + value}>TASK {index}</a>
+                }
+            }
+        }, {
             title: 'Title',
             dataIndex: 'title',
             key: 'title',
             render: (value, record, index) => {
                 return <Input className="full-width" value={value}
-                              onBlur={this.save.bind(this, index, 'title')}
+                              onBlur={this.blur.bind(this, index, 'title')}
                               onChange={this.change.bind(this, index, 'title')}/>
             }
         }, {
@@ -122,7 +146,7 @@ const TaskList = React.createClass({
             key: 'ownerId',
             render: (value, record, index) => {
                 return <CommonSelect value={value} url="/member/all" className="full-width"
-                                     onBlur={this.save.bind(this, index, 'ownerId')}
+                                     onBlur={this.blur.bind(this, index, 'ownerId')}
                                      onChange={this.change.bind(this, index, 'ownerId')}/>
             }
         }, {
@@ -132,7 +156,7 @@ const TaskList = React.createClass({
             width: 140,
             render: (value, record, index) => {
                 return <InputNumber value={value} className="full-width"
-                                    onBlur={this.save.bind(this, index, 'est')}
+                                    onBlur={this.blur.bind(this, index, 'est')}
                                     onChange={this.change.bind(this, index, 'est')}/>
             }
         }, {
@@ -142,7 +166,7 @@ const TaskList = React.createClass({
             width: 140,
             render: (value, record, index) => {
                 return <InputNumber value={value} className="full-width"
-                                    onBlur={this.save.bind(this, index, 'todo')}
+                                    onBlur={this.blur.bind(this, index, 'todo')}
                                     onChange={this.change.bind(this, index, 'todo')}/>
             }
         }, {
@@ -152,7 +176,7 @@ const TaskList = React.createClass({
             width: 140,
             render: (value, record, index) => {
                 return <TaskStatus value={value} className="full-width"
-                                   onBlur={this.save.bind(this, index, 'status')}
+                                   onBlur={this.blur.bind(this, index, 'status')}
                                    onChange={this.change.bind(this, index, 'status')}/>
             }
         }, {
@@ -161,8 +185,8 @@ const TaskList = React.createClass({
             key: 'operation',
             width: 100,
             render: (value, record, index)=> {
-                return <Button type="primary"
-                               onClick={this.clickBtn.bind(this,index, record)}>{record.id ? 'Remove' : 'Save'}</Button>
+                return <Button type="primary" style={{textAlign : 'center'}}
+                               onClick={this.clickBtn.bind(this,index, record)}>{record.id ? 'Remove' : 'Add'}</Button>
             }
         }];
         return <div style={{
