@@ -48,6 +48,14 @@ exports.update = function (data) {
         .end();
 };
 
+exports.del = function (id) {
+    return builder.delete('tbl_task')
+        .where({
+            id: id
+        })
+        .end();
+};
+
 //get all function
 exports.getAll = function () {
     return builder.select('tbl_task')

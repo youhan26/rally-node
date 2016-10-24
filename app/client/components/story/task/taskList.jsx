@@ -9,7 +9,7 @@ require('./../../../style/task.css');
 
 
 import React from "react";
-import {Card, Form, message, Input, DatePicker, Tabs, InputNumber, Table, notification} from "antd";
+import {Card, Form, message, Input, DatePicker, Tabs, InputNumber, Table, notification, Button} from "antd";
 import CommonSelect from "./../../common/commonSelect";
 import {TaskStatus} from "./../../common/constSelect";
 import Api from "./../../api";
@@ -32,7 +32,7 @@ const TaskList = React.createClass({
         this.setState(this.state);
 
         Api.Task.get().then((result) => {
-            var data = result.data;
+            const data = result.data;
             if (data && data.length > 0) {
                 data.forEach((item) => {
                     item.key = item.id;
@@ -44,23 +44,34 @@ const TaskList = React.createClass({
             this.setState({
                 data: data,
                 loading: false
-            })
+            ***REMOVED***
         ***REMOVED***
     },
+    getEmptyData(){
+        return {
+            title: '',
+            ownerId: undefined,
+            est: 0,
+            todo: 0,
+            status: '1'
+        };
+    },
     save(index, field){
-        if(this.oriData[index][field] == this.state.data[index][field]){
-            return ;
+        if (field) {
+            if (this.oriData[index][field] == this.state.data[index][field]) {
+                return;
+            }
+            this.oriData[index][field] = this.state.data[index][field];
         }
-        this.oriData[index][field] = this.state.data[index][field];
         notification['info']({
-            message: '正在保存',
+            message: 'Saving',
             duration: 1,
         ***REMOVED***
         Api.Task.save(this.state.data[index])
             .then((res) => {
                 if (res.success) {
                     notification['success']({
-                        message: '保存成功',
+                        message: 'Saved Successfully',
                         duration: 1,
                     ***REMOVED***
                 } else {
@@ -68,12 +79,31 @@ const TaskList = React.createClass({
                 }
             ***REMOVED***
     },
+    remove(index){
+        const me = this;
+        Api.Task.del(this.state.data[index].id).then(function (res) {
+            if (res && res.success) {
+                notification['success']({
+                    message: 'Remove Successfully',
+                    duration: 1,
+                ***REMOVED***
+                me.loadData();
+            }
+        ***REMOVED***
+    },
     change(index, field, e){
         const newValue = (e.target ? e.target.value : e);
         const oldValue = this.state.data[index][field];
         if (oldValue != newValue) {
             this.state.data[index][field] = newValue;
             this.setState(this.state);
+        }
+    },
+    clickBtn(index, record){
+        if (record.id) {
+            this.remove(index);
+        } else {
+            this.save(index);
         }
     },
     render(){
@@ -124,6 +154,15 @@ const TaskList = React.createClass({
                 return <TaskStatus value={value} className="full-width"
                                    onBlur={this.save.bind(this, index, 'status')}
                                    onChange={this.change.bind(this, index, 'status')}/>
+            }
+        }, {
+            title: 'Operation',
+            dataIndex: '',
+            key: 'operation',
+            width: 100,
+            render: (value, record, index)=> {
+                return <Button type="primary"
+                               onClick={this.clickBtn.bind(this,index, record)}>{record.id ? 'Remove' : 'Save'}</Button>
             }
         }];
         return <div style={{
