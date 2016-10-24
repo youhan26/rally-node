@@ -3,15 +3,20 @@
  */
 var logger = require('./../utils/logger');
 var dao = require('./../model/task');
-var convertor = require('./../convertor/task');
 
 
 exports.add = function (data) {
-    return dao.add(data)
-        .catch(function (error) {
-            logger.error(error);
-            throw new Error('error happen when save task');
+    if (!data.story_id) {
+        return new Promise(function (resolve, reject) {
+            reject('no story id');
         });
+    } else {
+        return dao.add(data)
+            .catch(function (error) {
+                logger.error(error);
+                throw new Error('error happen when save task');
+            });
+    }
 };
 
 exports.get = function (id) {
@@ -36,7 +41,7 @@ exports.update = function (data) {
     } else {
         return dao.get(data.id)
             .then(function (oriData) {
-                if(oriData && oriData.length==1){
+                if (oriData && oriData.length == 1) {
                     var temp = oriData[0];
                     if (data.title != null) temp.title = data.title;
                     if (data.desc != null) temp.desc = data.desc;
@@ -46,7 +51,7 @@ exports.update = function (data) {
                     if (data.todo != null) temp.todo = data.todo;
                     if (data.story_id != null) temp.story_id = data.story_id;
                     return dao.update(temp);
-                }else{
+                } else {
                     logger.error('can get by id');
                     throw new Error();
                 }

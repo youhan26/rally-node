@@ -58,6 +58,13 @@ router.route('/:id?')
     })
     .post(function (req, res, next) {
         var params = req.body;
+        if (!params.storyId) {
+            res.send({
+                success: false,
+                reason: 'each task must have a story '
+            });
+            return;
+        }
         task.add(convertor.changeToBO(params)).then(function () {
             res.send({
                 success: true

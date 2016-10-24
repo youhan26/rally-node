@@ -9,9 +9,9 @@ var builder = require('./../db/builder');
 //add function
 exports.add = function (data) {
     return builder.insert('tbl_task', [{
-        'title': data.title,
-        'desc': data.desc,
-        'status': data.status,
+        'title': data.title || '',
+        'desc': data.desc || '',
+        'status': data.status || 1,
         'owner_id': data.owner_id,
         'est': data.est,
         'todo': data.todo,
