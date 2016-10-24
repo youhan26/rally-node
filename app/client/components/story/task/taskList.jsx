@@ -9,10 +9,11 @@ require('./../../../style/task.css');
 
 
 import React from "react";
-import {Card, Form, message, Input, DatePicker, Tabs, InputNumber, Table, Button, notification} from "antd";
+import {Card, Form, message, Input, DatePicker, Tabs, InputNumber, Table, notification} from "antd";
 import CommonSelect from "./../../common/commonSelect";
 import {TaskStatus} from "./../../common/constSelect";
-import Api from './../../api';
+import Api from "./../../api";
+import {basic} from "mimikiyru-utils";
 
 const FormItem = Form.Item;
 
@@ -29,6 +30,7 @@ const TaskList = React.createClass({
     loadData(){
         this.state.loading = true;
         this.setState(this.state);
+
         Api.Task.get().then((result) => {
             var data = result.data;
             if (data && data.length > 0) {
@@ -37,13 +39,19 @@ const TaskList = React.createClass({
                     item.status = '' + item.status;
                 ***REMOVED***
             }
+            this.oriData = [];
+            basic.baseExtend(this.oriData, [data], true);
             this.setState({
                 data: data,
                 loading: false
             })
         ***REMOVED***
     },
-    save(index){
+    save(index, field){
+        if(this.oriData[index][field] == this.state.data[index][field]){
+            return ;
+        }
+        this.oriData[index][field] = this.state.data[index][field];
         notification['info']({
             message: '正在保存',
             duration: 1,
@@ -61,9 +69,12 @@ const TaskList = React.createClass({
             ***REMOVED***
     },
     change(index, field, e){
-        this.state.data[index][field] = (e.target ? e.target.value : e);
-        // this.save(this.state.data[index]);
-        this.setState(this.state);
+        const newValue = (e.target ? e.target.value : e);
+        const oldValue = this.state.data[index][field];
+        if (oldValue != newValue) {
+            this.state.data[index][field] = newValue;
+            this.setState(this.state);
+        }
     },
     render(){
         const columns = [{
@@ -72,7 +83,7 @@ const TaskList = React.createClass({
             key: 'title',
             render: (value, record, index) => {
                 return <Input className="full-width" value={value}
-                              onBlur={this.save.bind(this, index)}
+                              onBlur={this.save.bind(this, index, 'title')}
                               onChange={this.change.bind(this, index, 'title')}/>
             }
         }, {
@@ -81,7 +92,7 @@ const TaskList = React.createClass({
             key: 'ownerId',
             render: (value, record, index) => {
                 return <CommonSelect value={value} url="/member/all" className="full-width"
-                                     onBlur={this.save.bind(this, index)}
+                                     onBlur={this.save.bind(this, index, 'ownerId')}
                                      onChange={this.change.bind(this, index, 'ownerId')}/>
             }
         }, {
@@ -91,7 +102,7 @@ const TaskList = React.createClass({
             width: 140,
             render: (value, record, index) => {
                 return <InputNumber value={value} className="full-width"
-                                    onBlur={this.save.bind(this, index)}
+                                    onBlur={this.save.bind(this, index, 'est')}
                                     onChange={this.change.bind(this, index, 'est')}/>
             }
         }, {
@@ -101,7 +112,7 @@ const TaskList = React.createClass({
             width: 140,
             render: (value, record, index) => {
                 return <InputNumber value={value} className="full-width"
-                                    onBlur={this.save.bind(this, index)}
+                                    onBlur={this.save.bind(this, index, 'todo')}
                                     onChange={this.change.bind(this, index, 'todo')}/>
             }
         }, {
@@ -111,7 +122,7 @@ const TaskList = React.createClass({
             width: 140,
             render: (value, record, index) => {
                 return <TaskStatus value={value} className="full-width"
-                                   onBlur={this.save.bind(this, index)}
+                                   onBlur={this.save.bind(this, index, 'status')}
                                    onChange={this.change.bind(this, index, 'status')}/>
             }
         }];
