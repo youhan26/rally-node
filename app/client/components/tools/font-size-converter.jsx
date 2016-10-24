@@ -25,7 +25,7 @@ const Pt2Rem = React.createClass({
             this.state.pt.showResult = true;
             this.state.pt.result = res.data;
             this.setState(this.state);
-        ***REMOVED***
+        });
     },
     render (){
         return <Card style={{ width: '100%' }} title="Pt 转 Rem">
@@ -77,7 +77,7 @@ const Pt2Rem = React.createClass({
             </Form>
         </Card>
     }
-***REMOVED***
+});
 
 
 const FontSizeConverter = React.createClass({
@@ -147,6 +147,6 @@ const FontSizeConverter = React.createClass({
             </Card>
         </div>
     }
-***REMOVED***
+});
 
 export default  FontSizeConverter;

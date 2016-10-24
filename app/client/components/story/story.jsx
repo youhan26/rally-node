@@ -1,8 +1,8 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/29.
-***REMOVED***
+ */
 
-/* @flow***REMOVED***
+/* @flow */
 "use strict";
 
 require('./../../style/story.css');
@@ -26,7 +26,7 @@ const Test = React.createClass({
             </Motion>
         )
     }
-***REMOVED***
+});
 
 const Story = React.createClass({
     getInitialState (){
@@ -62,7 +62,7 @@ const Story = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 
 export default Story;

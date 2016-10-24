@@ -48,16 +48,16 @@ module.exports = {
             },
         ]
     },
-    ***REMOVED***
+    /**
      * prod need change to false
-    ***REMOVED***
+     */
     debug: true,
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        ***REMOVED***
+        /**
          * for the prod
-        ***REMOVED***
+         */
         // new webpack.optimize.UglifyJsPlugin(),
         // new webpack.optimize.OccurenceOrderPlugin()
         new webpack.NoErrorsPlugin(),

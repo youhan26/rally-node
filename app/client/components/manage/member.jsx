@@ -1,7 +1,7 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/9/19.
-***REMOVED***
-/* @flow***REMOVED***
+ */
+/* @flow */
 "use strict";
 
 import React, {PropTypes} from "react";
@@ -87,7 +87,7 @@ const Item = React.createClass({
             </Card>
         )
     }
-***REMOVED***
+});
 
 const Member = React.createClass({
     emptyObj: {
@@ -112,7 +112,7 @@ const Member = React.createClass({
                     list: [this.emptyObj].concat(res.data)
                 })
             }
-        ***REMOVED***
+        });
     },
     save(key: number){
         var me = this;
@@ -121,7 +121,7 @@ const Member = React.createClass({
                     message.success('Save Success!');
                     me.loadData();
                 }
-            ***REMOVED***
+            });
     },
     nameChange (key: number, e: event){
         this.state.list[key].name = e.target.value;
@@ -159,6 +159,6 @@ const Member = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 export default Member;

@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/29.
-***REMOVED***
+ */
 
 "use strict";
 
@@ -72,7 +72,7 @@ var Section = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 
 var DashSection = React.createClass({
@@ -101,7 +101,7 @@ var DashSection = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 var Dashboard = React.createClass({
     getInitialState: function () {
@@ -120,13 +120,13 @@ var Dashboard = React.createClass({
             if (res && res.success) {
                 that.setState({
                     list: res.data
-                ***REMOVED***
+                });
             } else {
                 alert('error when load event data');
             }
         }, function (error) {
             console.error(error);
-        ***REMOVED***
+        });
     },
     render: function () {
         function renderLi(item, key) {
@@ -141,6 +141,6 @@ var Dashboard = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 export default Dashboard;

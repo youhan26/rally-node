@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/29.
-***REMOVED***
+ */
 
 "use strict";
 
@@ -14,7 +14,7 @@ var Report = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 
 export default Report;

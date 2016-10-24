@@ -5,15 +5,15 @@ MySQL - 5.6.25-log : Database - rally
 */
 
 
-/*!40101 SET NAMES utf8***REMOVED***;
+/*!40101 SET NAMES utf8 */;
 
 /*!40101 SET SQL_MODE=''*/;
 
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0***REMOVED***;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0***REMOVED***;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO'***REMOVED***;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0***REMOVED***;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`rally` /*!40100 DEFAULT CHARACTER SET utf8***REMOVED***;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`rally` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
 USE `rally`;
 
@@ -22,7 +22,7 @@ USE `rally`;
 -- Table `rally`.`release`
 -- -----------------------------------------------------
 
-/*Table structure for table `tbl_release`***REMOVED***
+/*Table structure for table `tbl_release` */
 
 DROP TABLE IF EXISTS `tbl_release`;
 
@@ -42,7 +42,7 @@ CREATE TABLE `tbl_release` (
 -- Table `rally`.`project`
 -- -----------------------------------------------------
 
-/*Table structure for table `tbl_project`***REMOVED***
+/*Table structure for table `tbl_project` */
 
 DROP TABLE IF EXISTS `tbl_project`;
 
@@ -62,7 +62,7 @@ CREATE TABLE `tbl_project` (
 -- Table `rally`.`story`
 -- -----------------------------------------------------
 
-/*Table structure for table `tbl_story`***REMOVED***
+/*Table structure for table `tbl_story` */
 
 DROP TABLE IF EXISTS `tbl_story`;
 
@@ -94,7 +94,7 @@ CREATE TABLE `tbl_story` (
 -- -----------------------------------------------------
 -- Table `rally`.`member`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_member`***REMOVED***
+/*Table structure for table `tbl_member` */
 
 DROP TABLE IF EXISTS `tbl_member`;
 
@@ -112,7 +112,7 @@ CREATE TABLE `tbl_member` (
 -- -----------------------------------------------------
 -- Table `rally`.`story_member`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_story_member`***REMOVED***
+/*Table structure for table `tbl_story_member` */
 
 DROP TABLE IF EXISTS `tbl_story_member`;
 
@@ -130,7 +130,7 @@ CREATE TABLE `tbl_story_member` (
 -- -----------------------------------------------------
 -- Table `rally`.`team`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_team`***REMOVED***
+/*Table structure for table `tbl_team` */
 
 DROP TABLE IF EXISTS `tbl_team`;
 
@@ -149,7 +149,7 @@ CREATE TABLE `tbl_team` (
 -- -----------------------------------------------------
 -- Table `rally`.`role`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_role`***REMOVED***
+/*Table structure for table `tbl_role` */
 
 DROP TABLE IF EXISTS `tbl_role`;
 
@@ -167,7 +167,7 @@ CREATE TABLE `tbl_role` (
 -- -----------------------------------------------------
 -- Table `rally`.`test_case`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_test_case`***REMOVED***
+/*Table structure for table `tbl_test_case` */
 
 DROP TABLE IF EXISTS `tbl_test_case`;
 
@@ -191,7 +191,7 @@ CREATE TABLE `tbl_test_case` (
 -- -----------------------------------------------------
 -- Table `rally`.`task`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_task`***REMOVED***
+/*Table structure for table `tbl_task` */
 
 DROP TABLE IF EXISTS `tbl_task`;
 
@@ -214,7 +214,7 @@ CREATE TABLE `tbl_task` (
 -- -----------------------------------------------------
 -- Table `rally`.`bug`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_bug`***REMOVED***
+/*Table structure for table `tbl_bug` */
 
 DROP TABLE IF EXISTS `tbl_bug`;
 
@@ -240,7 +240,7 @@ CREATE TABLE `tbl_bug` (
 -- -----------------------------------------------------
 -- Table `rally`.`change_log`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_change_log`***REMOVED***
+/*Table structure for table `tbl_change_log` */
 
 DROP TABLE IF EXISTS `tbl_change_log`;
 
@@ -260,7 +260,7 @@ CREATE TABLE `tbl_change_log` (
 -- -----------------------------------------------------
 -- Table `rally`.`story_change_log`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_story_change_log`***REMOVED***
+/*Table structure for table `tbl_story_change_log` */
 
 DROP TABLE IF EXISTS `tbl_story_change_log`;
 
@@ -278,7 +278,7 @@ CREATE TABLE `tbl_story_change_log` (
 -- -----------------------------------------------------
 -- Table `rally`.`member_has_role`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_member_has_role`***REMOVED***
+/*Table structure for table `tbl_member_has_role` */
 
 DROP TABLE IF EXISTS `tbl_member_has_role`;
 
@@ -291,7 +291,7 @@ CREATE TABLE `tbl_member_has_role` (
 -- -----------------------------------------------------
 -- Table `rally`.`member_has_team`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_member_has_team`***REMOVED***
+/*Table structure for table `tbl_member_has_team` */
 
 DROP TABLE IF EXISTS `tbl_member_has_team`;
 
@@ -302,10 +302,10 @@ CREATE TABLE `tbl_member_has_team` (
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE***REMOVED***;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS***REMOVED***;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS***REMOVED***;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES***REMOVED***;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 /*2016/10/8*/
 ALTER TABLE tbl_project ALTER COLUMN team_id BIGINT (20) NULL;

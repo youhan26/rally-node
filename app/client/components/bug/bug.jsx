@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/29.
-***REMOVED***
+ */
 'use strict';
 var React = require('react');
 
@@ -13,6 +13,6 @@ var Bug = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 export default Bug;

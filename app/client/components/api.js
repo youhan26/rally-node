@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/9/25.
-***REMOVED***
+ */
 import {api} from "mimikiyru-utils";
 
 var Api = {
@@ -10,19 +10,19 @@ var Api = {
                 return api.patch({
                     url: '/project/' + data.id,
                     data: data
-                ***REMOVED***
+                });
             } else {
                 return api.post({
                     url: '/project',
                     data: data
-                ***REMOVED***
+                });
             }
         },
         add: (data) => {
             return api.post({
                 url: '/project',
                 data: data
-            ***REMOVED***
+            });
         },
         get: (id) => {
             if (id) {
@@ -31,11 +31,11 @@ var Api = {
                     params: {
                         id: id
                     }
-                ***REMOVED***
+                });
             } else {
                 return api.get({
                     url: '/project/all'
-                ***REMOVED***
+                });
             }
         }
     },
@@ -53,25 +53,25 @@ var Api = {
                     params: {
                         id: id
                     }
-                ***REMOVED***
+                });
             } else {
                 return api.get({
                     url: '/team/all'
-                ***REMOVED***
+                });
             }
         },
         update: (data) => {
             return api.patch({
                 url: '/team/' + data.id,
                 data: data
-            ***REMOVED***
+            });
         },
         save: (data) => {
             if (data.id) {
                 return api.patch({
                     url: '/team/' + data.id,
                     data: data
-                ***REMOVED***
+                });
             } else {
                 return api.post({
                     url: '/team',
@@ -82,7 +82,7 @@ var Api = {
         del: (id) => {
             return api.del({
                 url: '/team/' + id
-            ***REMOVED***
+            });
         }
     },
     Role: {
@@ -99,25 +99,25 @@ var Api = {
                     params: {
                         id: id
                     }
-                ***REMOVED***
+                });
             } else {
                 return api.get({
                     url: '/role/all'
-                ***REMOVED***
+                });
             }
         },
         update: (data) => {
             return api.patch({
                 url: '/role/' + data.id,
                 data: data
-            ***REMOVED***
+            });
         },
         save: (data) => {
             if (data.id) {
                 return api.patch({
                     url: '/role/' + data.id,
                     data: data
-                ***REMOVED***
+                });
             } else {
                 return api.post({
                     url: '/role',
@@ -128,7 +128,7 @@ var Api = {
         del: (id) => {
             return api.del({
                 url: '/role/' + id
-            ***REMOVED***
+            });
         }
     },
     Member: {
@@ -145,25 +145,25 @@ var Api = {
                     params: {
                         id: id
                     }
-                ***REMOVED***
+                });
             } else {
                 return api.get({
                     url: '/member/all'
-                ***REMOVED***
+                });
             }
         },
         update: (data) => {
             return api.patch({
                 url: '/member/' + data.id,
                 data: data
-            ***REMOVED***
+            });
         },
         save: (data) => {
             if (data.id) {
                 return api.patch({
                     url: '/member/' + data.id,
                     data: data
-                ***REMOVED***
+                });
             } else {
                 return api.post({
                     url: '/member',
@@ -174,7 +174,7 @@ var Api = {
         del: (id) => {
             return api.del({
                 url: '/member/' + id
-            ***REMOVED***
+            });
         }
     },
     Task : {
@@ -191,25 +191,25 @@ var Api = {
                     params: {
                         id: id
                     }
-                ***REMOVED***
+                });
             } else {
                 return api.get({
                     url: '/task/all'
-                ***REMOVED***
+                });
             }
         },
         update: (data) => {
             return api.patch({
                 url: '/task/' + data.id,
                 data: data
-            ***REMOVED***
+            });
         },
         save: (data) => {
             if (data.id) {
                 return api.patch({
                     url: '/task/' + data.id,
                     data: data
-                ***REMOVED***
+                });
             } else {
                 return api.post({
                     url: '/task',
@@ -220,7 +220,7 @@ var Api = {
         del: (id) => {
             return api.del({
                 url: '/task/' + id
-            ***REMOVED***
+            });
         }
     }
 };

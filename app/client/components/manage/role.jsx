@@ -1,8 +1,8 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/9/19.
-***REMOVED***
+ */
 
-/* @flow***REMOVED***
+/* @flow */
 "use strict";
 
 import React, {PropTypes} from "react";
@@ -72,7 +72,7 @@ const Item = React.createClass({
             </Card>
         )
     }
-***REMOVED***
+});
 
 const Role = React.createClass({
     emptyObj: {
@@ -96,7 +96,7 @@ const Role = React.createClass({
                     list: [me.emptyObj].concat(res.data)
                 })
             }
-        ***REMOVED***
+        });
     },
     save(key: number){
         var me = this;
@@ -105,7 +105,7 @@ const Role = React.createClass({
                 message.success('Save Success!');
                 me.loadData();
             }
-        ***REMOVED***
+        });
     },
     nameChange (key: number, e: {target:{value : string}}){
         this.state.list[key].name = e.target.value;
@@ -137,6 +137,6 @@ const Role = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 export default Role;

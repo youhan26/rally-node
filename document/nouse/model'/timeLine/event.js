@@ -1,12 +1,12 @@
-// ***REMOVED***
+// /**
 //  * Created by YouHan on 2016/8/8.
-// ***REMOVED***
+//  */
 // var pool = require('./../../db/pool');
 // var mysql = require('mysql');
 //
-// ***REMOVED***
+// /**
 //  * for the event table bd handle
-// ***REMOVED***
+//  */
 //
 // //add function
 // exports.add = function (sid, name) {
@@ -28,9 +28,9 @@
 //                 }
 //                 resolver(rows);
 //                 conn.release();
-//             ***REMOVED***
-//         ***REMOVED***
-//     ***REMOVED***
+//             });
+//         });
+//     });
 // };
 //
 // //update function
@@ -56,9 +56,9 @@
 //                 }
 //                 resolver(rows);
 //                 conn.release();
-//             ***REMOVED***
-//         ***REMOVED***
-//     ***REMOVED***
+//             });
+//         });
+//     });
 // };
 //
 // //get function
@@ -82,9 +82,9 @@
 //                 }
 //                 resolver(rows);
 //                 conn.release();
-//             ***REMOVED***
-//         ***REMOVED***
-//     ***REMOVED***
+//             });
+//         });
+//     });
 // };
 //
 //
@@ -108,9 +108,9 @@
 //                 }
 //                 resolver(rows);
 //                 conn.release();
-//             ***REMOVED***
-//         ***REMOVED***
-//     ***REMOVED***
+//             });
+//         });
+//     });
 // };
 //
 //
@@ -134,9 +134,9 @@
 //                 }
 //                 resolver(rows);
 //                 conn.release();
-//             ***REMOVED***
-//         ***REMOVED***
-//     ***REMOVED***
+//             });
+//         });
+//     });
 // };
 //
 // //save by chart id
@@ -156,7 +156,7 @@
 //                 }
 //                 resolver(rows);
 //                 conn.release();
-//             ***REMOVED***
-//         ***REMOVED***
-//     ***REMOVED***
+//             });
+//         });
+//     });
 // };

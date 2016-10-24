@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/10/23.
-***REMOVED***
+ */
 
 exports.changeToBO = function (vo) {
     var bo = {};

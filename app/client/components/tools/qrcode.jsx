@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/10/13.
-***REMOVED***
+ */
 
 import React from "react";
 import {Card, Form, Row, Col, InputNumber, Input} from "antd";
@@ -68,6 +68,6 @@ const Code = React.createClass({
             </Card>
         </div>
     }
-***REMOVED***
+});
 
 export default  Code;

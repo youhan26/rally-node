@@ -1,4 +1,4 @@
-/* @flow***REMOVED***
+/* @flow */
 "use strict";
 
 import React, {PropTypes} from "react";
@@ -92,7 +92,7 @@ const Item = React.createClass({
             </Card>
         )
     }
-***REMOVED***
+});
 
 
 const Project = React.createClass({
@@ -116,7 +116,7 @@ const Project = React.createClass({
                 res.data.forEach(function (item) {
                     item.release_unit = '' + item.release_unit;
                     item.status = '' + item.status;
-                ***REMOVED***
+                });
                 this.setState({
                     list: [{
                         name: '',
@@ -125,7 +125,7 @@ const Project = React.createClass({
                         release_unit: '1',
                         team_id: null
                     }].concat(res.data)
-                ***REMOVED***
+                });
             } else {
                 message.error(res.reason);
             }
@@ -140,7 +140,7 @@ const Project = React.createClass({
             } else {
                 message.error(res.reason);
             }
-        ***REMOVED***
+        });
     },
     nameChange (key: number, e: event){
         this.state.list[key].name = e.target.value;
@@ -186,7 +186,7 @@ const Project = React.createClass({
             </div>
         );
     }
-***REMOVED***
+});
 
 
 export default Project;

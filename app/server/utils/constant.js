@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/10/8.
-***REMOVED***
+ */
 module.exports = {
     project: {
         status: {

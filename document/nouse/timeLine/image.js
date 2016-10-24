@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/10.
-***REMOVED***
+ */
 (function () {
     var input = $('[name="file-input"]'),
         btn = $('[name="upload-button"]'),
@@ -10,7 +10,7 @@
         context2 = canvas2.getContext('2d');
     btn.bind('click', function () {
         input.click();
-    ***REMOVED***
+    });
     input.bind('change', function (e) {
         var file = e.target.files[0];
         if (!file) {
@@ -19,13 +19,13 @@
         var url = URL.createObjectURL(file);
         cururl = url;
         renderImage(url);
-    ***REMOVED***
+    });
 
     $('[name="handle-button"]').bind('click', function () {
         grayScale();
         cutCircle(context, 0, 0, canvas.width / 5);
         loadPortrait();
-    ***REMOVED***
+    });
     function cutCircle(context, x, y, radius) {
         context.globalCompositeOperation = 'destination-out'
         context.arc(x, y, radius, 0, Math.PI * 2, true);
@@ -54,7 +54,7 @@
         var width2 = $(canvas2).parent().width();
         canvas2.width = width2;
         canvas2.height = width2;
-    ***REMOVED***
+    });
 
     var cururl,
         imgX = 0,

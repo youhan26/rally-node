@@ -1,4 +1,4 @@
-/* @flow***REMOVED***
+/* @flow */
 'use strict';
 
 import React from "react";
@@ -37,7 +37,7 @@ const CommonSelect = React.createClass({
         if (this.props.data && this.props.data.length > 0) {
             this.setState({
                 list: this.props.data
-            ***REMOVED***
+            });
         }
     },
     render() {
@@ -49,6 +49,6 @@ const CommonSelect = React.createClass({
             </Select>
         )
     }
-***REMOVED***
+});
 
 export default CommonSelect;

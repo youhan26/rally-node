@@ -1,8 +1,8 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/29.
-***REMOVED***
+ */
 
-/* @flow***REMOVED***
+/* @flow */
 "use strict";
 
 import React, {PropTypes} from "react";
@@ -193,7 +193,7 @@ const StoryDetails = React.createClass({
             </Card>
         </div>
     }
-***REMOVED***
+});
 
 
 export default StoryDetails;

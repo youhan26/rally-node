@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/10/20.
-***REMOVED***
+ */
 
 'use strict';
 
@@ -10,13 +10,13 @@ import React, {PropTypes} from "react";
 import Quill from "quill";
 import uuid from "uuid";
 
-***REMOVED***
+/**
  * feature:
  * onChange : func,
  * value : string,
  * readOnly : bool,
  * placeholder : string
-***REMOVED***
+ */
 const RichText = React.createClass({
     propTypes: {
         onChange: PropTypes.func,
@@ -94,7 +94,7 @@ const RichText = React.createClass({
                 if (source === 'user') {
                     me.props.onChange(me.getEditorContents());
                 }
-            ***REMOVED***
+            });
         }
     },
     onChange(event: Event){
@@ -107,7 +107,7 @@ const RichText = React.createClass({
         }} {...this.props} id={this.state.id} onChange={this.onChange}>
         </div>;
     }
-***REMOVED***
+});
 
 
 export default RichText;

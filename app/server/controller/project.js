@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/9/19.
-***REMOVED***
+ */
 var express = require('express');
 var path = require('path');
 var router = express.Router();
@@ -10,7 +10,7 @@ router.param('id', function (req, res, next, id) {
     // sample user, would actually fetch from DB, etc...
     req.params.id = id;
     next();
-***REMOVED***
+});
 
 
 router.get('/all', function (req, res) {
@@ -19,25 +19,25 @@ router.get('/all', function (req, res) {
             res.send({
                 success: true,
                 data: data
-            ***REMOVED***
+            });
         }, function (error) {
             res.send({
                 success: false,
                 reason: error || 'error happen'
-            ***REMOVED***
+            });
         })
         .catch(function (error) {
             res.send({
                 success: false,
                 reason: error || 'error happen'
-            ***REMOVED***
-        ***REMOVED***
+            });
+        });
 
-***REMOVED***
+});
 
-***REMOVED***
+/**
  *      /project/:id?
-***REMOVED***
+ */
 router.route('/:id?')
     .all(function (req, res, next) {
         // runs for all HTTP verbs first
@@ -51,7 +51,7 @@ router.route('/:id?')
             res.send({
                 success: false,
                 reason: 'no id'
-            ***REMOVED***
+            });
             return;
         }
         project.get(req.params.id)
@@ -59,18 +59,18 @@ router.route('/:id?')
                 res.send({
                     success: true,
                     data: data
-                ***REMOVED***
+                });
             }, function (reason) {
                 res.send({
                     success: false,
                     reason: reason || 'error happen'
-                ***REMOVED***
+                });
             }).catch(function (error) {
             res.send({
                 success: false,
                 reason: error || 'error happen'
-            ***REMOVED***
-        ***REMOVED***
+            });
+        });
     })
     .post(function (req, res, next) {
         var params = req.body;
@@ -78,18 +78,18 @@ router.route('/:id?')
             .then(function () {
                 res.send({
                     success: true
-                ***REMOVED***
+                });
             }, function (error) {
                 res.send({
                     success: false,
                     reason: error || 'error happen'
-                ***REMOVED***
+                });
             }).catch(function (error) {
             res.send({
                 success: false,
                 reason: error || 'error happen'
-            ***REMOVED***
-        ***REMOVED***
+            });
+        });
     })
     .patch(function (req, res, next) {
         var params = req.body;
@@ -97,25 +97,25 @@ router.route('/:id?')
             res.send({
                 success: false,
                 reason: 'no id'
-            ***REMOVED***
+            });
             return;
         }
         project.update(params)
             .then(function () {
                 res.send({
                     success: true
-                ***REMOVED***
+                });
             }, function (error) {
                 res.send({
                     success: false,
                     reason: error || 'error happen'
-                ***REMOVED***
+                });
             }).catch(function (error) {
             res.send({
                 success: false,
                 reason: error || 'error happen'
-            ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***
+            });
+        });
+    });
 
 module.exports = router;

@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/9/18.
-***REMOVED***
+ */
 var path = require("path");
 var webpack = require("webpack");
 

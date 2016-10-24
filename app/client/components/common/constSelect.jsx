@@ -1,4 +1,4 @@
-/* @flow***REMOVED***
+/* @flow */
 'use strict';
 
 import React from "react";
@@ -15,7 +15,7 @@ exports.ProjectStatus = React.createClass({
         },];
         return <CommonSelect data={data} {...this.props}/>
     }
-***REMOVED***
+});
 
 exports.ReleaseIntervalUnit = React.createClass({
     render (){
@@ -31,7 +31,7 @@ exports.ReleaseIntervalUnit = React.createClass({
         },];
         return <CommonSelect data={data} {...this.props}/>
     }
-***REMOVED***
+});
 
 exports.StoryStatus = React.createClass({
     render (){
@@ -53,7 +53,7 @@ exports.StoryStatus = React.createClass({
         },];
         return <CommonSelect data={data} {...this.props}/>
     }
-***REMOVED***
+});
 
 
 exports.TaskStatus = React.createClass({
@@ -70,4 +70,4 @@ exports.TaskStatus = React.createClass({
         }];
         return <CommonSelect data={data} {...this.props}/>
     }
-***REMOVED***
+});

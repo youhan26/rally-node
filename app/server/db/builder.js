@@ -1,19 +1,19 @@
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+/**
+ * Created by YouHan on 2016/8/19.
+ */
+var Builder = require('mysql-orm-builder').orm;
 
 
-***REMOVED***
-    host: '45.32.53.48',
-***REMOVED***
-***REMOVED***
-    user: 'youhan',
-    password: 'youhan',
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+var builder = new Builder({
+    host: 'IP',
+    port: 3306,
+    database: 'rally',
+    user: 'user',
+    password: 'password',
+    connectionLimit: 10,
+    dateStrings: true,
+    supportBigNumbers: true, //enable big number
+    bigNumberStrings: true
+});
 
-***REMOVED***
+module.exports = builder;

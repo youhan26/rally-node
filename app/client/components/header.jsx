@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/29.
-***REMOVED***
+ */
 
 "use strict";
 
@@ -21,13 +21,13 @@ const HorizonHeader = React.createClass({
         };
     },
     handleClick(e) {
-        this.setState({current: e.key***REMOVED***
+        this.setState({current: e.key});
     },
     onOpenChange(openKeys) {
         const latestOpenKey = openKeys.find(key => !(this.state.openKeys.indexOf(key) > -1));
         this.setState({
             openKeys: this.getKeyPath(latestOpenKey)
-        ***REMOVED***
+        });
     },
     getKeyPath(key) {
         const map = {
@@ -80,7 +80,7 @@ const HorizonHeader = React.createClass({
             </Menu>
         )
     }
-***REMOVED***
+});
 
 
 export {HorizonHeader};

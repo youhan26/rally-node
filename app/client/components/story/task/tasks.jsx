@@ -1,8 +1,8 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/29.
-***REMOVED***
+ */
 
-/* @flow***REMOVED***
+/* @flow */
 "use strict";
 
 import React, {PropTypes} from "react";
@@ -88,7 +88,7 @@ const TaskItem = React.createClass({
             </Card>
         )
     }
-***REMOVED***
+});
 
 
 const Tasks = React.createClass({
@@ -162,7 +162,7 @@ const Tasks = React.createClass({
             })}
         </div>;
     }
-***REMOVED***
+});
 
 
 export default Tasks;

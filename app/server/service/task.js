@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/9/19.
-***REMOVED***
+ */
 var logger = require('./../utils/logger');
 var dao = require('./../model/task');
 
@@ -9,13 +9,13 @@ exports.add = function (data) {
     if (!data.story_id) {
         return new Promise(function (resolve, reject) {
             reject('no story id');
-        ***REMOVED***
+        });
     } else {
         return dao.add(data)
             .catch(function (error) {
                 logger.error(error);
                 throw new Error('error happen when save task');
-            ***REMOVED***
+            });
     }
 };
 
@@ -23,12 +23,12 @@ exports.get = function (id) {
     if (!id) {
         return new Promise(function (resolve, reject) {
             reject('no task id');
-        ***REMOVED***
+        });
     } else {
         return dao.get(id).catch(function (error) {
             logger.error(error);
             throw new Error('error happen when save task');
-        ***REMOVED***
+        });
     }
 
 };
@@ -37,7 +37,7 @@ exports.update = function (data) {
     if (!data.id) {
         return new Promise(function (resolve, reject) {
             reject('no task id');
-        ***REMOVED***
+        });
     } else {
         return dao.get(data.id)
             .then(function (oriData) {
@@ -59,7 +59,7 @@ exports.update = function (data) {
             .catch(function (error) {
                 logger.error(error);
                 throw new Error('error happen when update task');
-            ***REMOVED***
+            });
     }
 };
 
@@ -67,13 +67,13 @@ exports.del = function (id) {
     if (!id) {
         return new Promise(function (resolve, reject) {
             reject('no task id');
-        ***REMOVED***
+        });
     } else {
         return dao.del(id)
             .catch(function (error) {
                 logger.error(error);
                 throw new Error('error happen when del task');
-            ***REMOVED***
+            });
     }
 };
 
@@ -82,5 +82,5 @@ exports.getAll = function () {
     return dao.getAll().catch(function (error) {
         logger.error(error);
         throw new Error('error happen when get tasks');
-    ***REMOVED***
+    });
 };

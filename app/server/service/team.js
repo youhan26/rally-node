@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/9/19.
-***REMOVED***
+ */
 var team = require('./../model/team');
 var memberTeam = require('./../model/memberTeam');
 
@@ -14,10 +14,10 @@ exports.add = function (data) {
                     'member_id': item,
                     'team_id': res.insertId
                 })
-            ***REMOVED***
+            });
             return memberTeam.add(temp);
         }
-    ***REMOVED***
+    });
 };
 
 exports.get = function (id) {
@@ -26,7 +26,7 @@ exports.get = function (id) {
         .then(function (data1, data2) {
             data1.memberIds = data2;
             return data1;
-        ***REMOVED***
+        });
 };
 
 exports.update = function (data) {
@@ -43,10 +43,10 @@ exports.update = function (data) {
                     'team_id': id,
                     'member_id': item
                 })
-            ***REMOVED***
+            });
             return memberTeam.add(temp);
-        ***REMOVED***
-    ***REMOVED***
+        });
+    });
 };
 
 exports.getAll = function () {

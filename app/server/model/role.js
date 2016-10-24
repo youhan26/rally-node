@@ -1,9 +1,9 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/9/19.
-***REMOVED***
-***REMOVED***
+ */
+/**
  * Created by YouHan on 2016/8/5.
-***REMOVED***
+ */
 var builder = require('./../db/builder');
 var logger = require('./../utils/logger');
 
@@ -24,7 +24,7 @@ exports.add = function (data) {
             }, function (error) {
                 logger.error('error happen when insert to tbl_role', error);
                 rejector(error);
-            ***REMOVED***
+            });
     })
 };
 
@@ -44,8 +44,8 @@ exports.get = function (id) {
             }, function (error) {
                 logger.error('error happen get project', error, id);
                 rejector(error);
-            ***REMOVED***
-    ***REMOVED***
+            });
+    });
 };
 
 exports.update = function (data) {
@@ -70,8 +70,8 @@ exports.update = function (data) {
             }, function (error) {
                 logger.error('error happen update project', error);
                 rejector(error);
-            ***REMOVED***
-    ***REMOVED***
+            });
+    });
 };
 
 
@@ -87,6 +87,6 @@ exports.getAll = function () {
             }, function (error) {
                 logger.error('error happen ', error);
                 rejector(error);
-            ***REMOVED***
+            });
     })
 };

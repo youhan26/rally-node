@@ -1,6 +1,6 @@
-// ***REMOVED***
+// /**
 //  * Created by YouHan on 2016/8/5.
-// ***REMOVED***
+//  */
 // var pool = require('./../../db/pool');
 // var mysql = require('mysql');
 //
@@ -26,8 +26,8 @@
 //                 }
 //                 resolver(rows);
 //                 connection.release();
-//             ***REMOVED***
-//         ***REMOVED***
+//             });
+//         });
 //     })
 // };
 //
@@ -52,9 +52,9 @@
 //                 }
 //                 resolver(rows);
 //                 conn.release();
-//             ***REMOVED***
-//         ***REMOVED***
-//     ***REMOVED***
+//             });
+//         });
+//     });
 // };
 //
 // //get function
@@ -78,9 +78,9 @@
 //                 }
 //                 resolver(rows);
 //                 conn.release();
-//             ***REMOVED***
-//         ***REMOVED***
-//     ***REMOVED***
+//             });
+//         });
+//     });
 // };
 //
 //
@@ -105,7 +105,7 @@
 //                 }
 //                 resolver(rows);
 //                 conn.release();
-//             ***REMOVED***
-//         ***REMOVED***
-//     ***REMOVED***
+//             });
+//         });
+//     });
 // };

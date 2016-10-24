@@ -1,7 +1,7 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/10/14.
-***REMOVED***
-/* @flow***REMOVED***
+ */
+/* @flow */
 export type res = {
     success : boolean,
     data : any,

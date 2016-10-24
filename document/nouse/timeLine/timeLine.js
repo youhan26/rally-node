@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/2.
-***REMOVED***
+ */
 var curSelect;
 var width = $(window).width() - 100,
     height = 500,
@@ -20,7 +20,7 @@ var partition = d3.layout.partition()
     .sort(null)
     .value(function (d) {
         return 1;
-    ***REMOVED***
+    });
 
 var arc = d3.svg.arc()
     .startAngle(function (d) {
@@ -34,7 +34,7 @@ var arc = d3.svg.arc()
     })
     .outerRadius(function (d) {
         return Math.max(0, y(d.y + d.dy));
-    ***REMOVED***
+    });
 
 reloadChart();
 d3.select(self.frameElement).style("height", height + "px");
@@ -56,7 +56,7 @@ function reloadChart() {
         error: function (error) {
             console.error(error);
         }
-    ***REMOVED***
+    });
 }
 
 function loadChart(root) {
@@ -75,7 +75,7 @@ function loadChart(root) {
         .text(function (d) {
             var data = d.name + "\n" + formatNumber(d.value);
             return data;
-        ***REMOVED***
+        });
     svg.selectAll('text')
         .data(partition.nodes(root))
         .enter()
@@ -86,7 +86,7 @@ function loadChart(root) {
         .attr('text-anchor', 'middle')
         .text(function (d) {
             return d.name;
-        ***REMOVED***
+        });
     data && data[0] && click(data[0]);
 }
 
@@ -110,7 +110,7 @@ function click(d) {
                 var data = 'translate(' + arc.centroid(d) + ')';
                 return data;
             };
-        ***REMOVED***
+        });
 
     svg.transition()
         .duration(750)
@@ -128,7 +128,7 @@ function click(d) {
             return function () {
                 return arc(d);
             };
-        ***REMOVED***
+        });
     $('#select').text(d.name);
     if (d.id) {
         curSelect = d.id;
@@ -160,7 +160,7 @@ function addSub() {
                 error: function (error) {
                     alert(error);
                 }
-            ***REMOVED***
+            });
         }
     }
 }
@@ -187,7 +187,7 @@ function addProgress() {
                 error: function (error) {
                     alert(error);
                 }
-            ***REMOVED***
+            });
         }
     }
 }
@@ -225,5 +225,5 @@ function loadProgressData() {
                 alert('error when load event data');
             }
         }
-    ***REMOVED***
+    });
 }

@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/31.
-***REMOVED***
+ */
 
 "use strict";
 var React = require('react');
@@ -69,7 +69,7 @@ var StoryList = React.createClass({
             this.setState({
                 list: this.state.list,
                 currentParent: item.list
-            ***REMOVED***
+            });
         }
     },
     onDragEnd: function () {
@@ -97,7 +97,7 @@ var StoryList = React.createClass({
         }
         this.setState({
             list: this.state.list
-        ***REMOVED***
+        });
     },
     render: function () {
         //item
@@ -136,6 +136,6 @@ var StoryList = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 export default StoryList;

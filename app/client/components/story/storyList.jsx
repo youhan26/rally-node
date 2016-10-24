@@ -98,7 +98,7 @@ const StorySearch = React.createClass({
             </Form>
         </Card>
     }
-***REMOVED***
+});
 
 var StoryList = React.createClass({
     render: function () {
@@ -113,6 +113,6 @@ var StoryList = React.createClass({
                 this is story list page</div>
         )
     }
-***REMOVED***
+});
 
 export default StoryList;

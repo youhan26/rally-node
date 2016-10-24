@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/31.
-***REMOVED***
+ */
 
 "use strict";
 import React from "react";
@@ -13,7 +13,7 @@ var Share = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 
 export default Share;

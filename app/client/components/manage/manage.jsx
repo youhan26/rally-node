@@ -1,7 +1,7 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/9/19.
-***REMOVED***
-/* @flow***REMOVED***
+ */
+/* @flow */
 "use strict";
 
 require('./../../style/manage.css');
@@ -50,6 +50,6 @@ const Management = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 export default Management;

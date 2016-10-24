@@ -1,6 +1,6 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/22.
-***REMOVED***
+ */
 
 "use strict";
 
@@ -38,7 +38,7 @@ var App = React.createClass({
             </div>
         )
     }
-***REMOVED***
+});
 
 
 Render.render(

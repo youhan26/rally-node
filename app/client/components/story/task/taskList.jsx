@@ -1,8 +1,8 @@
-***REMOVED***
+/**
  * Created by YouHan on 2016/8/29.
-***REMOVED***
+ */
 
-/* @flow***REMOVED***
+/* @flow */
 "use strict";
 
 require('./../../../style/task.css');
@@ -41,15 +41,15 @@ const TaskList = React.createClass({
                 data.forEach((item) => {
                     item.key = item.id;
                     item.status = '' + item.status;
-                ***REMOVED***
+                });
             }
 
             me.setState({
                 data: [me.getEmptyData()].concat(data),
                 loading: false
-            ***REMOVED***
+            });
 
-        ***REMOVED***
+        });
     },
     getEmptyData(){
         return {
@@ -66,21 +66,21 @@ const TaskList = React.createClass({
         notification['info']({
             message: 'Saving',
             duration: 1,
-        ***REMOVED***
+        });
         Api.Task.save(data)
             .then((res) => {
                 if (res.success) {
                     notification['success']({
                         message: 'Saved Successfully',
                         duration: 1,
-                    ***REMOVED***
+                    });
                     if (needReload) {
                         me.loadData();
                     }
                 } else {
                     message.error('Error happen when save!');
                 }
-            ***REMOVED***
+            });
     },
     blur(index, field){
         //if new value
@@ -101,10 +101,10 @@ const TaskList = React.createClass({
                 notification['success']({
                     message: 'Remove Successfully',
                     duration: 1,
-                ***REMOVED***
+                });
                 me.loadData();
             }
-        ***REMOVED***
+        });
     },
     change(index, field, e){
         const newValue = (e.target ? e.target.value : e);
@@ -203,7 +203,7 @@ const TaskList = React.createClass({
             />
         </div>;
     }
-***REMOVED***
+});
 
 
 export default TaskList;
