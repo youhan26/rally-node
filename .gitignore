@@ -6,6 +6,6 @@ app/server/utils/info.log
 app/server/utils/exceptions.log
 app/client/bundle/
 document/rally.mwb.bak
-app/server/db/
+app/server/db/builder.js
 document/nouse/model'/timeLine
 document/nouse/timeLine
