@@ -4,7 +4,6 @@
 - [ ] single select component
     * server side page sort
 - [ ] less learn change package css
-- [ ] popup confirm, success, error
 - [ ] test(front-end and back-end)
 
 ### about data request
