@@ -222,6 +222,52 @@ var Api = {
                 url: '/task/' + id
             });
         }
+    },
+    Defect : {
+        add: (data) => {
+            return api.post({
+                url: '/defect',
+                data: data
+            })
+        },
+        get: (id) => {
+            if (id) {
+                return api.get({
+                    url: '/defect',
+                    params: {
+                        id: id
+                    }
+                });
+            } else {
+                return api.get({
+                    url: '/defect/all'
+                });
+            }
+        },
+        update: (data) => {
+            return api.patch({
+                url: '/defect/' + data.id,
+                data: data
+            });
+        },
+        save: (data) => {
+            if (data.id) {
+                return api.patch({
+                    url: '/defect/' + data.id,
+                    data: data
+                });
+            } else {
+                return api.post({
+                    url: '/defect',
+                    data: data
+                })
+            }
+        },
+        del: (id) => {
+            return api.del({
+                url: '/defect/' + id
+            });
+        }
     }
 };
 

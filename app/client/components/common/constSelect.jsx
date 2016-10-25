@@ -71,3 +71,22 @@ exports.TaskStatus = React.createClass({
         return <CommonSelect data={data} {...this.props}/>
     }
 });
+
+exports.DefectStatus = React.createClass({
+    render (){
+        const data = [{
+            name: 'Submitted',
+            id: '1'
+        }, {
+            name: 'Open',
+            id: '2',
+        }, {
+            name: 'Fixed',
+            id: '3',
+        }, {
+            name: 'Closed',
+            id: '4',
+        }];
+        return <CommonSelect data={data} {...this.props}/>
+    }
+});

@@ -13,7 +13,7 @@ import {Tabs} from "antd";
 import StoryDetails from "./storyDetail";
 import TaskList from "./task/taskList";
 import TestCases from "./testCase";
-import Defects from "./defect";
+import Defects from "./defect/defectList";
 
 const TabPane = Tabs.TabPane;
 
