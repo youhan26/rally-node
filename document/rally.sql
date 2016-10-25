@@ -212,13 +212,13 @@ CREATE TABLE `tbl_task` (
 
 
 -- -----------------------------------------------------
--- Table `rally`.`bug`
+-- Table `rally`.`defect`
 -- -----------------------------------------------------
-/*Table structure for table `tbl_bug` */
+/*Table structure for table `tbl_defect` */
 
-DROP TABLE IF EXISTS `tbl_bug`;
+DROP TABLE IF EXISTS `tbl_defect`;
 
-CREATE TABLE `tbl_bug` (
+CREATE TABLE `tbl_defect` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(128) NOT NULL COMMENT '0: open\n1 : local fixed\n2 : ',
   `desc` TEXT NULL,
@@ -229,8 +229,7 @@ CREATE TABLE `tbl_bug` (
   `create_time` DATETIME NULL,
   `update_time` DATETIME NULL,
   `owner_id` BIGINT(20) NULL,
-  `pm_id` BIGINT(20) NULL,
-  `dev_id` BIGINT(20) NULL,
+  `submit_id` BIGINT(20) NULL,
   `story_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
