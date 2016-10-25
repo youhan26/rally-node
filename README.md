@@ -6,7 +6,7 @@ rally project of node version
 ``` shell
 npm install
 ```
-* install front-end
+* install front-end(app/client)
 ``` shell
 npm install
 npm run build:dll
@@ -14,6 +14,7 @@ npm run
 ```
 
 * import sql table
+* change db config(app/server/db/builder.js)
 
 * run server
 ``` shell
