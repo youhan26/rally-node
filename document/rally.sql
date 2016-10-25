@@ -28,6 +28,7 @@ DROP TABLE IF EXISTS `tbl_release`;
 
 CREATE TABLE `tbl_release` (
     `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+    `project_id`  BIGINT(20) NOT NULL,
     `name` VARCHAR(128) NOT NULL,
     `start_date` DATE NOT NULL,
     `end_date` DATE NULL,
@@ -69,13 +70,11 @@ DROP TABLE IF EXISTS `tbl_story`;
 CREATE TABLE `tbl_story` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(128) NOT NULL COMMENT 'title of story',
-  `create_time` DATETIME NULL,
-  `update_time` DATETIME NULL,
   `desc` TEXT NULL,
   `notes` TEXT NULL,
   `files` VARCHAR(1024) NULL COMMENT 'file path',
   `status` BIGINT(20) NULL COMMENT '0: init\n1: ready\n2: developing\n3: developed\n4: testing\n5: tested\n6: accept',
-  `est` FLOAT NULL,
+  `plan_est` FLOAT NULL,
   `todo` FLOAT NULL,
   `task_est` FLOAT NULL,
   `start_date` DATE NULL,
@@ -84,9 +83,12 @@ CREATE TABLE `tbl_story` (
   `pm` BIGINT(20) NULL,
   `fe` BIGINT(20) NULL,
   `rd` BIGINT(20) NULL,
-  `release_id` BIGINT(20) NOT NULL,
-  `project_id` BIGINT(20) NOT NULL,
-  `pid` BIGINT(20) NOT NULL,
+  `owner_id` BIGINT(20) NULL,
+  `release_id` BIGINT(20) NULL,
+  `project_id` BIGINT(20) NULL,
+  `pid` BIGINT(20) NOT NULL COMMENT 'FOR THE SUB STORY',
+  `create_time` DATETIME NULL,
+  `update_time` DATETIME NULL,
   PRIMARY KEY (`id`, `project_id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
