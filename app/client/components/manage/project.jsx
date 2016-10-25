@@ -4,8 +4,8 @@
 import React, {PropTypes} from "react";
 import Api from "../api";
 import {Form, Input, Button, Card, Col, Row, message} from "antd";
-import type {res, event} from "./../common/types";
-import {ProjectStatus, ReleaseIntervalUnit} from "./../common/constSelect";
+import type {res} from "./../common/types";
+import {ProjectStatus, ReleaseSelect} from "./../common/constSelect";
 import CommonSelect from "./../common/commonSelect";
 
 const FormItem = Form.Item;
@@ -30,7 +30,7 @@ const Item = React.createClass({
         }
     },
     render() {
-        const {nameChange, teamChange, statusChange, intervalChange, unitChange, save} = {...this.props};
+        const {nameChange, teamChange, statusChange, releaseChange, save} = {...this.props};
         return (
             <Card
                 bordered={false}
@@ -45,13 +45,14 @@ const Item = React.createClass({
                             >
                                 <Input value={this.props.name} onChange={nameChange}/>
                             </FormItem>
-                            <FormItem
-                                label="Interval Unit"
+                            {this.props.id ? <FormItem
+                                label="Current Release"
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
-                                <ReleaseIntervalUnit value={this.props.release_unit} onChange={unitChange}/>
-                            </FormItem>
+                                <ReleaseSelect value={this.props.current_release_id} onChange={releaseChange}
+                                               projectId={this.props.id}/>
+                            </FormItem> : null}
                         </Col>
                         <Col span={8}>
                             <FormItem
@@ -60,13 +61,6 @@ const Item = React.createClass({
                                 wrapperCol={{ span: 14 }}
                             >
                                 <ProjectStatus value={this.props.status} onChange={statusChange}/>
-                            </FormItem>
-                            <FormItem
-                                label="Release Interval"
-                                labelCol={{ span: 10 }}
-                                wrapperCol={{ span: 14 }}
-                            >
-                                <Input value={this.props.release_interval} onChange={intervalChange}/>
                             </FormItem>
                         </Col>
                         <Col span={8}>
@@ -142,24 +136,8 @@ const Project = React.createClass({
             }
         });
     },
-    nameChange (key: number, e: event){
-        this.state.list[key].name = e.target.value;
-        this.setState(this.state);
-    },
-    statusChange(key: number, value: string){
-        this.state.list[key].status = value;
-        this.setState(this.state);
-    },
-    intervalChange(key: number, value: number){
-        this.state.list[key].release_interval = value;
-        this.setState(this.state);
-    },
-    unitChange(key: number, value: string){
-        this.state.list[key].release_unit = value;
-        this.setState(this.state);
-    },
-    teamChange(key: number, value: number){
-        this.state.list[key].team_id = value;
+    change(key, field, e){
+        this.state.list[key][field] = (e.target ? e.target.value : e);
         this.setState(this.state);
     },
     render() {
@@ -171,14 +149,11 @@ const Project = React.createClass({
                               id={item.id || null}
                               name={item.name}
                               status={item.status}
-                              release_interval={item.release_interval}
-                              release_unit={item.release_unit}
                               team_id={item.team_id}
-                              nameChange={this.nameChange.bind(this,key)}
-                              statusChange={this.statusChange.bind(this,key)}
-                              intervalChange={this.intervalChange.bind(this, key)}
-                              unitChange={this.unitChange.bind(this, key)}
-                              teamChange={this.teamChange.bind(this, key)}
+                              nameChange={this.change.bind(this,key, 'name')}
+                              statusChange={this.change.bind(this,key, 'status')}
+                              teamChange={this.change.bind(this, key, 'team_id')}
+                              releaseChange={this.change.bind(this, key, 'current_release_id')}
                               save={this.save.bind(this, key)}
                         />
                     );

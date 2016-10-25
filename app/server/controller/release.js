@@ -45,16 +45,35 @@ router.route('/:id?')
         next();
     })
     .get(function (req, res, next) {
-        release.get(req.params.id).then(function (data) {
-            res.send({
-                success: true,
-                data: convertor.changeToVO(data)
+        if (req.query.projectId) {
+            release.getAllByProject(req.query.projectId).then(function (data) {
+                var result = [];
+                if (data && data.length > 0) {
+                    data.forEach(function (item) {
+                        result.push(convertor.changeToVO(item));
+                    });
+                }
+                res.send({
+                    success: true,
+                    data: result
+                });
+            }, function (error) {
+                common.sendError(res, error);
+            }).catch(function (error) {
+                common.sendError(res, error);
             });
-        }, function (error) {
-            common.sendError(res, error);
-        }).catch(function (error) {
-            common.sendError(res, error);
-        });
+        } else {
+            release.get(req.params.id).then(function (data) {
+                res.send({
+                    success: true,
+                    data: convertor.changeToVO(data)
+                });
+            }, function (error) {
+                common.sendError(res, error);
+            }).catch(function (error) {
+                common.sendError(res, error);
+            });
+        }
     })
     .post(function (req, res, next) {
         var params = req.body;

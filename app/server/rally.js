@@ -10,6 +10,7 @@ var role = require('./controller/role');
 var member = require('./controller/member');
 var task = require('./controller/task');
 var defect = require('./controller/defect');
+var release = require('./controller/release');
 
 var tools = require('./controller/tools');
 
@@ -38,6 +39,7 @@ router.use('/role', role);
 router.use('/member', member);
 router.use('/task', task);
 router.use('/defect', defect);
+router.use('/release', release);
 
 
 module.exports = router;

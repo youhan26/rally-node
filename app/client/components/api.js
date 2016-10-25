@@ -268,6 +268,33 @@ var Api = {
                 url: '/defect/' + id
             });
         }
+    },
+    Release : {
+        get: (id) => {
+            if (id) {
+                return api.get({
+                    url: '/release',
+                    params: {
+                        projectId: id
+                    }
+                });
+            }else{
+                throw new Error('must have project id ');
+            }
+        },
+        save: (data) => {
+            if (data.id) {
+                return api.patch({
+                    url: '/release/' + data.id,
+                    data: data
+                });
+            } else {
+                return api.post({
+                    url: '/release',
+                    data: data
+                })
+            }
+        }
     }
 };
 

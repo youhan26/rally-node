@@ -49,7 +49,7 @@ exports.getAll = function () {
         .end();
 };
 
-exports.getAlByProject = function (projectId) {
+exports.getAllByProject = function (projectId) {
     return builder.select('tbl_release')
         .where({
             'project_id': projectId

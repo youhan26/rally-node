@@ -3,6 +3,8 @@
 
 import React from "react";
 import CommonSelect from "./commonSelect";
+import Api from "./../api";
+
 
 exports.ProjectStatus = React.createClass({
     render (){
@@ -113,4 +115,30 @@ exports.DefectPriority = React.createClass({
     }
 });
 
+
+exports.ReleaseSelect = React.createClass({
+    getInitialState(){
+        return {
+            data: []
+        }
+    },
+    componentWillMount(){
+        const projectId = this.props.projectId;
+        if (projectId) {
+            Api.Release.get(projectId)
+                .then((res) => {
+                    if (res && res.success) {
+                        this.setState({
+                            data: res.data
+                        })
+                    }
+                }).catch((error) => {
+                console.log(error);
+            })
+        }
+    },
+    render(){
+        return <CommonSelect data={this.state.data} {...this.props}/>
+    }
+});
 
