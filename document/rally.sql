@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS `tbl_release`;
 CREATE TABLE `tbl_release` (
     `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
     `project_id`  BIGINT(20) NOT NULL,
-    `name` VARCHAR(128) NOT NULL,
+    `number` INT NOT NULL,
     `start_date` DATE NOT NULL,
     `end_date` DATE NULL,
     `create_time` DATETIME NULL,
