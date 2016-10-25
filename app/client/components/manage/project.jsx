@@ -50,8 +50,9 @@ const Item = React.createClass({
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
-                                <ReleaseSelect value={this.props.current_release_id} onChange={releaseChange}
-                                               projectId={this.props.id}/>
+                                <ReleaseSelect value={this.props.current_release_id} projectId={this.props.id}
+                                               onChange={releaseChange}
+                                               disabled={false}/>
                             </FormItem> : null}
                         </Col>
                         <Col span={8}>
@@ -62,6 +63,10 @@ const Item = React.createClass({
                             >
                                 <ProjectStatus value={this.props.status} onChange={statusChange}/>
                             </FormItem>
+                            {this.props.id ?
+                                <Button type="primary">Add Release</Button>
+                                : null
+                            }
                         </Col>
                         <Col span={8}>
                             <FormItem
