@@ -1,7 +1,7 @@
 # rally-node
 rally project of node version 
 
-### Development
+### Development(use dev branch)
 * install back-end
 ``` shell
 npm install
