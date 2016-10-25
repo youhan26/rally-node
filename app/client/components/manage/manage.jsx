@@ -22,7 +22,7 @@ const Management = React.createClass({
     render() {
         return (
             <div className="manage">
-                <Tabs defaultActiveKey="1" tabPosition={'left'} style={{
+                <Tabs defaultActiveKey="1" tabPosition={'top'} style={{
                     backgroundColor : 'white',
                     height : '100%'
                 }}>

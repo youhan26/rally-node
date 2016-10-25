@@ -40,38 +40,14 @@ const StoryDetails = React.createClass({
             notes: ''
         }
     },
-    titleChange(e){
-        this.state.title = e.target.value;
+    dataChange(field, e){
+        this.state[field] = (e.target ? e.target.value : e);
         this.setState(this.state);
     },
     ownerChange (value){
         this.state.owner = value;
         this.setState(this.state);
         this.props.ownerChange(value);
-    },
-    projectChange(value){
-        this.state.project = value;
-        this.setState(this.state);
-    },
-    planEstChange(value){
-        this.state.planEst = value;
-        this.setState(this.state);
-    },
-    releaseChange(value){
-        this.state.release = value;
-        this.setState(this.state);
-    },
-    descChange(value){
-        this.state.desc = value;
-        this.setState(this.state);
-    },
-    notesChange(e){
-        this.state.notes = e.target.value;
-        this.setState(this.state);
-    },
-    statusChange(value){
-        this.state.status = value;
-        this.setState(this.state);
     },
     render(){
         return <div>
@@ -80,8 +56,8 @@ const StoryDetails = React.createClass({
                     <Row>
                         <Col span="24">
                             <FormItem>
-                                <Input value={this.state.title} onChange={this.titleChange}
-                                       placeholder="Input Story Name"/>
+                                <Input value={this.state.title} placeholder="Input Story Name"
+                                       onChange={this.dataChange.bind(this, 'title')}/>
                             </FormItem>
                         </Col>
                     </Row>
@@ -94,7 +70,8 @@ const StoryDetails = React.createClass({
                                 labelCol={{span : 10}}
                                 wrapperCol={{span : 14}}
                             >
-                                <CommonSelect url="/member/all" value={this.state.owner} onChange={this.ownerChange}/>
+                                <CommonSelect url="/member/all" value={this.state.owner}
+                                              onChange={this.ownerChange}/>
                             </FormItem>
                         </Col>
                         <Col span="8">
@@ -104,7 +81,7 @@ const StoryDetails = React.createClass({
                                 wrapperCol={{span : 14}}
                             >
                                 <CommonSelect url="/project/all" value={this.state.project}
-                                              onChange={this.projectChange}/>
+                                              onChange={this.dataChange.bind(this, 'project')}/>
                             </FormItem>
                         </Col>
                         <Col span="8">
@@ -113,7 +90,8 @@ const StoryDetails = React.createClass({
                                 labelCol={{span : 10}}
                                 wrapperCol={{span : 14}}
                             >
-                                <StoryStatus value={this.state.status} onChange={this.statusChange}/>
+                                <StoryStatus value={this.state.status}
+                                             onChange={this.dataChange.bind(this, 'status')}/>
                             </FormItem>
                         </Col>
                     </Row>
@@ -127,7 +105,8 @@ const StoryDetails = React.createClass({
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            <InputNumber value={this.state.planEst} onChange={this.estChange}/>
+                            <InputNumber value={this.state.planEst}
+                                         onChange={this.dataChange.bind(this, 'planEst')}/>
                         </FormItem>
                     </Col>
                     <Col span="4">
@@ -171,7 +150,8 @@ const StoryDetails = React.createClass({
                             <RichText style={{
                                 width : '100%',
                                 height : '300px'
-                            }} placeholder='Input Description of Story....' onChange={this.descChange}
+                            }} placeholder='Input Description of Story....'
+                                      onChange={this.dataChange.bind(this, 'desc')}
                                       value={this.state.desc}/>
                         </FormItem>
                     </Col>
@@ -183,7 +163,8 @@ const StoryDetails = React.createClass({
                             labelCol={{span : 2}}
                             wrapperCol={{span : 19}}
                         >
-                            <Input type="textarea" rows="4" value={this.state.notes} onChange={this.notesChange}/>
+                            <Input type="textarea" rows="4" value={this.state.notes}
+                                   onChange={this.dataChange.bind(this, 'notes')}/>
                         </FormItem>
                     </Col>
                 </Row>

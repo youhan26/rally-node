@@ -13,7 +13,7 @@ const FormItem = Form.Item;
 
 const Item = React.createClass({
     propTypes: {
-        id: PropTypes.oneOfType([, PropTypes.number, PropTypes.string]),
+        id: PropTypes.any,
         name: PropTypes.string,
         status: PropTypes.string,
         release_interval: PropTypes.number,
@@ -82,9 +82,9 @@ const Item = React.createClass({
                                 labelCol={{span : 10}}
                                 wrapperCol={{span : 14}}
                             >
-                                <Button type="primary" onClick={save}>{
-                                    this.props.id ? 'Update' : 'Save'
-                                }</Button>
+                                <Button type="primary" onClick={save}>
+                                    {this.props.id ? 'Update' : 'Add'}
+                                </Button>
                             </FormItem>
                         </Col>
                     </Row>

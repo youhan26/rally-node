@@ -7,8 +7,8 @@
 
 import React, {PropTypes} from "react";
 import {Card, Row, Col, Form, message, Input, DatePicker, Tabs, InputNumber} from "antd";
-import CommonSelect from "./../common/commonSelect";
-import RichText from "./../common/richText";
+import CommonSelect from "../common/commonSelect";
+import RichText from "../common/richText";
 
 const FormItem = Form.Item;
 

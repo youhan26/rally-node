@@ -13,7 +13,7 @@ import Share from "./share/share";
 import Management from "./manage/manage";
 import {HorizonHeader} from "./header";
 import Dashboard from "./dashboard";
-import Story from "./story/story";
+import Story from "./story/storyNav";
 import Bug from "./bug/bug";
 import Report from "./report/report";
 import StoryList from "./story/storyList";
