@@ -226,6 +226,8 @@ CREATE TABLE `tbl_defect` (
   `status` INT NOT NULL COMMENT '0 : open\n1 : local fixed\n2 : closed',
   `reopen` TINYINT(1) NULL COMMENT 'reopen times',
   `reopen_reason` VARCHAR(1024) NULL COMMENT 'true : reopen',
+  `priority` INT NULL,
+  `type` INT NOT NULL,
   `create_time` DATETIME NULL,
   `update_time` DATETIME NULL,
   `owner_id` BIGINT(20) NULL,

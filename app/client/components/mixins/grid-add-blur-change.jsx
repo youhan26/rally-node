@@ -80,10 +80,7 @@ export default {
             me.oriData = JSON.parse(JSON.stringify([me.getEmptyData()].concat(data)));
 
             if (data && data.length > 0) {
-                data.forEach((item) => {
-                    item.key = item.id;
-                    item.status = '' + item.status;
-                });
+                data.forEach(me.changeData);
             }
 
             me.setState({

@@ -36,12 +36,16 @@ demo rally: [https://github.com/YouHan26/Rrally]
 * [ ] minify bundle file
 * [ ] eslint check
 * [ ] environment split
-* [ ] wait quill npm release update
 * [ ] remove flow any type
+* [ ] defect detail page
+* [ ] dashboard page
+* [ ] user page
+* [ ] config page
 
 
 ### back-end
-* [ ] VO to DTO convert
-* [ ] move business check to service
-
-
+* [ ] db design( in progress)
+* [X] logger
+* [X] VO to DTO convert
+* [X] move business check to service
+* [ ] user auth

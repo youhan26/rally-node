@@ -15,6 +15,7 @@ exports.add = function (data) {
         'status': data.status || 1,
         'reopen': data.reopen,
         'reopen_reason': data.reopen_reason,
+        'priority': data.priority,
         'owner_id': data.owner_id,
         'story_id': data.story_id,
         'submit_id': data.submit_id,

@@ -90,3 +90,27 @@ exports.DefectStatus = React.createClass({
         return <CommonSelect data={data} {...this.props}/>
     }
 });
+
+exports.DefectPriority = React.createClass({
+    render (){
+        const data = [{
+            name: 'None',
+            id: '1'
+        }, {
+            name: 'Resolve Immediately',
+            id: '2',
+        }, {
+            name: 'High Attention',
+            id: '3',
+        }, {
+            name: 'Normal',
+            id: '4',
+        }, {
+            name: 'Low',
+            id: '5',
+        }];
+        return <CommonSelect data={data} {...this.props}/>
+    }
+});
+
+

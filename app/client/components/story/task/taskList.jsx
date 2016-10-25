@@ -34,7 +34,11 @@ const TaskList = React.createClass({
             storyId: this.props.storyId
         };
     },
-
+    //update data type from number to string
+    changeData(item){
+        item.key = item.id;
+        item.status = '' + item.status;
+    },
     render(){
         const columns = [{
             title: 'TASK No.',
