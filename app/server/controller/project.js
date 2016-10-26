@@ -5,6 +5,8 @@ var express = require('express');
 var path = require('path');
 var router = express.Router();
 var project = require('./../service/project');
+var common = require('./../common/common');
+var convertor = require('./../convertor/project');
 
 router.param('id', function (req, res, next, id) {
     // sample user, would actually fetch from DB, etc...
@@ -18,22 +20,18 @@ router.get('/all', function (req, res) {
         .then(function (data) {
             res.send({
                 success: true,
-                data: data
+                data: convertor.convert2VoList(data)
             });
         }, function (error) {
-            res.send({
-                success: false,
-                reason: error || 'error happen'
-            });
+            common.sendError(res, error);
         })
         .catch(function (error) {
-            res.send({
-                success: false,
-                reason: error || 'error happen'
-            });
+            common.sendError(res, error);
         });
 
 });
+
+// router.patch('/release')
 
 /**
  *      /project/:id?
@@ -45,76 +43,54 @@ router.route('/:id?')
         //TODO load data?
         next();
     })
-    .get(function (req, res, next) {
-        var id = req.params.id;
-        if (!id) {
-            res.send({
-                success: false,
-                reason: 'no id'
-            });
-            return;
-        }
-        project.get(req.params.id)
-            .then(function (data) {
-                res.send({
-                    success: true,
-                    data: data
-                });
-            }, function (reason) {
-                res.send({
-                    success: false,
-                    reason: reason || 'error happen'
-                });
-            }).catch(function (error) {
-            res.send({
-                success: false,
-                reason: error || 'error happen'
-            });
-        });
-    })
+    // .get(function (req, res, next) {
+    //     var id = req.params.id;
+    //     if (!id) {
+    //         res.send({
+    //             success: false,
+    //             reason: 'no id'
+    //         });
+    //         return;
+    //     }
+    //     project.get(req.params.id)
+    //         .then(function (data) {
+    //             res.send({
+    //                 success: true,
+    //                 data: data
+    //             });
+    //         }, function (error) {
+    //             common.sendError(res, error);
+    //         })
+    //         .catch(function (error) {
+    //             common.sendError(res, error);
+    //         });
+    // })
     .post(function (req, res, next) {
         var params = req.body;
-        project.add(params)
+        project.add(convertor.convert2Bo(params))
             .then(function () {
                 res.send({
                     success: true
                 });
             }, function (error) {
-                res.send({
-                    success: false,
-                    reason: error || 'error happen'
-                });
-            }).catch(function (error) {
-            res.send({
-                success: false,
-                reason: error || 'error happen'
+                common.sendError(res, error);
+            })
+            .catch(function (error) {
+                common.sendError(res, error);
             });
-        });
     })
     .patch(function (req, res, next) {
         var params = req.body;
-        if (!params.id) {
-            res.send({
-                success: false,
-                reason: 'no id'
-            });
-            return;
-        }
-        project.update(params)
+        project.update(convertor.convert2Bo(params))
             .then(function () {
                 res.send({
                     success: true
                 });
             }, function (error) {
-                res.send({
-                    success: false,
-                    reason: error || 'error happen'
-                });
-            }).catch(function (error) {
-            res.send({
-                success: false,
-                reason: error || 'error happen'
-            });
+                common.sendError(res, error);
+            })
+            .catch(function (error) {
+                common.sendError(res, error);
         });
     });
 

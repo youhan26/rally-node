@@ -128,9 +128,16 @@ exports.ReleaseSelect = React.createClass({
             Api.Release.get(projectId)
                 .then((res) => {
                     if (res && res.success) {
+                        var data = [];
+                        res.data && res.data.forEach((item) => {
+                            data.push({
+                                id: item.id,
+                                name: 'Release ' + item.number
+                            });
+                        });
                         this.setState({
-                            data: res.data
-                        })
+                            data: data
+                        });
                     }
                 }).catch((error) => {
                 console.log(error);

@@ -1,7 +1,7 @@
 /* @flow */
 'use strict';
 
-import React from "react";
+import * as React from "react";
 import {api} from "mimikiyru-utils";
 import {Select} from "antd";
 import type {res} from "./types";

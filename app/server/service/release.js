@@ -3,75 +3,93 @@
  */
 var logger = require('./../utils/logger');
 var dao = require('./../model/release');
+var common = require('./../common/common');
+var project = require('./../model/project');
 
+module.exports = {
+    add: add,
+    get: get,
+    update, update,
+    getByProjectId: getByProjectId,
+    getAllByProject: getAllByProject
+};
 
-exports.add = function (data) {
-    if (!data.story_id) {
-        return new Promise(function (resolve, reject) {
-            reject('no story id');
-        });
-    } else {
+function add(data) {
+    if (data.project_id) {
         return dao.add(data)
+            .then(function(res){
+                var id = res.insertId;
+                return project.updateRelease(data.project_id, id);
+            })
             .catch(function (error) {
-                logger.error(error);
-                throw new Error('error happen when save release');
+                throw new Error('error happen when add release');
+            });
+    } else {
+        return common.promiseError('no project id');
+    }
+}
+
+function get(id) {
+    if (!id) {
+        return common.promiseError('no release id');
+    } else {
+        return dao.get(id)
+            .catch(function (error) {
+                throw new Error('error happen when get release');
             });
     }
-};
+}
 
-exports.get = function (id) {
-    if (!id) {
-        return new Promise(function (resolve, reject) {
-            reject('no release id');
-        });
+function getByProjectId(projectId) {
+    if (!projectId) {
+        return common.promiseError('no release id');
     } else {
-        return dao.get(id).catch(function (error) {
-            logger.error(error);
-            throw new Error('error happen when save release');
-        });
+        return dao.getByProjectId(projectId)
+            .catch(function (error) {
+                throw new Error('error happen when get release');
+            });
     }
+}
 
-};
-
-exports.update = function (data) {
+function update(data) {
     if (!data.id) {
-        return new Promise(function (resolve, reject) {
-            reject('no release id');
-        });
+        return common.promiseError('no release id');
     } else {
         return dao.get(data.id)
-            .then(function (oriData) {
-                if (oriData && oriData.length == 1) {
-                    var temp = oriData[0];
-                    if (data.number != null) temp.number = data.number;
-                    if (data.project_id != null) temp.project_id = data.project_id;
-                    if (data.start_date != null) temp.start_date = data.start_date;
-                    if (data.end_date != null) temp.end_date = data.end_date;
-                    return dao.update(temp);
+            .then(function (results) {
+                if (results && results.length > 0) {
+                    var oriData = results[0];
+                    if (data.project_id) {
+                        oriData.project_id = data.project_id;
+                    }
+                    if (data.start_date) {
+                        oriData.start_date = data.start_date;
+                    }
+                    if (data.end_date) {
+                        oriData.end_date = data.end_date;
+                    }
+                    if (data.number) {
+                        oriData.number = data.number;
+                    }
+                    oriData.update_time = new Date();
+                    return dao.update(oriData);
                 } else {
-                    logger.error('can get by id');
-                    throw new Error();
+                    return common.promiseError('no data for this release id');
                 }
             })
             .catch(function (error) {
-                logger.error(error);
                 throw new Error('error happen when update release');
             });
     }
-};
+}
 
-exports.getAll = function () {
-    return dao.getAll()
-        .catch(function (error) {
-            logger.error(error);
-            throw new Error('error happen when get releases');
-        });
-};
-
-exports.getAllByProject = function (projectId) {
-    return dao.getAllByProject(projectId)
-        .catch(function (error) {
-            logger.error(error);
-            throw new Error('error happen when get releases');
-        });
-};
+function getAllByProject(projectId) {
+    if (!projectId) {
+        return common.promiseError(' no project id for get release');
+    } else {
+        return dao.getAllByProject(projectId)
+            .catch(function (error) {
+                throw new Error('error happen when get all releases by project id');
+            })
+    }
+}

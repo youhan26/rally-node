@@ -4,12 +4,13 @@
 /* @flow */
 "use strict";
 
-import React, {PropTypes} from "react";
+import React from "react";
 import {Form, Input, Card, Col, Row, Button, message} from "antd";
 import Api from "./../api";
 import CommonSelect from "./../common/commonSelect";
 import type {memberData, event} from "./../common/types";
 
+const PropTypes = React.PropTypes;
 const FormItem = Form.Item;
 
 const Item = React.createClass({

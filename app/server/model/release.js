@@ -6,8 +6,17 @@
  */
 var builder = require('./../db/builder');
 
+module.exports = {
+    add: add,
+    get: get,
+    getByProjectId: getByProjectId,
+    update, update,
+    getAllByProject: getAllByProject
+};
+
+
 //add function
-exports.add = function (data) {
+function add(data) {
     return builder.insert('tbl_release', [{
         'number': data.number,
         'project_id': data.project_id,
@@ -16,19 +25,27 @@ exports.add = function (data) {
         'create_time': new Date(),
         'update_time': new Date()
     }]).end();
-};
+}
 
-
-exports.get = function (id) {
+function get(id) {
     return builder.select('tbl_release')
         .where({
-            id: id
+            'id': id
         })
         .orderBy(['number', 'create_time'])
         .end();
-};
+}
 
-exports.update = function (data) {
+function getByProjectId(id) {
+    return builder.select('tbl_release')
+        .where({
+            'project_id': id
+        })
+        .orderBy(['number', 'create_time'])
+        .end();
+}
+
+function update(data) {
     return builder.update('tbl_release', {
         'number': data.number,
         'project_id': data.project_id,
@@ -40,20 +57,20 @@ exports.update = function (data) {
             id: data.id
         })
         .end();
-};
+}
 
 //get all function
-exports.getAll = function () {
+function getAll() {
     return builder.select('tbl_release')
         .orderBy(['number', 'create_time'])
         .end();
-};
+}
 
-exports.getAllByProject = function (projectId) {
+function getAllByProject(projectId) {
     return builder.select('tbl_release')
         .where({
             'project_id': projectId
         })
         .orderBy(['number', 'create_time'])
         .end();
-};
+}
