@@ -5,6 +5,7 @@ var logger = require('./../utils/logger');
 var dao = require('./../model/release');
 var common = require('./../common/common');
 var project = require('./../model/project');
+var convertor = require('./../convertor/release');
 
 module.exports = {
     add: add,
@@ -15,15 +16,34 @@ module.exports = {
 };
 
 function add(data) {
-    if (data.project_id) {
-        return dao.add(data)
-            .then(function(res){
-                var id = res.insertId;
-                return project.updateRelease(data.project_id, id);
-            })
-            .catch(function (error) {
-                throw new Error('error happen when add release');
-            });
+    var projectId = data.projectId;
+    var currentReleaseId = data.currentReleaseId;
+    var saveData = convertor.changeToBO(data);
+    if (projectId) {
+        if (!currentReleaseId) {
+            saveData.number = 1;
+            return dao.add(saveData)
+                .then(function (res) {
+                    var id = res.insertId;
+                    return project.updateRelease(projectId, id);
+                })
+                .catch(function (error) {
+                    throw new Error('error happen when add release');
+                });
+        } else {
+            return dao.get(currentReleaseId)
+                .then(function (results) {
+                    saveData.number = results[0].number + 1;
+                    return dao.add(saveData)
+                        .then(function (res) {
+                            var id = res.insertId;
+                            return project.updateRelease(projectId, id);
+                        })
+                })
+                .catch(function (error) {
+                    throw new Error('error happen when add release');
+                });
+        }
     } else {
         return common.promiseError('no project id');
     }

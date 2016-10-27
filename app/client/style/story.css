@@ -3,6 +3,7 @@
     height: 100%;
     background-color: #efefef;
     padding: 10px;
+    overflow: auto;
 }
 
 .ant-tabs-bar {
@@ -14,6 +15,10 @@
     padding: 12px !important;
 }
 
-.ant-form-item-label{
+.ant-form-item-label {
     text-align: center;
+}
+
+.ant-input-number {
+    width: 100%;
 }

@@ -50,7 +50,7 @@ const Item = React.createClass({
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
-                                {'Release ' + this.props.release.number}
+                                { this.props.release ? 'Release ' + this.props.release.number : '无'}
                             </FormItem> : null}
                         </Col>
                         <Col span={8}>
@@ -61,10 +61,6 @@ const Item = React.createClass({
                             >
                                 <ProjectStatus value={this.props.status} onChange={statusChange}/>
                             </FormItem>
-                            {this.props.id ?
-                                <Button type="primary" onClick={clickRelease}>Next Release</Button>
-                                : null
-                            }
                         </Col>
                         <Col span={8}>
                             <FormItem
@@ -74,11 +70,11 @@ const Item = React.createClass({
                             >
                                 <CommonSelect url="/team/all" onChange={teamChange} value={this.props.teamId}/>
                             </FormItem>
-                            <FormItem
-                                label=" "
-                                labelCol={{span : 10}}
-                                wrapperCol={{span : 14}}
-                            >
+                            <FormItem>
+                                {this.props.id ?
+                                    <Button type="primary" onClick={clickRelease}
+                                            style={{marginRight: '12px'}}>{'Update Release'}</Button>
+                                    : null}
                                 <Button type="primary" onClick={save}>
                                     {this.props.id ? 'Update' : 'Add'}
                                 </Button>
@@ -94,15 +90,18 @@ const Item = React.createClass({
 
 const ReleaseModal = React.createClass({
     getInitialState(){
+        var dates = [];
+        if (this.props.release) {
+            dates.push(moment(this.props.release.startDate).add(1, 'day'));
+        }
         return {
-            visible: true,
-            dates: []
+            dates: dates
         }
     },
     modalCancel(){
-        this.state.visible = false;
         this.cleanModal();
         this.setState(this.state);
+        this.props.closeModal();
     },
     modalOk(){
         const me = this;
@@ -110,12 +109,13 @@ const ReleaseModal = React.createClass({
             startDate: this.state.dates[0].toDate(),
             endDate: this.state.dates[1].toDate(),
             projectId: this.props.project.id,
-            number: this.props.release.number + 1
+            currentReleaseId: this.props.project.currentReleaseId
         }).then((res) => {
             if (res && res.success) {
-                me.state.visible = false;
+                this.props.closeModal();
                 me.cleanModal();
                 me.setState(me.state);
+                me.props.refresh();
                 message.success('Save Successfully');
             } else {
                 message.error(res.reason);
@@ -131,7 +131,7 @@ const ReleaseModal = React.createClass({
     },
     render(){
         const format = "YYYY-MM-DD";
-        return <Modal title={this.props.project.name} visible={this.state.visible}
+        return <Modal title={'Project : '+ this.props.project.name} visible={this.props.visible}
                       onOk={this.modalOk}
                       maskClosable={false}
                       onCancel={this.modalCancel}
@@ -182,7 +182,8 @@ const Project = React.createClass({
                 teamId: undefined
             }],
             project: null,
-            release: null
+            release: null,
+            visible: false
         }
     },
     componentWillMount() {
@@ -224,6 +225,11 @@ const Project = React.createClass({
     clickRelease(item){
         this.state.project = item;
         this.state.release = item.release;
+        this.state.visible = true;
+        this.setState(this.state);
+    },
+    closeModal(){
+        this.state.visible = false;
         this.setState(this.state);
     },
     render() {
@@ -248,6 +254,9 @@ const Project = React.createClass({
                 {this.state.project ? <ReleaseModal
                     project={this.state.project}
                     release={this.state.release}
+                    refresh={this.loadData}
+                    closeModal={this.closeModal}
+                    visible={this.state.visible}
                 />
                     : null}
             </div>

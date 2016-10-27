@@ -4,13 +4,36 @@ require('./../../style/storyList.css');
 
 import React from "react";
 import {Card, Row, Col, Form, Button, message, Input, DatePicker, Table} from "antd";
-import {StoryStatus} from "./../common/constSelect";
+import {StoryStatus, ReleaseSelect} from "./../common/constSelect";
 import CommonSelect from "./../common/commonSelect";
 
 
 const FormItem = Form.Item;
 
 const StorySearch = React.createClass({
+    getInitialState(){
+        return this.getEmptyObj();
+    },
+    getEmptyObj(){
+        return {
+            name: '',
+            projectId: null,
+            status: null,
+            ownerId: null,
+            releaseId: null
+        };
+    },
+    change(field, e){
+        this.state[field] = (e.target ? e.target.value : e);
+        this.setState(this.state);
+        if (field === 'projectId') {
+            this.state.releaseId = '';
+            this.setState(this.state);
+        }
+    },
+    clear(){
+        this.setState(this.getEmptyObj);
+    },
     render(){
         return <Card style={{
                     margin: '12px'
@@ -23,15 +46,16 @@ const StorySearch = React.createClass({
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            <Input className='full-width'/>
+                            <Input className='full-width' value={this.state.name}
+                                   onChange={this.change.bind(this, 'name')}/>
                         </FormItem>
                         <FormItem
-                            label="Release"
+                            label="Project"
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            {/*{<CommonSelect className='full-width' url="/member/all"/>}*/}
-                            <span>{'release'}</span>
+                            <CommonSelect className='full-width' url="/project/all" value={this.state.projectId}
+                                          onChange={this.change.bind(this, 'projectId')}/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
@@ -40,14 +64,16 @@ const StorySearch = React.createClass({
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            <StoryStatus className='full-width'/>
+                            <StoryStatus className='full-width' value={this.state.status}
+                                         onChange={this.change.bind(this, 'status')}/>
                         </FormItem>
                         <FormItem
-                            label="Project"
+                            label="Release"
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            <CommonSelect className='full-width' url="/project/all"/>
+                            <ReleaseSelect projectId={this.state.projectId} vaule={this.state.releaseId}
+                                           onChange={this.change.bind(this, 'releaseId')}/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
@@ -56,7 +82,8 @@ const StorySearch = React.createClass({
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            <CommonSelect className='full-width' url="/member/all"/>
+                            <CommonSelect className='full-width' url="/member/all" value={this.state.ownerId}
+                                          onChange={this.change.bind(this, 'ownerId')}/>
                         </FormItem>
                     </Col>
                 </Row>
@@ -65,7 +92,7 @@ const StorySearch = React.createClass({
                         <Button type="primary" style={{
                             marginRight : '12px'
                         }}>Search</Button>
-                        <Button>Clear</Button>
+                        <Button onClick={this.clear}>Clear</Button>
                     </Col>
                 </Row>
             </Form>

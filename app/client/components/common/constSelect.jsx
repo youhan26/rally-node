@@ -125,23 +125,31 @@ exports.ReleaseSelect = React.createClass({
     componentWillMount(){
         const projectId = this.props.projectId;
         if (projectId) {
-            Api.Release.get(projectId)
-                .then((res) => {
-                    if (res && res.success) {
-                        var data = [];
-                        res.data && res.data.forEach((item) => {
-                            data.push({
-                                id: item.id,
-                                name: 'Release ' + item.number
-                            });
+            this.loadData(projectId);
+        }
+    },
+    loadData(projectId){
+        Api.Release.get(projectId)
+            .then((res) => {
+                if (res && res.success) {
+                    var data = [];
+                    res.data && res.data.forEach((item) => {
+                        data.push({
+                            id: item.id,
+                            name: 'Release ' + item.number
                         });
-                        this.setState({
-                            data: data
-                        });
-                    }
-                }).catch((error) => {
-                console.log(error);
-            })
+                    });
+                    this.setState({
+                        data: data
+                    });
+                }
+            }).catch((error) => {
+            console.log(error);
+        });
+    },
+    componentWillReceiveProps(nextProps){
+        if (nextProps && nextProps.projectId && nextProps.projectId !== this.props.projectId) {
+            this.loadData(nextProps.projectId);
         }
     },
     render(){

@@ -63,30 +63,34 @@ function getAll() {
     return builder.run(sql).then(function (datas) {
         var results = [];
         datas.forEach(function (item) {
-            results.push({
+            var data = {
                 id: item.id,
                 team_id: item.team_id,
                 name: item.name,
                 status: item.status,
-                current_release_id: item.current_release_id,
-                release_interval: item.release_interval,
-                release_unit: item.release_unit,
-                release: {
+                current_release_id: item.current_release_id
+            };
+            if (item.r_id) {
+                data.release = {
                     id: item.r_id,
                     start_date: item.start_date,
                     end_date: item.end_date,
                     number: item.number
-                }
-            })
+                };
+            }
+            results.push(data);
         });
         return results;
     });
 }
 
 function updateRelease(id, releaseId) {
-    return builder.update('tbl_project', {
-        'current_release_id': releaseId
-    }).select({
-        id: id
-    }).end();
+    return builder
+        .update('tbl_project', {
+            'current_release_id': releaseId
+        })
+        .where({
+            id: id
+        })
+        .end();
 }

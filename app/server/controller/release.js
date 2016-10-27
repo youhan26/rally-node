@@ -85,7 +85,7 @@ router.route('/:id?')
             });
             return;
         }
-        release.add(convertor.changeToBO(params)).then(function () {
+        release.add(params).then(function () {
             res.send({
                 success: true
             });

@@ -81,7 +81,6 @@ function update(data) {
                 }
             })
             .catch(function (error) {
-                console.log(error);
                 throw new Error('error happen when update project');
             });
     }

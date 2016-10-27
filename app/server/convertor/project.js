@@ -34,7 +34,7 @@ function convert2Bo(vo) {
 }
 
 function convert2Vo(bo) {
-    return {
+    var result = {
         id: bo.id,
         teamId: bo.team_id,
         name: bo.name,
@@ -43,7 +43,10 @@ function convert2Vo(bo) {
         releaseInterval: bo.release_interval,
         releaseUnit: bo.release_unit,
         createTime: bo.create_time,
-        updateTime: bo.update_time,
-        release: release.changeToVO(bo.release)
+        updateTime: bo.update_time
+    };
+    if (bo.release) {
+        result.release = release.changeToVO(bo.release);
     }
+    return result;
 }

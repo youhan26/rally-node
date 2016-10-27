@@ -40,6 +40,13 @@ const CommonSelect = React.createClass({
             });
         }
     },
+    componentWillReceiveProps(nextProps){
+        if (nextProps && nextProps.data && nextProps.data.length > 0) {
+            this.setState({
+                list: nextProps.data
+            });
+        }
+    },
     render() {
         return (
             <Select {...this.props}>

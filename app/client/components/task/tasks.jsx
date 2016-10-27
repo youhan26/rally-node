@@ -109,28 +109,8 @@ const Tasks = React.createClass({
     loadData(){
         //TODO
     },
-    titleChange(key, e){
-        this.state.list[key].title = e.target.value;
-        this.setState(this.state);
-    },
-    taskEstChange(key, value){
-        this.state.list[key].taskEst = value;
-        this.setState(this.state);
-    },
-    todoEstChange(key, value){
-        this.state.list[key].todoEst = value;
-        this.setState(this.state);
-    },
-    descChange(key, e){
-        this.state.list[key].desc = e.target.value;
-        this.setState(this.state);
-    },
-    statusChange(key, value){
-        this.state.list[key].status = value;
-        this.setState(this.state);
-    },
-    ownerChange(key, value){
-        this.state.list[key].owner = value;
+    change(key, field, e){
+        this.state.list[key][field] = (e.target ? e.target.value : e);
         this.setState(this.state);
     },
     save(key){
@@ -151,12 +131,12 @@ const Tasks = React.createClass({
                     desc={item.desc}
                     status={item.status}
                     owner={item.owner}
-                    titleChange={this.titleChange.bind(this,key)}
-                    taskEstChange={this.taskEstChange.bind(this,key)}
-                    todoEstChange={this.todoEstChange.bind(this,key)}
-                    descChange={this.descChange.bind(this,key)}
-                    statusChange={this.statusChange.bind(this,key)}
-                    ownerChange={this.ownerChange.bind(this,key)}
+                    titleChange={this.change.bind(this,key, 'title')}
+                    taskEstChange={this.change.bind(this,key, 'taskEst')}
+                    todoEstChange={this.change.bind(this,key, 'todoEst')}
+                    descChange={this.change.bind(this,key, 'desc')}
+                    statusChange={this.change.bind(this,key, 'status')}
+                    ownerChange={this.change.bind(this,key, 'owner')}
                     save={this.save.bind(this,key)}
                 />
             })}
