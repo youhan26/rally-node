@@ -10,10 +10,22 @@ var mysql = require('mysql');
 
 
 module.exports = {
+    add: add,
     get: get,
+    update: update,
+    getList: getList,
+    getSelectList: getSelectList
 };
 
-//get function
+function getList() {
+    //TODO
+}
+
+function getSelectList() {
+    var sql = 'SELECT `title`, `id` FROM `tbl_story` ORDER BY `id`';
+    return builder.run(sql);
+}
+
 function get(id) {
     var sql = 'SELECT s.`id`, s.`title`, s.`desc`, s.`notes`, s.`files`, s.`status`, s.`plan_est`, ' +
         'SUM(t.`todo`) AS todo, SUM(t.`est`) AS task_est, ' +
@@ -23,49 +35,48 @@ function get(id) {
     return builder.run(sql);
 }
 
-
-//add function
-function add(data) {
-    return builder.insert('tbl_project', [{
-        'team_id': data.team_id,
-        'name': data.name,
-        'status': data.status,
-        'release_interval': data.release_interval,
-        'release_unit': data.release_unit,
-        'create_time': new Date(),
-        'update_time': new Date()
-    }])
-        .end();
-}
-
 function update(data) {
-    return builder.update('tbl_project', {
-        'team_id': data.team_id,
-        'name': data.name,
-        'status': data.status,
-        'release_interval': data.release_interval,
-        'release_unit': data.release_unit,
-        'update_time': new Date()
+    return builder.update('tbl_story', {
+        title: data.title,
+        desc: data.desc,
+        notes: data.notes,
+        //files : data.files
+        status: data.status,
+        plan_est: data.plan_est,
+        start_date: data.start_date,
+        end_date: data.end_date,
+        qa: data.qa,
+        pm: data.pm,
+        fe: data.fe,
+        rd: data.rd,
+        owner_id: data.owner_id,
+        release_id: data.release_id,
+        project_id: data.project_id,
+        pid: data.pid
     })
         .where({
             id: data.id
-        })
-        .end();
+        }).end();
 }
 
-
-
-function getAll() {
-
-}
-
-function updateRelease(id, releaseId) {
-    return builder
-        .update('tbl_project', {
-            'current_release_id': releaseId
-        })
-        .where({
-            id: id
-        })
+function add(data) {
+    return builder.insert('tbl_story', {
+        title: data.title,
+        desc: data.desc,
+        notes: data.notes,
+        //files : data.files
+        status: data.status,
+        plan_est: data.plan_est,
+        start_date: data.start_date,
+        end_date: data.end_date,
+        qa: data.qa,
+        pm: data.pm,
+        fe: data.fe,
+        rd: data.rd,
+        owner_id: data.owner_id,
+        release_id: data.release_id,
+        project_id: data.project_id,
+        pid: data.pid
+    })
         .end();
 }

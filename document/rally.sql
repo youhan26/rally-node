@@ -69,7 +69,7 @@ DROP TABLE IF EXISTS `tbl_story`;
 
 CREATE TABLE `tbl_story` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
-  `title` VARCHAR(128) NOT NULL COMMENT 'title of story',
+  `title` VARCHAR(128) NULL COMMENT 'title of story',
   `desc` TEXT NULL,
   `notes` TEXT NULL,
   `files` VARCHAR(1024) NULL COMMENT 'file path',
@@ -86,10 +86,10 @@ CREATE TABLE `tbl_story` (
   `owner_id` BIGINT(20) NULL,
   `release_id` BIGINT(20) NULL,
   `project_id` BIGINT(20) NULL,
-  `pid` BIGINT(20) NOT NULL COMMENT 'FOR THE SUB STORY',
+  `pid` BIGINT(20) NULL COMMENT 'FOR THE SUB STORY',
   `create_time` DATETIME NULL,
   `update_time` DATETIME NULL,
-  PRIMARY KEY (`id`, `project_id`),
+  PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
