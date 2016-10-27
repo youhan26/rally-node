@@ -80,11 +80,13 @@ const StoryDetails = React.createClass({
             <Card style={{marginTop:'6px'}}>
                 <Form horizontal>
                     <Row>
-                        <Col span="24">
+                        <Col span="20">
                             <FormItem>
                                 <Input value={this.state.title} placeholder="Input Story Name"
                                        onChange={this.dataChange.bind(this, 'title')}/>
                             </FormItem>
+                        </Col>
+                        <Col span="4" style={{textAlign : 'center'}}>
                             <Button type="primary"
                                     onClick={this.save}>{this.props.storyId ? 'Update' : 'Add'}</Button>
                         </Col>
