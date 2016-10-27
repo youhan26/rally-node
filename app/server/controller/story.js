@@ -4,9 +4,8 @@
 var express = require('express');
 var path = require('path');
 var router = express.Router();
-var project = require('./../service/project');
+var story = require('./../service/story');
 var common = require('./../common/common');
-var convertor = require('./../convertor/project');
 
 router.param('id', function (req, res, next, id) {
     // sample user, would actually fetch from DB, etc...
@@ -16,11 +15,11 @@ router.param('id', function (req, res, next, id) {
 
 
 router.get('/all', function (req, res) {
-    project.getAll()
+    story.getList()
         .then(function (data) {
             res.send({
                 success: true,
-                data: convertor.convert2VoList(data)
+                data: data
             });
         }, function (error) {
             common.sendError(res, error);
@@ -28,13 +27,12 @@ router.get('/all', function (req, res) {
         .catch(function (error) {
             common.sendError(res, error);
         });
-
 });
 
 // router.patch('/release')
 
 /**
- *      /project/:id?
+ *      /story/:id?
  */
 router.route('/:id?')
     .all(function (req, res, next) {
@@ -43,34 +41,35 @@ router.route('/:id?')
         //TODO load data?
         next();
     })
-    // .get(function (req, res, next) {
-    //     var id = req.params.id;
-    //     if (!id) {
-    //         res.send({
-    //             success: false,
-    //             reason: 'no id'
-    //         });
-    //         return;
-    //     }
-    //     project.get(req.params.id)
-    //         .then(function (data) {
-    //             res.send({
-    //                 success: true,
-    //                 data: data
-    //             });
-    //         }, function (error) {
-    //             common.sendError(res, error);
-    //         })
-    //         .catch(function (error) {
-    //             common.sendError(res, error);
-    //         });
-    // })
+    .get(function (req, res, next) {
+        var id = req.params.id;
+        if (!id) {
+            res.send({
+                success: false,
+                reason: 'no id'
+            });
+            return;
+        }
+        story.get(req.params.id)
+            .then(function (data) {
+                res.send({
+                    success: true,
+                    data: data
+                });
+            }, function (error) {
+                common.sendError(res, error);
+            })
+            .catch(function (error) {
+                common.sendError(res, error);
+            });
+    })
     .post(function (req, res, next) {
         var params = req.body;
-        project.add(convertor.convert2Bo(params))
-            .then(function () {
+        story.save(params)
+            .then(function (data) {
                 res.send({
-                    success: true
+                    success: true,
+                    data: data
                 });
             }, function (error) {
                 common.sendError(res, error);
@@ -81,7 +80,7 @@ router.route('/:id?')
     })
     .patch(function (req, res, next) {
         var params = req.body;
-        project.update(convertor.convert2Bo(params))
+        story.update(params)
             .then(function () {
                 res.send({
                     success: true
@@ -91,7 +90,7 @@ router.route('/:id?')
             })
             .catch(function (error) {
                 common.sendError(res, error);
-        });
+            });
     });
 
 module.exports = router;

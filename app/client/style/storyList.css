@@ -14,3 +14,11 @@
     cursor: move;
     color: black;
 }
+
+.full-width {
+    width: 100%;
+}
+
+.ant-table-thead > tr > th {
+    text-align: center !important;
+}

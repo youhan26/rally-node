@@ -1,7 +1,7 @@
 /* @flow */
 'use strict';
 
-import React from "react";
+import * as React from "react";
 import {api} from "mimikiyru-utils";
 import {Select} from "antd";
 import type {res} from "./types";
@@ -37,6 +37,13 @@ const CommonSelect = React.createClass({
         if (this.props.data && this.props.data.length > 0) {
             this.setState({
                 list: this.props.data
+            });
+        }
+    },
+    componentWillReceiveProps(nextProps){
+        if (nextProps && nextProps.data && nextProps.data.length > 0) {
+            this.setState({
+                list: nextProps.data
             });
         }
     },

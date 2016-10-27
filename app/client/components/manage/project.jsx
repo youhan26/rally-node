@@ -3,34 +3,34 @@
 
 import React, {PropTypes} from "react";
 import Api from "../api";
-import {Form, Input, Button, Card, Col, Row, message} from "antd";
-import type {res, event} from "./../common/types";
-import {ProjectStatus, ReleaseIntervalUnit} from "./../common/constSelect";
+import {Form, Input, Button, Card, Col, Row, message, Modal, DatePicker} from "antd";
+import type {res} from "./../common/types";
+import {ProjectStatus} from "./../common/constSelect";
 import CommonSelect from "./../common/commonSelect";
+import moment from "moment";
+import api from "./../api";
 
+const RangePicker = DatePicker.RangePicker;
 const FormItem = Form.Item;
 
 
 const Item = React.createClass({
     propTypes: {
-        id: PropTypes.oneOfType([, PropTypes.number, PropTypes.string]),
+        id: PropTypes.any,
         name: PropTypes.string,
         status: PropTypes.string,
-        release_interval: PropTypes.number,
-        release_unit: PropTypes.string,
-        team_id: PropTypes.any
+        teamId: PropTypes.any,
+        currentReleaseId: PropTypes.any
     },
     getDefaultProps(){
         return {
             name: '',
             status: '1',
-            release_interval: 2,
-            release_unit: '1',
-            team_id: null
+            teamId: null
         }
     },
     render() {
-        const {nameChange, teamChange, statusChange, intervalChange, unitChange, save} = {...this.props};
+        const {nameChange, teamChange, statusChange, clickRelease, save} = {...this.props};
         return (
             <Card
                 bordered={false}
@@ -45,13 +45,13 @@ const Item = React.createClass({
                             >
                                 <Input value={this.props.name} onChange={nameChange}/>
                             </FormItem>
-                            <FormItem
-                                label="Interval Unit"
+                            {this.props.id ? <FormItem
+                                label="Current Release"
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
-                                <ReleaseIntervalUnit value={this.props.release_unit} onChange={unitChange}/>
-                            </FormItem>
+                                { this.props.release ? 'Release ' + this.props.release.number : '无'}
+                            </FormItem> : null}
                         </Col>
                         <Col span={8}>
                             <FormItem
@@ -61,13 +61,6 @@ const Item = React.createClass({
                             >
                                 <ProjectStatus value={this.props.status} onChange={statusChange}/>
                             </FormItem>
-                            <FormItem
-                                label="Release Interval"
-                                labelCol={{ span: 10 }}
-                                wrapperCol={{ span: 14 }}
-                            >
-                                <Input value={this.props.release_interval} onChange={intervalChange}/>
-                            </FormItem>
                         </Col>
                         <Col span={8}>
                             <FormItem
@@ -75,16 +68,16 @@ const Item = React.createClass({
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
-                                <CommonSelect url="/team/all" onChange={teamChange} value={this.props.team_id}/>
+                                <CommonSelect url="/team/all" onChange={teamChange} value={this.props.teamId}/>
                             </FormItem>
-                            <FormItem
-                                label=" "
-                                labelCol={{span : 10}}
-                                wrapperCol={{span : 14}}
-                            >
-                                <Button type="primary" onClick={save}>{
-                                    this.props.id ? 'Update' : 'Save'
-                                }</Button>
+                            <FormItem>
+                                {this.props.id ?
+                                    <Button type="primary" onClick={clickRelease}
+                                            style={{marginRight: '12px'}}>{'Update Release'}</Button>
+                                    : null}
+                                <Button type="primary" onClick={save}>
+                                    {this.props.id ? 'Update' : 'Add'}
+                                </Button>
                             </FormItem>
                         </Col>
                     </Row>
@@ -95,16 +88,102 @@ const Item = React.createClass({
 });
 
 
+const ReleaseModal = React.createClass({
+    getInitialState(){
+        var dates = [];
+        if (this.props.release) {
+            dates.push(moment(this.props.release.startDate).add(1, 'day'));
+        }
+        return {
+            dates: dates
+        }
+    },
+    modalCancel(){
+        this.cleanModal();
+        this.setState(this.state);
+        this.props.closeModal();
+    },
+    modalOk(){
+        const me = this;
+        api.Release.save({
+            startDate: this.state.dates[0].toDate(),
+            endDate: this.state.dates[1].toDate(),
+            projectId: this.props.project.id,
+            currentReleaseId: this.props.project.currentReleaseId
+        }).then((res) => {
+            if (res && res.success) {
+                this.props.closeModal();
+                me.cleanModal();
+                me.setState(me.state);
+                me.props.refresh();
+                message.success('Save Successfully');
+            } else {
+                message.error(res.reason);
+            }
+        });
+    },
+    cleanModal(){
+        this.state.dates = [];
+    },
+    onChange(dates){
+        this.state.dates = dates;
+        this.setState(this.state);
+    },
+    render(){
+        const format = "YYYY-MM-DD";
+        return <Modal title={'Project : '+ this.props.project.name} visible={this.props.visible}
+                      onOk={this.modalOk}
+                      maskClosable={false}
+                      onCancel={this.modalCancel}
+        >
+            {this.props.release ?
+                <Row>
+                    <Col span="12">
+                        <FormItem
+                            label="Current Start Date"
+                            labelCol={{span : '10'}}
+                            wrapperCol={{span : '14'}}
+                        >
+                            <DatePicker value={moment(this.props.release.startDate,format)} disabled={true}/>
+                        </FormItem>
+                    </Col>
+                    <Col span="12">
+                        <FormItem
+                            label="End Date"
+                            labelCol={{span : '10'}}
+                            wrapperCol={{span : '14'}}
+                        >
+                            <DatePicker value={moment(this.props.release.endDate,format)} disabled={true}/>
+                        </FormItem>
+                    </Col>
+                </Row> : null}
+            <Row>
+                <Col span="24">
+                    <FormItem
+                        label="Next Release Date"
+                        labelCol={{span : '5'}}
+                        wrapperCol={{span : '14'}}
+                    >
+                        <RangePicker onChange={this.onChange} value={this.state.dates}/>
+                    </FormItem>
+                </Col>
+            </Row>
+        </Modal>
+    }
+});
+
+
 const Project = React.createClass({
     getInitialState(){
         return {
             list: [{
                 name: '',
                 status: '1',
-                release_interval: 2,
-                release_unit: '1',
-                team_id: undefined
-            }]
+                teamId: undefined
+            }],
+            project: null,
+            release: null,
+            visible: false
         }
     },
     componentWillMount() {
@@ -114,16 +193,13 @@ const Project = React.createClass({
         Api.Project.get().then((res: res) => {
             if (res && res.success) {
                 res.data.forEach(function (item) {
-                    item.release_unit = '' + item.release_unit;
                     item.status = '' + item.status;
                 });
                 this.setState({
                     list: [{
                         name: '',
                         status: '1',
-                        release_interval: 2,
-                        release_unit: '1',
-                        team_id: null
+                        teamId: null
                     }].concat(res.data)
                 });
             } else {
@@ -142,24 +218,18 @@ const Project = React.createClass({
             }
         });
     },
-    nameChange (key: number, e: event){
-        this.state.list[key].name = e.target.value;
+    change(key, field, e){
+        this.state.list[key][field] = (e.target ? e.target.value : e);
         this.setState(this.state);
     },
-    statusChange(key: number, value: string){
-        this.state.list[key].status = value;
+    clickRelease(item){
+        this.state.project = item;
+        this.state.release = item.release;
+        this.state.visible = true;
         this.setState(this.state);
     },
-    intervalChange(key: number, value: number){
-        this.state.list[key].release_interval = value;
-        this.setState(this.state);
-    },
-    unitChange(key: number, value: string){
-        this.state.list[key].release_unit = value;
-        this.setState(this.state);
-    },
-    teamChange(key: number, value: number){
-        this.state.list[key].team_id = value;
+    closeModal(){
+        this.state.visible = false;
         this.setState(this.state);
     },
     render() {
@@ -171,18 +241,24 @@ const Project = React.createClass({
                               id={item.id || null}
                               name={item.name}
                               status={item.status}
-                              release_interval={item.release_interval}
-                              release_unit={item.release_unit}
-                              team_id={item.team_id}
-                              nameChange={this.nameChange.bind(this,key)}
-                              statusChange={this.statusChange.bind(this,key)}
-                              intervalChange={this.intervalChange.bind(this, key)}
-                              unitChange={this.unitChange.bind(this, key)}
-                              teamChange={this.teamChange.bind(this, key)}
+                              teamId={item.teamId}
+                              release={item.release}
+                              nameChange={this.change.bind(this,key, 'name')}
+                              statusChange={this.change.bind(this,key, 'status')}
+                              teamChange={this.change.bind(this, key, 'teamId')}
+                              clickRelease={this.clickRelease.bind(this, item)}
                               save={this.save.bind(this, key)}
                         />
                     );
                 })}
+                {this.state.project ? <ReleaseModal
+                    project={this.state.project}
+                    release={this.state.release}
+                    refresh={this.loadData}
+                    closeModal={this.closeModal}
+                    visible={this.state.visible}
+                />
+                    : null}
             </div>
         );
     }

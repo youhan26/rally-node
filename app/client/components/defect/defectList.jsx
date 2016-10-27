@@ -5,15 +5,15 @@
 /* @flow */
 "use strict";
 
-require('./../../../style/task.css');
+require('./../../style/task.css');
 
 
 import React from "react";
 import {Input, InputNumber, Table, Button} from "antd";
-import CommonSelect from "./../../common/commonSelect";
-import {DefectStatus, DefectPriority} from "./../../common/constSelect";
-import Api from "./../../api";
-import BlankRow from "./../../mixins/grid-add-blur-change";
+import CommonSelect from "./../common/commonSelect";
+import {DefectStatus, DefectPriority} from "./../common/constSelect";
+import Api from "./../api";
+import BlankRow from "./../mixins/grid-add-blur-change";
 
 const DefectList = React.createClass({
     mixins: [BlankRow],
