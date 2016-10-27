@@ -37,9 +37,15 @@ app.use(helmet());
 /**
  * body parser
  */
-app.use(bodyParser.json()); // for parsing application/json
+/**
+ * change the max request limit
+ */
+app.use(bodyParser.json({
+    limit: '50mb'
+})); // for parsing application/json
 app.use(bodyParser.urlencoded({
-    extended: true
+    extended: true,
+    limit: '50mb'
 })); // for parsing application/x-www-form-urlencoded
 
 /**

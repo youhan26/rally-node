@@ -20,7 +20,7 @@ function convert2VoList(data) {
 
 function convert2Bo(vo) {
     return {
-        id : vo.id,
+        id: vo.id,
         title: vo.title,
         desc: vo.desc,
         notes: vo.notes,
@@ -41,12 +41,14 @@ function convert2Bo(vo) {
 
 function convert2Vo(bo) {
     return {
-        id : bo.id,
+        id: bo.id,
         title: bo.title,
         desc: bo.desc,
         notes: bo.notes,
         status: bo.status,
         planEst: bo.plan_est,
+        taskEst: bo.task_est,
+        todo: bo.todo,
         startDate: bo.start_date,
         endDate: bo.end_date,
         qa: bo.qa,

@@ -11,6 +11,7 @@ var member = require('./controller/member');
 var task = require('./controller/task');
 var defect = require('./controller/defect');
 var release = require('./controller/release');
+var story = require('./controller/story');
 
 var tools = require('./controller/tools');
 
@@ -40,6 +41,8 @@ router.use('/member', member);
 router.use('/task', task);
 router.use('/defect', defect);
 router.use('/release', release);
+router.use('/story', story);
+
 
 
 module.exports = router;

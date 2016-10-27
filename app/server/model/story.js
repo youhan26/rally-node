@@ -76,7 +76,9 @@ function add(data) {
         owner_id: data.owner_id,
         release_id: data.release_id,
         project_id: data.project_id,
-        pid: data.pid
+        pid: data.pid,
+        create_time: new Date(),
+        update_time: new Date()
     })
         .end();
 }

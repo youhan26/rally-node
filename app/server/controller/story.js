@@ -66,9 +66,10 @@ router.route('/:id?')
     .post(function (req, res, next) {
         var params = req.body;
         story.save(params)
-            .then(function () {
+            .then(function (data) {
                 res.send({
-                    success: true
+                    success: true,
+                    data: data
                 });
             }, function (error) {
                 common.sendError(res, error);

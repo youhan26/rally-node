@@ -6,10 +6,11 @@
 "use strict";
 
 import React, {PropTypes} from "react";
-import {Card, Row, Col, Form, message, Input, DatePicker, Tabs, InputNumber} from "antd";
+import {Card, Row, Col, Form, message, Input, DatePicker, Tabs, InputNumber, Button} from "antd";
 import CommonSelect from "./../common/commonSelect";
 import RichText from "./../common/richText";
 import {StoryStatus, ReleaseSelect} from "./../common/constSelect";
+import Api from "./../api";
 
 const FormItem = Form.Item;
 
@@ -29,16 +30,26 @@ const StoryDetails = React.createClass({
     getInitialState(){
         return {
             title: '',
-            ownerId: null,
-            projectId: null,
-            status: null,
             planEst: 0,
             taskEst: 0,
             todoEst: 0,
-            release: null,
             desc: '',
             notes: ''
         }
+    },
+    componentWillMount(){
+        if (this.props.storyId) {
+            this.loadData();
+        }
+    },
+    loadData(){
+        var me = this;
+        Api.Story.get(this.props.storyId)
+            .then(function (res) {
+                if (res && res.success) {
+                    me.setState(res.data);
+                }
+            });
     },
     dataChange(field, e){
         this.state[field] = (e.target ? e.target.value : e);
@@ -48,6 +59,21 @@ const StoryDetails = React.createClass({
         this.state.ownerId = value;
         this.setState(this.state);
         this.props.ownerChange(value);
+    },
+    save(){
+        var me = this;
+        Api.Story.save(this.state)
+            .then(function (res) {
+                if (res && res.success) {
+                    message.success('Save successfully');
+                    if (!me.props.storyId) {
+                        //nor working
+                        location.href = '/index#/story/' + res.data.insertId;
+                    }
+                } else {
+                    message.error(res.reason);
+                }
+            })
     },
     render(){
         return <div>
@@ -59,6 +85,8 @@ const StoryDetails = React.createClass({
                                 <Input value={this.state.title} placeholder="Input Story Name"
                                        onChange={this.dataChange.bind(this, 'title')}/>
                             </FormItem>
+                            <Button type="primary"
+                                    onClick={this.save}>{this.props.storyId ? 'Update' : 'Add'}</Button>
                         </Col>
                     </Row>
                 </Form>
@@ -180,7 +208,8 @@ const StoryDetails = React.createClass({
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
-                                <ReleaseSelect value={this.state.releaseId} projectId={this.state.projectId}/>
+                                <ReleaseSelect value={this.state.releaseId} projectId={this.state.projectId}
+                                               onChange={this.dataChange.bind(this, 'releaseId')}/>
                             </FormItem>
                         </Col>
                     </Row>

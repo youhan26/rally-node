@@ -27,10 +27,7 @@ var Api = {
         get: (id) => {
             if (id) {
                 return api.get({
-                    url: '/project',
-                    params: {
-                        id: id
-                    }
+                    url: '/project/' + id
                 });
             } else {
                 return api.get({
@@ -49,10 +46,7 @@ var Api = {
         get: (id) => {
             if (id) {
                 return api.get({
-                    url: '/team',
-                    params: {
-                        id: id
-                    }
+                    url: '/team/' + id
                 });
             } else {
                 return api.get({
@@ -95,10 +89,7 @@ var Api = {
         get: (id) => {
             if (id) {
                 return api.get({
-                    url: '/role',
-                    params: {
-                        id: id
-                    }
+                    url: '/role/' + id
                 });
             } else {
                 return api.get({
@@ -141,10 +132,7 @@ var Api = {
         get: (id) => {
             if (id) {
                 return api.get({
-                    url: '/member',
-                    params: {
-                        id: id
-                    }
+                    url: '/member/' + id
                 });
             } else {
                 return api.get({
@@ -177,7 +165,7 @@ var Api = {
             });
         }
     },
-    Task : {
+    Task: {
         add: (data) => {
             return api.post({
                 url: '/task',
@@ -187,10 +175,7 @@ var Api = {
         get: (id) => {
             if (id) {
                 return api.get({
-                    url: '/task',
-                    params: {
-                        id: id
-                    }
+                    url: '/task/' + id
                 });
             } else {
                 return api.get({
@@ -223,7 +208,7 @@ var Api = {
             });
         }
     },
-    Defect : {
+    Defect: {
         add: (data) => {
             return api.post({
                 url: '/defect',
@@ -233,10 +218,7 @@ var Api = {
         get: (id) => {
             if (id) {
                 return api.get({
-                    url: '/defect',
-                    params: {
-                        id: id
-                    }
+                    url: '/defect/' + id
                 });
             } else {
                 return api.get({
@@ -269,7 +251,7 @@ var Api = {
             });
         }
     },
-    Release : {
+    Release: {
         get: (id) => {
             if (id) {
                 return api.get({
@@ -278,7 +260,7 @@ var Api = {
                         projectId: id
                     }
                 });
-            }else{
+            } else {
                 throw new Error('must have project id ');
             }
         },
@@ -291,6 +273,32 @@ var Api = {
             } else {
                 return api.post({
                     url: '/release',
+                    data: data
+                })
+            }
+        }
+    },
+    Story: {
+        get: (id)=> {
+            if (id) {
+                return api.get({
+                    url: '/story/' + id
+                });
+            } else {
+                return api.get({
+                    url: '/story/all'
+                });
+            }
+        },
+        save: (data) => {
+            if (data.id) {
+                return api.patch({
+                    url: '/story/' + data.id,
+                    data: data
+                });
+            } else {
+                return api.post({
+                    url: '/story',
                     data: data
                 })
             }
