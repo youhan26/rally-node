@@ -27,7 +27,7 @@ const StorySearch = React.createClass({
         this.state[field] = (e.target ? e.target.value : e);
         this.setState(this.state);
         if (field === 'projectId') {
-            this.state.releaseId = '';
+            this.state.releaseId = null;
             this.setState(this.state);
         }
     },
@@ -72,7 +72,7 @@ const StorySearch = React.createClass({
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            <ReleaseSelect projectId={this.state.projectId} vaule={this.state.releaseId}
+                            <ReleaseSelect projectId={this.state.projectId} value={this.state.releaseId}
                                            onChange={this.change.bind(this, 'releaseId')}/>
                         </FormItem>
                     </Col>

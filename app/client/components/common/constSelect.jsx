@@ -143,9 +143,10 @@ exports.ReleaseSelect = React.createClass({
                         data: data
                     });
                 }
-            }).catch((error) => {
-            console.log(error);
-        });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     },
     componentWillReceiveProps(nextProps){
         if (nextProps && nextProps.projectId && nextProps.projectId !== this.props.projectId) {
