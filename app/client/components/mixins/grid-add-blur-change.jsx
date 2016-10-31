@@ -73,7 +73,7 @@ export default {
         me.state.loading = true;
         me.setState(me.state);
 
-        me.api.get().then((result) => {
+        me.api.getList(me.storyId).then((result) => {
             const data = result.data;
 
             //update ori data for compare

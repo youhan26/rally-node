@@ -166,6 +166,14 @@ var Api = {
         }
     },
     Task: {
+        getList: (storyId)=> {
+            return api.get({
+                url : '/task/all',
+                params : {
+                    storyId : storyId
+                }
+            });
+        },
         add: (data) => {
             return api.post({
                 url: '/task',
@@ -209,6 +217,14 @@ var Api = {
         }
     },
     Defect: {
+        getList: (storyId)=> {
+            return api.get({
+                url : '/defect/all',
+                params : {
+                    storyId : storyId
+                }
+            });
+        },
         add: (data) => {
             return api.post({
                 url: '/defect',

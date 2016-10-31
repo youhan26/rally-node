@@ -9,6 +9,8 @@ require('./../../node_modules/quill/dist/quill.snow.css');
 import React, {PropTypes} from "react";
 import Quill from "quill";
 import uuid from "uuid";
+const Delta = Quill.import('delta');
+
 
 /**
  * feature:
@@ -67,7 +69,7 @@ const RichText = React.createClass({
     },
     getQuill (){
         const me = this;
-        return new Quill(this._editorEl, {
+        const quill = new Quill(this._editorEl, {
             modules: {
                 toolbar: [
                     ['bold', 'italic', 'underline', 'strike'],
@@ -84,7 +86,35 @@ const RichText = React.createClass({
             theme: 'snow',
             readOnly: me.props.readOnly,
             strict: true
-        })
+        });
+        var toolbar = quill.getModule('toolbar');
+        toolbar.addHandler('image', function () {
+            let fileInput = this.container.querySelector('input.ql-image[type=file]');
+            if (fileInput == null) {
+                fileInput = document.createElement('input');
+                fileInput.setAttribute('type', 'file');
+                fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp, image/x-icon, image/x-quicktime');
+                fileInput.classList.add('ql-image');
+                fileInput.addEventListener('change', () => {
+                    if (fileInput.files != null && fileInput.files[0] != null) {
+                        let reader = new FileReader();
+                        reader.onload = (e) => {
+                            let range = quill.getSelection(true);
+                            quill.updateContents(new Delta()
+                                    .retain(range.index)
+                                    .delete(range.length)
+                                    .insert({image: e.target.result})
+                                , 'user');
+                            fileInput.value = "";
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    }
+                });
+                this.container.appendChild(fileInput);
+            }
+            fileInput.click();
+        });
+        return quill;
     },
     componentDidMount(){
         const me = this;

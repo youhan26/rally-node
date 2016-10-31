@@ -11,9 +11,9 @@ import {Motion, spring} from "react-motion";
 import React from "react";
 import {Tabs} from "antd";
 import StoryDetails from "./storyDetail";
-import TaskList from "../task/taskList";
+import TaskList from "./taskList";
 import TestCases from "../testCase/testCase";
-import Defects from "../defect/defectList";
+import Defects from "./defectList";
 
 const TabPane = Tabs.TabPane;
 

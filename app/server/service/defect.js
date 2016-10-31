@@ -80,8 +80,8 @@ exports.del = function (id) {
 };
 
 
-exports.getAll = function () {
-    return dao.getAll().catch(function (error) {
+exports.getAll = function (storyId) {
+    return dao.getAll(storyId).catch(function (error) {
         logger.error(error);
         throw new Error('error happen when get defects');
     });

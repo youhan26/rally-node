@@ -10,9 +10,11 @@
 
 .tab-panel {
     height: 100%;
+    overflow: auto;
     background-color: #eee;
 }
 
 .ant-tabs-content {
     background-color: #efefef;
+    height: 100%;
 }
