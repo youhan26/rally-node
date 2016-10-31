@@ -2,39 +2,19 @@
 
 require('./../../style/storyList.css');
 
-import React from "react";
-import {Card, Row, Col, Form, Button, message, Input, DatePicker, Table} from "antd";
+import React, {PropTypes} from "react";
+import api from "../api";
+import {Card, Row, Col, Form, Button, message, Input, DatePicker, Table, InputNumber} from "antd";
 import {StoryStatus, ReleaseSelect} from "./../common/constSelect";
 import CommonSelect from "./../common/commonSelect";
+import BlankRow from "../mixins/grid-add-blur-change";
 
 
 const FormItem = Form.Item;
 
 const StorySearch = React.createClass({
-    getInitialState(){
-        return this.getEmptyObj();
-    },
-    getEmptyObj(){
-        return {
-            name: '',
-            projectId: null,
-            status: null,
-            ownerId: null,
-            releaseId: null
-        };
-    },
-    change(field, e){
-        this.state[field] = (e.target ? e.target.value : e);
-        this.setState(this.state);
-        if (field === 'projectId') {
-            this.state.releaseId = null;
-            this.setState(this.state);
-        }
-    },
-    clear(){
-        this.setState(this.getEmptyObj);
-    },
     render(){
+        const {titleChange, projectChange, statusChange, releaseChange, ownerChange, search, clear} = this.props;
         return <Card style={{
                     margin: '12px'
                 }}>
@@ -46,16 +26,16 @@ const StorySearch = React.createClass({
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            <Input className='full-width' value={this.state.name}
-                                   onChange={this.change.bind(this, 'name')}/>
+                            <Input className='full-width' value={this.props.condition.title}
+                                   onChange={titleChange}/>
                         </FormItem>
                         <FormItem
                             label="Project"
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            <CommonSelect className='full-width' url="/project/all" value={this.state.projectId}
-                                          onChange={this.change.bind(this, 'projectId')}/>
+                            <CommonSelect className='full-width' url="/project/all" value={this.props.condition.projectId}
+                                          onChange={projectChange}/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
@@ -64,16 +44,16 @@ const StorySearch = React.createClass({
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            <StoryStatus className='full-width' value={this.state.status}
-                                         onChange={this.change.bind(this, 'status')}/>
+                            <StoryStatus className='full-width' value={this.props.condition.status}
+                                         onChange={statusChange}/>
                         </FormItem>
                         <FormItem
                             label="Release"
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            <ReleaseSelect projectId={this.state.projectId} value={this.state.releaseId}
-                                           onChange={this.change.bind(this, 'releaseId')}/>
+                            <ReleaseSelect projectId={this.props.projectId} value={this.props.condition.releaseId}
+                                           onChange={releaseChange}/>
                         </FormItem>
                     </Col>
                     <Col span={8}>
@@ -82,17 +62,19 @@ const StorySearch = React.createClass({
                             labelCol={{ span: 10 }}
                             wrapperCol={{ span: 14 }}
                         >
-                            <CommonSelect className='full-width' url="/member/all" value={this.state.ownerId}
-                                          onChange={this.change.bind(this, 'ownerId')}/>
+                            <CommonSelect className='full-width' url="/member/all" value={this.props.condition.ownerId}
+                                          onChange={ownerChange}/>
                         </FormItem>
                     </Col>
                 </Row>
                 <Row>
                     <Col span={12} offset={12} style={{ textAlign: 'right' }}>
-                        <Button type="primary" style={{
+                        <Button type="primary"
+                                onClick={search}
+                                style={{
                             marginRight : '12px'
                         }}>Search</Button>
-                        <Button onClick={this.clear}>Clear</Button>
+                        <Button onClick={clear}>Clear</Button>
                     </Col>
                 </Row>
             </Form>
@@ -101,14 +83,23 @@ const StorySearch = React.createClass({
 });
 
 const StoryResult = React.createClass({
-    getInitialState(){
-        return {}
+    mixins: [BlankRow],
+    propTypes: {
+        data: PropTypes.array,
+        loading: PropTypes.bool
     },
     getDefaultProps (){
-        return {}
+        return {
+            data: [],
+            loading: false
+        }
     },
-    componentWillMount (){
-
+    componentWillMount(){
+        this.api = api.Story;
+        this.data = this.props.data;
+    },
+    selfLoad (){
+        this.props.search();
     },
     render(){
         const columns = [{
@@ -118,7 +109,7 @@ const StoryResult = React.createClass({
             width: 100,
             render: (value, record, index) => {
                 if (value) {
-                    return <a className='full-width' href={'/index#/story/' + value}>Defect {index}</a>
+                    return <a className='full-width' href={'/index#/story/' + value}>Story {index}</a>
                 }
             }
         }, {
@@ -133,12 +124,13 @@ const StoryResult = React.createClass({
         }, {
             title: 'Status',
             dataIndex: 'status',
+
             key: 'status',
             width: 100,
             render: (value, record, index) => {
-                return <DefectStatus value={value} className='full-width'
-                                     onBlur={this.blur.bind(this, index, 'status')}
-                                     onChange={this.change.bind(this, index, 'status')}/>
+                return <StoryStatus value={value} className='full-width'
+                                    onBlur={this.blur.bind(this, index, 'status')}
+                                    onChange={this.change.bind(this, index, 'status')}/>
             }
         }, {
             title: 'Plan Est',
@@ -157,8 +149,7 @@ const StoryResult = React.createClass({
             width: 70,
             render: (value, record, index) => {
                 return <InputNumber value={value} className='full-width'
-                                    onBlur={this.blur.bind(this, index, 'todo')}
-                                    onChange={this.change.bind(this, index, 'todo')}/>
+                                    disabled={true}/>
             }
         }, {
             title: 'Task Est',
@@ -166,9 +157,7 @@ const StoryResult = React.createClass({
             key: 'taskEst',
             width: 70,
             render: (value, record, index) => {
-                return <InputNumber value={value} className='full-width'
-                                    onBlur={this.blur.bind(this, index, 'taskEst')}
-                                    onChange={this.change.bind(this, index, 'taskEst')}/>
+                return <InputNumber value={value} className='full-width' disabled={true}/>
             }
         }, {
             title: 'Owner',
@@ -186,7 +175,9 @@ const StoryResult = React.createClass({
             key: 'releaseId',
             width: 100,
             render: (value, record, index) => {
-                return <span className='full-width'>{'release TODO' + value}</span>
+                return <ReleaseSelect className="full-width" value={value}
+                                      onChange={this.change.bind(this,index, 'releaseId')}
+                                      onBlur={this.blur.bind(this, index, 'releaseId')}/>
             }
         }, {
             title: 'Project',
@@ -194,7 +185,9 @@ const StoryResult = React.createClass({
             key: 'projectId',
             width: 100,
             render: (value, record, index) => {
-                return <span className='full-width'>{'project TODO' + value}</span>
+                return <CommonSelect url="/project/all" value={value} className="full-width"
+                                     onChange={this.change.bind(this,index, 'projectId')}
+                                     onBlur={this.blur.bind(this, index, 'projectId')}/>
             }
         }, {
             title: 'Operation',
@@ -203,7 +196,8 @@ const StoryResult = React.createClass({
             width: 80,
             render: (value, record, index)=> {
                 return <Button type="primary" className='full-width'
-                               onClick={this.click.bind(this,index, record)}>{record.id ? 'Remove' : 'Add'}</Button>
+                               onClick={this.click.bind(this,index, record)}>
+                    {record.id ? 'Remove' : 'Add'}</Button>
             }
         }];
         return <div style={{
@@ -214,8 +208,8 @@ const StoryResult = React.createClass({
                 pagination={false}
                 size="small"
                 columns={columns}
-                dataSource={this.state.data}
-                loading={this.state.loading}
+                dataSource={this.props.data}
+                loading={this.props.loading}
                 className="task-list-table"
             />
         </div>;
@@ -224,6 +218,71 @@ const StoryResult = React.createClass({
 
 
 const StoryList = React.createClass({
+    getInitialState(){
+        return {
+            data: [],
+            loading: false,
+            condition: this.getEmptyObj()
+        };
+    },
+    //search
+    clear(){
+        this.state.condition = this.getEmptyObj();
+        this.setState(this.state);
+    },
+    getEmptyObj(){
+        return {
+            title: '',
+            projectId: null,
+            status: null,
+            ownerId: null,
+            releaseId: null
+        };
+    },
+    searchChange(field, e){
+        this.state.condition[field] = (e.target ? e.target.value : e);
+        if (field === 'projectId') {
+            this.state.condition.releaseId = null;
+        }
+        this.setState(this.state);
+    },
+    getSearchCondition(){
+        const condition = {};
+        const state = this.state.condition;
+        Object.keys(state).forEach((item) => {
+            if (state[item]) {
+                condition[item] = state[item];
+            }
+        });
+        return condition;
+    },
+    //result
+    getResultObj(){
+        return {
+            title: '',
+            todo: 0,
+            taskEst: 0,
+            planEst: 0
+        }
+    },
+
+    //search
+    search(){
+        const me = this;
+        me.state.loading = true;
+        me.setState(this.state);
+        api.Story.getList(me.getSearchCondition())
+            .then((res) => {
+                me.state.loading = false;
+                if (res && res.success) {
+                    me.state.data = [me.getResultObj()].concat(res.data);
+                    me.data = [me.getResultObj()].concat(res.data);
+                } else {
+                    message.error(res.reason);
+                }
+                me.setState(this.state);
+            });
+    },
     render() {
         const style = {
             width: '100%',
@@ -232,8 +291,18 @@ const StoryList = React.createClass({
         };
         return (
             <div style={style}>
-                <StorySearch/>
-                <StoryResult/>
+                <StorySearch search={this.search}
+                             condition={this.state.condition}
+                             titleChange={this.searchChange.bind(this, 'title')}
+                             statusChange={this.searchChange.bind(this, 'status')}
+                             projectChange={this.searchChange.bind(this, 'projectId')}
+                             ownerChange={this.searchChange.bind(this, 'ownerId')}
+                             releaseChange={this.searchChange.bind(this, 'releaseId')}
+                             clear={this.clear}
+                />
+                <StoryResult data={this.state.data}
+                             loading={this.state.loading}
+                             search={this.search}/>
             </div>
         )
     }

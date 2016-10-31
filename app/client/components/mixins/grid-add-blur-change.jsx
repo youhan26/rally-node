@@ -2,37 +2,43 @@
  * Created by YouHan on 2016/10/25.
  */
 
-import {message, notification} from 'antd';
+import {message, notification} from "antd";
 
 export default {
     componentWillMount() {
         this.loadData();
     },
+    _getData(){
+        return this.state ? this.state.data : (this.props ? this.props.data : []);
+    },
     blur(index, field) {
+        const data = this._getData();
         //if new value
-        if (!this.state.data[index].id) {
+        if (!data[index].id) {
             return;
         }
         //if data no change
-        if (this.oriData[index][field] == this.state.data[index][field]) {
+        if (this.oriData[index][field] == data[index][field]) {
             return;
         }
-        this.oriData[index][field] = this.state.data[index][field];
-        this.save(this.state.data[index]);
+        this.oriData[index][field] = data[index][field];
+        this.save(data[index]);
     },
     change(index, field, e){
+        const data = this._getData();
         const newValue = (e.target ? e.target.value : e);
-        const oldValue = this.state.data[index][field];
+        const oldValue = data[index][field];
         if (oldValue != newValue) {
-            this.state.data[index][field] = newValue;
+            data[index][field] = newValue;
             this.setState(this.state);
         }
     },
     click(index, record){
+        const data = this._getData();
         if (record.id) {
             this.remove(index);
         } else {
-            this.save(this.state.data[index], true);
+            this.save(data[index], true);
         }
     },
     save(data, needReload){
@@ -58,7 +64,8 @@ export default {
     },
     remove(index){
         const me = this;
-        this.api.del(this.state.data[index].id).then(function (res) {
+        const data = this._getData();
+        this.api.del(data[index].id).then(function (res) {
             if (res && res.success) {
                 notification['success']({
                     message: 'Remove Successfully',
@@ -69,6 +76,10 @@ export default {
         });
     },
     loadData(){
+        if (this.selfLoad) {
+            this.selfLoad();
+            return;
+        }
         const me = this;
         me.state.loading = true;
         me.setState(me.state);
@@ -87,7 +98,6 @@ export default {
                 data: [me.getEmptyData()].concat(data),
                 loading: false
             });
-
         });
     },
 }

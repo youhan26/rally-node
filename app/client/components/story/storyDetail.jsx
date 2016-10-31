@@ -22,7 +22,7 @@ const StoryDetails = React.createClass({
         status: PropTypes.number,
         planEst: PropTypes.number,
         taskEst: PropTypes.number,
-        todoEst: PropTypes.number,
+        todo: PropTypes.number,
         release: PropTypes.number,
         desc: PropTypes.string,
         notes: PropTypes.string
@@ -32,7 +32,7 @@ const StoryDetails = React.createClass({
             title: '',
             planEst: 0,
             taskEst: 0,
-            todoEst: 0,
+            todo: 0,
             desc: '',
             notes: ''
         }
@@ -201,7 +201,7 @@ const StoryDetails = React.createClass({
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
-                                <InputNumber value={this.state.todoEst} disabled={true}/>
+                                <InputNumber value={this.state.todo} disabled={true}/>
                             </FormItem>
                         </Col>
                         <Col span="6">

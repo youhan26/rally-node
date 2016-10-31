@@ -22,3 +22,7 @@
 .ant-table-thead > tr > th {
     text-align: center !important;
 }
+
+.ant-input-number-disabled .ant-input-number-input {
+    color: black;
+}

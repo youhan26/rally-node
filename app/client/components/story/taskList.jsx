@@ -25,6 +25,7 @@ const TaskList = React.createClass({
             loading: false
         }
     },
+
     getEmptyData(){
         return {
             title: '',
