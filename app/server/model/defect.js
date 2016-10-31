@@ -11,7 +11,7 @@ exports.add = function (data) {
     return builder.insert('tbl_defect', [{
         'title': data.title,
         'desc': data.desc || '',
-        'file' : data.file ,
+        'file': data.file,
         'status': data.status || 1,
         'reopen': data.reopen,
         'reopen_reason': data.reopen_reason,
@@ -38,7 +38,7 @@ exports.update = function (data) {
     return builder.update('tbl_defect', {
         'title': data.title,
         'desc': data.desc || '',
-        'file' : data.file ,
+        'file': data.file,
         'status': data.status || 1,
         'reopen': data.reopen,
         'reopen_reason': data.reopen_reason,
@@ -62,8 +62,17 @@ exports.del = function (id) {
 };
 
 //get all function
-exports.getAll = function () {
-    return builder.select('tbl_defect')
-        .orderBy(['id desc', 'create_time'])
-        .end();
+exports.getAll = function (storyId) {
+    if (storyId) {
+        return builder.select('tbl_defect')
+            .where({
+                story_id: storyId
+            })
+            .orderBy(['id desc', 'create_time'])
+            .end();
+    } else {
+        return builder.select('tbl_defect')
+            .orderBy(['id desc', 'create_time'])
+            .end();
+    }
 };

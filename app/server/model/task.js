@@ -57,8 +57,17 @@ exports.del = function (id) {
 };
 
 //get all function
-exports.getAll = function () {
-    return builder.select('tbl_task')
-        .orderBy(['id desc', 'create_time'])
-        .end();
+exports.getAll = function (storyId) {
+    if (storyId) {
+        return builder.select('tbl_task')
+            .where({
+                story_id: storyId
+            })
+            .orderBy(['id desc', 'create_time'])
+            .end();
+    } else {
+        return builder.select('tbl_task')
+            .orderBy(['id desc', 'create_time'])
+            .end();
+    }
 };

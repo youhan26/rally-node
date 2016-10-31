@@ -15,7 +15,11 @@ router.param('id', function (req, res, next, id) {
 
 
 router.get('/all', function (req, res) {
-    defect.getAll().then(function (data) {
+    var storyId = null;
+    if (req.query && req.query.storyId) {
+        storyId = req.query.storyId;
+    }
+    defect.getAll(storyId).then(function (data) {
         var result = [];
         if (data && data.length > 0) {
             data.forEach(function (item) {
