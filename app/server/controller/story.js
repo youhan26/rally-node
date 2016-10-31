@@ -15,7 +15,8 @@ router.param('id', function (req, res, next, id) {
 
 
 router.get('/all', function (req, res) {
-    story.getList()
+    var params = req.query;
+    story.getList(params)
         .then(function (data) {
             res.send({
                 success: true,

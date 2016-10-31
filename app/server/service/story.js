@@ -72,8 +72,8 @@ function get(id) {
 }
 
 
-function getList() {
-    return dao.getList()
+function getList(obj) {
+    return dao.getList(convertor.convertSearch(obj))
         .then(function (res) {
             var results = [];
             if (res && res.length > 0) {

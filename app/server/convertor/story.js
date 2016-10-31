@@ -5,8 +5,19 @@
 module.exports = {
     convert2Bo: convert2Bo,
     convert2Vo: convert2Vo,
-    convert2VoList: convert2VoList
+    convert2VoList: convert2VoList,
+    convertSearch: convertSearch
 };
+
+function convertSearch(obj) {
+    return {
+        title: obj.title,
+        status: obj.status,
+        owner_id: obj.ownerId,
+        project_id: obj.projectId,
+        release_id: obj.releaseId
+    }
+}
 
 
 function convert2VoList(data) {

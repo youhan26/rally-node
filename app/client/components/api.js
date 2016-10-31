@@ -168,9 +168,9 @@ var Api = {
     Task: {
         getList: (storyId)=> {
             return api.get({
-                url : '/task/all',
-                params : {
-                    storyId : storyId
+                url: '/task/all',
+                params: {
+                    storyId: storyId
                 }
             });
         },
@@ -219,9 +219,9 @@ var Api = {
     Defect: {
         getList: (storyId)=> {
             return api.get({
-                url : '/defect/all',
-                params : {
-                    storyId : storyId
+                url: '/defect/all',
+                params: {
+                    storyId: storyId
                 }
             });
         },
@@ -295,16 +295,16 @@ var Api = {
         }
     },
     Story: {
+        getList: (obj) => {
+            return api.get({
+                url: '/story/all',
+                params: obj
+            });
+        },
         get: (id)=> {
-            if (id) {
-                return api.get({
-                    url: '/story/' + id
-                });
-            } else {
-                return api.get({
-                    url: '/story/all'
-                });
-            }
+            return api.get({
+                url: '/story/' + id
+            });
         },
         save: (data) => {
             if (data.id) {

@@ -17,8 +17,30 @@ module.exports = {
     getSelectList: getSelectList
 };
 
-function getList() {
-    //TODO
+function getList(obj) {
+    var sql = 'SELECT story.*, SUM(task.`todo`) AS todo, SUM(task.`est`) AS est ' +
+        'FROM tbl_story story LEFT JOIN tbl_task task ' +
+        'ON task.`story_id` = story.`id` ';
+    if (obj) {
+
+        var temp = [];
+        Object.keys(obj).forEach(function (item) {
+            if (obj[item]) {
+                if (item == 'title') {
+                    temp.push(' story.`' + item + '` like ' + mysql.escape('%' + obj[item] + '%') + ' ');
+                } else {
+                    temp.push(' story.`' + item + '` = ' + mysql.escape(obj[item]) + ' ');
+                }
+            }
+        });
+        if (temp.length >= 1) {
+            sql += ' where ';
+        }
+        sql += temp.join(' AND ');
+    }
+    sql += 'GROUP BY story.`id`;';
+    console.log(sql);
+    return builder.run(sql);
 }
 
 function getSelectList() {
