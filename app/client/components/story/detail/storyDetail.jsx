@@ -7,10 +7,10 @@
 
 import React, {PropTypes} from "react";
 import {Card, Row, Col, Form, message, Input, DatePicker, Tabs, InputNumber, Button} from "antd";
-import CommonSelect from "./../common/commonSelect";
-import RichText from "./../common/richText";
-import {StoryStatus, ReleaseSelect} from "./../common/constSelect";
-import Api from "./../api";
+import CommonSelect from "../../common/commonSelect";
+import RichText from "../../common/richText";
+import {StoryStatus, ReleaseSelect} from "../../common/constSelect";
+import Api from "../../api";
 
 const FormItem = Form.Item;
 

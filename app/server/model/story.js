@@ -14,8 +14,17 @@ module.exports = {
     get: get,
     update: update,
     getList: getList,
-    getSelectList: getSelectList
+    getSelectList: getSelectList,
+    remove: remove
 };
+
+function remove(id) {
+    return builder.delete('tbl_story')
+        .where({
+            id: id
+        })
+        .end();
+}
 
 function getList(obj) {
     var sql = 'SELECT story.*, SUM(task.`todo`) AS todo, SUM(task.`est`) AS est ' +

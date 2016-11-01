@@ -92,6 +92,20 @@ router.route('/:id?')
             .catch(function (error) {
                 common.sendError(res, error);
             });
+    })
+    .delete(function (req, res, next) {
+        var id = req.params.id;
+        story.remove(id)
+            .then(function () {
+                res.send({
+                    success: true
+                });
+            }, function (error) {
+                common.sendError(res, error);
+            })
+            .catch(function (error) {
+                common.sendError(res, error);
+            });
     });
 
 module.exports = router;
