@@ -56,6 +56,15 @@ exports.del = function (id) {
         .end();
 };
 
+
+exports.delByStoryId = function (id) {
+    return builder.delete('tbl_task')
+        .where({
+            story_id: id
+        })
+        .end();
+};
+
 //get all function
 exports.getAll = function (storyId) {
     if (storyId) {

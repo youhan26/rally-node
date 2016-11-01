@@ -84,3 +84,7 @@ exports.getAll = function (storyId) {
         throw new Error('error happen when get tasks');
     });
 };
+
+exports.delByStoryId = function (id) {
+    return dao.delByStoryId(id);
+};

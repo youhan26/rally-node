@@ -80,6 +80,10 @@ exports.del = function (id) {
 };
 
 
+exports.delByStoryId  = function(id) {
+    return dao.delByStoryId(id);
+};
+
 exports.getAll = function (storyId) {
     return dao.getAll(storyId).catch(function (error) {
         logger.error(error);

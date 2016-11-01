@@ -5,33 +5,34 @@
 /* @flow */
 "use strict";
 
-require('./../../style/task.css');
+require('./../../../style/task.css');
 
 
 import React from "react";
 import {Input, InputNumber, Table, Button} from "antd";
-import CommonSelect from "../common/commonSelect";
-import {DefectStatus, DefectPriority} from "../common/constSelect";
-import Api from "../api";
-import BlankRow from "../mixins/grid-add-blur-change";
+import CommonSelect from "../../common/commonSelect";
+import {TaskStatus} from "../../common/constSelect";
+import Api from "../../api";
+import BlankRow from "../../mixins/grid-add-blur-change";
 
-const DefectList = React.createClass({
+const TaskList = React.createClass({
     mixins: [BlankRow],
     getInitialState(){
-        this.api = Api.Defect;
+        this.api = Api.Task;
         this.storyId = this.props.storyId;
         return {
             data: [],
             loading: false
         }
     },
+
     getEmptyData(){
         return {
             title: '',
-            reopen : false,
-            reopenReason : '',
+            ownerId: undefined,
+            est: 0,
+            todo: 0,
             status: '1',
-            priority: '1',
             storyId: this.props.storyId
         };
     },
@@ -39,16 +40,15 @@ const DefectList = React.createClass({
     changeData(item){
         item.key = item.id;
         item.status = '' + item.status;
-        item.priority = '' + item.priority;
     },
     render(){
         const columns = [{
-            title: 'Defect No.',
+            title: 'TASK No.',
             dataIndex: 'id',
             key: 'no',
             render: (value, record, index) => {
                 if (value) {
-                    return <a style={{textAlign : 'center'}} href={'/index#/defects/' + value}>Defect {index}</a>
+                    return <a style={{textAlign : 'center'}} href={'/index#/tasks/' + value}>TASK {index}</a>
                 }
             }
         }, {
@@ -64,41 +64,40 @@ const DefectList = React.createClass({
             title: 'Owner',
             dataIndex: 'ownerId',
             key: 'ownerId',
-            width: 100,
             render: (value, record, index) => {
                 return <CommonSelect value={value} url="/member/all" className="full-width"
                                      onBlur={this.blur.bind(this, index, 'ownerId')}
                                      onChange={this.change.bind(this, index, 'ownerId')}/>
             }
         }, {
-            title: 'Submitted',
-            dataIndex: 'submitId',
-            key: 'submitId',
-            width: 100,
+            title: 'Task Est',
+            dataIndex: 'est',
+            key: 'est',
+            width: 140,
             render: (value, record, index) => {
-                return <CommonSelect value={value} url="/member/all" className="full-width"
-                                     onBlur={this.blur.bind(this, index, 'submitId')}
-                                     onChange={this.change.bind(this, index, 'submitId')}/>
+                return <InputNumber value={value} className="full-width"
+                                    onBlur={this.blur.bind(this, index, 'est')}
+                                    onChange={this.change.bind(this, index, 'est')}/>
+            }
+        }, {
+            title: 'TODO Est',
+            dataIndex: 'todo',
+            key: 'todo',
+            width: 140,
+            render: (value, record, index) => {
+                return <InputNumber value={value} className="full-width"
+                                    onBlur={this.blur.bind(this, index, 'todo')}
+                                    onChange={this.change.bind(this, index, 'todo')}/>
             }
         }, {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-            width: 100,
+            width: 140,
             render: (value, record, index) => {
-                return <DefectStatus value={value} className="full-width"
+                return <TaskStatus value={value} className="full-width"
                                    onBlur={this.blur.bind(this, index, 'status')}
                                    onChange={this.change.bind(this, index, 'status')}/>
-            }
-        }, {
-            title: 'Priority',
-            dataIndex: 'priority',
-            key: 'priority',
-            width: 120,
-            render: (value, record, index) => {
-                return <DefectPriority value={value} className="full-width"
-                                       onBlur={this.blur.bind(this, index, 'priority')}
-                                       onChange={this.change.bind(this, index, 'priority')}/>
             }
         }, {
             title: 'Operation',
@@ -127,4 +126,4 @@ const DefectList = React.createClass({
 });
 
 
-export default DefectList;
+export default TaskList;

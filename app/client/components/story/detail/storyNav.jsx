@@ -5,14 +5,14 @@
 /* @flow */
 "use strict";
 
-require('./../../style/story.css');
+require('./../../../style/story.css');
 
 import {Motion, spring} from "react-motion";
 import React from "react";
 import {Tabs} from "antd";
 import StoryDetails from "./storyDetail";
 import TaskList from "./taskList";
-import TestCases from "../testCase/testCase";
+import TestCases from "../../testCase/testCase";
 import Defects from "./defectList";
 
 const TabPane = Tabs.TabPane;

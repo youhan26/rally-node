@@ -3,6 +3,8 @@
  */
 
 var dao = require('./../model/story');
+var taskDao = require('./task');
+var defectDao = require('./defect');
 var common = require('./../common/common');
 var convertor = require('./../convertor/story');
 
@@ -11,7 +13,15 @@ module.exports = {
     update: update,
     get: get,
     getList: getList,
+    remove : remove
 };
+
+function remove(id){
+    return Promise.all([dao.remove(id), taskDao.delByStoryId(id), defectDao.delByStoryId(id)])
+        .catch(function(error){
+            throw new error('error happen when remove story');
+        })
+}
 
 function save(data) {
     var saveData = convertor.convert2Bo(data);
