@@ -12,7 +12,7 @@ import {Router, hashHistory, Route, IndexRoute} from "react-router";
 import Share from "./share/share";
 import Management from "./manage/manage";
 import {HorizonHeader} from "./header";
-import Dashboard from "./dashboard";
+import Dashboard from "./dashboard/Dashboard";
 import Story from "./story/detail/storyNav";
 import Bug from "./bug/bug";
 import Report from "./report/report";

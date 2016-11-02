@@ -23,8 +23,8 @@ module.exports = {
         pathinfo: true
     },
     //enable sourceMap
-    devtool: 'source-map',
-    // devtool: 'eval',
+    // devtool: 'source-map',
+    devtool: 'eval',
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
@@ -51,16 +51,15 @@ module.exports = {
     /**
      * prod need change to false
      */
-    debug: true,
     plugins: [
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoErrorsPlugin(),
         /**
          * for the prod
          */
         // new webpack.optimize.UglifyJsPlugin(),
-        // new webpack.optimize.OccurenceOrderPlugin()
-        new webpack.NoErrorsPlugin(),
+
         // new webpack.DefinePlugin({
         //     'process.env': {
         //         'NODE_ENV': JSON.stringify('production')
@@ -96,5 +95,12 @@ module.exports = {
             cache: true,
             chunks: ['rally'],
             chunksSortMode: 'dependency'
-        })]
+        }),
+        new webpack.optimize.UglifyJsPlugin(),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        })
+    ]
 };

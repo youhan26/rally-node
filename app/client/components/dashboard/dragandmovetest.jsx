@@ -5,7 +5,7 @@
 "use strict";
 var React = require('react');
 
-var StoryList = React.createClass({
+var Tte = React.createClass({
     getInitialState: function () {
         return {
             list: [{
@@ -138,4 +138,4 @@ var StoryList = React.createClass({
     }
 });
 
-export default StoryList;
+export default Tte;
