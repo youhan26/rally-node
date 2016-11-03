@@ -96,9 +96,9 @@ ansi-styles@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-2.2.1.tgz#b432dd3358b634cf75e1e4664368240533c1ddbe"
 
-antd@^2.0.1:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-2.1.0.tgz#d933cec0190dd50abba6b83e0768da0062769af6"
+antd@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-2.2.1.tgz#7ef5e76dddf344d02c84cf1cfc4fb37177232364"
   dependencies:
     array-tree-filter "~1.0.0"
     babel-runtime "6.x"
@@ -110,7 +110,7 @@ antd@^2.0.1:
     object-assign "~4.1.0"
     omit.js "^0.1.0"
     rc-animate "~2.3.0"
-    rc-calendar "~7.2.0"
+    rc-calendar "~7.3.1"
     rc-cascader "~0.10.1"
     rc-checkbox "~1.4.0"
     rc-collapse "~1.6.4"
@@ -119,7 +119,7 @@ antd@^2.0.1:
     rc-editor-mention "~0.2.2"
     rc-form "~1.0.0"
     rc-input-number "~2.7.0"
-    rc-menu "~5.0.0"
+    rc-menu "~5.0.1"
     rc-notification "~1.3.4"
     rc-pagination "~1.5.3"
     rc-progress "~2.0.1"
@@ -136,9 +136,8 @@ antd@^2.0.1:
     rc-tooltip "~3.4.2"
     rc-tree "~1.3.6"
     rc-tree-select "~1.8.0"
-    rc-upload "~2.1.0"
-    rc-util "^4.0.0"
-    react-addons-pure-render-mixin "^15.0.0"
+    rc-upload "~2.2.0"
+    rc-util "^4.0.1"
     react-slick "~0.14.2"
     shallowequal "^0.2.2"
     warning "~3.0.0"
@@ -4261,9 +4260,9 @@ rc-animate@^2.0.2, rc-animate@^2.3.0, rc-animate@~2.3.0, rc-animate@2.x:
   dependencies:
     css-animation "^1.3.0"
 
-rc-calendar@~7.2.0:
-  version "7.2.1"
-  resolved "https://registry.yarnpkg.com/rc-calendar/-/rc-calendar-7.2.1.tgz#a3df01eb68b7aa48d6c1ca779d454c2c68d4af53"
+rc-calendar@~7.3.1:
+  version "7.3.1"
+  resolved "https://registry.yarnpkg.com/rc-calendar/-/rc-calendar-7.3.1.tgz#f0a0b8f9533a6087fb75261cdc63856b0759a7a0"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
@@ -4356,7 +4355,17 @@ rc-input-number@~2.7.0:
     babel-runtime "6.x"
     classnames "^2.2.0"
 
-rc-menu@~5.0.0, "rc-menu@5.x || 4.x":
+rc-menu@~5.0.1:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/rc-menu/-/rc-menu-5.0.3.tgz#bfea796d0300ff06c391884be4ff30da87bfccd8"
+  dependencies:
+    babel-runtime "6.x"
+    classnames "2.x"
+    dom-scroll-into-view "1.x"
+    rc-animate "2.x"
+    rc-util "3.x"
+
+"rc-menu@5.x || 4.x":
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/rc-menu/-/rc-menu-5.0.1.tgz#734039733f1701cfd07965c99619889caf4a2d6e"
   dependencies:
@@ -4493,17 +4502,9 @@ rc-trigger@^1.7.1, rc-trigger@1.x:
     rc-animate "2.x"
     rc-util "^3.3.x"
 
-rc-upload@^2.0.4:
+rc-upload@^2.0.4, rc-upload@~2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/rc-upload/-/rc-upload-2.2.0.tgz#f22dd791acdc9a429bbec1223c9b4ea61c3ae6d6"
-  dependencies:
-    babel-runtime "6.x"
-    classnames "^2.2.5"
-    warning "2.x"
-
-rc-upload@~2.1.0:
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/rc-upload/-/rc-upload-2.1.1.tgz#81177639231b357259127896a4033ed3c87d039b"
   dependencies:
     babel-runtime "6.x"
     classnames "^2.2.5"
@@ -4517,11 +4518,12 @@ rc-util@^3.1.2, rc-util@^3.2.1, rc-util@^3.3.x, rc-util@^3.4.1, rc-util@3.x:
     classnames "2.x"
     shallowequal "0.2.x"
 
-rc-util@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-4.0.0.tgz#89364f3db99f8cc52e68251ea97561f009b1fd25"
+rc-util@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/rc-util/-/rc-util-4.0.1.tgz#9605c86a9768a9640268d4094e32b5b4ceeee228"
   dependencies:
     add-dom-event-listener "1.x"
+    shallowequal "^0.2.2"
 
 rc@~1.1.0:
   version "1.1.6"
@@ -4532,7 +4534,7 @@ rc@~1.1.0:
     minimist "^1.2.0"
     strip-json-comments "~1.0.4"
 
-react-addons-pure-render-mixin@^15.0.0, react-addons-pure-render-mixin@15.x:
+react-addons-pure-render-mixin@15.x:
   version "15.3.2"
   resolved "https://registry.yarnpkg.com/react-addons-pure-render-mixin/-/react-addons-pure-render-mixin-15.3.2.tgz#c5f54764667ead26e6cdf7178b6c8dbbd8463ec2"
 

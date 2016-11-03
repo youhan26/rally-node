@@ -14,7 +14,7 @@
   "author": "YouHan",
   "license": "ISC",
   "dependencies": {
-    "antd": "^2.0.1",
+    "antd": "^2.2.1",
     "lodash": "^4.15.0",
     "mimikiyru-utils": "0.0.17",
     "moment": "^2.15.2",

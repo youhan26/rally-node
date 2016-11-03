@@ -357,6 +357,9 @@ export default class DashboardList extends Component {
             .then(res => {
                 if (res && res.success) {
                     me.state.taskData = me.filter(res.data);
+                    me.state.taskData.forEach(item=> {
+                        item.status = '' + item.status;
+                    });
                     me.state.loadTask = false;
                     me.setState(me.state);
                 }
@@ -365,6 +368,10 @@ export default class DashboardList extends Component {
             .then(res => {
                 if (res && res.success) {
                     me.state.defectData = me.filter(res.data);
+                    me.state.defectData.forEach(item=> {
+                        item.status = '' + item.status;
+                        item.priority = '' + item.priority;
+                    });
                     me.state.loadDefect = false;
                     me.setState(me.state);
                 }
