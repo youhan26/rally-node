@@ -55,38 +55,10 @@ module.exports = {
         new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoErrorsPlugin(),
-        /**
-         * for the prod
-         */
-        // new webpack.optimize.UglifyJsPlugin(),
-
-        // new webpack.DefinePlugin({
-        //     'process.env': {
-        //         'NODE_ENV': JSON.stringify('production')
-        //     }
-        // }),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //         warnings: false,
-        //     },
-        //     mangle: {
-        //         except: ['_', '$', 'exports', 'require', 'module']
-        //     }
-        // }),
-        //Typically you'd have plenty of other plugins here as well
         new webpack.DllReferencePlugin({
             context: path.resolve(__dirname, 'bundle'),
             manifest: require('./bundle/vendor-manifest.json'),
         }),
-        // new HtmlWebpackPlugin({
-        //     filename: path.resolve(__dirname, './views/timeLine.html'),
-        //     template: path.resolve(__dirname, './views/timeLine/timeLine.html'),
-        //     inject: 'body',
-        //     hash: true,
-        //     cache: true,
-        //     chunks: ['timeLine'],
-        //     chunksSortMode: 'dependency'
-        // }),
         new HtmlWebpackPlugin({
             filename: path.resolve(__dirname, './views/rally.html'),
             template: path.resolve(__dirname, './views/index.html'),
