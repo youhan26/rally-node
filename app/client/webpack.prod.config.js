@@ -10,11 +10,9 @@ module.exports = {
         rally: ['babel-polyfill', path.resolve(__dirname, 'config/rally.js')]
     },
     output: {
-        publicPath: "http://192.168.0.124:9001/bundle",
         path: path.join(__dirname, "/bundle"),
         filename: "[name].bundle.js",
         chunkFilename: "[id].bundle.js",
-        pathinfo: true
     },
     devtool: 'eval',
     resolve: {
@@ -40,21 +38,13 @@ module.exports = {
             },
         ]
     },
-    /**
-     * prod need change to false
-     */
     plugins: [
-        new webpack.optimize.OccurenceOrderPlugin(),
-        /**
-         * for the prod
-         */
-        new webpack.optimize.UglifyJsPlugin(),
-
-        new webpack.DefinePlugin({
-            'process.env': {
-                'NODE_ENV': JSON.stringify('production')
-            }
+        new webpack.DllReferencePlugin({
+            context: path.resolve(__dirname, 'bundle'),
+            manifest: require('./bundle/vendor-manifest.json'),
         }),
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: false
@@ -62,10 +52,6 @@ module.exports = {
             mangle: {
                 except: ['_', '$', 'exports', 'require', 'module']
             }
-        }),
-        new webpack.DllReferencePlugin({
-            context: path.resolve(__dirname, 'bundle'),
-            manifest: require('./bundle/vendor-manifest.json'),
         }),
         new HtmlWebpackPlugin({
             filename: path.resolve(__dirname, './views/rally.html'),
