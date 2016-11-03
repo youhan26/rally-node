@@ -1,78 +1,46 @@
-.dash-content {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: row;
-    /*flex-wrap: wrap;*/
-    margin: 10px;
-}
+/*.form {*/
+/*width: 100%;*/
+/*height: 100%;*/
+/*overflow-x: auto;*/
+/*overflow-y: hidden;*/
+/*}*/
 
-.dash-section {
+/*.section {*/
+/*width: 20%;*/
+/*height: 100%;*/
+/*background-color: gray;*/
+/*margin: 0 10px;*/
+/*display: inline-block;*/
+/*overflow-y: auto;*/
+/*}*/
+
+/*.section-item {*/
+/*margin: 10px;*/
+/*width: auto;*/
+/*height: 100px;*/
+/*background-color: black;*/
+/*font-size: 2rem;*/
+/*text-align: center;*/
+/*line-height: 100px;*/
+/*}*/
+
+/*.section.over {*/
+/*border: 2px dashed #000;*/
+/*}*/
+
+/*dashboard search*/
+
+.d {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
     background-color: #eee;
-    max-width: 288px;
-    margin: 0px 5px 0px 5px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
 }
 
-.section {
-    background-color: white;
-    margin-top: 10px;
+.ds {
+    padding: 12px;
 }
 
-.dash-task:hover {
-    margin-left: -10px;
-    border-left: #0647ff 3px solid;
-    padding-left: 7px;
-}
-
-.dash-task-item {
-    margin: 5px;
-    padding-left: 5px;
-}
-
-/*init task*/
-.dash-task-1 {
-    background-color: #eeeeee;
-}
-
-/*finish task*/
-.dash-task-2 {
-    background-color: rgba(14, 255, 201, 0.22);
-}
-
-/*some trouble task*/
-.dash-task-3 {
-    background-color: #ff565b;
-}
-
-.dash-bug {
-
-}
-
-.dash-bug:hover {
-    margin-left: -10px;
-    border-left: #0647ff 3px solid;
-    padding-left: 7px;
-}
-
-.dash-bug-item {
-    margin: 5px;
-    padding-left: 5px;
-}
-
-/*init task*/
-.dash-bug-1 {
-    background-color: #eeeeee;
-}
-
-/*finish task*/
-.dash-bug-2 {
-    background-color: rgba(14, 255, 201, 0.22);
-}
-
-/*some trouble task*/
-.dash-bug-3 {
-    background-color: #ff565b;
+.full-width {
+    width: 100%;
 }

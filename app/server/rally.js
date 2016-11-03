@@ -15,7 +15,8 @@ var story = require('./controller/story');
 
 var tools = require('./controller/tools');
 
-var mock = require('./utils/mock');
+var dashboard = require('./controller/dashboard');
+
 
 router.get('/home', function (req, res) {
     res.sendFile(path.resolve(__dirname + './../client/views/home.html'));
@@ -29,10 +30,7 @@ router.get('/index', function (req, res) {
     res.sendFile(path.resolve(__dirname + './../client/views/rally.html'));
 });
 
-router.get('/dashboard/dataList', function (req, res) {
-    res.send(mock.getDataList());
-});
-
+router.get('/dashboard', dashboard);
 router.use('/tools', tools);
 router.use('/project', project);
 router.use('/team', team);

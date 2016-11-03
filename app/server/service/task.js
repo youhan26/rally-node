@@ -4,8 +4,17 @@
 var logger = require('./../utils/logger');
 var dao = require('./../model/task');
 
+module.exports = {
+    add: add,
+    get: get,
+    update: update,
+    del: del,
+    getAll: getAll,
+    delByStoryId: delByStoryId
+};
 
-exports.add = function (data) {
+
+function add(data) {
     if (!data.story_id) {
         return new Promise(function (resolve, reject) {
             reject('no story id');
@@ -17,9 +26,9 @@ exports.add = function (data) {
                 throw new Error('error happen when save task');
             });
     }
-};
+}
 
-exports.get = function (id) {
+function get(id) {
     if (!id) {
         return new Promise(function (resolve, reject) {
             reject('no task id');
@@ -31,9 +40,9 @@ exports.get = function (id) {
         });
     }
 
-};
+}
 
-exports.update = function (data) {
+function update(data) {
     if (!data.id) {
         return new Promise(function (resolve, reject) {
             reject('no task id');
@@ -61,9 +70,9 @@ exports.update = function (data) {
                 throw new Error('error happen when update task');
             });
     }
-};
+}
 
-exports.del = function (id) {
+function del(id) {
     if (!id) {
         return new Promise(function (resolve, reject) {
             reject('no task id');
@@ -75,16 +84,16 @@ exports.del = function (id) {
                 throw new Error('error happen when del task');
             });
     }
-};
+}
 
 
-exports.getAll = function (storyId) {
+function getAll(storyId) {
     return dao.getAll(storyId).catch(function (error) {
         logger.error(error);
         throw new Error('error happen when get tasks');
     });
-};
+}
 
-exports.delByStoryId = function (id) {
+function delByStoryId(id) {
     return dao.delByStoryId(id);
-};
+}
