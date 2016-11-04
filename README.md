@@ -29,12 +29,12 @@ npm run flow
 
 
 ### font-end
-* [ ] minify bundle file
+* [X] minify bundle file
 * [ ] eslint check
-* [ ] environment split
+* [X] environment split
 * [ ] remove flow any type
 * [ ] defect detail page
-* [ ] dashboard page
+* [X] dashboard page
 * [ ] user page
 * [ ] config page
 
