@@ -44,3 +44,46 @@
 .full-width {
     width: 100%;
 }
+
+.events {
+    line-height: 24px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.events li {
+    color: #999;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.events li span {
+    vertical-align: middle;
+}
+
+.events li span:first-child {
+    font-size: 9px;
+    margin-right: 4px;
+}
+
+.event-1 {
+    color: #fac450;
+}
+
+.event-2 {
+    color: #2db7f5;
+}
+
+.event-3 {
+    color: #f50;
+}
+
+.event-6 {
+    color: #0647ff;
+}
+
+.event-5 {
+    color: #544a68;
+}

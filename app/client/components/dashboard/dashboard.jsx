@@ -78,6 +78,7 @@ export default class Dashboard extends Component {
         me.loadData();
     }
 
+
     loadData() {
         const me = this;
         api
@@ -94,9 +95,12 @@ export default class Dashboard extends Component {
     clearSearch() {
         this.state.condition = {
             projectId: null,
-            ownerId: null
+            ownerId: null,
+            releaseId: null
         };
         this.setState(this.state);
+        //TODO this will load twice
+        this.loadData();
     }
 
     render() {
@@ -123,7 +127,9 @@ export default class Dashboard extends Component {
                 loading={this.state.loading}
             /> : null}
             {this.showMode('2') ? <DashboardCalendar
-
+                ownerId={this.state.condition.ownerId}
+                data={this.state.data}
+                loading={this.state.loading}
             /> : null}
             {this.showMode('3') ? <DashboardFlow/> : null}
         </div>
