@@ -7,7 +7,6 @@ import React, {Component, PropTypes} from "react";
 import {Card, Form, message, Input, DatePicker, Table, InputNumber} from "antd";
 import {StoryStatus, ReleaseSelect, TaskStatus, DefectStatus, DefectPriority} from "./../common/constSelect";
 import CommonSelect from "./../common/commonSelect";
-import {api} from "mimikiyru-utils";
 
 
 class DLStoryList extends Component {
@@ -218,7 +217,7 @@ class DLDefectList extends Component {
             width: 100,
             render: (value, record, index) => {
                 if (value) {
-                    return <a className='full-width' href={'/index#/defect/' + value}>Defect {index+1}</a>
+                    return <a className='full-width' href={'/index#/defect/' + value}>Defect {index + 1}</a>
                 }
             }
         }, {
@@ -293,16 +292,13 @@ export default class DashboardList extends Component {
         this.state = {
             storyData: [],
             taskData: [],
-            defectData: [],
-            loading: false
+            defectData: []
         };
 
-        this.loadData = this.loadData.bind(this);
         this.filter = this.filter.bind(this);
-    }
-
-    componentWillMount() {
-        this.loadData(this.props);
+        this._getDefectData = this._getDefectData.bind(this);
+        this._getStoryData = this._getStoryData.bind(this);
+        this._getTaskData = this._getTaskData.bind(this);
     }
 
     filter(data) {
@@ -322,46 +318,12 @@ export default class DashboardList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if ((this.props.projectId != nextProps.projectId) || (this.props.ownerId != nextProps.ownerId)) {
-            this.loadData(nextProps);
+        if (nextProps.data) {
+            this.state.storyData = this._getStoryData(nextProps.data);
+            this.state.taskData = this._getTaskData(nextProps.data);
+            this.state.defectData = this._getDefectData(nextProps.data);
+            this.setState(this.state);
         }
-    }
-
-    _getCondition(props) {
-        const result = {};
-        if (props.projectId) {
-            result.projectId = props.projectId;
-        }
-        /**
-         * compare owner id manual
-         */
-        // if (props.ownerId) {
-        //     result.ownerId = props.ownerId;
-        // }
-        if (props.releaseId) {
-            result.releaseId = props.releaseId;
-        }
-        return result;
-    }
-
-    loadData(props) {
-        const me = this;
-        const condition = me._getCondition(props);
-        me.state.loading = true;
-        me.setState(me.state);
-
-        api
-            .get({
-                url: '/dashboard/getList',
-                params: condition
-            })
-            .then((res) => {
-                me.state.storyData = me._getStoryData(res.data);
-                me.state.taskData = me._getTaskData(res.data);
-                me.state.defectData = me._getDefectData(res.data);
-                me.state.loading = false;
-                me.setState(me.state);
-            });
     }
 
     _getStoryData(data) {
@@ -409,22 +371,24 @@ export default class DashboardList extends Component {
         return <div style={{width : '100%'}}>
             <DLStoryList
                 data={this.state.storyData}
-                loading={this.state.loading}
+                loading={this.props.loading}
             />
             <DLTaskList
                 data={this.state.taskData}
-                loading={this.state.loading}
+                loading={this.props.loading}
             />
             <DLDefectList
                 data={this.state.defectData}
-                loading={this.state.loading}
+                loading={this.props.loading}
             />
         </div>
     }
 }
 
 DashboardList.propTypes = {
-    projectId: PropTypes.any,
-    ownerId: PropTypes.any
+    ownerId: PropTypes.any,
+    loading: PropTypes.bool
 };
-DashboardList.defaultProps = {};
+DashboardList.defaultProps = {
+    loading: false
+};

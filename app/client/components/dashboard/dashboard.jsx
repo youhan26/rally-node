@@ -5,6 +5,7 @@
 require('./../../style/dashboard.css');
 
 import React, {Component} from "react";
+import * as api from "mimikiyru-utils/src/api";
 import {Radio, Row, Col} from "antd";
 import DashboardSearch from "./dashboardSearch";
 import DashboardCalendar from "./dashboardCalendar";
@@ -22,14 +23,17 @@ export default class Dashboard extends Component {
             condition: {
                 projectId: null,
                 ownerId: null,
-                releaseId : null
-            }
+                releaseId: null
+            },
+            data: []
         };
 
         this.switchMode = this.switchMode.bind(this);
         this.showMode = this.showMode.bind(this);
         this.clearSearch = this.clearSearch.bind(this);
         this.conditionChange = this.conditionChange.bind(this);
+        this._getCondition = this._getCondition.bind(this);
+        this.loadData = this.loadData.bind(this);
     }
 
     //switch mode
@@ -42,13 +46,49 @@ export default class Dashboard extends Component {
         return this.state.mode === value;
     }
 
+    componentWillMount() {
+        this.loadData();
+    }
 
     /**
      * search
      */
+
+    _getCondition(props) {
+        const result = {};
+        if (props.projectId) {
+            result.projectId = props.projectId;
+        }
+        /**
+         * compare owner id manual
+         */
+        // if (props.ownerId) {
+        //     result.ownerId = props.ownerId;
+        // }
+        if (props.releaseId) {
+            result.releaseId = props.releaseId;
+        }
+        return result;
+    }
+
     conditionChange(field, e) {
-        this.state.condition[field] = (e.target ? e.target.value : e);
-        this.setState(this.state);
+        const me = this;
+        me.state.condition[field] = (e.target ? e.target.value : e);
+        me.setState(me.state);
+        me.loadData();
+    }
+
+    loadData() {
+        const me = this;
+        api
+            .get({
+                url: '/dashboard/getList',
+                params: me._getCondition(me.state.condition)
+            })
+            .then((res) => {
+                me.state.data = res.data;
+                me.setState(me.state);
+            });
     }
 
     clearSearch() {
@@ -78,11 +118,13 @@ export default class Dashboard extends Component {
                 </Col>
             </Row>
             {this.showMode('1') ? <DashboardList
-                projectId={this.state.condition.projectId}
                 ownerId={this.state.condition.ownerId}
-                releaseId={this.state.condition.releaseId}
+                data={this.state.data}
+                loading={this.state.loading}
             /> : null}
-            {this.showMode('2') ? <DashboardCalendar/> : null}
+            {this.showMode('2') ? <DashboardCalendar
+
+            /> : null}
             {this.showMode('3') ? <DashboardFlow/> : null}
         </div>
     }
