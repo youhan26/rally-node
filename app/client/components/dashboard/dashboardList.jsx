@@ -16,21 +16,11 @@ class DLStoryList extends Component {
 
     render() {
         const columns = [{
-            title: 'Story No.',
-            dataIndex: 'id',
-            key: 'id',
-            width: 100,
-            render: (value, record, index) => {
-                if (value) {
-                    return <a className='full-width' href={'/index#/story/' + value}>Story {index + 1}</a>
-                }
-            }
-        }, {
             title: 'Title',
             dataIndex: 'title',
             key: 'title',
             render: (value, record, index) => {
-                return <Input value={value} className='full-width' disabled={true}/>
+                return <a className='full-width' href={'/index#/story/' + value}>{value}</a>
             }
         }, {
             title: 'Status',
@@ -46,7 +36,7 @@ class DLStoryList extends Component {
             key: 'planEst',
             width: 70,
             render: (value, record, index) => {
-                return <InputNumber value={value} className='full-width' disabled={true}/>
+                return <span>{value || 0}</span>
             }
         }, {
             title: 'TODO',
@@ -54,7 +44,7 @@ class DLStoryList extends Component {
             key: 'todo',
             width: 70,
             render: (value, record, index) => {
-                return <InputNumber value={value} className='full-width' disabled={true}/>
+                return <span>{value || 0}</span>
             }
         }, {
             title: 'Task Est',
@@ -62,7 +52,7 @@ class DLStoryList extends Component {
             key: 'taskEst',
             width: 70,
             render: (value, record, index) => {
-                return <InputNumber value={value} className='full-width' disabled={true}/>
+                return <span>{value || 0}</span>
             }
         }, {
             title: 'Owner',
@@ -121,21 +111,11 @@ class DLTaskList extends Component {
 
     render() {
         const columns = [{
-            title: 'Task No.',
-            dataIndex: 'id',
-            key: 'id',
-            width: 100,
-            render: (value, record, index) => {
-                if (value) {
-                    return <a className='full-width' href={'/index#/task/' + value}>Task {index + 1}</a>
-                }
-            }
-        }, {
             title: 'Task',
             dataIndex: 'title',
             key: 'title',
             render: (value, record, index) => {
-                return <Input value={value} className='full-width' disabled={true}/>
+                return <a className='full-width' href={'/index#/task/' + value}>{value}</a>
             }
         }, {
             title: 'Status',
@@ -143,7 +123,7 @@ class DLTaskList extends Component {
             key: 'status',
             width: 100,
             render: (value, record, index) => {
-                return <TaskStatus value={value} className='full-width' disabled={true}/>
+                return <TaskStatus value={''+value} className='full-width' disabled={true}/>
             }
         }, {
             title: 'Task Est',
@@ -151,7 +131,7 @@ class DLTaskList extends Component {
             key: 'est',
             width: 70,
             render: (value, record, index) => {
-                return <InputNumber value={value} className='full-width' disabled={true}/>
+                return <div>{value || 0}</div>
             }
         }, {
             title: 'TODO',
@@ -159,7 +139,7 @@ class DLTaskList extends Component {
             key: 'todo',
             width: 70,
             render: (value, record, index) => {
-                return <InputNumber value={value} className='full-width' disabled={true}/>
+                return <div>{value || 0}</div>
             }
         }, {
             title: 'Story',
@@ -211,21 +191,11 @@ class DLDefectList extends Component {
 
     render() {
         const columns = [{
-            title: 'Defect No.',
-            dataIndex: 'id',
-            key: 'id',
-            width: 100,
-            render: (value, record, index) => {
-                if (value) {
-                    return <a className='full-width' href={'/index#/defect/' + value}>Defect {index + 1}</a>
-                }
-            }
-        }, {
             title: 'Task',
             dataIndex: 'title',
             key: 'title',
             render: (value, record, index) => {
-                return <Input value={value} className='full-width' disabled={true}/>
+                return <a className='full-width' href={'/index#/defect/' + value}>{value}</a>
             }
         }, {
             title: 'Status',
@@ -233,7 +203,7 @@ class DLDefectList extends Component {
             key: 'status',
             width: 100,
             render: (value, record, index) => {
-                return <DefectStatus value={value} className='full-width' disabled={true}/>
+                return <DefectStatus value={''+value} className='full-width' disabled={true}/>
             }
         }, {
             title: 'Priority',
@@ -241,7 +211,7 @@ class DLDefectList extends Component {
             key: 'priority',
             width: 70,
             render: (value, record, index) => {
-                return <DefectPriority value={value} className='full-width' disabled={true}/>
+                return <DefectPriority value={''+value} className='full-width' disabled={true}/>
             }
         }, {
             title: 'Story',

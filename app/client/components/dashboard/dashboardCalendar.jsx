@@ -22,17 +22,23 @@ export default class DashboardCalendar extends Component {
                 listData.push(item);
             }
         });
+        let className = '';
+        if (value.weekday() > 5 || value.weekday() <= 0) {
+            className = 'dc-red'
+        }
         return (
-            <ul className="events">
-                {
-                    listData.map((item, index) =>
-                        <li key={index}>
-                            <span className={`event-${item.status}`}>●</span>
-                            {item.title}
-                        </li>
-                    )
-                }
-            </ul>
+            <div style={{width : '100%', height : '100%'}} className={className}>
+                <ul className="events">
+                    {
+                        listData.map((item, index) =>
+                            <li key={index}>
+                                <span className={`event-${item.status}`}>●</span>
+                                {item.title}
+                            </li>
+                        )
+                    }
+                </ul>
+            </div>
         )
 
     }
