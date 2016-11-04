@@ -79,6 +79,7 @@ CREATE TABLE `tbl_story` (
   `task_est` FLOAT NULL,
   `start_date` DATE NULL,
   `end_date` DATE NULL,
+  `test_date` DATE NULL,
   `qa` BIGINT(20) NULL,
   `pm` BIGINT(20) NULL,
   `fe` BIGINT(20) NULL,
