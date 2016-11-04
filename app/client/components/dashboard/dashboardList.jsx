@@ -7,7 +7,7 @@ import React, {Component, PropTypes} from "react";
 import {Card, Form, message, Input, DatePicker, Table, InputNumber} from "antd";
 import {StoryStatus, ReleaseSelect, TaskStatus, DefectStatus, DefectPriority} from "./../common/constSelect";
 import CommonSelect from "./../common/commonSelect";
-import Api from "./../api";
+import {api} from "mimikiyru-utils";
 
 
 class DLStoryList extends Component {
@@ -128,7 +128,7 @@ class DLTaskList extends Component {
             width: 100,
             render: (value, record, index) => {
                 if (value) {
-                    return <a className='full-width' href={'/index#/task/' + value}>Story {index + 1}</a>
+                    return <a className='full-width' href={'/index#/task/' + value}>Task {index + 1}</a>
                 }
             }
         }, {
@@ -218,7 +218,7 @@ class DLDefectList extends Component {
             width: 100,
             render: (value, record, index) => {
                 if (value) {
-                    return <a className='full-width' href={'/index#/defect/' + value}>Story {index}</a>
+                    return <a className='full-width' href={'/index#/defect/' + value}>Defect {index}</a>
                 }
             }
         }, {
@@ -294,9 +294,7 @@ export default class DashboardList extends Component {
             storyData: [],
             taskData: [],
             defectData: [],
-            loadStory: false,
-            loadTask: false,
-            loadDefect: false,
+            loading: false
         };
 
         this.loadData = this.loadData.bind(this);
@@ -334,8 +332,14 @@ export default class DashboardList extends Component {
         if (props.projectId) {
             result.projectId = props.projectId;
         }
-        if (props.ownerId) {
-            result.ownerId = props.ownerId;
+        /**
+         * compare owner id manual
+         */
+        // if (props.ownerId) {
+        //     result.ownerId = props.ownerId;
+        // }
+        if (props.releaseId) {
+            result.releaseId = props.releaseId;
         }
         return result;
     }
@@ -343,54 +347,77 @@ export default class DashboardList extends Component {
     loadData(props) {
         const me = this;
         const condition = me._getCondition(props);
-        me.state.loadStory = me.state.loadTask = me.state.loadDefect = true;
+        me.state.loading = true;
         me.setState(me.state);
-        Api.Story.getList(condition)
+
+        api
+            .get({
+                url: '/dashboard/getList',
+                params: condition
+            })
             .then((res) => {
-                if (res && res.success) {
-                    me.state.storyData = res.data;
-                    me.state.loadStory = false;
-                    me.setState(me.state);
-                }
+                me.state.storyData = me._getStoryData(res.data);
+                me.state.taskData = me._getTaskData(res.data);
+                me.state.defectData = me._getDefectData(res.data);
+                me.state.loading = false;
+                me.setState(me.state);
             });
-        Api.Task.get()
-            .then(res => {
-                if (res && res.success) {
-                    me.state.taskData = me.filter(res.data);
-                    me.state.taskData.forEach(item=> {
-                        item.status = '' + item.status;
-                    });
-                    me.state.loadTask = false;
-                    me.setState(me.state);
-                }
-            });
-        Api.Defect.get()
-            .then(res => {
-                if (res && res.success) {
-                    me.state.defectData = me.filter(res.data);
-                    me.state.defectData.forEach(item=> {
-                        item.status = '' + item.status;
-                        item.priority = '' + item.priority;
-                    });
-                    me.state.loadDefect = false;
-                    me.setState(me.state);
-                }
-            });
+    }
+
+    _getStoryData(data) {
+        const result = [];
+        if (!this.props.ownerId) {
+            return data;
+        }
+        data.forEach((item) => {
+            if (item.ownerId == this.props.ownerId) {
+                result.push(item);
+            }
+        });
+        return result;
+    }
+
+    _getTaskData(data) {
+        const result = [];
+        data.forEach((item) => {
+            if (item && item.taskList) {
+                item.taskList.forEach((task) => {
+                    if (!this.props.ownerId || (task.ownerId == this.props.ownerId)) {
+                        result.push(task);
+                    }
+                });
+            }
+        });
+        return result;
+    }
+
+    _getDefectData(data) {
+        const result = [];
+        data.forEach((item) => {
+            if (item && item.defectList) {
+                item.defectList.forEach((defect) => {
+                    if (!this.props.ownerId || (defect.ownerId == this.props.ownerId)) {
+                        result.push(defect);
+                    }
+                });
+            }
+        });
+        return result;
     }
 
     render() {
         return <div style={{width : '100%'}}>
             <DLStoryList
                 data={this.state.storyData}
-                loading={this.state.loadStory}
+                loading={this.state.loading}
             />
             <DLTaskList
                 data={this.state.taskData}
-                loading={this.state.loadTask}
+                loading={this.state.loading}
             />
             <DLDefectList
                 data={this.state.defectData}
-                loading={this.state.loadDefect}
+                loading={this.state.loading}
             />
         </div>
     }

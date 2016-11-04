@@ -21,7 +21,8 @@ export default class Dashboard extends Component {
             mode: '1',
             condition: {
                 projectId: null,
-                ownerId: null
+                ownerId: null,
+                releaseId : null
             }
         };
 
@@ -64,6 +65,7 @@ export default class Dashboard extends Component {
                 condition={this.state.condition}
                 projectIdChange={this.conditionChange.bind(this, 'projectId')}
                 ownerIdChange={this.conditionChange.bind(this, 'ownerId')}
+                releaseChange={this.conditionChange.bind(this, 'releaseId')}
                 click={this.clearSearch}
             />
             <Row>
@@ -78,6 +80,7 @@ export default class Dashboard extends Component {
             {this.showMode('1') ? <DashboardList
                 projectId={this.state.condition.projectId}
                 ownerId={this.state.condition.ownerId}
+                releaseId={this.state.condition.releaseId}
             /> : null}
             {this.showMode('2') ? <DashboardCalendar/> : null}
             {this.showMode('3') ? <DashboardFlow/> : null}

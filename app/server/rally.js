@@ -30,7 +30,7 @@ router.get('/index', function (req, res) {
     res.sendFile(path.resolve(__dirname + './../client/views/rally.html'));
 });
 
-router.get('/dashboard', dashboard);
+router.use('/dashboard', dashboard);
 router.use('/tools', tools);
 router.use('/project', project);
 router.use('/team', team);

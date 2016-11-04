@@ -31,7 +31,6 @@ function getList(obj) {
         'FROM tbl_story story LEFT JOIN tbl_task task ' +
         'ON task.`story_id` = story.`id` ';
     if (obj) {
-
         var temp = [];
         Object.keys(obj).forEach(function (item) {
             if (obj[item]) {

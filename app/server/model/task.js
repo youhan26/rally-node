@@ -31,6 +31,15 @@ exports.get = function (id) {
         .end();
 };
 
+exports.getByStoryId = function (id) {
+    return builder.select('tbl_task')
+        .where({
+            story_id: id
+        })
+        .orderBy(['id desc', 'create_time'])
+        .end();
+};
+
 exports.update = function (data) {
     return builder.update('tbl_task', {
         'title': data.title,
