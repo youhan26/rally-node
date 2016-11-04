@@ -2,7 +2,23 @@
  * Created by YouHan on 2016/10/23.
  */
 
-exports.changeToBO = function (vo) {
+
+module.exports = {
+    convert2VoList: convert2VoList,
+    changeToBO: changeToBO,
+    changeToVO: changeToVO
+};
+
+function convert2VoList(bos) {
+    var list = [];
+    bos.forEach(function (item) {
+        list.push(changeToVO(item));
+    });
+    return list;
+}
+
+
+function changeToBO(vo) {
     var bo = {};
     bo.id = vo.id;
     bo.title = vo.title;
@@ -18,9 +34,9 @@ exports.changeToBO = function (vo) {
     bo.create_time = vo.createTime;
     bo.update_time = vo.updateTime;
     return bo;
-};
+}
 
-exports.changeToVO = function (bo) {
+function changeToVO(bo) {
     var vo = {};
     vo.id = bo.id;
     vo.title = bo.title;
@@ -36,4 +52,4 @@ exports.changeToVO = function (bo) {
     vo.createTime = bo.create_time;
     vo.updateTime = bo.update_time;
     return vo;
-};
+}

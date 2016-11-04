@@ -4,9 +4,7 @@
 
 var common = require('./../common/common');
 var convertor = require('./../convertor/dashboard');
-var storyDao = require('./../service/story');
-var taskDao = require('./../service/task');
-var defectDao = require('./../service/defect');
+var dao = require('./../model/dashboard');
 
 
 module.exports = {
@@ -15,8 +13,11 @@ module.exports = {
 
 function getList(obj) {
     var condition = convertor.convert2Bo(obj);
-    return Promise.all()
+    return dao.getList(condition)
+        .then(function(data){
+            return convertor.convert2VoList(data);
+        })
         .catch(function (error) {
-            throw new error('error happen when get dashboard list');
+            throw new error('error happen when get dashboard data');
         });
 }

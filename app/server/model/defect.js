@@ -34,6 +34,15 @@ exports.get = function (id) {
         .end();
 };
 
+exports.getByStoryId = function (id) {
+    return builder.select('tbl_defect')
+        .where({
+            story_id: id
+        })
+        .orderBy(['id desc', 'create_time'])
+        .end();
+};
+
 exports.update = function (data) {
     return builder.update('tbl_defect', {
         'title': data.title,

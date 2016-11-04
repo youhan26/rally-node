@@ -31,7 +31,6 @@ function getList(obj) {
         'FROM tbl_story story LEFT JOIN tbl_task task ' +
         'ON task.`story_id` = story.`id` ';
     if (obj) {
-
         var temp = [];
         Object.keys(obj).forEach(function (item) {
             if (obj[item]) {
@@ -58,7 +57,7 @@ function getSelectList() {
 }
 
 function get(id) {
-    var sql = 'SELECT s.`id`, s.`title`, s.`desc`, s.`notes`, s.`files`, s.`status`, s.`plan_est`, ' +
+    var sql = 'SELECT s.`test_date`, s.`id`, s.`title`, s.`desc`, s.`notes`, s.`files`, s.`status`, s.`plan_est`, ' +
         'SUM(t.`todo`) AS todo, SUM(t.`est`) AS task_est, ' +
         's.`start_date`, s.`end_date`, s.`qa`, s.`pm`, s.`fe`, ' +
         's.`rd`, s.`owner_id`, s.`release_id`, s.`project_id`, s.`pid` ' +
@@ -76,6 +75,7 @@ function update(data) {
         plan_est: data.plan_est,
         start_date: data.start_date,
         end_date: data.end_date,
+        test_date : data.test_date,
         qa: data.qa,
         pm: data.pm,
         fe: data.fe,
@@ -100,6 +100,7 @@ function add(data) {
         plan_est: data.plan_est,
         start_date: data.start_date,
         end_date: data.end_date,
+        test_date : data.test_date,
         qa: data.qa,
         pm: data.pm,
         fe: data.fe,

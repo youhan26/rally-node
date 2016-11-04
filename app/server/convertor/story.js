@@ -46,7 +46,8 @@ function convert2Bo(vo) {
         owner_id: vo.ownerId,
         release_id: vo.releaseId,
         project_id: vo.projectId,
-        pi: vo.pid
+        pi: vo.pid,
+        test_date: vo.testDate
     }
 }
 
@@ -62,6 +63,7 @@ function convert2Vo(bo) {
         todo: bo.todo,
         startDate: bo.start_date,
         endDate: bo.end_date,
+        testDate: bo.test_date,
         qa: bo.qa,
         pm: bo.pm,
         fe: bo.fe,

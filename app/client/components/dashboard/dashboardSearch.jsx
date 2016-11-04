@@ -6,6 +6,7 @@
 import React, {Component, PropTypes} from "react";
 import {Card, Form, Row, Col, Button} from "antd";
 import CommonSelect from "./../common/commonSelect";
+import {ReleaseSelect} from "./../common/constSelect";
 const FormItem = Form.Item;
 
 export default class DashboardSearch extends Component {
@@ -14,11 +15,21 @@ export default class DashboardSearch extends Component {
     }
 
     render() {
-        const {projectIdChange, ownerIdChange}  = this.props;
+        const {projectIdChange, ownerIdChange, releaseChange}  = this.props;
         return <div className="ds">
             <Card>
                 <Form>
                     <Row>
+                        <Col span="6">
+                            <FormItem
+                                label="Owner"
+                                labelCol={{ span: 10 }}
+                                wrapperCol={{ span: 14 }}
+                            >
+                                <CommonSelect value={this.props.condition.ownerId} url="/member/all"
+                                              onChange={ownerIdChange}/>
+                            </FormItem>
+                        </Col>
                         <Col span="6">
                             <FormItem
                                 label="Project"
@@ -31,15 +42,16 @@ export default class DashboardSearch extends Component {
                         </Col>
                         <Col span="6">
                             <FormItem
-                                label="Owner"
+                                label="Release"
                                 labelCol={{ span: 10 }}
                                 wrapperCol={{ span: 14 }}
                             >
-                                <CommonSelect value={this.props.condition.ownerId} url="/member/all"
-                                              onChange={ownerIdChange}/>
+                                <ReleaseSelect value={this.props.condition.releaseId}
+                                               projectId={this.props.condition.projectId}
+                                               onChange={releaseChange}/>
                             </FormItem>
                         </Col>
-                        <Col span="6" offset="6" style={{textAlign : 'right', paddingRight : '20px'}}>
+                        <Col span="6" style={{textAlign : 'right', paddingRight : '20px'}}>
                             <Button type="primary" onClick={this.props.click}>Clear</Button>
                         </Col>
                     </Row>
@@ -53,6 +65,7 @@ DashboardSearch.propTypes = {
     condition: PropTypes.object,
     projectIdChange: PropTypes.func,
     ownerIdChange: PropTypes.func,
+    releaseChange: PropTypes.func,
     click: PropTypes.func
 };
 DashboardSearch.defaultProps = {

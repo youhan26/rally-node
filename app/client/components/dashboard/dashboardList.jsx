@@ -7,7 +7,6 @@ import React, {Component, PropTypes} from "react";
 import {Card, Form, message, Input, DatePicker, Table, InputNumber} from "antd";
 import {StoryStatus, ReleaseSelect, TaskStatus, DefectStatus, DefectPriority} from "./../common/constSelect";
 import CommonSelect from "./../common/commonSelect";
-import Api from "./../api";
 
 
 class DLStoryList extends Component {
@@ -128,7 +127,7 @@ class DLTaskList extends Component {
             width: 100,
             render: (value, record, index) => {
                 if (value) {
-                    return <a className='full-width' href={'/index#/task/' + value}>Story {index + 1}</a>
+                    return <a className='full-width' href={'/index#/task/' + value}>Task {index + 1}</a>
                 }
             }
         }, {
@@ -218,7 +217,7 @@ class DLDefectList extends Component {
             width: 100,
             render: (value, record, index) => {
                 if (value) {
-                    return <a className='full-width' href={'/index#/defect/' + value}>Story {index}</a>
+                    return <a className='full-width' href={'/index#/defect/' + value}>Defect {index + 1}</a>
                 }
             }
         }, {
@@ -293,18 +292,13 @@ export default class DashboardList extends Component {
         this.state = {
             storyData: [],
             taskData: [],
-            defectData: [],
-            loadStory: false,
-            loadTask: false,
-            loadDefect: false,
+            defectData: []
         };
 
-        this.loadData = this.loadData.bind(this);
         this.filter = this.filter.bind(this);
-    }
-
-    componentWillMount() {
-        this.loadData(this.props);
+        this._getDefectData = this._getDefectData.bind(this);
+        this._getStoryData = this._getStoryData.bind(this);
+        this._getTaskData = this._getTaskData.bind(this);
     }
 
     filter(data) {
@@ -324,80 +318,77 @@ export default class DashboardList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if ((this.props.projectId != nextProps.projectId) || (this.props.ownerId != nextProps.ownerId)) {
-            this.loadData(nextProps);
+        if (nextProps.data) {
+            this.state.storyData = this._getStoryData(nextProps.data);
+            this.state.taskData = this._getTaskData(nextProps.data);
+            this.state.defectData = this._getDefectData(nextProps.data);
+            this.setState(this.state);
         }
     }
 
-    _getCondition(props) {
-        const result = {};
-        if (props.projectId) {
-            result.projectId = props.projectId;
+    _getStoryData(data) {
+        const result = [];
+        if (!this.props.ownerId) {
+            return data;
         }
-        if (props.ownerId) {
-            result.ownerId = props.ownerId;
-        }
+        data.forEach((item) => {
+            if (item.ownerId == this.props.ownerId) {
+                result.push(item);
+            }
+        });
         return result;
     }
 
-    loadData(props) {
-        const me = this;
-        const condition = me._getCondition(props);
-        me.state.loadStory = me.state.loadTask = me.state.loadDefect = true;
-        me.setState(me.state);
-        Api.Story.getList(condition)
-            .then((res) => {
-                if (res && res.success) {
-                    me.state.storyData = res.data;
-                    me.state.loadStory = false;
-                    me.setState(me.state);
-                }
-            });
-        Api.Task.get()
-            .then(res => {
-                if (res && res.success) {
-                    me.state.taskData = me.filter(res.data);
-                    me.state.taskData.forEach(item=> {
-                        item.status = '' + item.status;
-                    });
-                    me.state.loadTask = false;
-                    me.setState(me.state);
-                }
-            });
-        Api.Defect.get()
-            .then(res => {
-                if (res && res.success) {
-                    me.state.defectData = me.filter(res.data);
-                    me.state.defectData.forEach(item=> {
-                        item.status = '' + item.status;
-                        item.priority = '' + item.priority;
-                    });
-                    me.state.loadDefect = false;
-                    me.setState(me.state);
-                }
-            });
+    _getTaskData(data) {
+        const result = [];
+        data.forEach((item) => {
+            if (item && item.taskList) {
+                item.taskList.forEach((task) => {
+                    if (!this.props.ownerId || (task.ownerId == this.props.ownerId)) {
+                        result.push(task);
+                    }
+                });
+            }
+        });
+        return result;
+    }
+
+    _getDefectData(data) {
+        const result = [];
+        data.forEach((item) => {
+            if (item && item.defectList) {
+                item.defectList.forEach((defect) => {
+                    if (!this.props.ownerId || (defect.ownerId == this.props.ownerId)) {
+                        result.push(defect);
+                    }
+                });
+            }
+        });
+        return result;
     }
 
     render() {
         return <div style={{width : '100%'}}>
             <DLStoryList
                 data={this.state.storyData}
-                loading={this.state.loadStory}
+                loading={this.props.loading}
             />
             <DLTaskList
                 data={this.state.taskData}
-                loading={this.state.loadTask}
+                loading={this.props.loading}
             />
             <DLDefectList
                 data={this.state.defectData}
-                loading={this.state.loadDefect}
+                loading={this.props.loading}
             />
         </div>
     }
 }
 
 DashboardList.propTypes = {
-    projectId: PropTypes.any,
-    ownerId: PropTypes.any
+    ownerId: PropTypes.any,
+    loading: PropTypes.bool
 };
-DashboardList.defaultProps = {};
+DashboardList.defaultProps = {
+    loading: false
+};

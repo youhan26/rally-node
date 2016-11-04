@@ -5,6 +5,8 @@ var express = require('express');
 var app = express();
 var rally = require('./app/server/rally');
 var http = require('http');
+var https = require('https');
+var fs = require('fs');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var compression = require('compression');
@@ -64,3 +66,9 @@ app.use(express.static(__dirname + '/app/client'));
 app.use('/', rally);
 
 http.createServer(app).listen(9001, "0.0.0.0");
+// const options = {
+//     key: fs.readFileSync('./key/key.pem'),
+//     cert: fs.readFileSync('./key/cert.pem')
+// };
+//
+// https.createServer(options, app).listen(9001, '0.0.0.0');
