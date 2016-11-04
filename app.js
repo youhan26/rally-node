@@ -65,10 +65,10 @@ app.use(express.static(__dirname + '/app/client'));
  */
 app.use('/', rally);
 
-// http.createServer(app).listen(9001, "0.0.0.0");
-const options = {
-    key: fs.readFileSync('./key/key.pem'),
-    cert: fs.readFileSync('./key/cert.pem')
-};
-
-https.createServer(options, app).listen(9001, '0.0.0.0');
+http.createServer(app).listen(9001, "0.0.0.0");
+// const options = {
+//     key: fs.readFileSync('./key/key.pem'),
+//     cert: fs.readFileSync('./key/cert.pem')
+// };
+//
+// https.createServer(options, app).listen(9001, '0.0.0.0');

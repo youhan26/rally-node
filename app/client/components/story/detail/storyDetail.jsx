@@ -11,21 +11,14 @@ import CommonSelect from "../../common/commonSelect";
 import RichText from "../../common/richText";
 import {StoryStatus, ReleaseSelect} from "../../common/constSelect";
 import Api from "../../api";
+import moment from 'moment';
 
 const FormItem = Form.Item;
 
 const StoryDetails = React.createClass({
     propTypes: {
-        title: PropTypes.string,
-        ownerId: PropTypes.any,
-        projectId: PropTypes.any,
-        status: PropTypes.number,
-        planEst: PropTypes.number,
-        taskEst: PropTypes.number,
-        todo: PropTypes.number,
-        release: PropTypes.number,
-        desc: PropTypes.string,
-        notes: PropTypes.string
+        storyId : PropTypes.any,
+        ownerChange : PropTypes.func
     },
     getInitialState(){
         return {
@@ -34,7 +27,8 @@ const StoryDetails = React.createClass({
             taskEst: 0,
             todo: 0,
             desc: '',
-            notes: ''
+            notes: '',
+            testDate : new Date()
         }
     },
     componentWillMount(){
@@ -76,6 +70,7 @@ const StoryDetails = React.createClass({
             })
     },
     render(){
+        const format = "YYYY-MM-DD";
         return <div>
             <Card style={{marginTop:'6px'}}>
                 <Form horizontal>
@@ -122,6 +117,16 @@ const StoryDetails = React.createClass({
                             >
                                 <StoryStatus value={this.state.status}
                                              onChange={this.dataChange.bind(this, 'status')}/>
+                            </FormItem>
+                        </Col>
+                        <Col span="6">
+                            <FormItem
+                                label="Test Date"
+                                labelCol={{span : 10}}
+                                wrapperCol={{span : 14}}
+                            >
+                                <DatePicker value={moment(this.state.testDate || new Date(), format)}
+                                            onChange={this.dataChange.bind(this, 'testDate')}/>
                             </FormItem>
                         </Col>
                     </Row>

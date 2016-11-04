@@ -13,12 +13,12 @@ module.exports = {
     update: update,
     get: get,
     getList: getList,
-    remove : remove
+    remove: remove
 };
 
-function remove(id){
+function remove(id) {
     return Promise.all([dao.remove(id), taskDao.delByStoryId(id), defectDao.delByStoryId(id)])
-        .catch(function(error){
+        .catch(function (error) {
             throw new error('error happen when remove story');
         })
 }
@@ -55,6 +55,7 @@ function update(dataVo) {
                 if (data.owner_id) oriData.owner_id = data.owner_id;
                 if (data.release_id) oriData.release_id = data.release_id;
                 if (data.project_id) oriData.project_id = data.project_id;
+                if (data.test_date) oriData.test_date = data.test_date;
                 return dao.update(oriData);
             })
             .catch(function (error) {
