@@ -218,7 +218,7 @@ class DLDefectList extends Component {
             width: 100,
             render: (value, record, index) => {
                 if (value) {
-                    return <a className='full-width' href={'/index#/defect/' + value}>Defect {index}</a>
+                    return <a className='full-width' href={'/index#/defect/' + value}>Defect {index+1}</a>
                 }
             }
         }, {
