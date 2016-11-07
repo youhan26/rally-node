@@ -27,7 +27,7 @@ export default class DashboardSearch extends Component {
                                 wrapperCol={{ span: 14 }}
                             >
                                 <CommonSelect value={this.props.condition.ownerId} url="/member/all"
-                                              onChange={ownerIdChange}/>
+                                              onChange={ownerIdChange} allowClear={true}/>
                             </FormItem>
                         </Col>
                         <Col span="6">
@@ -37,7 +37,7 @@ export default class DashboardSearch extends Component {
                                 wrapperCol={{ span: 14 }}
                             >
                                 <CommonSelect value={this.props.condition.projectId} url="/project/all"
-                                              onChange={projectIdChange}/>
+                                              onChange={projectIdChange} allowClear={true}/>
                             </FormItem>
                         </Col>
                         <Col span="6">
@@ -48,7 +48,7 @@ export default class DashboardSearch extends Component {
                             >
                                 <ReleaseSelect value={this.props.condition.releaseId}
                                                projectId={this.props.condition.projectId}
-                                               onChange={releaseChange}/>
+                                               onChange={releaseChange} allowClear={true}/>
                             </FormItem>
                         </Col>
                         <Col span="6" style={{textAlign : 'right', paddingRight : '20px'}}>

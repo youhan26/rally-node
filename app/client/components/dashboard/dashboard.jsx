@@ -21,8 +21,8 @@ export default class Dashboard extends Component {
         this.state = {
             mode: '1',
             condition: {
-                projectId: null,
-                ownerId: null,
+                projectId: '1',
+                ownerId: '1',
                 releaseId: null
             },
             data: []

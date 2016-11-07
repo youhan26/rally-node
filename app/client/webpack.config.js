@@ -16,7 +16,7 @@ module.exports = {
     output: {
         // path: path.join(__dirname, "/bundle", "[hash]"),
         // filename: "[name].bundle.[hash].js",
-        publicPath: "http://localhost:9001/bundle",
+        publicPath: "http://localhost:9999/bundle",
         path: path.join(__dirname, "/bundle"),
         filename: "[name].bundle.js",
         chunkFilename: "[id].bundle.js",
