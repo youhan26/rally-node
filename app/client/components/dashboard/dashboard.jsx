@@ -38,7 +38,7 @@ export default class Dashboard extends Component {
 
     //switch mode
     switchMode(e) {
-        this.state.mode = (e.target ? e.target.value : e);
+        this.state.mode = (e && e.target ? e.target.value : e);
         this.setState(this.state);
     }
 
@@ -73,7 +73,7 @@ export default class Dashboard extends Component {
 
     conditionChange(field, e) {
         const me = this;
-        me.state.condition[field] = (e.target ? e.target.value : e);
+        me.state.condition[field] = (e && e.target ? e.target.value : e);
         me.setState(me.state);
         me.loadData();
     }

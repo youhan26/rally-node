@@ -110,7 +110,7 @@ const Tasks = React.createClass({
         //TODO
     },
     change(key, field, e){
-        this.state.list[key][field] = (e.target ? e.target.value : e);
+        this.state.list[key][field] = (e && e.target ? e.target.value : e);
         this.setState(this.state);
     },
     save(key){

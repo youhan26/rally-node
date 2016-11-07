@@ -219,7 +219,7 @@ const Project = React.createClass({
         });
     },
     change(key, field, e){
-        this.state.list[key][field] = (e.target ? e.target.value : e);
+        this.state.list[key][field] = (e && e.target ? e.target.value : e);
         this.setState(this.state);
     },
     clickRelease(item){

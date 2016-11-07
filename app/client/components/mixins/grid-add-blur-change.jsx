@@ -26,7 +26,7 @@ export default {
     },
     change(index, field, e){
         const data = this._getData();
-        const newValue = (e.target ? e.target.value : e);
+        const newValue = (e && e.target ? e.target.value : e);
         const oldValue = data[index][field];
         if (oldValue != newValue) {
             data[index][field] = newValue;

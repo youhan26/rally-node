@@ -46,7 +46,7 @@ const StoryDetails = React.createClass({
             });
     },
     dataChange(field, e){
-        this.state[field] = (e.target ? e.target.value : e);
+        this.state[field] = (e && e.target ? e.target.value : e);
         this.setState(this.state);
     },
     ownerChange (value){

@@ -37,7 +37,7 @@ const StoryList = React.createClass({
         };
     },
     searchChange(field, e){
-        this.state.condition[field] = (e.target ? e.target.value : e);
+        this.state.condition[field] = (e && e.target ? e.target.value : e);
         if (field === 'projectId') {
             this.state.condition.releaseId = null;
         }

@@ -84,7 +84,11 @@ class DLStoryList extends Component {
         return <div style={{width : '100%', padding : '12px'}}>
             <Card title="Story">
                 <Table
-                    pagination={false}
+                    pagination={{
+                        total: this.props.data.length,
+                        defaultPageSize: 10,
+                        pageSize : 10
+                    }}
                     size="small"
                     columns={columns}
                     dataSource={this.props.data}
@@ -116,6 +120,14 @@ class DLTaskList extends Component {
             key: 'title',
             render: (value, record, index) => {
                 return <a className='full-width' href={'/index#/task/' + value}>{value}</a>
+            }
+        }, {
+            title: 'Story',
+            dataIndex: 'story',
+            key: 'story',
+            width: 100,
+            render: (value, record, index) => {
+                return <a className='full-width' href={'/index#/story/' + value.id}>{value.title}</a>
             }
         }, {
             title: 'Status',
@@ -162,7 +174,11 @@ class DLTaskList extends Component {
         return <div style={{width : '100%', padding : '12px'}}>
             <Card title="Task">
                 <Table
-                    pagination={false}
+                    pagination={{
+                        total: this.props.data.length,
+                        defaultPageSize: 10,
+                        pageSize : 10
+                    }}
                     size="small"
                     columns={columns}
                     dataSource={this.props.data}
@@ -191,11 +207,19 @@ class DLDefectList extends Component {
 
     render() {
         const columns = [{
-            title: 'Task',
+            title: 'Defect',
             dataIndex: 'title',
             key: 'title',
             render: (value, record, index) => {
                 return <a className='full-width' href={'/index#/defect/' + value}>{value}</a>
+            }
+        }, {
+            title: 'Story',
+            dataIndex: 'story',
+            key: 'story',
+            width: 100,
+            render: (value, record, index) => {
+                return <a className='full-width' href={'/index#/story/' + value.id}>{value.title}</a>
             }
         }, {
             title: 'Status',
@@ -234,7 +258,11 @@ class DLDefectList extends Component {
         return <div style={{width : '100%', padding : '12px'}}>
             <Card title="Defect">
                 <Table
-                    pagination={false}
+                    pagination={{
+                        total: this.props.data.length,
+                        defaultPageSize: 10,
+                        pageSize : 10
+                    }}
                     size="small"
                     columns={columns}
                     dataSource={this.props.data}
@@ -315,6 +343,10 @@ export default class DashboardList extends Component {
             if (item && item.taskList) {
                 item.taskList.forEach((task) => {
                     if (!this.props.ownerId || (task.ownerId == this.props.ownerId)) {
+                        task.story = {
+                            id: item.id,
+                            title: item.title
+                        };
                         result.push(task);
                     }
                 });
@@ -329,6 +361,10 @@ export default class DashboardList extends Component {
             if (item && item.defectList) {
                 item.defectList.forEach((defect) => {
                     if (!this.props.ownerId || (defect.ownerId == this.props.ownerId)) {
+                        defect.story = {
+                            id: item.id,
+                            title: item.title
+                        };
                         result.push(defect);
                     }
                 });

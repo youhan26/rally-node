@@ -37,7 +37,7 @@ const StoryResult = React.createClass({
         this.props.save(this.props.data[index]);
     },
     change(index, field, e){
-        const newValue = (e.target ? e.target.value : e);
+        const newValue = (e && e.target ? e.target.value : e);
         const oldValue = this.props.data[index][field];
         if (oldValue != newValue) {
             this.props.data[index][field] = newValue;
@@ -155,7 +155,11 @@ const StoryResult = React.createClass({
                 backgroundColor: 'white'
             }}>
             <Table
-                pagination={false}
+                pagination={{
+                        total: this.props.data.length,
+                        defaultPageSize: 15,
+                        pageSize : 15
+                    }}
                 size="small"
                 columns={columns}
                 dataSource={this.props.data}
