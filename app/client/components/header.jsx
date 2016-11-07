@@ -53,15 +53,6 @@ const HorizonHeader = React.createClass({
                 <Menu.Item key="2">
                     <Link to="/stories">Story</Link>
                 </Menu.Item>
-                <Menu.Item key="3">
-                    <Link to="/bugs">Bug</Link>
-                </Menu.Item>
-                <Menu.Item key="4">
-                    <Link to="/report">Report</Link>
-                </Menu.Item>
-                <Menu.Item key="5">
-                    <Link to="/share">Share</Link>
-                </Menu.Item>
                 <Menu.Item key="6">
                     <Link to="/manage">Manage</Link>
                 </Menu.Item>
@@ -82,5 +73,15 @@ const HorizonHeader = React.createClass({
     }
 });
 
+
+// <Menu.Item key="3">
+//     <Link to="/bugs">Bug</Link>
+// </Menu.Item>
+// <Menu.Item key="4">
+//     <Link to="/report">Report</Link>
+//     </Menu.Item>
+//     <Menu.Item key="5">
+//         <Link to="/share">Share</Link>
+//     </Menu.Item>
 
 export {HorizonHeader};
