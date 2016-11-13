@@ -322,5 +322,4 @@ var Api = {
     }
 };
 
-
 export default Api;
