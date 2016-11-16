@@ -1,19 +1,16 @@
 /**
  * Created by YouHan on 2016/8/29.
  */
+import React from 'react';
 
-"use strict";
-
-var React = require('react');
-
-var Report = React.createClass({
-    render: function () {
-        return (
-            <div className="content">
-                this is report page
-            </div>
-        )
-    }
+const Report = React.createClass({
+  render() {
+    return (
+      <div className="content">
+        this is report page
+      </div>
+    );
+  }
 });
 
 

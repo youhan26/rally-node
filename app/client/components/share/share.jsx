@@ -1,18 +1,16 @@
 /**
- * Created by YouHan on 2016/8/31.
+ * Created by YouHan on 2016/8/29.
  */
+import React from 'react';
 
-"use strict";
-import React from "react";
-
-var Share = React.createClass({
-    render: function () {
-        return (
-            <div>
-                this is share page
-            </div>
-        )
-    }
+const Share = React.createClass({
+  render() {
+    return (
+      <div className="content">
+          this is Share page
+      </div>
+    );
+  }
 });
 
 
