@@ -24,7 +24,7 @@
     "object-curly-spacing": 0,
     "space-before-blocks": 0,
     "arrow-body-style": [
-      "error",
+      0,
       "as-needed",
       {
         "requireReturnForObjectLiteral": true
