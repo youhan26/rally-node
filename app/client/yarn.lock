@@ -319,6 +319,15 @@ babel-core@^6.13.2, babel-core@^6.16.0:
     slash "^1.0.0"
     source-map "^0.5.0"
 
+babel-eslint:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/babel-eslint/-/babel-eslint-7.1.0.tgz#d506a5174ba224e25a2d17e128e2ba8987139ddc"
+  dependencies:
+    babel-traverse "^6.15.0"
+    babel-types "^6.15.0"
+    babylon "^6.11.2"
+    lodash.pickby "^4.6.0"
+
 babel-generator@^6.17.0:
   version "6.17.0"
   resolved "https://registry.yarnpkg.com/babel-generator/-/babel-generator-6.17.0.tgz#b894e3808beef7800f2550635bfe024b6226cf33"
@@ -941,6 +950,10 @@ babel-types@^6.13.0, babel-types@^6.14.0, babel-types@^6.15.0, babel-types@^6.16
 babylon@^6.11.0:
   version "6.12.0"
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.12.0.tgz#953e6202e58062f7f5041fc8037e4bd4e17140a9"
+
+babylon@^6.11.2:
+  version "6.13.1"
+  resolved "https://registry.yarnpkg.com/babylon/-/babylon-6.13.1.tgz#adca350e088f0467647157652bafead6ddb8dfdb"
 
 backo2@1.0.2:
   version "1.0.2"
@@ -1988,6 +2001,12 @@ eslint-loader@^1.5.0:
     find-cache-dir "^0.1.1"
     loader-utils "^0.2.7"
     object-assign "^4.0.1"
+
+eslint-plugin-flowtype:
+  version "2.25.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.25.0.tgz#c462521ab20ce3d8db819f10ad3c9f1bc7f3f819"
+  dependencies:
+    lodash "^4.15.0"
 
 eslint-plugin-import@^1.14.0:
   version "1.16.0"
@@ -3279,6 +3298,10 @@ lodash.keys@^3.1.2:
     lodash._getnative "^3.0.0"
     lodash.isarguments "^3.0.0"
     lodash.isarray "^3.0.0"
+
+lodash.pickby@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
 
 lodash.words@^3.0.0:
   version "3.2.0"

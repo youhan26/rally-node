@@ -1,61 +1,57 @@
 /* @flow */
-'use strict';
-
-import * as React from "react";
+import React, {PropTypes, Component} from "react";
 import {api} from "mimikiyru-utils";
 import {Select} from "antd";
-import type {res} from "./types";
 
 const Option = Select.Option;
 
-const CommonSelect = React.createClass({
-    propTypes: {
-        data: React.PropTypes.array
-    },
-    getInitialState(){
-        return {
-            list: []
+export default class CommonSelect extends Component {
+  constructor(props) {
+    super(props);
+    this.list = [];
+  }
+  
+  componentWillMount() {
+    if (this.props.url) {
+      api.get({
+        url: this.props.url
+      }).then((resp) => {
+        if (resp && resp.data) {
+          this.setState({
+            list: resp.data
+          });
         }
-    },
-    getDefaultProps (){
-        return {
-            data: []
-        }
-    },
-    componentWillMount() {
-        if (this.props.url) {
-            api.get({
-                url: this.props.url
-            }).then((res: res) => {
-                if (res && res.data) {
-                    this.setState({
-                        list: res.data
-                    })
-                }
-            })
-        }
-        if (this.props.data && this.props.data.length > 0) {
-            this.setState({
-                list: this.props.data
-            });
-        }
-    },
-    componentWillReceiveProps(nextProps){
-        if (nextProps && nextProps.data && nextProps.data.length > 0) {
-            this.setState({
-                list: nextProps.data
-            });
-        }
-    },
-    render() {
-        return (
-            <Select {...this.props}>
-                {this.state.list.map((item, key) => {
-                    return <Option value={item.id} key={key}>{item.name}</Option>
-                })}
-            </Select>
-        )
+      });
     }
-});
+    if (this.props.data && this.props.data.length > 0) {
+      this.setState({
+        list: this.props.data
+      });
+    }
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.data && nextProps.data.length > 0) {
+      this.setState({
+        list: nextProps.data
+      });
+    }
+  }
+  
+  render() {
+    return (
+      <Select {...this.props}>
+        { this.state.list.map((item, key) => <Option value={item.id} key={key}>{item.name}</Option>) }
+      </Select>
+    );
+  }
+}
 
-export default CommonSelect;
+CommonSelect.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  url: PropTypes.string
+};
+
+CommonSelect.defaultProps = {
+  data: []
+};
