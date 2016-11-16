@@ -12,3 +12,6 @@ document/nouse/timeLine
 app/client/yarn-error.log
 key/
 app/client/views/rally.html
+app/server/db/builder.js
+app/server/utils/exceptions.log
+app/server/utils/info.log
