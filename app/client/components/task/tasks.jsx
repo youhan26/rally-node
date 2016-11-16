@@ -29,7 +29,7 @@ const TaskItem = React.createClass({
     };
   },
   render (){
-    const {titleChange, ownerChange, taskEstChange, todoEstChange, descChange, statusChange, save} = {...this.props};
+    const {titleChange, ownerChange, taskEstChange, todoEstChange, statusChange, save} = {...this.props};
     return (
       <Card style={{marginTop: '6px'}}>
         <Form horizontal={true}>
@@ -112,7 +112,7 @@ const Tasks = React.createClass({
     this.state.list[key][field] = (e && e.target ? e.target.value : e);
     this.setState(this.state);
   },
-  save(key){
+  save(){
     // TODO
   },
   render(){

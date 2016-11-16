@@ -13,7 +13,8 @@
     "document": true,
     "window": true,
     "location": true,
-    "FileReader": true
+    "FileReader": true,
+    "Image": true
   },
   "rules": {
     "eqeqeq": [
