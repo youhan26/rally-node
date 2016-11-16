@@ -3,28 +3,34 @@
  */
 
 /* @flow */
-import React, {PropTypes} from "react";
+import React, {PropTypes, Component} from "react";
 import {Form, Input, Card, Col, Row, Button, message} from "antd";
 import Api from "./../api";
 
 const FormItem = Form.Item;
 
-const Item = React.createClass({
-  getDefaultProps(){
-    return {
-      id: undefined,
-      name: '',
-      introduction: ''
-    };
-  },
-  propsType: {
-    name: PropTypes.string,
-    id: PropTypes.any,
-    introduction: PropTypes.string
-  },
-  render() {
-    const {nameChange, descChange, save} = this.props;
+class Item extends Component {
+  constructor(props) {
+    super(props);
 
+    this.nameChange = this.nameChange.bind(this);
+    this.descChange = this.descChange.bind(this);
+    this.save = this.save.bind(this);
+  }
+
+  nameChange(e) {
+    this.props.change(this.props.key, 'name', e);
+  }
+
+  descChange(e) {
+    this.props.change(this.props.key, 'introduction', e);
+  }
+
+  save() {
+    this.props.save(this.props.key);
+  }
+
+  render() {
     return (
       <Card style={{marginBottom: '15px'}}>
         <Form horizontal={true}>
@@ -38,7 +44,7 @@ const Item = React.createClass({
                 <Input
                   size="default"
                   value={this.props.name}
-                  onChange={nameChange}
+                  onChange={this.nameChange}
                 />
               </FormItem>
             </Col>
@@ -54,7 +60,7 @@ const Item = React.createClass({
                   type="textarea"
                   rows={4}
                   value={this.props.introduction}
-                  onChange={descChange} />
+                  onChange={this.descChange} />
               </FormItem>
             </Col>
             <Col span="8" offset={8}>
@@ -62,7 +68,7 @@ const Item = React.createClass({
                 labelCol={{span: 10}}
                 wrapperCol={{span: 14}}
               >
-                <Button type="primary" onClick={save}>{
+                <Button type="primary" onClick={this.save}>{
                   this.props.id ? 'Update' : 'Save'
                 }</Button>
               </FormItem>
@@ -72,23 +78,44 @@ const Item = React.createClass({
       </Card>
     );
   }
-});
+}
 
-const Role = React.createClass({
-  emptyObj: {
-    name: '',
-    id: undefined,
-    introduction: ''
-  },
-  getInitialState(){
-    return {
-      list: [this.emptyObj]
-    }
-  },
+Item.propTypes = {
+  save: PropTypes.func,
+  change: PropTypes.func,
+  name: PropTypes.string,
+  key: PropTypes.number,
+  introduction: PropTypes.string,
+  id: PropTypes.number
+};
+
+Item.defaultProps = {
+  id: undefined,
+  name: '',
+  introduction: ''
+};
+
+export default class Role extends Component {
+  constructor(props) {
+    super(props);
+
+    this.emptyObj = {
+      name: '',
+      id: undefined,
+      introduction: ''
+    };
+
+    this.list = [this.emptyObj];
+
+    this.change = this.change.bind(this);
+    this.save = this.save.bind(this);
+  }
+
   componentWillMount() {
     this.loadData();
-  },
-  loadData(){
+  }
+
+  loadData() {
     const me = this;
     Api.Role.get().then((res: {success :boolean, data:[]}) => {
       if (res && res.data) {
@@ -97,8 +124,9 @@ const Role = React.createClass({
         });
       }
     });
-  },
-  save(key){
+  }
+
+  save(key) {
     const me = this;
     Api.Role.save(this.state.list[key]).then((res) => {
       if (res && res.success) {
@@ -106,15 +134,12 @@ const Role = React.createClass({
         me.loadData();
       }
     });
-  },
-  nameChange(key, e){
-    this.state.list[key].name = e.target.value;
-    this.setState(this.state);
-  },
-  descChange(key, e){
-    this.state.list[key].introduction = e.target.value;
-    this.setState(this.state);
-  },
+  }
+
+  change(key, field, e) {
+    this.state.list[key][field] = e.target.value;
+  }
+
   render() {
     return (
       <div
@@ -127,15 +152,12 @@ const Role = React.createClass({
               id={item.id}
               name={item.name}
               introduction={item.introduction}
-              save={this.save.bind(this, key)}
-              nameChange={this.nameChange.bind(this, key)}
-              descChange={this.descChange.bind(this, key)}
+              save={this.save}
+              change={this.change}
             />
           );
         })}
       </div>
     );
   }
-});
-
-export default Role;
+}
