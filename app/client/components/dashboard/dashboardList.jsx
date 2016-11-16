@@ -7,98 +7,95 @@ import {StoryStatus, ReleaseSelect, TaskStatus, DefectStatus, DefectPriority} fr
 import CommonSelect from "./../common/commonSelect";
 
 
-class DLStoryList extends Component {
-  constructor(props) {
-    super(props);
-  }
-  
-  render() {
-    const columns = [{
-      title: 'Title',
-      dataIndex: 'title',
-      key: 'title',
-      render: (value, record, index) => {
-        return <a className='full-width' href={'/index#/story/' + value}>{value}</a>
-      }
-    }, {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      width: 100,
-      render: (value, record, index) => {
-        return <StoryStatus value={value} className='full-width' disabled={true} />
-      }
-    }, {
-      title: 'Plan Est',
-      dataIndex: 'planEst',
-      key: 'planEst',
-      width: 70,
-      render: (value, record, index) => {
-        return <span>{value || 0}</span>
-      }
-    }, {
-      title: 'TODO',
-      dataIndex: 'todo',
-      key: 'todo',
-      width: 70,
-      render: (value, record, index) => {
-        return <span>{value || 0}</span>
-      }
-    }, {
-      title: 'Task Est',
-      dataIndex: 'taskEst',
-      key: 'taskEst',
-      width: 70,
-      render: (value, record, index) => {
-        return <span>{value || 0}</span>
-      }
-    }, {
-      title: 'Owner',
-      dataIndex: 'ownerId',
-      key: 'ownerId',
-      width: 100,
-      render: (value, record, index) => {
-        return <CommonSelect value={value} url="/member/all" className='full-width'
-                             disabled={true} />
-      }
-    }, {
-      title: 'Release',
-      dataIndex: 'releaseId',
-      key: 'releaseId',
-      width: 100,
-      render: (value) => {
-        return <ReleaseSelect className="full-width" value={value} disabled={true} />
-      }
-    }, {
-      title: 'Project',
-      dataIndex: 'projectId',
-      key: 'projectId',
-      width: 100,
-      render: (value, record, index) => {
-        return <CommonSelect url="/project/all" value={value} className="full-width"
-                             disabled={true} />
-      }
-    }];
-    return <div style={{width: '100%', padding: '12px'}}>
-        <Card title="Story">
-            <Table
-              pagination={{
-                total: this.props.data.length,
-                defaultPageSize: 10,
-                pageSize: 10
-              }}
-              size="small"
-              columns={columns}
-              dataSource={this.props.data}
-              loading={this.props.loading}
-              className="task-list-table"
-            />
-        </Card>
+const DLStoryList = () => {
+  const columns = [{
+    title: 'Title',
+    dataIndex: 'title',
+    key: 'title',
+    render: value => <a className="full-width" href={`/index#/story/${value}`}>{value}</a>
+  }, {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    width: 100,
+    render: value => <StoryStatus value={value} className="full-width" disabled={true} />
+  }, {
+    title: 'Plan Est',
+    dataIndex: 'planEst',
+    key: 'planEst',
+    width: 70,
+    render: value => <span>{value || 0}</span>
+  }, {
+    title: 'TODO',
+    dataIndex: 'todo',
+    key: 'todo',
+    width: 70,
+    render: value => <span>{value || 0}</span>
+  }, {
+    title: 'Task Est',
+    dataIndex: 'taskEst',
+    key: 'taskEst',
+    width: 70,
+    render: value => <span>{value || 0}</span>
+  }, {
+    title: 'Owner',
+    dataIndex: 'ownerId',
+    key: 'ownerId',
+    width: 100,
+    render: value => <CommonSelect
+      value={value}
+      url="/member/all"
+      className="full-width"
+      disabled={true} />
+  }, {
+    title: 'Release',
+    dataIndex: 'releaseId',
+    key: 'releaseId',
+    width: 100,
+    render: value => <ReleaseSelect className="full-width" value={value} disabled={true} />
+  }, {
+    title: 'Project',
+    dataIndex: 'projectId',
+    key: 'projectId',
+    width: 100,
+    render: value => <CommonSelect
+      url="/project/all"
+      value={value}
+      className="full-width"
+      disabled={true} />
+  }];
+  return (
+    <div style={{width: '100%', padding: '12px'}}>
+      <Card title="Story">
+        <Table
+          pagination={{
+            total: this.props.data.length,
+            defaultPageSize: 10,
+            pageSize: 10
+          }}
+          size="small"
+          columns={columns}
+          dataSource={this.props.data}
+          loading={this.props.loading}
+          className="task-list-table"
+        />
+      </Card>
     </div>
-  }
-}
+  );
+};
+
 DLStoryList.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    status: PropTypes.number,
+    planEst: PropTypes.number,
+    todo: PropTypes.number,
+    taskEst: PropTypes.number,
+    ownerId: PropTypes.string,
+    releaseId: PropTypes.string,
+    projectId: PropTypes.string,
+  })),
   loading: PropTypes.bool
 };
 DLStoryList.defaultProps = {
@@ -106,90 +103,83 @@ DLStoryList.defaultProps = {
   loading: false
 };
 
-class DLTaskList extends Component {
-  constructor(props) {
-    super(props)
-  }
-  
-  render() {
-    const columns = [{
-      title: 'Task',
-      dataIndex: 'title',
-      key: 'title',
-      render: (value, record, index) => {
-        return <a className='full-width' href={'/index#/task/' + value}>{value}</a>
-      }
-    }, {
-      title: 'Story',
-      dataIndex: 'story',
-      key: 'story',
-      width: 100,
-      render: (value, record, index) => {
-        return <a className='full-width' href={'/index#/story/' + value.id}>{value.title}</a>
-      }
-    }, {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      width: 100,
-      render: (value, record, index) => {
-        return <TaskStatus value={'' + value} className='full-width' disabled={true} />
-      }
-    }, {
-      title: 'Task Est',
-      dataIndex: 'est',
-      key: 'est',
-      width: 70,
-      render: (value, record, index) => {
-        return <div>{value || 0}</div>
-      }
-    }, {
-      title: 'TODO',
-      dataIndex: 'todo',
-      key: 'todo',
-      width: 70,
-      render: (value, record, index) => {
-        return <div>{value || 0}</div>
-      }
-    }, {
-      title: 'Story',
-      dataIndex: 'storyId',
-      key: 'storyId',
-      width: 70,
-      render: (value, record, index) => {
-        return <CommonSelect url="/story/all" value={value} className='full-width' disabled={true} />
-      }
-    }, {
-      title: 'Owner',
-      dataIndex: 'ownerId',
-      key: 'ownerId',
-      width: 100,
-      render: (value, record, index) => {
-        return <CommonSelect value={value} url="/member/all" className='full-width'
-                             disabled={true} />
-      }
-    }];
-    return <div style={{width: '100%', padding: '12px'}}>
-        <Card title="Task">
-            <Table
-              pagination={{
-                total: this.props.data.length,
-                defaultPageSize: 10,
-                pageSize: 10
-              }}
-              size="small"
-              columns={columns}
-              dataSource={this.props.data}
-              loading={this.props.loading}
-              className="task-list-table"
-            />
-        </Card>
+const DLTaskList = () => {
+  const columns = [{
+    title: 'Task',
+    dataIndex: 'title',
+    key: 'title',
+    render: value => <a className="full-width" href={`/index#/task/${value}`}>{value}</a>
+  }, {
+    title: 'Story',
+    dataIndex: 'story',
+    key: 'story',
+    width: 100,
+    render: value => <a className="full-width" href={`/index#/story/${value.id}`}>{value.title}</a>
+  }, {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    width: 100,
+    render: value => <TaskStatus value={`${value}`} className="full-width" disabled={true} />
+  }, {
+    title: 'Task Est',
+    dataIndex: 'est',
+    key: 'est',
+    width: 70,
+    render: value => <div>{value || 0}</div>
+  }, {
+    title: 'TODO',
+    dataIndex: 'todo',
+    key: 'todo',
+    width: 70,
+    render: value => <div>{value || 0}</div>
+  }, {
+    title: 'Story',
+    dataIndex: 'storyId',
+    key: 'storyId',
+    width: 70,
+    render: value => <CommonSelect url="/story/all" value={value} className="full-width" disabled={true} />
+  }, {
+    title: 'Owner',
+    dataIndex: 'ownerId',
+    key: 'ownerId',
+    width: 100,
+    render: value => <CommonSelect
+      value={value}
+      url="/member/all"
+      className="full-width"
+      disabled={true} />
+  }];
+  return (
+    <div style={{width: '100%', padding: '12px'}}>
+      <Card title="Task">
+        <Table
+          pagination={{
+            total: this.props.data.length,
+            defaultPageSize: 10,
+            pageSize: 10
+          }}
+          size="small"
+          columns={columns}
+          dataSource={this.props.data}
+          loading={this.props.loading}
+          className="task-list-table"
+        />
+      </Card>
     </div>
-  }
-}
+  );
+};
 
 DLTaskList.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    status: PropTypes.number,
+    est: PropTypes.number,
+    todo: PropTypes.number,
+    storyId: PropTypes.string,
+    ownerId: PropTypes.string
+  })),
   loading: PropTypes.bool
 };
 DLTaskList.defaultProps = {
@@ -198,82 +188,76 @@ DLTaskList.defaultProps = {
 };
 
 
-class DLDefectList extends Component {
-  constructor(props) {
-    super(props)
-  }
-  
-  render() {
-    const columns = [{
-      title: 'Defect',
-      dataIndex: 'title',
-      key: 'title',
-      render: (value, record, index) => {
-        return <a className='full-width' href={'/index#/defect/' + value}>{value}</a>
-      }
-    }, {
-      title: 'Story',
-      dataIndex: 'story',
-      key: 'story',
-      width: 100,
-      render: (value, record, index) => {
-        return <a className='full-width' href={'/index#/story/' + value.id}>{value.title}</a>
-      }
-    }, {
-      title: 'Status',
-      dataIndex: 'status',
-      key: 'status',
-      width: 100,
-      render: (value, record, index) => {
-        return <DefectStatus value={'' + value} className='full-width' disabled={true} />
-      }
-    }, {
-      title: 'Priority',
-      dataIndex: 'priority',
-      key: 'priority',
-      width: 70,
-      render: (value, record, index) => {
-        return <DefectPriority value={'' + value} className='full-width' disabled={true} />
-      }
-    }, {
-      title: 'Story',
-      dataIndex: 'storyId',
-      key: 'storyId',
-      width: 70,
-      render: (value, record, index) => {
-        return <CommonSelect url="/story/all" value={value} className='full-width' disabled={true} />
-      }
-    }, {
-      title: 'Owner',
-      dataIndex: 'ownerId',
-      key: 'ownerId',
-      width: 100,
-      render: (value, record, index) => {
-        return <CommonSelect value={value} url="/member/all" className='full-width'
-                             disabled={true} />
-      }
-    }];
-    return <div style={{width: '100%', padding: '12px'}}>
-        <Card title="Defect">
-            <Table
-              pagination={{
-                total: this.props.data.length,
-                defaultPageSize: 10,
-                pageSize: 10
-              }}
-              size="small"
-              columns={columns}
-              dataSource={this.props.data}
-              loading={this.props.loading}
-              className="task-list-table"
-            />
-        </Card>
+const DLDefectList = () => {
+  const columns = [{
+    title: 'Defect',
+    dataIndex: 'title',
+    key: 'title',
+    render: value => <a className="full-width" href={`/index#/defect/${value}`}>{value}</a>
+  }, {
+    title: 'Story',
+    dataIndex: 'story',
+    key: 'story',
+    width: 100,
+    render: value => <a className="full-width" href={`/index#/story/${value.id}`}>{value.title}</a>
+  }, {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+    width: 100,
+    render: value => <DefectStatus value={`${value}`} className="full-width" disabled={true} />
+  }, {
+    title: 'Priority',
+    dataIndex: 'priority',
+    key: 'priority',
+    width: 70,
+    render: value => <DefectPriority value={`${value}`} className="full-width" disabled={true} />
+  }, {
+    title: 'Story',
+    dataIndex: 'storyId',
+    key: 'storyId',
+    width: 70,
+    render: value => <CommonSelect url="/story/all" value={value} className="full-width" disabled={true} />
+  }, {
+    title: 'Owner',
+    dataIndex: 'ownerId',
+    key: 'ownerId',
+    width: 100,
+    render: value => <CommonSelect
+      value={value}
+      url="/member/all"
+      className="full-width"
+      disabled={true} />
+  }];
+  return (
+    <div style={{width: '100%', padding: '12px'}}>
+      <Card title="Defect">
+        <Table
+          pagination={{
+            total: this.props.data.length,
+            defaultPageSize: 10,
+            pageSize: 10
+          }}
+          size="small"
+          columns={columns}
+          dataSource={this.props.data}
+          loading={this.props.loading}
+          className="task-list-table"
+        />
+      </Card>
     </div>
-  }
-}
+  );
+};
 
 DLDefectList.propTypes = {
-  data: PropTypes.array,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    status: PropTypes.number,
+    priority: PropTypes.number,
+    storyId: PropTypes.string,
+    ownerId: PropTypes.string
+  })),
   loading: PropTypes.bool
 };
 DLDefectList.defaultProps = {
@@ -292,9 +276,9 @@ export default class DashboardList extends Component {
     };
     
     this.filter = this.filter.bind(this);
-    this._getDefectData = this._getDefectData.bind(this);
-    this._getStoryData = this._getStoryData.bind(this);
-    this._getTaskData = this._getTaskData.bind(this);
+    this.getDefectData = this.getDefectData.bind(this);
+    this.getStoryData = this.getStoryData.bind(this);
+    this.getTaskData = this.getTaskData.bind(this);
   }
   
   filter(data) {
@@ -305,7 +289,7 @@ export default class DashboardList extends Component {
     }
     if (data) {
       data.forEach(item => {
-        if (item.ownerId == me.props.ownerId) {
+        if (`${item.ownerId}` === `${me.props.ownerId}`) {
           result.push(item);
         }
       });
@@ -315,32 +299,32 @@ export default class DashboardList extends Component {
   
   componentWillReceiveProps(nextProps) {
     if (nextProps.data) {
-      this.state.storyData = this._getStoryData(nextProps.data);
-      this.state.taskData = this._getTaskData(nextProps.data);
-      this.state.defectData = this._getDefectData(nextProps.data);
+      this.state.storyData = this.getStoryData(nextProps.data);
+      this.state.taskData = this.getTaskData(nextProps.data);
+      this.state.defectData = this.getDefectData(nextProps.data);
       this.setState(this.state);
     }
   }
   
-  _getStoryData(data) {
+  getStoryData(data) {
     const result = [];
     if (!this.props.ownerId) {
       return data;
     }
     data.forEach((item) => {
-      if (item.ownerId == this.props.ownerId) {
+      if (`${item.ownerId}` === `${this.props.ownerId}`) {
         result.push(item);
       }
     });
     return result;
   }
   
-  _getTaskData(data) {
+  getTaskData(data) {
     const result = [];
     data.forEach((item) => {
       if (item && item.taskList) {
         item.taskList.forEach((task) => {
-          if (!this.props.ownerId || (task.ownerId == this.props.ownerId)) {
+          if (!this.props.ownerId || (`${task.ownerId}` === `${this.props.ownerId}`)) {
             task.story = {
               id: item.id,
               title: item.title
@@ -353,12 +337,12 @@ export default class DashboardList extends Component {
     return result;
   }
   
-  _getDefectData(data) {
+  getDefectData(data) {
     const result = [];
     data.forEach((item) => {
       if (item && item.defectList) {
         item.defectList.forEach((defect) => {
-          if (!this.props.ownerId || (defect.ownerId == this.props.ownerId)) {
+          if (!this.props.ownerId || (`${defect.ownerId}` === `${this.props.ownerId}`)) {
             defect.story = {
               id: item.id,
               title: item.title
@@ -372,7 +356,8 @@ export default class DashboardList extends Component {
   }
   
   render() {
-    return <div style={{width: '100%'}}>
+    return (
+      <div style={{width: '100%'}}>
         <DLStoryList
           data={this.state.storyData}
           loading={this.props.loading}
@@ -385,12 +370,13 @@ export default class DashboardList extends Component {
           data={this.state.defectData}
           loading={this.props.loading}
         />
-    </div>
+      </div>
+    );
   }
 }
 
 DashboardList.propTypes = {
-  ownerId: PropTypes.any,
+  ownerId: PropTypes.string,
   loading: PropTypes.bool
 };
 DashboardList.defaultProps = {

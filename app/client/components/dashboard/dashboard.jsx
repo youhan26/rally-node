@@ -1,7 +1,6 @@
 /**
  * Created by YouHan on 2016/11/2.
  */
-
 import React, {Component} from "react";
 import * as api from "mimikiyru-utils/src/api";
 import {Radio, Row, Col} from "antd";
@@ -9,6 +8,9 @@ import DashboardSearch from "./dashboardSearch";
 import DashboardCalendar from "./dashboardCalendar";
 import DashboardFlow from "./dashboardFlow";
 import DashboardList from "./dashboardList";
+
+require('./../../style/dashboard.css');
+
 const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 
@@ -30,7 +32,7 @@ export default class Dashboard extends Component {
     this.showMode = this.showMode.bind(this);
     this.clearSearch = this.clearSearch.bind(this);
     this.conditionChange = this.conditionChange.bind(this);
-    this._getCondition = this._getCondition.bind(this);
+    this.getCondition = this.getCondition.bind(this);
     this.loadData = this.loadData.bind(this);
   }
   
@@ -52,7 +54,7 @@ export default class Dashboard extends Component {
    * search
    */
   
-  _getCondition(props) {
+  static getCondition(props) {
     const result = {};
     if (props.projectId) {
       result.projectId = props.projectId;
@@ -82,7 +84,7 @@ export default class Dashboard extends Component {
     api
       .get({
         url: '/dashboard/getList',
-        params: me._getCondition(me.state.condition)
+        params: me.getCondition(me.state.condition)
       })
       .then((res) => {
         me.state.data = res.data;
@@ -97,40 +99,40 @@ export default class Dashboard extends Component {
       releaseId: null
     };
     this.setState(this.state);
-    //TODO this will load twice
+    // TODO this will load twice
     this.loadData();
   }
   
   render() {
-    return <div className="d">
-      <DashboardSearch
-        condition={this.state.condition}
-        projectIdChange={this.conditionChange.bind(this, 'projectId')}
-        ownerIdChange={this.conditionChange.bind(this, 'ownerId')}
-        releaseChange={this.conditionChange.bind(this, 'releaseId')}
-        click={this.clearSearch}
-      />
-      <Row>
-        <Col span="24" style={{textAlign: 'right', paddingRight: '12px'}}>
-          <RadioGroup defaultValue="1" onChange={this.switchMode}>
-            <RadioButton value="1">List</RadioButton>
-            <RadioButton value="2">Calendar</RadioButton>
-            <RadioButton value="3">Flow</RadioButton>
-          </RadioGroup>
-        </Col>
-      </Row>
-      {this.showMode('1') ? <DashboardList
-        ownerId={this.state.condition.ownerId}
-        data={this.state.data}
-        loading={this.state.loading}
-      /> : null}
-      {this.showMode('2') ? <DashboardCalendar
-        ownerId={this.state.condition.ownerId}
-        data={this.state.data}
-        loading={this.state.loading}
-      /> : null}
-      {this.showMode('3') ? <DashboardFlow /> : null}
-    </div>
+    return (
+      <div className="d">
+        <DashboardSearch
+          condition={this.state.condition}
+          conditionChange={this.conditionChange}
+          click={this.clearSearch}
+        />
+        <Row>
+          <Col span="24" style={{textAlign: 'right', paddingRight: '12px'}}>
+            <RadioGroup defaultValue="1" onChange={this.switchMode}>
+              <RadioButton value="1">List</RadioButton>
+              <RadioButton value="2">Calendar</RadioButton>
+              <RadioButton value="3">Flow</RadioButton>
+            </RadioGroup>
+          </Col>
+        </Row>
+        {this.showMode('1') ? <DashboardList
+          ownerId={this.state.condition.ownerId}
+          data={this.state.data}
+          loading={this.state.loading}
+        /> : null}
+        {this.showMode('2') ? <DashboardCalendar
+          ownerId={this.state.condition.ownerId}
+          data={this.state.data}
+          loading={this.state.loading}
+        /> : null}
+        {this.showMode('3') ? <DashboardFlow /> : null}
+      </div>
+    );
   }
 }
 

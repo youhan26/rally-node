@@ -45,6 +45,12 @@
     "no-multiple-empty-lines": 0,
     "react/no-did-mount-set-state": 2,
     "react/no-multi-comp": 0,
+    "react/no-unused-prop-types": [
+      0,
+      {
+        "skipShapeProps": true
+      }
+    ],
     "react/jsx-closing-bracket-location": [
       1,
       {
