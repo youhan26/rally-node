@@ -52,7 +52,7 @@ export default class DashboardCalendar extends Component {
 
 DashboardCalendar.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
-    testDate: PropTypes.shape({})
+    testDate: PropTypes.string
   }))
 };
 DashboardCalendar.defaultProps = {
