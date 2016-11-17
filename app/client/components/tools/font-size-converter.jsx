@@ -26,14 +26,14 @@ const Pt2Rem = React.createClass({
     });
   },
   render(){
-    return (<Card style={{ width: '100%' }} title="Pt 转 Rem">
+    return (<Card style={{width: '100%'}} title="Pt 转 Rem">
       <Form horizontal={true}>
         <Row>
           <Col span="8">
             <FormItem
               label="基准页面宽度(px)"
-              labelCol={{ span: 10 }}
-              wrapperCol={{ span: 14 }}
+              labelCol={{span: 10}}
+              wrapperCol={{span: 14}}
             >
               <InputNumber
                 value={this.state.pt.base}
@@ -45,8 +45,8 @@ const Pt2Rem = React.createClass({
             </FormItem>
             <FormItem
               label="PT"
-              labelCol={{ span: 10 }}
-              wrapperCol={{ span: 14 }}
+              labelCol={{span: 10}}
+              wrapperCol={{span: 14}}
             >
               <InputNumber
                 value={this.state.pt.pt}
@@ -68,8 +68,8 @@ const Pt2Rem = React.createClass({
                 <Col span="8">
                   <FormItem
                     label="转换后的结果"
-                    labelCol={{ span: 19 }}
-                    wrapperCol={{ span: 5 }}
+                    labelCol={{span: 19}}
+                    wrapperCol={{span: 5}}
                   >
                     {this.state.pt.result}rem
                   </FormItem>
@@ -121,12 +121,13 @@ const FontSizeConverter = React.createClass({
   render(){
     return (
       <div
-        style={{width: '100%',
-            padding: '20px'
+        style={{
+          width: '100%',
+          padding: '20px'
         }}
       >
         <Pt2Rem />
-        <Card style={{ width: '100%', marginTop: '20px' }} title="上传图片显示大小">
+        <Card style={{width: '100%', marginTop: '20px'}} title="上传图片显示大小">
           <div
             style={{width: '100%'}}>
             <Row>

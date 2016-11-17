@@ -1,8 +1,6 @@
 /**
  * Created by YouHan on 2016/8/29.
  */
-
-/* @flow */
 import React, {PropTypes} from "react";
 import {Card, Row, Col, Form, Input, InputNumber, Button} from "antd";
 import CommonSelect from "../common/commonSelect";
@@ -12,9 +10,9 @@ const FormItem = Form.Item;
 
 const TaskItem = React.createClass({
   propTypes: {
-    id: PropTypes.any,
+    id: PropTypes.number,
     title: PropTypes.string,
-    owner: PropTypes.any,
+    owner: PropTypes.string,
     taskEst: PropTypes.number,
     todoEst: PropTypes.number,
     desc: PropTypes.string,
@@ -47,7 +45,7 @@ const TaskItem = React.createClass({
               <FormItem
                 label="Task Owner"
                 labelCol={{span: 9}}
-                wrapperCol={{ span: 15 }}
+                wrapperCol={{span: 15}}
               >
                 <CommonSelect url="/member/all" value={this.props.owner} onChange={ownerChange} />
               </FormItem>
@@ -56,7 +54,7 @@ const TaskItem = React.createClass({
               <FormItem
                 label="Status"
                 labelCol={{span: 9}}
-                wrapperCol={{ span: 15 }}
+                wrapperCol={{span: 15}}
               >
                 <TaskStatus value={this.props.status} onChange={statusChange} />
               </FormItem>
@@ -65,7 +63,7 @@ const TaskItem = React.createClass({
               <FormItem
                 label="Task Est"
                 labelCol={{span: 9}}
-                wrapperCol={{ span: 15 }}
+                wrapperCol={{span: 15}}
               >
                 <InputNumber value={this.props.taskEst} onChange={taskEstChange} />
               </FormItem>
@@ -74,7 +72,7 @@ const TaskItem = React.createClass({
               <FormItem
                 label="TODO Est"
                 labelCol={{span: 9}}
-                wrapperCol={{ span: 15 }}
+                wrapperCol={{span: 15}}
               >
                 <InputNumber value={this.props.todoEst} onChange={todoEstChange} />
               </FormItem>
@@ -85,7 +83,7 @@ const TaskItem = React.createClass({
           </Row>
         </Form>
       </Card>
-    )
+    );
   }
 });
 
@@ -131,13 +129,13 @@ const Tasks = React.createClass({
               desc={item.desc}
               status={item.status}
               owner={item.owner}
-              titleChange={this.change.bind(this,key, 'title')}
-              taskEstChange={this.change.bind(this,key, 'taskEst')}
-              todoEstChange={this.change.bind(this,key, 'todoEst')}
-              descChange={this.change.bind(this,key, 'desc')}
-              statusChange={this.change.bind(this,key, 'status')}
-              ownerChange={this.change.bind(this,key, 'owner')}
-              save={this.save.bind(this,key)}
+              titleChange={this.change.bind(this, key, 'title')}
+              taskEstChange={this.change.bind(this, key, 'taskEst')}
+              todoEstChange={this.change.bind(this, key, 'todoEst')}
+              descChange={this.change.bind(this, key, 'desc')}
+              statusChange={this.change.bind(this, key, 'status')}
+              ownerChange={this.change.bind(this, key, 'owner')}
+              save={this.save.bind(this, key)}
             />
           );
         })}

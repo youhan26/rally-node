@@ -1,4 +1,4 @@
-/* @flow */
+ 
 import React, {Component, PropTypes} from "react";
 import moment from "moment";
 import {Form, Input, Button, Card, Col, Row, message, Modal, DatePicker} from "antd";

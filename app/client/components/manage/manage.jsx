@@ -1,7 +1,7 @@
 /**
  * Created by YouHan on 2016/9/19.
  */
-/* @flow */
+ 
 import React from "react";
 import {Link} from 'react-router';
 import {Tabs} from "antd";

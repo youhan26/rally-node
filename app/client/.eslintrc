@@ -55,7 +55,7 @@
     "react/jsx-closing-bracket-location": [
       1,
       {
-        "selfClosing": "after-props"
+        "selfClosing": "tag-aligned"
       }
     ],
     "react/jsx-boolean-value": [

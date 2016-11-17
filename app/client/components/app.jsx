@@ -1,7 +1,6 @@
 /**
  * Created by YouHan on 2016/8/22.
  */
-
 import React from "react";
 import * as Render from "react-dom";
 import Raven from "raven-js";
@@ -45,10 +44,11 @@ const App = React.createClass({
     try {
       return (
         <div
-          style={{height: '100%',
-                  width: '100%',
-                  display: 'flex'
-                }}
+          style={{
+            height: '100%',
+            width: '100%',
+            display: 'flex'
+          }}
         >
           <HorizonHeader />
           {this.props.children}

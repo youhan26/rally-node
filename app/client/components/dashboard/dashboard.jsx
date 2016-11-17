@@ -32,8 +32,8 @@ export default class Dashboard extends Component {
     this.showMode = this.showMode.bind(this);
     this.clearSearch = this.clearSearch.bind(this);
     this.conditionChange = this.conditionChange.bind(this);
-    this.getCondition = this.getCondition.bind(this);
     this.loadData = this.loadData.bind(this);
+    this.getCondition = this.getCondition;
   }
   
   // switch mode

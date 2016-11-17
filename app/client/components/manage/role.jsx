@@ -2,7 +2,7 @@
  * Created by YouHan on 2016/9/19.
  */
 
-/* @flow */
+ 
 import React, {PropTypes, Component} from "react";
 import {Form, Input, Card, Col, Row, Button, message} from "antd";
 import Api from "./../api";

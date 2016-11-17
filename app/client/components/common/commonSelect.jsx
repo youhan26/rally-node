@@ -1,4 +1,4 @@
-/* @flow */
+ 
 import React, {PropTypes, Component} from "react";
 import {api} from "mimikiyru-utils";
 import {Select} from "antd";

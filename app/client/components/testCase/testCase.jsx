@@ -1,10 +1,8 @@
 /**
  * Created by YouHan on 2016/8/29.
  */
-
-/* @flow */
 import React, {PropTypes} from "react";
-import {Card, Row, Col, Form, message, Input, DatePicker, Tabs, InputNumber} from "antd";
+import {Card, Row, Col, Form, Input, InputNumber} from "antd";
 import CommonSelect from "../common/commonSelect";
 import RichText from "../common/richText";
 
@@ -13,8 +11,8 @@ const FormItem = Form.Item;
 const TestCases = React.createClass({
   propTypes: {
     title: PropTypes.string,
-    owner: PropTypes.any,
-    project: PropTypes.any,
+    owner: PropTypes.shape({}),
+    project: PropTypes.shape({}),
     status: PropTypes.number,
     planEst: PropTypes.number,
     taskEst: PropTypes.number,
@@ -84,7 +82,7 @@ const TestCases = React.createClass({
               <FormItem
                 label="Story Owner"
                 labelCol={{span: 10}}
-                wrapperCol={{ span: 14 }}
+                wrapperCol={{span: 14}}
               >
                 <CommonSelect url="/member/all" value={this.state.owner} onChange={this.ownerChange} />
               </FormItem>
@@ -93,7 +91,7 @@ const TestCases = React.createClass({
               <FormItem
                 label="Project"
                 labelCol={{span: 10}}
-                wrapperCol={{ span: 14 }}
+                wrapperCol={{span: 14}}
               >
                 <CommonSelect
                   url="/project/all"
@@ -106,7 +104,7 @@ const TestCases = React.createClass({
               <FormItem
                 label="Status"
                 labelCol={{span: 10}}
-                wrapperCol={{ span: 14 }}
+                wrapperCol={{span: 14}}
               >
                 <span>{this.state.status}</span>
               </FormItem>
@@ -119,8 +117,8 @@ const TestCases = React.createClass({
           <Col span="4">
             <FormItem
               label="Plan EST"
-              labelCol={{ span: 10 }}
-              wrapperCol={{ span: 14 }}
+              labelCol={{span: 10}}
+              wrapperCol={{span: 14}}
             >
               <InputNumber value={this.state.planEst} onChange={this.estChange} />
             </FormItem>
@@ -128,8 +126,8 @@ const TestCases = React.createClass({
           <Col span="4">
             <FormItem
               label="Task EST"
-              labelCol={{ span: 10 }}
-              wrapperCol={{ span: 14 }}
+              labelCol={{span: 10}}
+              wrapperCol={{span: 14}}
             >
               <InputNumber value={this.state.taskEst} disabled={true} />
             </FormItem>
@@ -137,8 +135,8 @@ const TestCases = React.createClass({
           <Col span="4">
             <FormItem
               label="TODO"
-              labelCol={{ span: 10 }}
-              wrapperCol={{ span: 14 }}
+              labelCol={{span: 10}}
+              wrapperCol={{span: 14}}
             >
               <InputNumber value={this.state.todoEst} disabled={true} />
             </FormItem>
@@ -146,8 +144,8 @@ const TestCases = React.createClass({
           <Col span="8">
             <FormItem
               label="Release"
-              labelCol={{ span: 10 }}
-              wrapperCol={{ span: 14 }}
+              labelCol={{span: 10}}
+              wrapperCol={{span: 14}}
             >
               <span style={{color: 'red'}}>Need TODO</span>
               {/* <InputNumber value={this.state.est}/> */}
@@ -164,9 +162,10 @@ const TestCases = React.createClass({
               wrapperCol={{span: 19}}
             >
               <RichText
-                style={{width: '100%',
-                                height: '300px'
-                            }}
+                style={{
+                  width: '100%',
+                  height: '300px'
+                }}
                 placeholder="Input Description of Story...."
                 onChange={this.descChange}
                 value={this.state.desc}
@@ -191,6 +190,5 @@ const TestCases = React.createClass({
     </div>);
   }
 });
-
 
 export default TestCases;

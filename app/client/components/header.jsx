@@ -1,8 +1,6 @@
 /**
  * Created by YouHan on 2016/8/29.
  */
-
-
 import React from "react";
 import {Menu, Icon} from "antd";
 
@@ -41,7 +39,7 @@ const HorizonHeader = React.createClass({
         mode="inline"
         openKeys={this.state.openKeys}
         selectedKeys={[this.state.current]}
-        style={{ width: 240 }}
+        style={{width: 240}}
         onOpenChange={this.onOpenChange}
         onClick={this.handleClick}
         className="header"

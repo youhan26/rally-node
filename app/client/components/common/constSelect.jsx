@@ -1,4 +1,4 @@
-/* @flow */
+ 
 import React, {Component, PropTypes} from "react";
 import CommonSelect from "./commonSelect";
 import Api from "./../api";

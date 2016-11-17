@@ -1,7 +1,6 @@
 /**
  * Created by YouHan on 2016/10/13.
  */
-
 import React from "react";
 import {Card, Form, Row, Col, InputNumber, Input} from "antd";
 const QRCode = require('qrcode.react');
@@ -27,8 +26,8 @@ const Code = React.createClass({
               <Col span="8">
                 <FormItem
                   label="Url"
-                  labelCol={{ span: 10 }}
-                  wrapperCol={{ span: 14 }}
+                  labelCol={{span: 10}}
+                  wrapperCol={{span: 14}}
                 >
                   <Input
                     value={this.state.value}
@@ -44,8 +43,8 @@ const Code = React.createClass({
               <Col span="8">
                 <FormItem
                   label="Size"
-                  labelCol={{ span: 10 }}
-                  wrapperCol={{ span: 14 }}
+                  labelCol={{span: 10}}
+                  wrapperCol={{span: 14}}
                 >
                   <InputNumber
                     value={this.state.size}
@@ -61,8 +60,8 @@ const Code = React.createClass({
               <Col span="8">
                 <FormItem
                   label="Image"
-                  labelCol={{ span: 10 }}
-                  wrapperCol={{ span: 14 }}
+                  labelCol={{span: 10}}
+                  wrapperCol={{span: 14}}
                 >
                   <QRCode
                     value={this.state.value} size={this.state.size}
@@ -71,7 +70,7 @@ const Code = React.createClass({
                 </FormItem>
               </Col>
             </Row>
-
+          
           </Form>
         </Card>
       </div>
