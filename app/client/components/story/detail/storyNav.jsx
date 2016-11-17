@@ -1,14 +1,11 @@
 /**
  * Created by YouHan on 2016/8/29.
  */
- 
 import {Motion, spring} from "react-motion";
 import React, {Component, PropTypes} from "react";
 import {Tabs} from "antd";
 import StoryDetails from "./storyDetail";
 import TaskList from "./taskList";
-import TestCases from "../../testCase/testCase";
-import Defects from "./defectList";
 
 require('./../../../style/story.css');
 
@@ -52,12 +49,12 @@ export default class Story extends Component {
               owner={this.state.owner}
             />
           </TabPane>
-          <TabPane tab="Defects" key="3" disabled={!this.state.id}>
-            <Defects storyId={this.state.id} />
-          </TabPane>
-          <TabPane tab="Test Cases" key="4" disabled={!this.state.id}>
-            <TestCases storyId={this.state.id} />
-          </TabPane>
+          {/*<TabPane tab="Defects" key="3" disabled={!this.state.id}>*/}
+          {/*<Defects storyId={this.state.id} />*/}
+          {/*</TabPane>*/}
+          {/*<TabPane tab="Test Cases" key="4" disabled={!this.state.id}>*/}
+          {/*<TestCases storyId={this.state.id} />*/}
+          {/*</TabPane>*/}
         </Tabs>
         <Test />
       </div>
@@ -65,8 +62,9 @@ export default class Story extends Component {
   }
 }
 
+
 Story.propTypes = {
   params: PropTypes.shape({
-    id: PropTypes.number
+    id: PropTypes.string
   })
 };

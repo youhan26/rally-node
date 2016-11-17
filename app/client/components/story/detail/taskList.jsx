@@ -1,7 +1,6 @@
 /**
  * Created by YouHan on 2016/8/29.
  */
- 
 import React from "react";
 import {Input, InputNumber, Table, Button} from "antd";
 import CommonSelect from "../../common/commonSelect";
@@ -22,8 +21,18 @@ export default class TaskList extends BlankRow {
       loading: false
     };
     
-    this.blur = this.blur.bind(this);
-    this.change = this.change.bind(this);
+    this.statusChange = this.change.bind(this, 'status');
+    this.statusBlur = this.blur.bind(this, 'status');
+    this.todoChange = this.change.bind(this, 'todo');
+    this.todoBlur = this.blur.bind(this, 'todo');
+    this.estChange = this.change.bind(this, 'est');
+    this.estBlur = this.blur.bind(this, 'est');
+    this.ownerChange = this.change.bind(this, 'ownerId');
+    this.ownerBlur = this.blur.bind(this, 'ownerId');
+    this.titleChange = this.change.bind(this, 'title');
+    this.titleBlur = this.blur.bind(this, 'title');
+  
+    this.click = this.click.bind(this);
   }
   
   getEmptyData() {
@@ -59,8 +68,8 @@ export default class TaskList extends BlankRow {
         return (
           <Input
             className="full-width" value={value}
-            onBlur={this.blur(index, 'title')}
-            onChange={this.change(index, 'title')}
+            onBlur={this.titleBlur(index)}
+            onChange={this.titleChange(index)}
           />
         );
       }
@@ -72,8 +81,8 @@ export default class TaskList extends BlankRow {
         return (
           <CommonSelect
             value={value} url="/member/all" className="full-width"
-            onBlur={this.blur(index, 'ownerId')}
-            onChange={this.change(index, 'ownerId')}
+            onBlur={this.ownerBlur(index)}
+            onChange={this.ownerChange(index)}
           />
         );
       }
@@ -86,8 +95,8 @@ export default class TaskList extends BlankRow {
         return (
           <InputNumber
             value={value} className="full-width"
-            onBlur={this.blur(index, 'est')}
-            onChange={this.change(index, 'est')}
+            onBlur={this.estBlur(index)}
+            onChange={this.estChange(index)}
           />
         );
       }
@@ -100,8 +109,8 @@ export default class TaskList extends BlankRow {
         return (
           <InputNumber
             value={value} className="full-width"
-            onBlur={this.blur(index, 'todo')}
-            onChange={this.change(index, 'todo')}
+            onBlur={this.todoBlur(index)}
+            onChange={this.todoChange(index)}
           />
         );
       }
@@ -114,8 +123,8 @@ export default class TaskList extends BlankRow {
         return (
           <TaskStatus
             value={value} className="full-width"
-            onBlur={this.blur(index, 'status')}
-            onChange={this.change(index, 'status')}
+            onBlur={this.statusBlur(index)}
+            onChange={this.statusChange(index)}
           />
         );
       }

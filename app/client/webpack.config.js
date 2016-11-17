@@ -9,13 +9,10 @@ module.exports = {
   entry: {
     rally: ['babel-polyfill',
       path.resolve(__dirname, 'config/rally.js'),
-      'webpack-hot-middleware/client?reload=true',
-      // 'webpack/hot/dev-server'
+      'webpack-hot-middleware/client?reload=true'
     ]
   },
   output: {
-    // path: path.join(__dirname, "/bundle", "[hash]"),
-    // filename: "[name].bundle.[hash].js",
     publicPath: "http://localhost:9999/bundle",
     path: path.join(__dirname, "/bundle"),
     filename: "[name].bundle.js",
@@ -69,10 +66,10 @@ module.exports = {
       chunksSortMode: 'dependency'
     }),
     new webpack.optimize.UglifyJsPlugin(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': JSON.stringify('production')
-      }
-    })
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     'NODE_ENV': JSON.stringify('production')
+    //   }
+    // })
   ]
 };

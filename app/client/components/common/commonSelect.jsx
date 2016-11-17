@@ -1,4 +1,3 @@
- 
 import React, {PropTypes, Component} from "react";
 import {api} from "mimikiyru-utils";
 import {Select} from "antd";
@@ -8,7 +7,9 @@ const Option = Select.Option;
 export default class CommonSelect extends Component {
   constructor(props) {
     super(props);
-    this.list = [];
+    this.state = {
+      list: []
+    };
   }
   
   componentWillMount() {
@@ -48,7 +49,7 @@ export default class CommonSelect extends Component {
 }
 
 CommonSelect.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   url: PropTypes.string
 };
 

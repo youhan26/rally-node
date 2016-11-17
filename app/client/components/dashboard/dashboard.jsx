@@ -33,7 +33,6 @@ export default class Dashboard extends Component {
     this.clearSearch = this.clearSearch.bind(this);
     this.conditionChange = this.conditionChange.bind(this);
     this.loadData = this.loadData.bind(this);
-    this.getCondition = this.getCondition;
   }
   
   // switch mode
@@ -84,7 +83,7 @@ export default class Dashboard extends Component {
     api
       .get({
         url: '/dashboard/getList',
-        params: me.getCondition(me.state.condition)
+        params: Dashboard.getCondition(me.state.condition)
       })
       .then((res) => {
         me.state.data = res.data;

@@ -22,19 +22,19 @@ class Item extends Component {
   }
 
   nameChange(e) {
-    this.props.change(this.props.key, 'name', e);
+    this.props.change(this.props.index, 'name', e);
   }
 
   memberSelect(e) {
-    this.props.change(this.props.key, 'memberIds', e);
+    this.props.change(this.props.index, 'memberIds', e);
   }
 
   descChange(e) {
-    this.props.change(this.props.key, 'desc', e);
+    this.props.change(this.props.index, 'desc', e);
   }
 
   save() {
-    this.props.change(this.props.key);
+    this.props.save(this.props.index);
   }
 
   render() {
@@ -105,13 +105,13 @@ class Item extends Component {
 
 
 Item.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
   name: PropTypes.string,
   desc: PropTypes.string,
-  memberIds: PropTypes.arrayOf(PropTypes.number),
+  memberIds: PropTypes.arrayOf(PropTypes.string),
   save: PropTypes.func,
   change: PropTypes.func,
-  key: PropTypes.number
+  index: PropTypes.number
 };
 
 Item.defaultProps = {
@@ -133,6 +133,9 @@ export default class Team extends Component {
         memberIds: []
       }]
     };
+  
+    this.change = this.change.bind(this);
+    this.save = this.save.bind(this);
   }
 
   componentWillMount() {
@@ -180,6 +183,7 @@ export default class Team extends Component {
             <Item
               data={item}
               key={key}
+              index={key}
               name={item.name}
               id={item.id}
               desc={item.desc}

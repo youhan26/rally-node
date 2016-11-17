@@ -1,7 +1,6 @@
 /**
  * Created by YouHan on 2016/8/29.
  */
- 
 import React, {PropTypes, Component} from "react";
 import moment from "moment";
 import {Card, Row, Col, Form, message, Input, DatePicker, InputNumber, Button} from "antd";
@@ -27,7 +26,21 @@ export default class StoryDetails extends Component {
       testDate: new Date()
     };
     
-    this.dataChange = this.dataChange.bind(this);
+    this.ownerChange = this.ownerChange.bind(this);
+    this.save = this.save.bind(this);
+    
+    this.titleChange = this.dataChange.bind(this, 'title');
+    this.projectChange = this.dataChange.bind(this, 'projectId');
+    this.statusChange = this.dataChange.bind(this, 'status');
+    this.testDateChange = this.dataChange.bind(this, 'testDate');
+    this.pmChange = this.dataChange.bind(this, 'pm');
+    this.feChange = this.dataChange.bind(this, 'fe');
+    this.rdChange = this.dataChange.bind(this, 'rd');
+    this.qaChange = this.dataChange.bind(this, 'qa');
+    this.notesChange = this.dataChange.bind(this, 'notes');
+    this.descChange = this.dataChange.bind(this, 'desc');
+    this.releaseChange = this.dataChange.bind(this, 'releaseId');
+    this.planEstChange = this.dataChange.bind(this, 'planEst');
   }
   
   componentWillMount() {
@@ -84,7 +97,7 @@ export default class StoryDetails extends Component {
                 <FormItem>
                   <Input
                     value={this.state.title} placeholder="Input Story Name"
-                    onChange={this.dataChange('title')}
+                    onChange={this.titleChange}
                   />
                 </FormItem>
               </Col>
@@ -120,7 +133,7 @@ export default class StoryDetails extends Component {
                 >
                   <CommonSelect
                     url="/project/all" value={this.state.projectId}
-                    onChange={this.dataChange('projectId')}
+                    onChange={this.projectChange}
                   />
                 </FormItem>
               </Col>
@@ -132,7 +145,7 @@ export default class StoryDetails extends Component {
                 >
                   <StoryStatus
                     value={this.state.status}
-                    onChange={this.dataChange('status')}
+                    onChange={this.statusChange}
                   />
                 </FormItem>
               </Col>
@@ -144,7 +157,7 @@ export default class StoryDetails extends Component {
                 >
                   <DatePicker
                     value={moment(this.state.testDate || new Date(), format)}
-                    onChange={this.dataChange('testDate')}
+                    onChange={this.testDateChange}
                   />
                 </FormItem>
               </Col>
@@ -162,7 +175,7 @@ export default class StoryDetails extends Component {
                 >
                   <CommonSelect
                     value={this.state.pm} url="/member/all"
-                    onChange={this.dataChange('pm')}
+                    onChange={this.pmChange}
                   />
                 </FormItem>
               </Col>
@@ -174,7 +187,7 @@ export default class StoryDetails extends Component {
                 >
                   <CommonSelect
                     value={this.state.qa} url="/member/all"
-                    onChange={this.dataChange('qa')}
+                    onChange={this.qaChange}
                   />
                 </FormItem>
               </Col>
@@ -186,7 +199,7 @@ export default class StoryDetails extends Component {
                 >
                   <CommonSelect
                     value={this.state.fe} url="/member/all"
-                    onChange={this.dataChange('fe')}
+                    onChange={this.feChange}
                   />
                 </FormItem>
               </Col>
@@ -198,7 +211,7 @@ export default class StoryDetails extends Component {
                 >
                   <CommonSelect
                     value={this.state.rd} url="/member/all"
-                    onChange={this.dataChange('rd')}
+                    onChange={this.rdChange}
                   />
                 </FormItem>
               </Col>
@@ -216,7 +229,7 @@ export default class StoryDetails extends Component {
                 >
                   <InputNumber
                     value={this.state.planEst}
-                    onChange={this.dataChange('planEst')}
+                    onChange={this.planEstChange}
                   />
                 </FormItem>
               </Col>
@@ -246,7 +259,7 @@ export default class StoryDetails extends Component {
                 >
                   <ReleaseSelect
                     value={this.state.releaseId} projectId={this.state.projectId}
-                    onChange={this.dataChange('releaseId')}
+                    onChange={this.releaseChange}
                   />
                 </FormItem>
               </Col>
@@ -267,7 +280,7 @@ export default class StoryDetails extends Component {
                     height: '300px'
                   }}
                   placeholder="Input Description of Story...."
-                  onChange={this.dataChange('desc')}
+                  onChange={this.descChange}
                   value={this.state.desc}
                 />
               </FormItem>
@@ -282,7 +295,7 @@ export default class StoryDetails extends Component {
               >
                 <Input
                   type="textarea" rows="4" value={this.state.notes}
-                  onChange={this.dataChange('notes')}
+                  onChange={this.notesChange}
                 />
               </FormItem>
             </Col>
@@ -297,7 +310,7 @@ export default class StoryDetails extends Component {
 }
 
 StoryDetails.propTypes = {
-  storyId: PropTypes.number,
+  storyId: PropTypes.string,
   ownerChange: PropTypes.func
 };
 

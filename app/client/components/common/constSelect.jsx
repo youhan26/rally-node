@@ -1,10 +1,9 @@
- 
 import React, {Component, PropTypes} from "react";
 import CommonSelect from "./commonSelect";
 import Api from "./../api";
 
 
-const ProjectStatus = () => {
+const ProjectStatus = (props) => {
   const data = [{
     name: '正常',
     id: '1'
@@ -12,10 +11,10 @@ const ProjectStatus = () => {
     name: '终止',
     id: '2'
   }];
-  return <CommonSelect data={data} {...this.props} />;
+  return <CommonSelect data={data} {...props} />;
 };
 
-const ReleaseIntervalUnit = () => {
+const ReleaseIntervalUnit = (props) => {
   const data = [{
     name: 'Day',
     id: '1'
@@ -26,10 +25,10 @@ const ReleaseIntervalUnit = () => {
     name: 'Month',
     id: '3'
   }];
-  return <CommonSelect data={data} {...this.props} />;
+  return <CommonSelect data={data} {...props} />;
 };
 
-const StoryStatus = () => {
+const StoryStatus = (props) => {
   const data = [{
     name: 'Defined',
     id: '1'
@@ -46,10 +45,10 @@ const StoryStatus = () => {
     name: 'Accepted',
     id: '5',
   }];
-  return <CommonSelect data={data} {...this.props} />;
+  return <CommonSelect data={data} {...props} />;
 };
 
-const TaskStatus = () => {
+const TaskStatus = (props) => {
   const data = [{
     name: 'Defined',
     id: '1'
@@ -60,10 +59,10 @@ const TaskStatus = () => {
     name: 'Completed',
     id: '3',
   }];
-  return <CommonSelect data={data} {...this.props} />;
+  return <CommonSelect data={data} {...props} />;
 };
 
-const DefectStatus = () => {
+const DefectStatus = (props) => {
   const data = [{
     name: 'Submitted',
     id: '1'
@@ -77,10 +76,10 @@ const DefectStatus = () => {
     name: 'Closed',
     id: '4',
   }];
-  return <CommonSelect data={data} {...this.props} />;
+  return <CommonSelect data={data} {...props} />;
 };
 
-const DefectPriority = () => {
+const DefectPriority = (props) => {
   const data = [{
     name: 'None',
     id: '1'
@@ -97,13 +96,15 @@ const DefectPriority = () => {
     name: 'Low',
     id: '5',
   }];
-  return <CommonSelect data={data} {...this.props} />;
+  return <CommonSelect data={data} {...props} />;
 };
 
 class ReleaseSelect extends Component {
   constructor(props) {
     super(props);
-    this.data = [];
+    this.state = {
+      data: []
+    };
   }
   
   componentWillMount() {

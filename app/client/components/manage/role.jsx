@@ -19,15 +19,15 @@ class Item extends Component {
   }
 
   nameChange(e) {
-    this.props.change(this.props.key, 'name', e);
+    this.props.change(this.props.index, 'name', e);
   }
 
   descChange(e) {
-    this.props.change(this.props.key, 'introduction', e);
+    this.props.change(this.props.index, 'introduction', e);
   }
 
   save() {
-    this.props.save(this.props.key);
+    this.props.save(this.props.index);
   }
 
   render() {
@@ -84,7 +84,7 @@ Item.propTypes = {
   save: PropTypes.func,
   change: PropTypes.func,
   name: PropTypes.string,
-  key: PropTypes.number,
+  index: PropTypes.number,
   introduction: PropTypes.string,
   id: PropTypes.number
 };
@@ -117,7 +117,7 @@ export default class Role extends Component {
 
   loadData() {
     const me = this;
-    Api.Role.get().then((res: {success :boolean, data:[]}) => {
+    Api.Role.get().then((res) => {
       if (res && res.data) {
         me.setState({
           list: [me.emptyObj].concat(res.data)
@@ -150,6 +150,7 @@ export default class Role extends Component {
             <Item
               key={key}
               id={item.id}
+              index={key}
               name={item.name}
               introduction={item.introduction}
               save={this.save}

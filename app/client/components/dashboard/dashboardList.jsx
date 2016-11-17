@@ -7,12 +7,14 @@ import {StoryStatus, ReleaseSelect, TaskStatus, DefectStatus, DefectPriority} fr
 import CommonSelect from "./../common/commonSelect";
 
 
-const DLStoryList = () => {
+const DLStoryList = (props) => {
   const columns = [{
     title: 'Title',
     dataIndex: 'title',
     key: 'title',
-    render: value => <a className="full-width" href={`/index#/story/${value}`}>{value}</a>
+    render: (value, record) => {
+      return <a className="full-width" href={`/index#/story/${record.id}`}>{value}</a>;
+    }
   }, {
     title: 'Status',
     dataIndex: 'status',
@@ -69,14 +71,14 @@ const DLStoryList = () => {
       <Card title="Story">
         <Table
           pagination={{
-            total: this.props.data.length,
+            total: props.data.length,
             defaultPageSize: 10,
             pageSize: 10
           }}
           size="small"
           columns={columns}
-          dataSource={this.props.data}
-          loading={this.props.loading}
+          dataSource={props.data}
+          loading={props.loading}
           className="task-list-table"
         />
       </Card>
@@ -88,7 +90,7 @@ DLStoryList.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
-    status: PropTypes.number,
+    status: PropTypes.string,
     planEst: PropTypes.number,
     todo: PropTypes.number,
     taskEst: PropTypes.number,
@@ -103,12 +105,14 @@ DLStoryList.defaultProps = {
   loading: false
 };
 
-const DLTaskList = () => {
+const DLTaskList = (props) => {
   const columns = [{
     title: 'Task',
     dataIndex: 'title',
     key: 'title',
-    render: value => <a className="full-width" href={`/index#/task/${value}`}>{value}</a>
+    render: (value, record) => {
+      return <a className="full-width" href={`/index#/task/${record.id}`}>{value}</a>
+    }
   }, {
     title: 'Story',
     dataIndex: 'story',
@@ -155,14 +159,14 @@ const DLTaskList = () => {
       <Card title="Task">
         <Table
           pagination={{
-            total: this.props.data.length,
+            total: props.data.length,
             defaultPageSize: 10,
             pageSize: 10
           }}
           size="small"
           columns={columns}
-          dataSource={this.props.data}
-          loading={this.props.loading}
+          dataSource={props.data}
+          loading={props.loading}
           className="task-list-table"
         />
       </Card>
@@ -188,12 +192,14 @@ DLTaskList.defaultProps = {
 };
 
 
-const DLDefectList = () => {
+const DLDefectList = (props) => {
   const columns = [{
     title: 'Defect',
     dataIndex: 'title',
     key: 'title',
-    render: value => <a className="full-width" href={`/index#/defect/${value}`}>{value}</a>
+    render: (value, record) => {
+      return <a className="full-width" href={`/index#/defect/${record.id}`}>{value}</a>
+    }
   }, {
     title: 'Story',
     dataIndex: 'story',
@@ -234,14 +240,14 @@ const DLDefectList = () => {
       <Card title="Defect">
         <Table
           pagination={{
-            total: this.props.data.length,
+            total: props.data.length,
             defaultPageSize: 10,
             pageSize: 10
           }}
           size="small"
           columns={columns}
-          dataSource={this.props.data}
-          loading={this.props.loading}
+          dataSource={props.data}
+          loading={props.loading}
           className="task-list-table"
         />
       </Card>

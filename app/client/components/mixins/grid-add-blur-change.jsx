@@ -16,7 +16,7 @@ export default class BlankRow extends Component {
   blur(index, field) {
     const data = this.getData();
     // if new value
-    if (!data[index].id) {
+    if (!data[index] || !data[index].id) {
       return;
     }
     // if data no change
@@ -30,10 +30,12 @@ export default class BlankRow extends Component {
   change(index, field, e) {
     const data = this.getData();
     const newValue = (e && e.target ? e.target.value : e);
-    const oldValue = data[index][field];
-    if (oldValue !== newValue) {
-      data[index][field] = newValue;
-      this.setState(this.state);
+    if (data[index]) {
+      const oldValue = data[index][field];
+      if (oldValue !== newValue) {
+        data[index][field] = newValue;
+        this.setState(this.state);
+      }
     }
   }
   

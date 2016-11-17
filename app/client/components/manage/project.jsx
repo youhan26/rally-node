@@ -23,23 +23,23 @@ class Item extends Component {
   }
 
   nameChange(e) {
-    this.props.change(e, 'name', this.props.key);
+    this.props.change(e, 'name', this.props.index);
   }
 
   statusChange(e) {
-    this.props.change(e, 'status', this.props.key);
+    this.props.change(e, 'status', this.props.index);
   }
 
   teamChange(e) {
-    this.props.change(e, 'teamId', this.props.key);
+    this.props.change(e, 'teamId', this.props.index);
   }
 
   clickRelease() {
-    this.props.clickRelease(this.props.item);
+    this.props.clickRelease(this.props.index);
   }
 
   save() {
-    this.props.save(this.props.key);
+    this.props.save(this.props.index);
   }
 
   render() {
@@ -110,7 +110,7 @@ Item.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
   status: PropTypes.string,
-  key: PropTypes.number,
+  index: PropTypes.number,
   teamId: PropTypes.string,
   currentReleaseId: PropTypes.string,
   release: PropTypes.shape({
@@ -137,6 +137,10 @@ class ReleaseModal extends Component {
     this.state = {
       da: dates
     };
+  
+    this.modalCancel = this.modalCancel.bind(this);
+    this.modalOk = this.modalOk.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   modalCancel() {
@@ -229,11 +233,7 @@ ReleaseModal.propTypes = {
   closeModal: PropTypes.func,
   cleanModal: PropTypes.func,
   refresh: PropTypes.func,
-  project: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    currentReleaseId: PropTypes.number
-  }),
+  project: PropTypes.number,
   visible: PropTypes.bool
 };
 
@@ -251,6 +251,11 @@ export default class Project extends Component {
       release: null,
       visible: false
     };
+  
+    this.clickRelease = this.clickRelease.bind(this);
+    this.change = this.change.bind(this);
+    this.save = this.save.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentWillMount() {
@@ -312,6 +317,7 @@ export default class Project extends Component {
           return (
             <Item
               key={key}
+              index={key}
               id={item.id || null}
               name={item.name}
               status={item.status}

@@ -1,7 +1,6 @@
 /**
  * Created by YouHan on 2016/9/19.
  */
- 
 import React, {Component, PropTypes} from "react";
 import {Form, Input, Card, Col, Row, Button, message} from "antd";
 import Api from "./../api";
@@ -12,29 +11,29 @@ const FormItem = Form.Item;
 class Item extends Component {
   constructor(props) {
     super(props);
-
+    
     this.nameChange = this.nameChange.bind(this);
     this.descChange = this.descChange.bind(this);
     this.roleSelect = this.roleSelect.bind(this);
     this.save = this.save.bind(this);
   }
-
+  
   nameChange(e) {
-    this.props.change(e, 'name', this.props.key);
+    this.props.change(e, 'name', this.props.index);
   }
-
+  
   descChange(e) {
-    this.props.change(e, 'introduction', this.props.key);
+    this.props.change(e, 'introduction', this.props.index);
   }
-
+  
   roleSelect(e) {
-    this.props.change(e, 'role_id', this.props.key);
+    this.props.change(e, 'role_id', this.props.index);
   }
-
+  
   save() {
-    this.props.save(this.props.key);
+    this.props.save(this.props.index);
   }
-
+  
   render() {
     return (
       <Card
@@ -45,8 +44,8 @@ class Item extends Component {
             <Col span={8}>
               <FormItem
                 label="Member Name"
-                labelCol={{ span: 10 }}
-                wrapperCol={{ span: 14 }}
+                labelCol={{span: 10}}
+                wrapperCol={{span: 14}}
               >
                 <Input
                   size="default"
@@ -108,7 +107,7 @@ Item.propTypes = {
   role_id: PropTypes.string,
   introduction: PropTypes.string,
   id: PropTypes.string,
-  key: PropTypes.number,
+  index: PropTypes.number,
   change: PropTypes.func,
   save: PropTypes.func
 };
@@ -123,24 +122,26 @@ Item.defaultProps = {
 export default class Member extends Component {
   constructor(props) {
     super(props);
-
+    
     this.emptyObj = {
       name: '',
       introduction: '',
       id: undefined,
       role_id: undefined
     };
-    this.state.list = [this.emptyObj];
-
+    this.state = {
+      list: [this.emptyObj]
+    };
+    
     this.save = this.save.bind(this);
     this.change = this.change.bind(this);
   }
-
-
+  
+  
   componentWillMount() {
     this.loadData();
   }
-
+  
   loadData() {
     const me = this;
     Api.Member.get().then((res) => {
@@ -151,7 +152,7 @@ export default class Member extends Component {
       }
     });
   }
-
+  
   save(key) {
     const me = this;
     Api.Member.save(this.state.list[key]).then((res) => {
@@ -161,12 +162,12 @@ export default class Member extends Component {
       }
     });
   }
-
+  
   change(e, field, key) {
     this.state.list[key][field] = (e.target ? e.target.value : e);
     this.setState(this.state);
   }
-
+  
   render() {
     return (
       <div
@@ -177,6 +178,7 @@ export default class Member extends Component {
             <Item
               id={item.id}
               key={key}
+              index={key}
               introduction={item.introduction}
               role_id={item.role_id}
               name={item.name}

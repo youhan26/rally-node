@@ -16,27 +16,27 @@ class TaskItem extends Component {
   }
   
   titleChange(e) {
-    this.props.change(this.props.key, 'title', e);
+    this.props.change(this.props.index, 'title', e);
   }
   
   ownerChange(e) {
-    this.props.change(this.props.key, 'owner', e);
+    this.props.change(this.props.index, 'owner', e);
   }
   
   taskEstChange(e) {
-    this.props.change(this.props.key, 'taskEst', e);
+    this.props.change(this.props.index, 'taskEst', e);
   }
   
   todoEstChange(e) {
-    this.props.change(this.props.key, 'todoEst', e);
+    this.props.change(this.props.index, 'todoEst', e);
   }
   
   statusChange(e) {
-    this.props.change(this.props.key, 'status', e);
+    this.props.change(this.props.index, 'status', e);
   }
   
   save() {
-    this.props.save(this.props.key);
+    this.props.save(this.props.index);
   }
   
   render() {
@@ -107,7 +107,7 @@ TaskItem.propTypes = {
   todoEst: PropTypes.number,
   desc: PropTypes.string,
   status: PropTypes.string,
-  key: PropTypes.number,
+  index: PropTypes.number,
   change: PropTypes.func,
   save: PropTypes.func
 };
@@ -162,6 +162,7 @@ export default class Tasks extends Component {
           return (
             <TaskItem
               key={key}
+              index={key}
               id={item.id}
               title={item.title}
               taskEst={item.taskEst}
