@@ -219,6 +219,3 @@ StoryResult.defaultProps = {
   data: [],
   loading: false
 };
-
-
-
