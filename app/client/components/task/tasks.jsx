@@ -1,33 +1,45 @@
 /**
  * Created by YouHan on 2016/8/29.
  */
-import React, {PropTypes} from "react";
+import React, {PropTypes, Component} from "react";
 import {Card, Row, Col, Form, Input, InputNumber, Button} from "antd";
 import CommonSelect from "../common/commonSelect";
 import {TaskStatus} from "../common/constSelect";
 
 const FormItem = Form.Item;
 
-const TaskItem = React.createClass({
-  propTypes: {
-    id: PropTypes.number,
-    title: PropTypes.string,
-    owner: PropTypes.string,
-    taskEst: PropTypes.number,
-    todoEst: PropTypes.number,
-    desc: PropTypes.string,
-    status: PropTypes.string
-  },
-  getDefaultProps(){
-    return {
-      title: '',
-      taskEst: 0,
-      todoEst: 0,
-      desc: ''
-    };
-  },
-  render (){
-    const {titleChange, ownerChange, taskEstChange, todoEstChange, statusChange, save} = {...this.props};
+class TaskItem extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.titleChange = this.titleChange.bind(this);
+  }
+  
+  titleChange(e) {
+    this.props.change(this.props.key, 'title', e);
+  }
+  
+  ownerChange(e) {
+    this.props.change(this.props.key, 'owner', e);
+  }
+  
+  taskEstChange(e) {
+    this.props.change(this.props.key, 'taskEst', e);
+  }
+  
+  todoEstChange(e) {
+    this.props.change(this.props.key, 'todoEst', e);
+  }
+  
+  statusChange(e) {
+    this.props.change(this.props.key, 'status', e);
+  }
+  
+  save() {
+    this.props.save(this.props.key);
+  }
+  
+  render() {
     return (
       <Card style={{marginTop: '6px'}}>
         <Form horizontal={true}>
@@ -36,7 +48,7 @@ const TaskItem = React.createClass({
               <FormItem>
                 <Input
                   value={this.props.title}
-                  onChange={titleChange}
+                  onChange={this.titleChange}
                   placeholder="Task Name"
                 />
               </FormItem>
@@ -47,7 +59,7 @@ const TaskItem = React.createClass({
                 labelCol={{span: 9}}
                 wrapperCol={{span: 15}}
               >
-                <CommonSelect url="/member/all" value={this.props.owner} onChange={ownerChange} />
+                <CommonSelect url="/member/all" value={this.props.owner} onChange={this.ownerChange} />
               </FormItem>
             </Col>
             <Col span="8">
@@ -56,7 +68,7 @@ const TaskItem = React.createClass({
                 labelCol={{span: 9}}
                 wrapperCol={{span: 15}}
               >
-                <TaskStatus value={this.props.status} onChange={statusChange} />
+                <TaskStatus value={this.props.status} onChange={this.statusChange} />
               </FormItem>
             </Col>
             <Col span="4">
@@ -65,7 +77,7 @@ const TaskItem = React.createClass({
                 labelCol={{span: 9}}
                 wrapperCol={{span: 15}}
               >
-                <InputNumber value={this.props.taskEst} onChange={taskEstChange} />
+                <InputNumber value={this.props.taskEst} onChange={this.taskEstChange} />
               </FormItem>
             </Col>
             <Col span="4">
@@ -74,23 +86,44 @@ const TaskItem = React.createClass({
                 labelCol={{span: 9}}
                 wrapperCol={{span: 15}}
               >
-                <InputNumber value={this.props.todoEst} onChange={todoEstChange} />
+                <InputNumber value={this.props.todoEst} onChange={this.todoEstChange} />
               </FormItem>
             </Col>
             <Col span="8" offset={9}>
-              <Button type="primary" onClick={save}>{this.props.id ? 'Update' : 'Save'}</Button>
+              <Button type="primary" onClick={this.save}>{this.props.id ? 'Update' : 'Save'}</Button>
             </Col>
           </Row>
         </Form>
       </Card>
     );
   }
-});
+}
 
+TaskItem.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  owner: PropTypes.string,
+  taskEst: PropTypes.number,
+  todoEst: PropTypes.number,
+  desc: PropTypes.string,
+  status: PropTypes.string,
+  key: PropTypes.number,
+  change: PropTypes.func,
+  save: PropTypes.func
+};
 
-const Tasks = React.createClass({
-  getInitialState(){
-    return {
+TaskItem.defaultProps = {
+  title: '',
+  taskEst: 0,
+  todoEst: 0,
+  desc: ''
+};
+
+export default class Tasks extends Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
       list: [{
         title: '',
         taskEst: 0,
@@ -99,21 +132,28 @@ const Tasks = React.createClass({
         owner: this.props.owner
       }]
     };
-  },
-  componentWillMount(){
+  
+    this.save = this.save.bind(this);
+  }
+  
+  componentWillMount() {
     this.loadData();
-  },
-  loadData(){
+  }
+  
+  loadData() {
     // TODO
-  },
-  change(key, field, e){
+  }
+  
+  change(key, field, e) {
     this.state.list[key][field] = (e && e.target ? e.target.value : e);
     this.setState(this.state);
-  },
-  save(){
+  }
+  
+  save() {
     // TODO
-  },
-  render(){
+  }
+  
+  render() {
     return (
       <div
         style={{margin: '12px'}}
@@ -129,20 +169,16 @@ const Tasks = React.createClass({
               desc={item.desc}
               status={item.status}
               owner={item.owner}
-              titleChange={this.change.bind(this, key, 'title')}
-              taskEstChange={this.change.bind(this, key, 'taskEst')}
-              todoEstChange={this.change.bind(this, key, 'todoEst')}
-              descChange={this.change.bind(this, key, 'desc')}
-              statusChange={this.change.bind(this, key, 'status')}
-              ownerChange={this.change.bind(this, key, 'owner')}
-              save={this.save.bind(this, key)}
+              change={this.change}
+              save={this.save}
             />
           );
         })}
       </div>
     );
   }
-});
+}
 
-
-export default Tasks;
+Tasks.propTypes = {
+  owner: PropTypes.number
+};
