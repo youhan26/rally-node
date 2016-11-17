@@ -1,6 +1,7 @@
 build
 coverage
 lib
+bundle
 node_modules
 config
 **/*/all.js
