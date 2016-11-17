@@ -211,7 +211,7 @@ StoryResult.propTypes = {
   remove: PropTypes.func,
   save: PropTypes.func,
   oriData: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number0
+    id: PropTypes.number
   }))
 };
 
