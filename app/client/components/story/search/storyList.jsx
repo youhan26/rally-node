@@ -18,6 +18,13 @@ export default class StoryList extends Api {
     };
   
     this.searchChange = this.searchChange.bind(this);
+    this.dataUpdate = this.dataUpdate.bind(this);
+    this.singleRemove = this.singleRemove.bind(this);
+    this.singleSave = this.singleSave.bind(this);
+    this.clear = this.clear.bind(this);
+    this.search = this.search.bind(this);
+    this.getSearchCondition = this.getSearchCondition.bind(this);
+    this.apisetLoading = this.apisetLoading.bind(this);
   }
   
   componentWillMount() {
@@ -74,7 +81,7 @@ export default class StoryList extends Api {
   search() {
     const me = this;
     me.apisetLoading();
-    Api.apigetList(me.getSearchCondition())
+    this.apigetList(me.getSearchCondition())
       .then((res) => {
         me.state.loading = false;
         if (res && res.success) {
@@ -90,7 +97,7 @@ export default class StoryList extends Api {
   singleSave(data) {
     const me = this;
     me.apisetLoading();
-    Api.apisave(data, data.id)
+    this.apisave(data, data.id)
       .then((res) => {
         if (res && res.success) {
           me.search();
@@ -103,7 +110,7 @@ export default class StoryList extends Api {
   singleRemove(id) {
     const me = this;
     me.apisetLoading();
-    Api.apiremoveById(id)
+    this.apiremoveById(id)
       .then((res) => {
         if (res && res.success) {
           me.search();
