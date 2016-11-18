@@ -1,4 +1,3 @@
- 
 import React, {Component, PropTypes} from "react";
 import moment from "moment";
 import {Form, Input, Button, Card, Col, Row, message, Modal, DatePicker} from "antd";
@@ -14,63 +13,56 @@ const FormItem = Form.Item;
 class Item extends Component {
   constructor(props) {
     super(props);
-
+    
     this.nameChange = this.nameChange.bind(this);
     this.teamChange = this.teamChange.bind(this);
     this.statusChange = this.statusChange.bind(this);
     this.clickRelease = this.clickRelease.bind(this);
     this.save = this.save.bind(this);
   }
-
+  
   nameChange(e) {
     this.props.change(e, 'name', this.props.index);
   }
-
+  
   statusChange(e) {
     this.props.change(e, 'status', this.props.index);
   }
-
+  
   teamChange(e) {
     this.props.change(e, 'teamId', this.props.index);
   }
-
+  
   clickRelease() {
-    this.props.clickRelease(this.props.index);
+    this.props.clickRelease(this.props.item);
   }
-
+  
   save() {
     this.props.save(this.props.index);
   }
-
+  
   render() {
     return (
       <Card
         bordered={false}
-        style={{ marginBottom: '15px' }}
+        style={{marginBottom: '15px'}}
       >
         <Form horizontal={true}>
           <Row gutter={16}>
             <Col span={8}>
               <FormItem
                 label="Project name"
-                labelCol={{ span: 10 }}
-                wrapperCol={{ span: 14 }}
+                labelCol={{span: 10}}
+                wrapperCol={{span: 14}}
               >
                 <Input value={this.props.name} onChange={this.nameChange} />
               </FormItem>
-              {this.props.id ? <FormItem
-                label="Current Release"
-                labelCol={{ span: 10 }}
-                wrapperCol={{ span: 14 }}
-              >
-                { this.props.release ? `Release ${this.props.release.number}` : '无'}
-              </FormItem> : null}
             </Col>
             <Col span={8}>
               <FormItem
                 label="Project Status"
-                labelCol={{ span: 10 }}
-                wrapperCol={{ span: 14 }}
+                labelCol={{span: 10}}
+                wrapperCol={{span: 14}}
               >
                 <ProjectStatus value={this.props.status} onChange={this.statusChange} />
               </FormItem>
@@ -78,12 +70,24 @@ class Item extends Component {
             <Col span={8}>
               <FormItem
                 label="Owner Team"
-                labelCol={{ span: 10 }}
-                wrapperCol={{ span: 14 }}
+                labelCol={{span: 10}}
+                wrapperCol={{span: 14}}
               >
                 <CommonSelect url="/team/all" onChange={this.teamChange} value={this.props.teamId} />
               </FormItem>
-              <FormItem>
+            </Col>
+            <Col span={16}>
+              {this.props.id ? <FormItem
+                label="Current Release"
+                labelCol={{span: 10}}
+                wrapperCol={{span: 14}}
+              >
+                { this.props.release ? `Release ${this.props.release.number} :
+                  ${this.props.release.startDate} ~ ${this.props.release.endDate}` : '无'}
+              </FormItem> : null}
+            </Col>
+            <Col span={8}>
+              <FormItem style={{textAlign: 'right'}}>
                 {this.props.id ?
                   <Button
                     type="primary"
@@ -114,7 +118,9 @@ Item.propTypes = {
   teamId: PropTypes.string,
   currentReleaseId: PropTypes.string,
   release: PropTypes.shape({
-    number: PropTypes.number
+    number: PropTypes.number,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string
   }),
   clickRelease: PropTypes.func,
   change: PropTypes.func,
@@ -129,7 +135,7 @@ Item.defaultProps = {
 class ReleaseModal extends Component {
   constructor(props) {
     super(props);
-
+    
     const dates = [];
     if (this.props.release) {
       dates.push(moment(this.props.release.startDate).add(1, 'day'));
@@ -137,18 +143,18 @@ class ReleaseModal extends Component {
     this.state = {
       da: dates
     };
-  
+    
     this.modalCancel = this.modalCancel.bind(this);
     this.modalOk = this.modalOk.bind(this);
     this.onChange = this.onChange.bind(this);
   }
-
+  
   modalCancel() {
     this.cleanModal();
     this.setState(this.state);
     this.props.closeModal();
   }
-
+  
   modalOk() {
     const me = this;
     Api.Release.save({
@@ -168,16 +174,16 @@ class ReleaseModal extends Component {
       }
     });
   }
-
+  
   cleanModal() {
     this.state.da = [];
   }
-
+  
   onChange(dates) {
     this.state.da = dates;
     this.setState(this.state);
   }
-
+  
   render() {
     const format = "YYYY-MM-DD";
     return (
@@ -227,20 +233,24 @@ class ReleaseModal extends Component {
 
 ReleaseModal.propTypes = {
   release: PropTypes.shape({
-    startDate: PropTypes.shape({}),
-    endDate: PropTypes.shape({})
+    startDate: PropTypes.string,
+    endDate: PropTypes.string
   }),
   closeModal: PropTypes.func,
   cleanModal: PropTypes.func,
   refresh: PropTypes.func,
-  project: PropTypes.number,
+  project: PropTypes.shape({
+    currentReleaseId: PropTypes.string,
+    id: PropTypes.string,
+    name: PropTypes.string
+  }),
   visible: PropTypes.bool
 };
 
 export default class Project extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
       list: [{
         name: '',
@@ -251,24 +261,25 @@ export default class Project extends Component {
       release: null,
       visible: false
     };
-  
+    
     this.clickRelease = this.clickRelease.bind(this);
     this.change = this.change.bind(this);
     this.save = this.save.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
-
+  
   componentWillMount() {
     this.loadData();
   }
-
+  
   loadData() {
+    const me = this;
     Api.Project.get().then((res) => {
       if (res && res.success) {
         res.data.forEach((item) => {
           item.status = `${item.status}`;
         });
-        this.setState({
+        me.setState({
           list: [{
             name: '',
             status: '1',
@@ -280,7 +291,7 @@ export default class Project extends Component {
       }
     });
   }
-
+  
   save(key) {
     const me = this;
     Api.Project.save(this.state.list[key]).then((res) => {
@@ -292,24 +303,24 @@ export default class Project extends Component {
       }
     });
   }
-
+  
   change(e, field, key) {
     this.state.list[key][field] = (e && e.target ? e.target.value : e);
     this.setState(this.state);
   }
-
+  
   clickRelease(item) {
     this.state.project = item;
     this.state.release = item.release;
     this.state.visible = true;
     this.setState(this.state);
   }
-
+  
   closeModal() {
     this.state.visible = false;
     this.setState(this.state);
   }
-
+  
   render() {
     return (
       <div className="project-manage">
