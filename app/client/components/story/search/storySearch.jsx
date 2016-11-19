@@ -62,14 +62,14 @@ export default class StorySearch extends Component {
                 />
               </FormItem>
               <FormItem
-                label="Release"
+                label="Project"
                 labelCol={{span: 10}}
                 wrapperCol={{span: 14}}
               >
-                <ReleaseSelect
-                  projectId={this.props.condition.projectId}
-                  value={this.props.condition.releaseId}
-                  onChange={this.releaseChange}
+                <CommonSelect
+                  className="full-width" url="/project/all"
+                  value={this.props.condition.projectId}
+                  onChange={this.projectChange}
                 />
               </FormItem>
             </Col>
@@ -85,14 +85,14 @@ export default class StorySearch extends Component {
                 />
               </FormItem>
               <FormItem
-                label="Project"
+                label="Release"
                 labelCol={{span: 10}}
                 wrapperCol={{span: 14}}
               >
-                <CommonSelect
-                  className="full-width" url="/project/all"
-                  value={this.props.condition.projectId}
-                  onChange={this.projectChange}
+                <ReleaseSelect
+                  projectId={this.props.condition.projectId}
+                  value={this.props.condition.releaseId}
+                  onChange={this.releaseChange}
                 />
               </FormItem>
             </Col>
@@ -136,9 +136,9 @@ StorySearch.propTypes = {
   condition: PropTypes.shape({
     ownerId: PropTypes.number,
     title: PropTypes.string,
-    projectId: PropTypes.number,
+    projectId: PropTypes.string,
     status: PropTypes.number,
-    releaseId: PropTypes.number
+    releaseId: PropTypes.string
   }),
   searchChange: PropTypes.func
 };

@@ -1,53 +1,45 @@
 /**
  * Created by YouHan on 2016/11/1.
  */
-import React, {PropTypes, Component} from "react";
+import React, {PropTypes} from "react";
 import {Button, Input, Table, InputNumber} from "antd";
-import {StoryStatus, ReleaseSelect} from "../../common/constSelect";
-import CommonSelect from "../../common/commonSelect";
+import BlankRow from "./../../common/blankRow";
+import {StoryStatus, ReleaseSelect} from "./../../common/constSelect";
+import CommonSelect from "./../../common/commonSelect";
 
 
-export default class StoryResult extends Component {
+export default class StoryResult extends BlankRow {
   constructor(props) {
     super(props);
     
-    this.change = this.change.bind(this);
-    this.blur = this.blur.bind(this);
-    this.click = this.click.bind(this);
+    this.singleSave = this.singleSave.bind(this);
+    this.singleRemove = this.singleRemove.bind(this);
+    this.updateChange = this.updateChange.bind(this);
+    
+    this.rowClick = this.rowClick.bind(this);
+    this.rowChange = this.rowChange.bind(this);
+    this.rowBlur = this.rowBlur.bind(this);
   }
   
-  // componentWillReceiveProps() {
-  //   // this.oriData = nextProps.data || [];
-  //   return true;
-  // }
-  
-  blur(index, field) {
-    if (!this.props.oriData[index].id) {
-      return;
-    }
-    if (this.props.oriData[index][field] === this.props.data[index][field]) {
-      return;
-    }
-    this.props.oriData[index][field] = this.props.data[index][field];
-    this.props.save(this.props.data[index]);
+  componentWillReceiveProps(nextProps) {
+    this.data = nextProps.data || [];
+    this.oriData = JSON.parse(JSON.stringify(nextProps.data || []));
   }
   
-  change(index, field, e) {
-    const newValue = (e && e.target ? e.target.value : e);
-    const oldValue = this.props.data[index][field];
-    if (oldValue !== newValue) {
-      this.props.data[index][field] = newValue;
-      this.props.dataUpdate(this.props.data);
+  singleSave(data) {
+    this.props.save(data);
+  }
+  
+  singleRemove(data) {
+    if (data) {
+      this.props.remove(data.id);
     }
   }
   
-  click(index, record) {
-    if (record.id) {
-      this.props.remove(record.id);
-    } else {
-      this.props.save(this.props.data[index]);
-    }
+  updateChange(list) {
+    this.props.dataUpdate(list);
   }
+  
   
   render() {
     const columns = [{
@@ -56,7 +48,7 @@ export default class StoryResult extends Component {
       key: 'id',
       width: 100,
       render: (value, record, index) => {
-        return value && <a className="full-width" href={`/index#/story/${value}`}>Story {index}</a>;
+        return value && <a className="full-width" href={`/index#/story/${record.id}`}>Story {index}</a>;
       }
     }, {
       title: 'Title',
@@ -66,23 +58,22 @@ export default class StoryResult extends Component {
         return (
           <Input
             value={value} className="full-width"
-            onBlur={this.blur(index, 'title')}
-            onChange={this.change(index, 'title')}
+            onBlur={this.rowBlur.bind(this, 'title', index)}
+            onChange={this.rowChange.bind(this, 'title', index)}
           />
         );
       }
     }, {
       title: 'Status',
       dataIndex: 'status',
-      
       key: 'status',
       width: 100,
       render: (value, record, index) => {
         return (
           <StoryStatus
             value={value} className="full-width"
-            onBlur={this.blur(index, 'status')}
-            onChange={this.change(index, 'status')}
+            onBlur={this.rowBlur.bind(this, 'status', index)}
+            onChange={this.rowChange.bind(this, 'status', index)}
           />
         );
       }
@@ -95,8 +86,8 @@ export default class StoryResult extends Component {
         return (
           <InputNumber
             value={value} className="full-width"
-            onBlur={this.blur(index, 'planEst')}
-            onChange={this.change(index, 'planEst')}
+            onBlur={this.rowBlur.bind(this, 'planEst', index)}
+            onChange={this.rowChange.bind(this, 'planEst', index)}
           />
         );
       }
@@ -130,22 +121,8 @@ export default class StoryResult extends Component {
         return (
           <CommonSelect
             value={value} url="/member/all" className="full-width"
-            onBlur={this.blur(index, 'ownerId')}
-            onChange={this.change(index, 'ownerId')}
-          />
-        );
-      }
-    }, {
-      title: 'Release',
-      dataIndex: 'releaseId',
-      key: 'releaseId',
-      width: 100,
-      render: (value, record, index) => {
-        return (
-          <ReleaseSelect
-            className="full-width" value={value}
-            onChange={this.change(index, 'releaseId')}
-            onBlur={this.blur(index, 'releaseId')}
+            onBlur={this.rowBlur.bind(this, 'ownerId', index)}
+            onChange={this.rowChange.bind(this, 'ownerId', index)}
           />
         );
       }
@@ -158,8 +135,22 @@ export default class StoryResult extends Component {
         return (
           <CommonSelect
             url="/project/all" value={value} className="full-width"
-            onChange={this.change(index, 'projectId')}
-            onBlur={this.blur(index, 'projectId')}
+            onBlur={this.rowBlur.bind(this, 'projectId', index)}
+            onChange={this.rowChange.bind(this, 'projectId', index)}
+          />
+        );
+      }
+    }, {
+      title: 'Release',
+      dataIndex: 'releaseId',
+      key: 'releaseId',
+      width: 100,
+      render: (value, record, index) => {
+        return (
+          <ReleaseSelect
+            className="full-width" value={value} projectId={record.projectId}
+            onBlur={this.rowBlur.bind(this, 'releaseId', index)}
+            onChange={this.rowChange.bind(this, 'releaseId', index)}
           />
         );
       }
@@ -172,7 +163,7 @@ export default class StoryResult extends Component {
         return (
           <Button
             type="primary" className="full-width"
-            onClick={this.click(index, record)}
+            onClick={this.rowClick.bind(this, index, record)}
           >
             {record.id ? 'Remove' : 'Add'}
           </Button>
@@ -206,12 +197,11 @@ export default class StoryResult extends Component {
 StoryResult.propTypes = {
   data: PropTypes.arrayOf(PropTypes.shape({})),
   loading: PropTypes.bool,
-  singleSave: PropTypes.func,
+  save: PropTypes.func,
   dataUpdate: PropTypes.func,
   remove: PropTypes.func,
-  save: PropTypes.func,
   oriData: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number
+    id: PropTypes.string
   }))
 };
 

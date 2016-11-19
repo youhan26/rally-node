@@ -1,13 +1,12 @@
-import React from "react";
+import React, {Component} from "react";
 import {message} from "antd";
-import {basic} from "mimikiyru-utils";
 import StorySearch from "./storySearch";
 import StoryResult from "./storyResult";
-import Api from "./../../mixins/mixins-api";
+import Api from "./../../api";
 
 require('./../../../style/storyList.css');
 
-export default class StoryList extends Api {
+export default class StoryList extends Component {
   constructor(props) {
     super(props);
     
@@ -16,12 +15,18 @@ export default class StoryList extends Api {
       loading: false,
       condition: StoryList.getEmptyObj()
     };
-  
+    
     this.searchChange = this.searchChange.bind(this);
+    this.dataUpdate = this.dataUpdate.bind(this);
+    this.singleRemove = this.singleRemove.bind(this);
+    this.singleSave = this.singleSave.bind(this);
+    this.clear = this.clear.bind(this);
+    this.search = this.search.bind(this);
+    this.getSearchCondition = this.getSearchCondition.bind(this);
+    this.setLoading = this.setLoading.bind(this);
   }
   
   componentWillMount() {
-    this.apiregistry('story');
     this.search();
   }
   
@@ -73,13 +78,12 @@ export default class StoryList extends Api {
   // search
   search() {
     const me = this;
-    me.apisetLoading();
-    Api.apigetList(me.getSearchCondition())
+    me.setLoading();
+    Api.Story.getList(me.getSearchCondition())
       .then((res) => {
         me.state.loading = false;
         if (res && res.success) {
           me.state.data = [StoryList.getResultObj()].concat(res.data);
-          me.state.oriData = basic.copy(me.state.data);
         } else {
           message.error(res.reason);
         }
@@ -89,8 +93,8 @@ export default class StoryList extends Api {
   
   singleSave(data) {
     const me = this;
-    me.apisetLoading();
-    Api.apisave(data, data.id)
+    me.setLoading();
+    Api.Story.save(data, data.id)
       .then((res) => {
         if (res && res.success) {
           me.search();
@@ -102,8 +106,8 @@ export default class StoryList extends Api {
   
   singleRemove(id) {
     const me = this;
-    me.apisetLoading();
-    Api.apiremoveById(id)
+    me.setLoading();
+    Api.Story.del(id)
       .then((res) => {
         if (res && res.success) {
           me.search();
@@ -113,7 +117,7 @@ export default class StoryList extends Api {
       });
   }
   
-  apisetLoading() {
+  setLoading() {
     const me = this;
     me.state.loading = true;
     me.setState(this.state);
@@ -139,7 +143,6 @@ export default class StoryList extends Api {
           clear={this.clear}
         />
         <StoryResult
-          oriData={this.state.oriData}
           data={this.state.data}
           loading={this.state.loading}
           save={this.singleSave}

@@ -14,7 +14,6 @@ exports.add = function (data) {
         builder.insert('tbl_member', [{
             'name': data.name,
             'introduction': data.introduction,
-            'team_id': data.team_id,
             'role_id': data.role_id,
             'create_time': new Date(),
             'update_time': new Date()
@@ -59,7 +58,6 @@ exports.update = function (data) {
         builder.update('tbl_member', {
             'name': data.name,
             'introduction': data.introduction,
-            'team_id': data.team_id,
             'role_id': data.role_id,
             'create_time': new Date(),
             'update_time': new Date()

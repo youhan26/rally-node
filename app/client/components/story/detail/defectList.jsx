@@ -1,13 +1,12 @@
 /**
  * Created by YouHan on 2016/8/29.
  */
- 
 import React from "react";
 import {Input, Table, Button} from "antd";
 import CommonSelect from "../../common/commonSelect";
 import {DefectStatus, DefectPriority} from "../../common/constSelect";
 import Api from "../../api";
-import BlankRow from "../../mixins/grid-add-blur-change";
+import BlankRow from "./../../common/blankRow";
 
 require('./../../../style/task.css');
 
@@ -22,8 +21,70 @@ export default class DefectList extends BlankRow {
       loading: false
     };
     
-    this.blur = this.blur.bind(this);
-    this.change = this.change.bind(this);
+    this.rowChange = this.rowChange.bind(this);
+    this.rowBlur = this.rowBlur.bind(this);
+    this.rowClick = this.rowClick.bind(this);
+    
+    this.singleSave = this.singleSave.bind(this);
+    this.singleRemove = this.singleRemove.bind(this);
+    this.updateChange = this.updateChange.bind(this);
+    this.loadData = this.loadData.bind(this);
+  }
+  
+  componentWillMount() {
+    this.loadData();
+  }
+  
+  loadData() {
+    const me = this;
+    me.state.loading = true;
+    me.setState(me.state);
+    
+    Api.Defect.getList(me.storyId).then((result) => {
+      const data = result.data;
+      
+      if (data && data.length > 0) {
+        data.forEach(me.changeData);
+      }
+      
+      // update ori data for compare
+      me.data = [me.getEmptyData()].concat(data);
+      me.oriData = JSON.parse(JSON.stringify([me.getEmptyData()].concat(data)));
+      
+      me.setState({
+        data: me.data,
+        loading: false
+      });
+    });
+  }
+  
+  singleSave(data) {
+    const me = this;
+    BlankRow.notice().saving();
+    Api.Defect.save(data)
+      .then((res) => {
+        if (res.success) {
+          BlankRow.notice().succ();
+          me.loadData();
+        } else {
+          BlankRow.notice().fail();
+        }
+      });
+  }
+  
+  singleRemove(data) {
+    const me = this;
+    Api.Defect.del(data.id).then((res) => {
+      if (res && res.success) {
+        BlankRow.notice().succ();
+        me.loadData();
+      }
+    });
+  }
+  
+  updateChange(list) {
+    this.state.data = list;
+    this.setState(this.state);
   }
   
   getEmptyData() {
@@ -50,7 +111,7 @@ export default class DefectList extends BlankRow {
       dataIndex: 'id',
       key: 'no',
       render: (value, record, index) => {
-        return value && <a style={{textAlign: 'center'}} href={`/index#/defects/${value}`}>Defect {index}</a>
+        return value && <a style={{textAlign: 'center'}} href={`/index#/defects/${record.id}`}>Defect {index}</a>
       }
     }, {
       title: 'Title',
@@ -60,8 +121,8 @@ export default class DefectList extends BlankRow {
         return (
           <Input
             className="full-width" value={value}
-            onBlur={this.blur(index, 'title')}
-            onChange={this.change(index, 'title')}
+            onBlur={this.rowBlur.bind(this, 'title', index)}
+            onChange={this.rowChange.bind(this, 'title', index)}
           />
         );
       }
@@ -74,8 +135,8 @@ export default class DefectList extends BlankRow {
         return (
           <CommonSelect
             value={value} url="/member/all" className="full-width"
-            onBlur={this.blur(index, 'ownerId')}
-            onChange={this.change(index, 'ownerId')}
+            onBlur={this.rowBlur.bind(this, 'ownerId', index)}
+            onChange={this.rowChange.bind(this, 'ownerId', index)}
           />
         );
       }
@@ -88,8 +149,8 @@ export default class DefectList extends BlankRow {
         return (
           <CommonSelect
             value={value} url="/member/all" className="full-width"
-            onBlur={this.blur(index, 'submitId')}
-            onChange={this.change(index, 'submitId')}
+            onBlur={this.rowBlur.bind(this, 'submitId', index)}
+            onChange={this.rowChange.bind(this, 'submitId', index)}
           />
         );
       }
@@ -102,8 +163,8 @@ export default class DefectList extends BlankRow {
         return (
           <DefectStatus
             value={value} className="full-width"
-            onBlur={this.blur(index, 'status')}
-            onChange={this.change(index, 'status')}
+            onBlur={this.rowBlur.bind(this, 'status', index)}
+            onChange={this.rowChange.bind(this, 'status', index)}
           />
         );
       }
@@ -116,8 +177,8 @@ export default class DefectList extends BlankRow {
         return (
           <DefectPriority
             value={value} className="full-width"
-            onBlur={this.blur(index, 'priority')}
-            onChange={this.change(index, 'priority')}
+            onBlur={this.rowBlur.bind(this, 'priority', index)}
+            onChange={this.rowChange.bind(this, 'priority', index)}
           />
         );
       }
@@ -130,7 +191,7 @@ export default class DefectList extends BlankRow {
         return (
           <Button
             type="primary" style={{textAlign: 'center'}}
-            onClick={this.click(index, record)}>{record.id ? 'Remove' : 'Add'}
+            onClick={this.rowClick.bind(this, index, record)}>{record.id ? 'Remove' : 'Add'}
           </Button>
         );
       }
