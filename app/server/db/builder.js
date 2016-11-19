@@ -5,11 +5,11 @@ var Builder = require('mysql-orm-builder').orm;
 
 
 var builder = new Builder({
-    host: 'IP',
+    host: '192.168.0.124',
     port: 3306,
-    database: 'rally',
-    user: 'user',
-    password: 'password',
+    database: 'rally2',
+    user: 'work',
+    password: '123456',
     connectionLimit: 10,
     dateStrings: true,
     supportBigNumbers: true, //enable big number
