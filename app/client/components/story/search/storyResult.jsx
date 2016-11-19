@@ -32,7 +32,7 @@ export default class StoryResult extends BlankRow {
   
   singleRemove(data) {
     if (data) {
-      this.props.singleRemove(data.id);
+      this.props.remove(data.id);
     }
   }
   
