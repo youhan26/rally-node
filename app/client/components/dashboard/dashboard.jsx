@@ -33,6 +33,7 @@ export default class Dashboard extends Component {
     this.clearSearch = this.clearSearch.bind(this);
     this.conditionChange = this.conditionChange.bind(this);
     this.loadData = this.loadData.bind(this);
+    this.search = this.search.bind(this);
   }
   
   // switch mode
@@ -71,24 +72,25 @@ export default class Dashboard extends Component {
   }
   
   conditionChange(field, e) {
-    const me = this;
-    me.state.condition[field] = (e && e.target ? e.target.value : e);
-    me.setState(me.state);
-    me.loadData();
+    this.state.condition[field] = (e && e.target ? e.target.value : e);
+    this.setState(this.state);
   }
   
   
   loadData() {
     const me = this;
-    api
-      .get({
-        url: '/dashboard/getList',
-        params: Dashboard.getCondition(me.state.condition)
-      })
+    api.get({
+      url: '/dashboard/getList',
+      params: Dashboard.getCondition(me.state.condition)
+    })
       .then((res) => {
         me.state.data = res.data;
         me.setState(me.state);
       });
+  }
+  
+  search() {
+    this.loadData();
   }
   
   clearSearch() {
@@ -98,7 +100,6 @@ export default class Dashboard extends Component {
       releaseId: null
     };
     this.setState(this.state);
-    // TODO this will load twice
     this.loadData();
   }
   
@@ -109,6 +110,7 @@ export default class Dashboard extends Component {
           condition={this.state.condition}
           conditionChange={this.conditionChange}
           click={this.clearSearch}
+          search={this.search}
         />
         <Row>
           <Col span="24" style={{textAlign: 'right', paddingRight: '12px'}}>

@@ -138,12 +138,6 @@ const DLTaskList = (props) => {
     width: 70,
     render: value => <div>{value || 0}</div>
   }, {
-    title: 'Story',
-    dataIndex: 'storyId',
-    key: 'storyId',
-    width: 70,
-    render: value => <CommonSelect url="/story/all" value={value} className="full-width" disabled={true} />
-  }, {
     title: 'Owner',
     dataIndex: 'ownerId',
     key: 'ownerId',
@@ -218,12 +212,6 @@ const DLDefectList = (props) => {
     key: 'priority',
     width: 70,
     render: value => <DefectPriority value={`${value}`} className="full-width" disabled={true} />
-  }, {
-    title: 'Story',
-    dataIndex: 'storyId',
-    key: 'storyId',
-    width: 70,
-    render: value => <CommonSelect url="/story/all" value={value} className="full-width" disabled={true} />
   }, {
     title: 'Owner',
     dataIndex: 'ownerId',

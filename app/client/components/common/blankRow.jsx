@@ -17,18 +17,27 @@ import {notification} from "antd";
 
 export default class BlankRow extends Component {
   
-  static notice(mess, isSucc) {
-    if (isSucc) {
-      notification.success({
-        message: `${mess} Successfully`,
-        duration: 1,
-      });
-    } else {
-      notification.error({
-        message: `${mess} Error`,
-        duration: 1,
-      });
-    }
+  static notice() {
+    return {
+      saving(){
+        notification.info({
+          message: `Saving`,
+          duration: 1,
+        });
+      },
+      succ(){
+        notification.success({
+          message: `Save Successfully`,
+          duration: 1,
+        });
+      },
+      fail(){
+        notification.error({
+          message: `Save failed`,
+          duration: 1,
+        });
+      }
+    };
   }
   
   rowBlur(field, index) {
