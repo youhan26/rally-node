@@ -1,6 +1,5 @@
 import React from "react";
 import {message} from "antd";
-import {basic} from "mimikiyru-utils";
 import StorySearch from "./storySearch";
 import StoryResult from "./storyResult";
 import Api from "./../../mixins/mixins-api";
@@ -16,7 +15,7 @@ export default class StoryList extends Api {
       loading: false,
       condition: StoryList.getEmptyObj()
     };
-  
+    
     this.searchChange = this.searchChange.bind(this);
     this.dataUpdate = this.dataUpdate.bind(this);
     this.singleRemove = this.singleRemove.bind(this);
@@ -86,7 +85,6 @@ export default class StoryList extends Api {
         me.state.loading = false;
         if (res && res.success) {
           me.state.data = [StoryList.getResultObj()].concat(res.data);
-          me.state.oriData = basic.copy(me.state.data);
         } else {
           message.error(res.reason);
         }
@@ -146,7 +144,6 @@ export default class StoryList extends Api {
           clear={this.clear}
         />
         <StoryResult
-          oriData={this.state.oriData}
           data={this.state.data}
           loading={this.state.loading}
           save={this.singleSave}

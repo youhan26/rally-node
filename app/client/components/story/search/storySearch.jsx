@@ -136,9 +136,9 @@ StorySearch.propTypes = {
   condition: PropTypes.shape({
     ownerId: PropTypes.number,
     title: PropTypes.string,
-    projectId: PropTypes.number,
+    projectId: PropTypes.string,
     status: PropTypes.number,
-    releaseId: PropTypes.number
+    releaseId: PropTypes.string
   }),
   searchChange: PropTypes.func
 };
