@@ -75,6 +75,10 @@ export default class DashboardSearch extends Component {
                 </FormItem>
               </Col>
               <Col span="6" style={{textAlign: 'right', paddingRight: '20px'}}>
+                <Button
+                  type="primary" onClick={this.props.search}
+                  style={{marginRight: '12px'}}
+                >Search</Button>
                 <Button type="primary" onClick={this.props.click}>Clear</Button>
               </Col>
             </Row>
@@ -92,7 +96,8 @@ DashboardSearch.propTypes = {
     projectId: PropTypes.string,
     ownerId: PropTypes.string
   }),
-  click: PropTypes.func
+  click: PropTypes.func,
+  search: PropTypes.func
 };
 
 DashboardSearch.defaultProps = {

@@ -6,7 +6,7 @@ import {Input, InputNumber, Table, Button} from "antd";
 import CommonSelect from "../../common/commonSelect";
 import {TaskStatus} from "../../common/constSelect";
 import Api from "../../api";
-import BlankRow from "../../mixins/grid-add-blur-change";
+import BlankRow from "./../../common/blankRow";
 
 require('./../../../style/task.css');
 
@@ -21,18 +21,70 @@ export default class TaskList extends BlankRow {
       loading: false
     };
     
-    this.statusChange = this.change.bind(this, 'status');
-    this.statusBlur = this.blur.bind(this, 'status');
-    this.todoChange = this.change.bind(this, 'todo');
-    this.todoBlur = this.blur.bind(this, 'todo');
-    this.estChange = this.change.bind(this, 'est');
-    this.estBlur = this.blur.bind(this, 'est');
-    this.ownerChange = this.change.bind(this, 'ownerId');
-    this.ownerBlur = this.blur.bind(this, 'ownerId');
-    this.titleChange = this.change.bind(this, 'title');
-    this.titleBlur = this.blur.bind(this, 'title');
+    this.rowChange = this.rowChange.bind(this);
+    this.rowBlur = this.rowBlur.bind(this);
+    this.rowClick = this.rowClick.bind(this);
+    
+    this.singleSave = this.singleSave.bind(this);
+    this.singleRemove = this.singleRemove.bind(this);
+    this.updateChange = this.updateChange.bind(this);
+    this.loadData = this.loadData.bind(this);
+  }
   
-    this.click = this.click.bind(this);
+  componentWillMount() {
+    this.loadData();
+  }
+  
+  loadData() {
+    const me = this;
+    me.state.loading = true;
+    me.setState(me.state);
+    
+    Api.Task.getList(me.storyId).then((result) => {
+      const data = result.data;
+      
+      if (data && data.length > 0) {
+        data.forEach(me.changeData);
+      }
+  
+      // update ori data for compare
+      me.data = [me.getEmptyData()].concat(data);
+      me.oriData = JSON.parse(JSON.stringify([me.getEmptyData()].concat(data)));
+      
+      me.setState({
+        data: me.data,
+        loading: false
+      });
+    });
+  }
+  
+  singleSave(data) {
+    const me = this;
+    BlankRow.notice().saving();
+    Api.Task.save(data)
+      .then((res) => {
+        if (res.success) {
+          BlankRow.notice().succ();
+          me.loadData();
+        } else {
+          BlankRow.notice().fail();
+        }
+      });
+  }
+  
+  singleRemove(data) {
+    const me = this;
+    Api.Task.del(data.id).then((res) => {
+      if (res && res.success) {
+        BlankRow.notice().succ();
+        me.loadData();
+      }
+    });
+  }
+  
+  updateChange(list) {
+    this.state.data = list;
+    this.setState(this.state);
   }
   
   getEmptyData() {
@@ -58,7 +110,7 @@ export default class TaskList extends BlankRow {
       dataIndex: 'id',
       key: 'no',
       render: (value, record, index) => {
-        return value && <a style={{textAlign: 'center'}} href={`/index#/tasks/${value}`}>TASK {index}</a>;
+        return value && <a style={{textAlign: 'center'}} href={`/index#/tasks/${record.id}`}>TASK {index}</a>;
       }
     }, {
       title: 'Title',
@@ -68,8 +120,8 @@ export default class TaskList extends BlankRow {
         return (
           <Input
             className="full-width" value={value}
-            onBlur={this.titleBlur(index)}
-            onChange={this.titleChange(index)}
+            onBlur={this.rowBlur.bind(this, 'title', index)}
+            onChange={this.rowChange.bind(this, 'title', index)}
           />
         );
       }
@@ -81,8 +133,8 @@ export default class TaskList extends BlankRow {
         return (
           <CommonSelect
             value={value} url="/member/all" className="full-width"
-            onBlur={this.ownerBlur(index)}
-            onChange={this.ownerChange(index)}
+            onBlur={this.rowBlur.bind(this, 'ownerId', index)}
+            onChange={this.rowChange.bind(this, 'ownerId', index)}
           />
         );
       }
@@ -95,8 +147,8 @@ export default class TaskList extends BlankRow {
         return (
           <InputNumber
             value={value} className="full-width"
-            onBlur={this.estBlur(index)}
-            onChange={this.estChange(index)}
+            onBlur={this.rowBlur.bind(this, 'est', index)}
+            onChange={this.rowChange.bind(this, 'est', index)}
           />
         );
       }
@@ -109,8 +161,8 @@ export default class TaskList extends BlankRow {
         return (
           <InputNumber
             value={value} className="full-width"
-            onBlur={this.todoBlur(index)}
-            onChange={this.todoChange(index)}
+            onBlur={this.rowBlur.bind(this, 'todo', index)}
+            onChange={this.rowChange.bind(this, 'todo', index)}
           />
         );
       }
@@ -123,8 +175,8 @@ export default class TaskList extends BlankRow {
         return (
           <TaskStatus
             value={value} className="full-width"
-            onBlur={this.statusBlur(index)}
-            onChange={this.statusChange(index)}
+            onBlur={this.rowBlur.bind(this, 'status', index)}
+            onChange={this.rowChange.bind(this, 'status', index)}
           />
         );
       }
@@ -137,7 +189,7 @@ export default class TaskList extends BlankRow {
         return (
           <Button
             type="primary" style={{textAlign: 'center'}}
-            onClick={this.click(index, record)}
+            onClick={this.rowClick.bind(this, index, record)}
           >
             {record.id ? 'Remove' : 'Add'}
           </Button>
