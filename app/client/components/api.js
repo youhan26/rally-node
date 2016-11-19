@@ -76,6 +76,8 @@ const Api = {
   Task: new class extends BasicApi {
     constructor() {
       super('task');
+  
+      this.getList = this.getList.bind(this);
     }
     
     getList(id) {
@@ -90,6 +92,8 @@ const Api = {
   Defect: new class extends BasicApi {
     constructor() {
       super('defect');
+  
+      this.getList = this.getList.bind(this);
     }
     
     getList(id) {
@@ -121,6 +125,8 @@ const Api = {
   Story: new class extends BasicApi {
     constructor() {
       super('story');
+  
+      this.getList = this.getList.bind(this);
     }
     
     getList(obj) {

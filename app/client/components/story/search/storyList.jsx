@@ -1,12 +1,12 @@
-import React from "react";
+import React, {Component} from "react";
 import {message} from "antd";
 import StorySearch from "./storySearch";
 import StoryResult from "./storyResult";
-import Api from "./../../mixins/mixins-api";
+import Api from "./../../api";
 
 require('./../../../style/storyList.css');
 
-export default class StoryList extends Api {
+export default class StoryList extends Component {
   constructor(props) {
     super(props);
     
@@ -23,11 +23,10 @@ export default class StoryList extends Api {
     this.clear = this.clear.bind(this);
     this.search = this.search.bind(this);
     this.getSearchCondition = this.getSearchCondition.bind(this);
-    this.apisetLoading = this.apisetLoading.bind(this);
+    this.setLoading = this.setLoading.bind(this);
   }
   
   componentWillMount() {
-    this.apiregistry('story');
     this.search();
   }
   
@@ -79,8 +78,8 @@ export default class StoryList extends Api {
   // search
   search() {
     const me = this;
-    me.apisetLoading();
-    this.apigetList(me.getSearchCondition())
+    me.setLoading();
+    Api.Story.getList(me.getSearchCondition())
       .then((res) => {
         me.state.loading = false;
         if (res && res.success) {
@@ -94,8 +93,8 @@ export default class StoryList extends Api {
   
   singleSave(data) {
     const me = this;
-    me.apisetLoading();
-    this.apisave(data, data.id)
+    me.setLoading();
+    Api.Story.save(data, data.id)
       .then((res) => {
         if (res && res.success) {
           me.search();
@@ -107,8 +106,8 @@ export default class StoryList extends Api {
   
   singleRemove(id) {
     const me = this;
-    me.apisetLoading();
-    this.apiremoveById(id)
+    me.setLoading();
+    Api.Story.del(id)
       .then((res) => {
         if (res && res.success) {
           me.search();
@@ -118,7 +117,7 @@ export default class StoryList extends Api {
       });
   }
   
-  apisetLoading() {
+  setLoading() {
     const me = this;
     me.state.loading = true;
     me.setState(this.state);
