@@ -134,7 +134,7 @@ StorySearch.propTypes = {
   clear: PropTypes.func,
   search: PropTypes.func,
   condition: PropTypes.shape({
-    ownerId: PropTypes.number,
+    ownerId: PropTypes.string,
     title: PropTypes.string,
     projectId: PropTypes.string,
     status: PropTypes.number,
