@@ -7,9 +7,17 @@
 var builder = require('./../db/builder');
 var logger = require('./../utils/logger');
 
+module.exports = {
+  add: add,
+  get: get,
+  update: update,
+  getAll: getAll,
+  login: login
+};
+
 
 //add function
-exports.add = function (data) {
+function add(data) {
   return new Promise(function (resolver, rejector) {
     builder.insert('tbl_member', [{
       'name': data.name,
@@ -27,11 +35,11 @@ exports.add = function (data) {
         rejector(error);
       });
   })
-};
+}
 
 
 //get function
-exports.get = function (id) {
+function get(id) {
   return new Promise(function (resolver, rejector) {
     builder.select('tbl_member')
       .where({
@@ -47,9 +55,9 @@ exports.get = function (id) {
         rejector(error);
       });
   });
-};
+}
 
-exports.update = function (data) {
+function update(data) {
   return new Promise(function (resolver, rejector) {
     if (!data.id) {
       rejector('no id');
@@ -74,11 +82,11 @@ exports.update = function (data) {
         rejector(error);
       });
   });
-};
+}
 
 
 //get all function
-exports.getAll = function () {
+function getAll() {
   return new Promise(function (resolver, rejector) {
     builder.select('tbl_member')
       .orderBy(['id desc', 'create_time'])
@@ -91,9 +99,9 @@ exports.getAll = function () {
         rejector(error);
       });
   })
-};
+}
 
-exports.login = function (data) {
+function login(data) {
   return new Promise(function (resolver, rejector) {
     builder.select('tbl_member')
       .where({
@@ -103,9 +111,9 @@ exports.login = function (data) {
       .end()
       .then(function (res) {
         if (res && res.length == 1) {
-          if(res[0].password === data.password){
+          if (res[0].password === data.password) {
             resolver();
-          }else{
+          } else {
             rejector('密码不正确');
           }
         }
@@ -117,4 +125,4 @@ exports.login = function (data) {
         rejector(error);
       });
   });
-};
+}
