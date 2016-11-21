@@ -38,7 +38,7 @@ function getList(condition) {
       .then(function (stories) {
         var i = 0;
         var len = stories.length;
-        if (len < 0) {
+        if (len <= 0) {
           resolve([]);
         }
         stories.forEach(function (story) {
