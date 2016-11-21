@@ -12,6 +12,7 @@ var task = require('./controller/task');
 var defect = require('./controller/defect');
 var release = require('./controller/release');
 var story = require('./controller/story');
+var login = require('./controller/login');
 
 var tools = require('./controller/tools');
 
@@ -19,16 +20,17 @@ var dashboard = require('./controller/dashboard');
 
 
 router.get('/home', function (req, res) {
-    res.sendFile(path.resolve(__dirname + './../client/views/home.html'));
+  res.sendFile(path.resolve(__dirname + './../client/views/home.html'));
 });
 
 router.get('login', function (req, res) {
-    res.sendFile(path.resolve(__dirname + './../client/views/login.html'));
+  res.sendFile(path.resolve(__dirname + './../client/views/login.html'));
 });
 
 router.get('/index', function (req, res) {
-    res.sendFile(path.resolve(__dirname + './../client/views/rally.html'));
+  res.sendFile(path.resolve(__dirname + './../client/views/rally.html'));
 });
+
 
 router.use('/dashboard', dashboard);
 router.use('/tools', tools);
@@ -40,7 +42,7 @@ router.use('/task', task);
 router.use('/defect', defect);
 router.use('/release', release);
 router.use('/story', story);
-
+router.use('/login', login);
 
 
 module.exports = router;

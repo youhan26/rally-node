@@ -104,6 +104,8 @@ DROP TABLE IF EXISTS `tbl_member`;
 CREATE TABLE `tbl_member` (
   `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(128) NOT NULL,
+  `nickname` VARCHAR(128),
+  `password` VARCHAR(128),
   `introduction` TEXT NULL,
   `role_id` BIGINT(20) NULL,
   `create_time` DATETIME NULL,

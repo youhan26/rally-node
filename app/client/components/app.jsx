@@ -21,6 +21,7 @@ import Project from "./manage/project";
 import Team from "./manage/team";
 import Member from "./manage/member";
 import Role from "./manage/role";
+import Login from "./login/login";
 
 require('./../style/basic.css');
 
@@ -33,7 +34,15 @@ moment.tz.setDefault('Asia/Shanghai');
 
 Raven.config('https://b11a5932031d459dbd521ecbc9895977@sentry.io/112807').install();
 
-const App = React.createClass({
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      user: ''
+    };
+  }
+  
   render() {
     return (
       <div
@@ -43,33 +52,44 @@ const App = React.createClass({
           display: 'flex'
         }}
       >
-        <HorizonHeader />
+        <HorizonHeader user={this.state.user} />
         {this.props.children}
       </div>
     );
   }
-});
+}
+
+
+const requireCredentials = (nextState, replace, next) => {
+  const token = localStorage.user;
+  if (!token) {
+    const ran = Math.ceil(Math.random() * 8);
+    replace(`/login?ran=${ran}`);
+  }
+  next();
+};
 
 Render.render(
   <Router history={hashHistory}>
     <Route path="/" component={App}>
-      <IndexRoute component={Dashboard} />
-      <Route path="dashboard" component={Dashboard} />
-      <Route path="stories" component={StoryList} />
-      <Route path="story/:id" component={Story} />
-      <Route path="story" component={Story} />
-      <Route path="bugs" component={Bug} />
-      <Route path="report" component={Report} />
-      <Route path="share" component={Share} />
-      <Route path="manage" component={Management}>
-        <IndexRoute component={Project} />
-        <Route path="project" component={Project} />
-        <Route path="team" component={Team} />
-        <Route path="member" component={Member} />
-        <Route path="role" component={Role} />
+      <IndexRoute component={Dashboard} onEnter={requireCredentials} />
+      <Route path="dashboard" component={Dashboard} onEnter={requireCredentials} />
+      <Route path="stories" component={StoryList} onEnter={requireCredentials} />
+      <Route path="story/:id" component={Story} onEnter={requireCredentials} />
+      <Route path="story" component={Story} onEnter={requireCredentials} />
+      <Route path="bugs" component={Bug} onEnter={requireCredentials} />
+      <Route path="report" component={Report} onEnter={requireCredentials} />
+      <Route path="share" component={Share} onEnter={requireCredentials} />
+      <Route path="manage" component={Management} onEnter={requireCredentials}>
+        <IndexRoute component={Project} onEnter={requireCredentials} />
+        <Route path="project" component={Project} onEnter={requireCredentials} />
+        <Route path="team" component={Team} onEnter={requireCredentials} />
+        <Route path="member" component={Member} onEnter={requireCredentials} />
+        <Route path="role" component={Role} onEnter={requireCredentials} />
       </Route>
       <Route path="font-size-converter" component={FontSizeConverter} />
       <Route path="qrcode" component={Code} />
+      <Route path="login" component={Login} />
     </Route>
   </Router>,
   document.getElementById('root'));

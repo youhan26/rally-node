@@ -10,85 +10,111 @@ var logger = require('./../utils/logger');
 
 //add function
 exports.add = function (data) {
-    return new Promise(function (resolver, rejector) {
-        builder.insert('tbl_member', [{
-            'name': data.name,
-            'introduction': data.introduction,
-            'role_id': data.role_id,
-            'create_time': new Date(),
-            'update_time': new Date()
-        }])
-            .end()
-            .then(function (res) {
-                logger.info('insert to tbl_member', res, data);
-                resolver(res);
-            }, function (error) {
-                logger.error('error happen when insert to tbl_member', error);
-                rejector(error);
-            });
-    })
+  return new Promise(function (resolver, rejector) {
+    builder.insert('tbl_member', [{
+      'name': data.name,
+      'introduction': data.introduction,
+      'role_id': data.role_id,
+      'create_time': new Date(),
+      'update_time': new Date()
+    }])
+      .end()
+      .then(function (res) {
+        logger.info('insert to tbl_member', res, data);
+        resolver(res);
+      }, function (error) {
+        logger.error('error happen when insert to tbl_member', error);
+        rejector(error);
+      });
+  })
 };
 
 
 //get function
 exports.get = function (id) {
-    return new Promise(function (resolver, rejector) {
-        builder.select('tbl_member')
-            .where({
-                id: id
-            })
-            .orderBy(['id desc', 'create_time'])
-            .end()
-            .then(function (res) {
-                logger.info('get success from tbl_member', res, id);
-                resolver(res);
-            }, function (error) {
-                logger.error('error happen get tbl_member', error, id);
-                rejector(error);
-            });
-    });
+  return new Promise(function (resolver, rejector) {
+    builder.select('tbl_member')
+      .where({
+        id: id
+      })
+      .orderBy(['id desc', 'create_time'])
+      .end()
+      .then(function (res) {
+        logger.info('get success from tbl_member', res, id);
+        resolver(res);
+      }, function (error) {
+        logger.error('error happen get tbl_member', error, id);
+        rejector(error);
+      });
+  });
 };
 
 exports.update = function (data) {
-    return new Promise(function (resolver, rejector) {
-        if (!data.id) {
-            rejector('no id');
-            return;
-        }
-        builder.update('tbl_member', {
-            'name': data.name,
-            'introduction': data.introduction,
-            'role_id': data.role_id,
-            'create_time': new Date(),
-            'update_time': new Date()
-        })
-            .where({
-                id: data.id
-            })
-            .end()
-            .then(function (res) {
-                logger.info('update success ', res);
-                resolver(res);
-            }, function (error) {
-                logger.error('error happen update project', error);
-                rejector(error);
-            });
-    });
+  return new Promise(function (resolver, rejector) {
+    if (!data.id) {
+      rejector('no id');
+      return;
+    }
+    builder.update('tbl_member', {
+      'name': data.name,
+      'introduction': data.introduction,
+      'role_id': data.role_id,
+      'create_time': new Date(),
+      'update_time': new Date()
+    })
+      .where({
+        id: data.id
+      })
+      .end()
+      .then(function (res) {
+        logger.info('update success ', res);
+        resolver(res);
+      }, function (error) {
+        logger.error('error happen update project', error);
+        rejector(error);
+      });
+  });
 };
 
 
 //get all function
 exports.getAll = function () {
-    return new Promise(function (resolver, rejector) {
-        builder.select('tbl_member')
-            .orderBy(['id desc', 'create_time'])
-            .end()
-            .then(function (res) {
-                logger.info('get success');
-                resolver(res)
-            }, function (error) {
-                logger.error('error happen ', error);
-                rejector(error);
-            });
-    })
+  return new Promise(function (resolver, rejector) {
+    builder.select('tbl_member')
+      .orderBy(['id desc', 'create_time'])
+      .end()
+      .then(function (res) {
+        logger.info('get success');
+        resolver(res)
+      }, function (error) {
+        logger.error('error happen ', error);
+        rejector(error);
+      });
+  })
+};
+
+exports.login = function (data) {
+  return new Promise(function (resolver, rejector) {
+    builder.select('tbl_member')
+      .where({
+        nickname: data.name
+      })
+      .orderBy(['id desc', 'create_time'])
+      .end()
+      .then(function (res) {
+        if (res && res.length == 1) {
+          if(res[0].password === data.password){
+            resolver();
+          }else{
+            rejector('密码不正确');
+          }
+        }
+        else {
+          rejector('用户不存在');
+        }
+      }, function (error) {
+        logger.error('error happen get tbl_member', error, id);
+        rejector(error);
+      });
+  });
 };

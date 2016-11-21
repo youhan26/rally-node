@@ -11,7 +11,8 @@
     "window": true,
     "location": true,
     "FileReader": true,
-    "Image": true
+    "Image": true,
+    "localStorage": true
   },
   "rules": {
     "eqeqeq": [
