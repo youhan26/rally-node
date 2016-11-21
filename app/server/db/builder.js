@@ -7,7 +7,7 @@ var Builder = require('mysql-orm-builder').orm;
 var builder = new Builder({
     host: '192.168.0.124',
     port: 3306,
-    database: 'rally2',
+    database: 'rally',
     user: 'work',
     password: '123456',
     connectionLimit: 10,

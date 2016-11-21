@@ -6,7 +6,6 @@ app/server/utils/info.log
 app/server/utils/exceptions.log
 app/client/bundle/
 document/rally.mwb.bak
-app/server/db/
 document/nouse/model'/timeLine
 document/nouse/timeLine
 app/client/yarn-error.log
