@@ -19,20 +19,30 @@ export default class StoryResult extends BlankRow {
     this.rowClick = this.rowClick.bind(this);
     this.rowChange = this.rowChange.bind(this);
     this.rowBlur = this.rowBlur.bind(this);
+    
+    this.updateOriData = this.updateOriData.bind(this);
   }
   
   componentWillReceiveProps(nextProps) {
     this.data = nextProps.data || [];
-    this.oriData = JSON.parse(JSON.stringify(nextProps.data || []));
+    if (!this.oriData || this.oriData.length === 0) {
+      this.updateOriData();
+    }
+  }
+  
+  updateOriData() {
+    this.oriData = JSON.parse(JSON.stringify(this.data || []));
   }
   
   singleSave(data) {
     this.props.save(data);
+    this.updateOriData();
   }
   
   singleRemove(data) {
     if (data) {
       this.props.remove(data.id);
+      this.updateOriData();
     }
   }
   
