@@ -19,7 +19,7 @@ class NavList extends Component {
     this.showDetail = this.showDetail.bind(this);
   }
   
-  showDetail(id){
+  showDetail(id) {
     
   }
   
@@ -32,13 +32,13 @@ class NavList extends Component {
         <Collapse defaultActiveKey={['1', '2', '3']}>
           {this.props.data.map((item) => {
             return (<Panel header={item.title} key={item.id}>
-              {/*{item.shares.map((share) => {*/}
-                {/*return (*/}
-                  {/*<Card key={share.id} onClick={me.showDetail(share.id)}>*/}
-                    {/*{share.title}*/}
-                  {/*</Card>*/}
-                {/*);*/}
-              {/*})}*/}
+              {item.shares.map((share) => {
+                return (
+                  <Card key={share.id} onClick={me.showDetail(share.id)}>
+                    {share.title}
+                  </Card>
+                );
+              })}
             </Panel>);
           })}
         </Collapse>

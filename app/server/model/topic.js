@@ -1,6 +1,7 @@
 /**
  * Created by YouHan on 2016/11/22.
  */
+var mysql = require('mysql')
 var builder = require('./../db/builder');
 
 module.exports = {
@@ -37,12 +38,39 @@ function getTopicsByUserId(id) {
         if (res && res.length === 1) {
           var topicIds = JSON.parse(res[0].topics);
           if (topicIds.length > 0) {
-            builder.select('tbl_topic')
-              .where({
-                id: topicIds
-              }).end()
+            var sql = 'SELECT t.*, c.`id` AS c_id, c.`title` AS c_title FROM `tbl_topic` t ' +
+              ' LEFT JOIN `tbl_topic_content` c ' +
+              ' ON t.`id` = c.`topic_id` ' +
+              ' WHERE t.id IN (' + mysql.escape(topicIds) + ');';
+            builder.run(sql)
               .then(function (res2) {
-                resolve(res2);
+                var result = [];
+                if (res2 && res2.length > 0) {
+                  var tempObj = {};
+                  for (var i = 0, ii = res2.length; i < ii; i++) {
+                    var item = tempObj[res2[i].id];
+                    var oriItem = res2[i];
+                    if (!item) {
+                      tempObj[res2[i].id] = {
+                        id: oriItem.id,
+                        title: oriItem.title,
+                        owner_id: oriItem.owner_id,
+                        shares: []
+                      }
+                    }
+                    if (oriItem.c_id) {
+                      tempObj[res2[i].id].shares.push({
+                        id: oriItem.c_id,
+                        title: oriItem.c_title
+                      })
+                    }
+                  }
+                  for (var i in tempObj) {
+                    result.push(tempObj[i]);
+                  }
+                }
+                console.log(result);
+                resolve(result);
               }, function (error) {
                 reject(error);
               });

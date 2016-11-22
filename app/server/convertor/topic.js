@@ -32,7 +32,8 @@ function changeToVO(bo) {
   vo.id = bo.id;
   vo.title = bo.title;
   vo.ownerId = bo.owner_id;
-  vo.createTime = vo.create_time;
-  vo.updateTime = vo.update_time;
+  vo.createTime = bo.create_time;
+  vo.updateTime = bo.update_time;
+  vo.shares = bo.shares;
   return vo;
 }

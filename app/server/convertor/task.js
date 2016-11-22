@@ -41,8 +41,8 @@ function changeToVO(bo) {
     vo.ownerId = bo.owner_id;
     vo.est = bo.est;
     vo.todo = bo.todo;
-    vo.storyId = vo.story_id;
-    vo.createTime = vo.create_time;
-    vo.updateTime = vo.update_time;
+    vo.storyId = bo.story_id;
+    vo.createTime = bo.create_time;
+    vo.updateTime = bo.update_time;
     return vo;
 }
