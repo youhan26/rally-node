@@ -16,4 +16,8 @@ export default class Auth {
     localStorage.user = JSON.stringify(data);
     location.href = '/index#/dashboard';
   }
+  
+  static getUser() {
+    return JSON.parse(localStorage.user || '{}');
+  }
 }

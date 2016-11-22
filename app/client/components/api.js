@@ -2,6 +2,7 @@
  * Created by YouHan on 2016/9/25.
  */
 import {api} from "mimikiyru-utils";
+import Auth from "./auth";
 
 
 class BasicApi {
@@ -76,7 +77,7 @@ const Api = {
   Task: new class extends BasicApi {
     constructor() {
       super('task');
-  
+      
       this.getList = this.getList.bind(this);
     }
     
@@ -92,7 +93,7 @@ const Api = {
   Defect: new class extends BasicApi {
     constructor() {
       super('defect');
-  
+      
       this.getList = this.getList.bind(this);
     }
     
@@ -125,7 +126,7 @@ const Api = {
   Story: new class extends BasicApi {
     constructor() {
       super('story');
-  
+      
       this.getList = this.getList.bind(this);
     }
     
@@ -133,6 +134,33 @@ const Api = {
       return api.get({
         url: '/story/all',
         params: obj
+      });
+    }
+  }(),
+  Topic: new class extends BasicApi {
+    constructor() {
+      super('topic');
+      
+      this.getUserList = this.getUserList.bind(this);
+      this.setUserList = this.setUserList.bind(this);
+    }
+    
+    getUserList() {
+      return api.get({
+        url: '/topic/getUserList',
+        params: {
+          userId: Auth.getUser().id
+        }
+      });
+    }
+    
+    setUserList(data) {
+      return api.post({
+        url: '/topic/setUserList',
+        data: {
+          list: data,
+          id: Auth.getUser().id
+        }
       });
     }
   }()

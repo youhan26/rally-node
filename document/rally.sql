@@ -108,6 +108,7 @@ CREATE TABLE `tbl_member` (
   `password` VARCHAR(128),
   `introduction` TEXT NULL,
   `role_id` BIGINT(20) NULL,
+  `topics` TEXT NULL,
   `create_time` DATETIME NULL,
   `update_time` DATETIME NULL,
   PRIMARY KEY (`id`)
@@ -306,6 +307,64 @@ CREATE TABLE `tbl_member_has_team` (
   `member_id` BIGINT(20) NOT NULL,
   `team_id` BIGINT(20) NOT NULL,
   PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rally`.`topic`
+-- -----------------------------------------------------
+/*Table structure for table `tbl_topic` */
+
+DROP TABLE IF EXISTS `tbl_topic`;
+
+CREATE TABLE `tbl_topic` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(128) NOT NULL,
+  `owner_id` BIGINT(20) NULL,
+  `create_time` DATETIME NULL,
+  `update_time` DATETIME NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rally`.`topic_content`
+-- -----------------------------------------------------
+/*Table structure for table `tbl_topic_content` */
+
+DROP TABLE IF EXISTS `tbl_topic_content`;
+
+CREATE TABLE `tbl_topic_content` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `topic_id` BIGINT(20) NOT NULL,
+  `title` VARCHAR(128) NULL,
+  `content` TEXT NULL,
+  `file` VARCHAR(1024) NULL COMMENT 'file path',
+  `create_time` DATETIME NULL,
+  `update_time` DATETIME NULL,
+  `owner_id` BIGINT(20) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC)
+)ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+-- -----------------------------------------------------
+-- Table `rally`.`replay`
+-- -----------------------------------------------------
+/*Table structure for table `tbl_replay` */
+
+DROP TABLE IF EXISTS `tbl_replay`;
+
+CREATE TABLE `tbl_replay` (
+  `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+  `topic_content_id` BIGINT(20) NOT NULL,
+  `content` TEXT NULL,
+  `create_time` DATETIME NULL,
+  `update_time` DATETIME NULL,
+  `owner_id` BIGINT(20) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC)
 )ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

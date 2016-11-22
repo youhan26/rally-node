@@ -162,7 +162,9 @@ Render.render(
       <Route path="font-size-converter" component={FontSizeConverter} />
       <Route path="qrcode" component={Code} />
       <Route path="login" component={Login} />
-      <Route path="topic" component={Topic} />
+      <Route path="topic" component={Topic} onEnter={requireCredentials}>
+        
+      </Route>
     </Route>
   </Router>,
   document.getElementById('root'));

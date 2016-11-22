@@ -13,9 +13,9 @@ var defect = require('./controller/defect');
 var release = require('./controller/release');
 var story = require('./controller/story');
 var login = require('./controller/login');
+var topic = require('./controller/topic');
 
 var tools = require('./controller/tools');
-
 var dashboard = require('./controller/dashboard');
 
 
@@ -43,6 +43,7 @@ router.use('/defect', defect);
 router.use('/release', release);
 router.use('/story', story);
 router.use('/login', login);
+router.use('/topic', topic);
 
 
 module.exports = router;

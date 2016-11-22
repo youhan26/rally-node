@@ -2,9 +2,10 @@
  * Created by YouHan on 2016/11/22.
  */
 import React, {Component, PropTypes} from "react";
-import {Input, Button, Icon, Collapse, Card} from "antd";
+import {Button, Collapse, Card, message} from "antd";
 import TopicDetail from "./topicDetail";
 import TopicConfig from "./topicConfig";
+import Api from "./../api";
 
 
 require('./../../style/topic.css');
@@ -15,53 +16,31 @@ class NavList extends Component {
   constructor(props) {
     super(props);
     
-    this.state = {
-      showConfig: false
-    };
+    this.showDetail = this.showDetail.bind(this);
+  }
+  
+  showDetail(id){
+    
   }
   
   render() {
     const {clickConfig} = this.props;
+    const me = this;
     
     return (
       <div className="topic-navList">
         <Collapse defaultActiveKey={['1', '2', '3']}>
-          <Panel header="This is panel header 1" key="1">
-            <Card>
-              fdsfsdfsdfsdfsafa
-              fsdfsdfsfdsf
-              fdsfsdf
-            </Card>
-            <Card>
-              fdsfsdfsdfsdfsafa
-              fsdfsdfsfdsf
-              fdsfsdf
-            </Card>
-          </Panel>
-          <Panel header="This is panel header 2" key="2">
-            <Card>
-              fdsfsdfsdfsdfsafa
-              fsdfsdfsfdsf
-              fdsfsdf
-            </Card>
-            <Card>
-              fdsfsdfsdfsdfsafa
-              fsdfsdfsfdsf
-              fdsfsdf
-            </Card>
-          </Panel>
-          <Panel header="This is panel header 3" key="3">
-            <Card>
-              fdsfsdfsdfsdfsafa
-              fsdfsdfsfdsf
-              fdsfsdf
-            </Card>
-            <Card>
-              fdsfsdfsdfsdfsafa
-              fsdfsdfsfdsf
-              fdsfsdf
-            </Card>
-          </Panel>
+          {this.props.data.map((item) => {
+            return (<Panel header={item.title} key={item.id}>
+              {/*{item.shares.map((share) => {*/}
+                {/*return (*/}
+                  {/*<Card key={share.id} onClick={me.showDetail(share.id)}>*/}
+                    {/*{share.title}*/}
+                  {/*</Card>*/}
+                {/*);*/}
+              {/*})}*/}
+            </Panel>);
+          })}
         </Collapse>
         <Button onClick={clickConfig} style={{width: '185px'}} type="primary">
           Subscribe Topic
@@ -72,19 +51,44 @@ class NavList extends Component {
 }
 
 NavList.propTypes = {
-  clickConfig: PropTypes.func
+  clickConfig: PropTypes.func,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    id: PropTypes.string
+  })),
+  shares: PropTypes.arrayOf(PropTypes.shape({
+    title: PropTypes.string,
+    id: PropTypes.string
+  }))
 };
-
 
 class Topic extends Component {
   constructor(props) {
     super(props);
     
     this.state = {
-      showConfig: false
+      showConfig: false,
+      dataList: []
     };
     
     this.clickConfig = this.clickConfig.bind(this);
+    this.reload = this.reload.bind(this);
+  }
+  
+  componentWillMount() {
+    this.reload();
+  }
+  
+  reload() {
+    const me = this;
+    Api.Topic.getUserList().then((res) => {
+      if (res && res.success) {
+        me.state.dataList = res.data;
+        me.setState(me.state);
+      } else {
+        message.error(res.reason);
+      }
+    });
   }
   
   clickConfig() {
@@ -96,9 +100,9 @@ class Topic extends Component {
   render() {
     return (
       <div className="topic">
-        <NavList clickConfig={this.clickConfig} />
+        <NavList clickConfig={this.clickConfig} data={this.state.dataList} />
         {this.state.showConfig ?
-          <TopicConfig />
+          <TopicConfig reload={this.reload} />
           : <TopicDetail /> }
       </div>
     );
