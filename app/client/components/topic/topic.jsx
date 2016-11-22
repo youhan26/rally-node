@@ -15,18 +15,10 @@ const Panel = Collapse.Panel;
 class NavList extends Component {
   constructor(props) {
     super(props);
-    
-    this.showDetail = this.showDetail.bind(this);
-  }
-  
-  showDetail(id) {
-    
   }
   
   render() {
-    const {clickConfig} = this.props;
-    const me = this;
-    
+    const {clickConfig, showDetail} = this.props;
     return (
       <div className="topic-navList">
         <Collapse defaultActiveKey={['1', '2', '3']}>
@@ -34,7 +26,7 @@ class NavList extends Component {
             return (<Panel header={item.title} key={item.id}>
               {item.shares.map((share) => {
                 return (
-                  <Card key={share.id} onClick={me.showDetail(share.id)}>
+                  <Card key={share.id} onClick={showDetail(share.id)}>
                     {share.title}
                   </Card>
                 );
@@ -52,6 +44,7 @@ class NavList extends Component {
 
 NavList.propTypes = {
   clickConfig: PropTypes.func,
+  showDetail: PropTypes.func,
   data: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
     id: PropTypes.string
@@ -68,11 +61,13 @@ class Topic extends Component {
     
     this.state = {
       showConfig: false,
-      dataList: []
+      dataList: [],
+      shareId: null
     };
     
     this.clickConfig = this.clickConfig.bind(this);
     this.reload = this.reload.bind(this);
+    this.showDetail = this.showDetail.bind(this);
   }
   
   componentWillMount() {
@@ -96,14 +91,25 @@ class Topic extends Component {
     this.setState(this.state);
   }
   
+  showDetail(id) {
+    if (id) {
+      this.state.shareId = id;
+    }
+    this.state.showConfig = false;
+    this.setState(this.state);
+  }
   
   render() {
     return (
       <div className="topic">
-        <NavList clickConfig={this.clickConfig} data={this.state.dataList} />
+        <NavList
+          clickConfig={this.clickConfig}
+          showDetail={this.showDetail}
+          data={this.state.dataList} />
+        
         {this.state.showConfig ?
           <TopicConfig reload={this.reload} />
-          : <TopicDetail /> }
+          : <TopicDetail reload={this.reload} shareId={this.state.shareId} />}
       </div>
     );
   }

@@ -69,7 +69,6 @@ function getTopicsByUserId(id) {
                     result.push(tempObj[i]);
                   }
                 }
-                console.log(result);
                 resolve(result);
               }, function (error) {
                 reject(error);
