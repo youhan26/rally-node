@@ -23,7 +23,9 @@ import Team from "./manage/team";
 import Member from "./manage/member";
 import Role from "./manage/role";
 import Login from "./login/login";
+import Topic from "./topic/topic";
 import Auth from "./auth";
+
 
 require('./../style/basic.css');
 
@@ -160,6 +162,7 @@ Render.render(
       <Route path="font-size-converter" component={FontSizeConverter} />
       <Route path="qrcode" component={Code} />
       <Route path="login" component={Login} />
+      <Route path="topic" component={Topic} />
     </Route>
   </Router>,
   document.getElementById('root'));

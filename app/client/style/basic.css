@@ -15,7 +15,6 @@ body {
     background-color: white;
     padding: 10px;
     margin-bottom: 10px;
-    /*overflow: hidden;*/
     border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.2) 0 1px 3px 0, rgba(0, 0, 0, 0.137255) 0 1px 1px 0, rgba(0, 0, 0, 0.117647) 0 2px 1px -1px
 }
@@ -39,17 +38,17 @@ a:hover {
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 4px;
 }
 
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
+    background-color: #8fc2e9;
+    outline: 1px solid #9ba3d1;
 }
 
 input, .ant-select-selection-selected-value {

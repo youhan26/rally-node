@@ -35,6 +35,7 @@ const HorizonHeader = React.createClass({
     return (
       <div className="header">
         <Menu
+          className="header-menu"
           mode="inline"
           openKeys={this.state.openKeys}
           selectedKeys={[this.state.current]}
@@ -51,6 +52,9 @@ const HorizonHeader = React.createClass({
           </Menu.Item>
           <Menu.Item key="6">
             <Link to="/manage">Manage</Link>
+          </Menu.Item>
+          <Menu.Item key="7">
+            <Link to="/topic">topic</Link>
           </Menu.Item>
           <SubMenu
             key="sub1"

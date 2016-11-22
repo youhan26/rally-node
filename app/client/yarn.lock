@@ -96,9 +96,9 @@ ansi-styles@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-2.2.1.tgz#b432dd3358b634cf75e1e4664368240533c1ddbe"
 
-antd@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-2.2.1.tgz#7ef5e76dddf344d02c84cf1cfc4fb37177232364"
+antd@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-2.4.3.tgz#b3a16012e9a95c6ca581e8196bd36e7b3fba5027"
   dependencies:
     array-tree-filter "~1.0.0"
     babel-runtime "6.x"
@@ -106,38 +106,38 @@ antd@^2.2.1:
     css-animation "^1.2.5"
     gregorian-calendar "~4.1.0"
     gregorian-calendar-format "~4.1.0"
-    moment "^2.15.1"
+    moment "~2.15.1"
     object-assign "~4.1.0"
     omit.js "^0.1.0"
     rc-animate "~2.3.0"
-    rc-calendar "~7.3.1"
+    rc-calendar "~7.4.1"
     rc-cascader "~0.10.1"
     rc-checkbox "~1.4.0"
     rc-collapse "~1.6.4"
-    rc-dialog "~6.4.0"
+    rc-dialog "~6.5.0"
     rc-dropdown "~1.4.8"
-    rc-editor-mention "~0.2.2"
+    rc-editor-mention "~0.3.0"
     rc-form "~1.0.0"
     rc-input-number "~2.7.0"
     rc-menu "~5.0.1"
     rc-notification "~1.3.4"
     rc-pagination "~1.5.3"
     rc-progress "~2.0.1"
-    rc-queue-anim "~0.12.4"
     rc-radio "~2.0.0"
     rc-rate "~1.1.2"
-    rc-select "~6.5.1"
-    rc-slider "~5.1.0"
+    rc-select "~6.6.1"
+    rc-slider "~5.2.0"
     rc-steps "~2.2.0"
     rc-switch "~1.4.2"
     rc-table "~5.0.0"
     rc-tabs "~7.0.5"
-    rc-time-picker "~2.0.0"
+    rc-time-picker "~2.2.1"
     rc-tooltip "~3.4.2"
-    rc-tree "~1.3.6"
+    rc-tree "~1.4.0"
     rc-tree-select "~1.8.0"
     rc-upload "~2.2.0"
     rc-util "^4.0.1"
+    react-lazy-load "^3.0.10"
     react-slick "~0.14.2"
     shallowequal "^0.2.2"
     warning "~3.0.0"
@@ -2133,6 +2133,10 @@ eventemitter3@1.x.x:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-1.2.0.tgz#1c86991d816ad1e504750e73874224ecf3bec508"
 
+eventlistener@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/eventlistener/-/eventlistener-0.0.1.tgz#ed2baabb852227af2bcf889152c72c63ca532eb8"
+
 events@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
@@ -2975,7 +2979,7 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-"jquery@>= 1.4.3", jquery@>=1.7.2:
+jquery@>=1.7.2:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.1.1.tgz#347c1c21c7e004115e0a4da32cece041fad3c8a3"
 
@@ -3251,6 +3255,10 @@ lodash.cond@^4.3.0:
   version "4.5.2"
   resolved "https://registry.yarnpkg.com/lodash.cond/-/lodash.cond-4.5.2.tgz#f471a1da486be60f6ab955d17115523dd1d255d5"
 
+lodash.debounce@^4.0.0:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz#82d79bff30a67c4005ffd5e2515300ad9ca4d7af"
+
 lodash.deburr@^3.0.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/lodash.deburr/-/lodash.deburr-3.2.0.tgz#6da8f54334a366a7cf4c4c76ef8d80aa1b365ed5"
@@ -3292,6 +3300,10 @@ lodash.keys@^3.1.2:
 lodash.pickby@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/lodash.pickby/-/lodash.pickby-4.6.0.tgz#7dea21d8c18d7703a27c704c15d3b84a67e33aff"
+
+lodash.throttle@^4.0.0:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
 
 lodash.words@^3.0.0:
   version "3.2.0"
@@ -3465,7 +3477,7 @@ mkdirp@0.5.0:
   dependencies:
     minimist "0.0.8"
 
-moment, "moment@>= 2.6.0":
+moment, "moment@>= 2.6.0", moment@~2.15.1:
   version "2.15.2"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.15.2.tgz#1bfdedf6a6e345f322fe956d5df5bd08a8ce84dc"
 
@@ -3475,7 +3487,7 @@ moment-timezone:
   dependencies:
     moment ">= 2.6.0"
 
-moment@^2.15.1, moment@2.x:
+moment@2.x:
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.15.1.tgz#e979c2a29e22888e60f396f2220a6118f85cd94c"
 
@@ -4273,9 +4285,9 @@ rc-animate@^2.0.2, rc-animate@^2.3.0, rc-animate@~2.3.0, rc-animate@2.x:
   dependencies:
     css-animation "^1.3.0"
 
-rc-calendar@~7.3.1:
-  version "7.3.1"
-  resolved "https://registry.yarnpkg.com/rc-calendar/-/rc-calendar-7.3.1.tgz#f0a0b8f9533a6087fb75261cdc63856b0759a7a0"
+rc-calendar@~7.4.1:
+  version "7.4.4"
+  resolved "https://registry.yarnpkg.com/rc-calendar/-/rc-calendar-7.4.4.tgz#4104da97529684d93261666cebcfff31cf456fd0"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
@@ -4305,9 +4317,18 @@ rc-collapse@~1.6.4:
     css-animation "1.x"
     rc-animate "2.x"
 
-rc-dialog@^6.3.0, rc-dialog@~6.4.0:
+rc-dialog@^6.3.0:
   version "6.4.5"
   resolved "https://registry.yarnpkg.com/rc-dialog/-/rc-dialog-6.4.5.tgz#82f00b0b21eaf082614c2bf9ba59eb4e4e687116"
+  dependencies:
+    babel-runtime "6.x"
+    object-assign "~4.1.0"
+    rc-animate "2.x"
+    rc-util "^3.4.1"
+
+rc-dialog@~6.5.0:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/rc-dialog/-/rc-dialog-6.5.1.tgz#d15945c5e0810d034257acaa9856732800a6a7c7"
   dependencies:
     babel-runtime "6.x"
     object-assign "~4.1.0"
@@ -4329,9 +4350,9 @@ rc-editor-core@^0.5.1, rc-editor-core@~0.5.5:
     immutable "^3.7.4"
     rc-editor-plugin-image "0.0.3"
 
-rc-editor-mention@~0.2.2:
-  version "0.2.9"
-  resolved "https://registry.yarnpkg.com/rc-editor-mention/-/rc-editor-mention-0.2.9.tgz#f98568c70da04bc13b5bbab3cd8d5ed5bcb191f6"
+rc-editor-mention@~0.3.0:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/rc-editor-mention/-/rc-editor-mention-0.3.3.tgz#9fa765d7dd5277bdc3d8d353b2c4213c581e4cf9"
   dependencies:
     classnames "^2.2.5"
     dom-scroll-into-view "^1.2.0"
@@ -4404,12 +4425,6 @@ rc-progress@~2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/rc-progress/-/rc-progress-2.0.1.tgz#adac0f7f00808c9905f653dff6916bae3fc4a391"
 
-rc-queue-anim@~0.12.4:
-  version "0.12.5"
-  resolved "https://registry.yarnpkg.com/rc-queue-anim/-/rc-queue-anim-0.12.5.tgz#bb8da775b730e4f653aef2bb397d18920560fe40"
-  dependencies:
-    velocity-animate "~1.2.3"
-
 rc-radio@~2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/rc-radio/-/rc-radio-2.0.0.tgz#357b2da4d46564784b85d4bb5f0edf6c207155b3"
@@ -4420,9 +4435,9 @@ rc-rate@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/rc-rate/-/rc-rate-1.1.2.tgz#97706ef0615b5a0f4ee873898a743a4d7229f574"
 
-rc-select@~6.5.1:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/rc-select/-/rc-select-6.5.2.tgz#fb6e4e564e94276c20483490020654acd8b9bf31"
+rc-select@~6.6.1:
+  version "6.6.7"
+  resolved "https://registry.yarnpkg.com/rc-select/-/rc-select-6.6.7.tgz#d430e01a67a30124763a84aa72a7aba27d8fee5f"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
@@ -4434,9 +4449,9 @@ rc-select@~6.5.1:
     rc-util "3.x"
     warning "2.x"
 
-rc-slider@~5.1.0:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/rc-slider/-/rc-slider-5.1.2.tgz#0be2ecf36b330a9afb7fbd62ca753a26c3ed3add"
+rc-slider@~5.2.0:
+  version "5.2.1"
+  resolved "https://registry.yarnpkg.com/rc-slider/-/rc-slider-5.2.1.tgz#58e4526a5296cf40c2a1515fe8fda3736fb611af"
   dependencies:
     babel-runtime "6.x"
     classnames "^2.2.5"
@@ -4472,9 +4487,9 @@ rc-tabs@~7.0.5:
     classnames "2.x"
     react-hammerjs "~0.5.0"
 
-rc-time-picker@~2.0.0:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/rc-time-picker/-/rc-time-picker-2.0.2.tgz#a9a2e661feba432112fe3a22ce63d1d319539ed5"
+rc-time-picker@~2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/rc-time-picker/-/rc-time-picker-2.2.1.tgz#c4b1cf94eb3875c85d50d8cfdb1ea734d2ccd008"
   dependencies:
     babel-runtime "6.x"
     classnames "2.x"
@@ -4498,9 +4513,17 @@ rc-tree-select@~1.8.0:
     rc-trigger "1.x"
     rc-util "^3.1.2"
 
-rc-tree@^1.3.0, rc-tree@~1.3.6:
+rc-tree@^1.3.0:
   version "1.3.10"
   resolved "https://registry.yarnpkg.com/rc-tree/-/rc-tree-1.3.10.tgz#0d475bc25208e0526e278a1c0620e1530ae94bcf"
+  dependencies:
+    classnames "2.x"
+    object-assign "4.x"
+    rc-animate "2.x"
+
+rc-tree@~1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/rc-tree/-/rc-tree-1.4.0.tgz#aa119fc68d8bc0996db03daa5433d1857f5c0cd9"
   dependencies:
     classnames "2.x"
     object-assign "4.x"
@@ -4566,6 +4589,14 @@ react-hammerjs@~0.5.0:
   resolved "https://registry.yarnpkg.com/react-hammerjs/-/react-hammerjs-0.5.0.tgz#aa20e5c5f44d660f3e8e87ed11282f12173e77ae"
   dependencies:
     hammerjs "^2.0.8"
+
+react-lazy-load@^3.0.10:
+  version "3.0.10"
+  resolved "https://registry.yarnpkg.com/react-lazy-load/-/react-lazy-load-3.0.10.tgz#75304b6f3705a92f4d1ae820bccf9ffaca2ce47f"
+  dependencies:
+    eventlistener "0.0.1"
+    lodash.debounce "^4.0.0"
+    lodash.throttle "^4.0.0"
 
 react-motion@^0.4.4:
   version "0.4.5"
@@ -5502,12 +5533,6 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "~1.0.0"
     spdx-expression-parse "~1.0.0"
-
-velocity-animate@~1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/velocity-animate/-/velocity-animate-1.2.3.tgz#f8b7c66fef9cfd5acfa605cdf0adca8e302db728"
-  dependencies:
-    jquery ">= 1.4.3"
 
 vendors@^1.0.0:
   version "1.0.1"
