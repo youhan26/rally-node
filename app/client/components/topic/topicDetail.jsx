@@ -2,26 +2,72 @@
  * Created by YouHan on 2016/11/22.
  */
 import React, {Component, PropTypes} from "react";
-import {Input, Button, Icon, Collapse} from "antd";
+import {Input} from "antd";
+import RichText from "./../common/richText";
 
 require('./../../style/topic.css');
 
 class TopicDetail extends Component {
   constructor(props) {
     super(props);
+    
+    this.state = {
+      title: '',
+      content: ''
+    };
+    
+    this.contentChange = this.contentChange.bind(this);
+    this.titleChange = this.titleChange.bind(this);
+  }
+  
+  componentWillMount() {
+    this.loadData(this.props.shareId);
+  }
+  
+  componentWillReceiveProps(nextProps) {
+    if (this.props.shareId !== nextProps.shareId) {
+      this.loadData(nextProps.shareId);
+    }
+  }
+  
+  loadData(id = '') {
+    const me = this;
+    if (id !== '') {
+      console.log(id);
+    }
+  }
+  
+  contentChange(value) {
+    this.state.content = value;
+    this.setState(this.state);
+  }
+  
+  titleChange(e) {
+    this.state.title = e.target.value;
+    this.setState(this.state);
   }
   
   render() {
     return (
       <div className="topic-detail">
-        this is topic detail page
+        <Input style={{width: "100%"}} value={this.state.title} onChange={this.titleChange} />
+        <RichText
+          style={{
+            width: '100%',
+            height: '300px'
+          }}
+          placeholder="Input Description of Story...."
+          onChange={this.contentChange}
+          value={this.state.content}
+        />
       </div>
     );
   }
 }
 
 TopicDetail.propTypes = {
-  id: PropTypes.string
+  shareId: PropTypes.string,
+  reload: PropTypes.func
 };
 
 

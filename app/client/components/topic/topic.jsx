@@ -15,10 +15,16 @@ const Panel = Collapse.Panel;
 class NavList extends Component {
   constructor(props) {
     super(props);
+    
+    this.showDetail = this.showDetail.bind(this);
+  }
+  
+  showDetail(id) {
+    this.props.showDetail(id);
   }
   
   render() {
-    const {clickConfig, showDetail} = this.props;
+    const {clickConfig} = this.props;
     return (
       <div className="topic-navList">
         <Collapse defaultActiveKey={['1', '2', '3']}>
@@ -26,7 +32,7 @@ class NavList extends Component {
             return (<Panel header={item.title} key={item.id}>
               {item.shares.map((share) => {
                 return (
-                  <Card key={share.id} onClick={showDetail(share.id)}>
+                  <Card key={share.id} onClick={this.showDetail.bind(this, share.id)}>
                     {share.title}
                   </Card>
                 );
@@ -36,6 +42,9 @@ class NavList extends Component {
         </Collapse>
         <Button onClick={clickConfig} style={{width: '185px'}} type="primary">
           Subscribe Topic
+        </Button>
+        <Button onClick={this.showDetail} style={{width: '185px'}} type="default">
+          Write something
         </Button>
       </div>
     );
@@ -92,9 +101,7 @@ class Topic extends Component {
   }
   
   showDetail(id) {
-    if (id) {
-      this.state.shareId = id;
-    }
+    this.state.shareId = id || '';
     this.state.showConfig = false;
     this.setState(this.state);
   }
