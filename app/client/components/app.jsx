@@ -1,9 +1,10 @@
 /**
  * Created by YouHan on 2016/8/22.
  */
-import React from "react";
+import React, {PropTypes} from "react";
 import Render from "react-dom";
 import {Router, hashHistory, Route, IndexRoute} from "react-router";
+import {Menu, Dropdown, Icon} from "antd";
 import Raven from "raven-js";
 import moment from "moment-timezone/moment-timezone";
 import "moment/locale/zh-cn";
@@ -22,6 +23,7 @@ import Team from "./manage/team";
 import Member from "./manage/member";
 import Role from "./manage/role";
 import Login from "./login/login";
+import Auth from "./auth";
 
 require('./../style/basic.css');
 
@@ -34,35 +36,103 @@ moment.tz.setDefault('Asia/Shanghai');
 
 Raven.config('https://b11a5932031d459dbd521ecbc9895977@sentry.io/112807').install();
 
-class App extends React.Component {
+class UserInfo extends React.Component {
   constructor(props) {
     super(props);
     
-    this.state = {
-      user: ''
-    };
+    this.onClick = this.onClick.bind(this);
+  }
+  
+  onClick({key}) {
+    if (key === 1) {
+      Auth.logout();
+      this.props.logout();
+    }
   }
   
   render() {
+    const menu = (
+      <Menu onClick={this.onClick}>
+        <Menu.Item key="1">Logout</Menu.Item>
+      </Menu>
+    );
+    
+    
     return (
-      <div
-        style={{
-          height: '100%',
-          width: '100%',
-          display: 'flex'
-        }}
-      >
-        <HorizonHeader user={this.state.user} />
-        {this.props.children}
+      <div className="">
+        { this.props.user ? <span>{this.props.user.name}</span> : null}
+        <Dropdown overlay={menu}>
+          Operation<Icon type="down" />
+        </Dropdown>
       </div>
     );
   }
 }
 
+UserInfo.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.number
+  }),
+  logout: PropTypes.func
+};
+
+UserInfo.defaultProps = {
+  user: {}
+};
+
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      user: {}
+    };
+    
+    this.updateUser = this.updateUser.bind(this);
+    this.logout = this.logout.bind(this);
+  }
+  
+  updateUser(data) {
+    this.state.user = data;
+    this.setState(this.state);
+  }
+  
+  logout() {
+    this.state.user = {};
+    this.setState(this.state);
+  }
+  
+  render() {
+    const me = this;
+    const childrenWithProps = React.Children.map(this.props.children,
+      child => React.cloneElement(child, {
+        updateUser: me.updateUser
+      })
+    );
+    
+    return (
+      <div
+        style={{
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'row'
+        }}
+      >
+        <HorizonHeader />
+        <div className="header-user">
+          <Icon type="user" />{this.state.user.name}
+        </div>
+        {childrenWithProps}
+      </div>
+    );
+  }
+}
 
 const requireCredentials = (nextState, replace, next) => {
-  const token = localStorage.user;
-  if (!token) {
+  if (!Auth.isLogin()) {
     const ran = Math.ceil(Math.random() * 8);
     replace(`/login?ran=${ran}`);
   }

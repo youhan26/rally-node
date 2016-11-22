@@ -132,7 +132,8 @@ export default class StoryList extends Component {
     const style = {
       width: '100%',
       height: '100%',
-      backgroundColor: '#eee'
+      backgroundColor: '#eee',
+      overflow: 'auto'
     };
     return (
       <div style={style}>

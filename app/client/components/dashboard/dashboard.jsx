@@ -18,11 +18,14 @@ export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     
+    
+    const user = JSON.parse(localStorage.user) || {};
+    
     this.state = {
       mode: '1',
       condition: {
         projectId: '1',
-        ownerId: '1',
+        ownerId: user.id,
         releaseId: null
       },
       data: []

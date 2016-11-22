@@ -4,6 +4,8 @@
 import React from "react";
 import {Form, Button, Icon, Input, message} from "antd";
 import {api} from "mimikiyru-utils";
+import Auth from './../auth';
+
 
 require('./../../style/login.css');
 
@@ -17,6 +19,7 @@ class BasicLogin extends React.Component {
   }
   
   handleSubmit(e) {
+    const me = this;
     e.preventDefault();
     this.props.form.validateFields((err, d) => {
       if (!err) {
@@ -26,9 +29,8 @@ class BasicLogin extends React.Component {
         })
           .then((res) => {
             if (res && res.success) {
-              // me.props.updateUser(d.name);
-              localStorage.user = d.name;
-              location.href = `/index#`;
+              Auth.updateUser(res.data);
+              me.props.updateUser(res.data);
             } else {
               message.error(res.reason);
             }

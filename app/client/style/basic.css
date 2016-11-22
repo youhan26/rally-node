@@ -55,3 +55,10 @@ a:hover {
 input, .ant-select-selection-selected-value {
     color: black !important;
 }
+
+.header-user {
+    position: fixed;
+    font-size: 23px;
+    bottom: 0;
+    left: 0;
+}

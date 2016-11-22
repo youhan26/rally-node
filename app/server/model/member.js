@@ -18,43 +18,25 @@ module.exports = {
 
 //add function
 function add(data) {
-  return new Promise(function (resolver, rejector) {
-    builder.insert('tbl_member', [{
-      'name': data.name,
-      'introduction': data.introduction,
-      'role_id': data.role_id,
-      'create_time': new Date(),
-      'update_time': new Date()
-    }])
-      .end()
-      .then(function (res) {
-        logger.info('insert to tbl_member', res, data);
-        resolver(res);
-      }, function (error) {
-        logger.error('error happen when insert to tbl_member', error);
-        rejector(error);
-      });
-  })
+  return builder.insert('tbl_member', [{
+    'name': data.name,
+    'introduction': data.introduction,
+    'role_id': data.role_id,
+    'create_time': new Date(),
+    'update_time': new Date()
+  }])
+    .end();
 }
 
 
 //get function
 function get(id) {
-  return new Promise(function (resolver, rejector) {
-    builder.select('tbl_member')
-      .where({
-        id: id
-      })
-      .orderBy(['id desc', 'create_time'])
-      .end()
-      .then(function (res) {
-        logger.info('get success from tbl_member', res, id);
-        resolver(res);
-      }, function (error) {
-        logger.error('error happen get tbl_member', error, id);
-        rejector(error);
-      });
-  });
+  return builder.select('tbl_member')
+    .where({
+      id: id
+    })
+    .orderBy(['id desc', 'create_time'])
+    .end();
 }
 
 function update(data) {
@@ -112,16 +94,26 @@ function login(data) {
       .then(function (res) {
         if (res && res.length == 1) {
           if (res[0].password === data.password) {
-            resolver();
+            get(res[0].id).then(function (res2) {
+              if (res2 && res2.length === 1) {
+                resolver(res2[0]);
+              } else {
+                rejector('error');
+              }
+            }, function (error) {
+              rejector('error');
+            })
           } else {
             rejector('密码不正确');
           }
-        }
-        else {
+        } else {
           rejector('用户不存在');
         }
       }, function (error) {
         logger.error('error happen get tbl_member', error, id);
+        rejector(error);
+      })
+      .catch(function (error) {
         rejector(error);
       });
   });

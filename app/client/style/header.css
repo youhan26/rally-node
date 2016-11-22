@@ -1,107 +1,3 @@
-/*.header {*/
-/*position: fixed;*/
-/*!*border-bottom: #bbbbbb 1px solid;*!*/
-/*top: 0;*/
-/*width: 100%;*/
-/*margin-left: auto;*/
-/*margin-right: auto;*/
-/*left: 0;*/
-/*right: 0;*/
-/*background-color: white;*/
-/*}*/
-
-/*.header > ul {*/
-/*text-align: center;*/
-/*display: flex;*/
-/*flex-direction: row;*/
-/*flex-wrap: nowrap;*/
-/*justify-content: flex-start;*/
-/*font-weight: 800;*/
-/*font-size: 1rem;*/
-/*text-transform: uppercase;*/
-/*letter-spacing: .13em;*/
-/*margin-top: 35px;*/
-/*}*/
-
-/*.header > ul > img {*/
-/*width: 80px;*/
-/*position: absolute;*/
-/*left: 0;*/
-/*right: 0;*/
-/*top: 0;*/
-/*margin-left: auto;*/
-/*margin-right: auto;*/
-/*cursor: pointer;*/
-/*}*/
-
-/*.header > ul > li {*/
-/*list-style: none;*/
-/*flex: 1 1 25%;*/
-/*}*/
-
-/*.header > ul > li:nth-child(1), .header > ul > li:nth-child(2) {*/
-/*text-align: left;*/
-/*}*/
-
-/*.header > ul > li:nth-child(3), .header > ul > li:nth-child(4) {*/
-/*text-align: right;*/
-/*}*/
-
-/*li > a {*/
-/*text-decoration: none;*/
-/*color: #544a68;*/
-/*}*/
-
-/*li > a:hover {*/
-/*color: #16bdc8;*/
-/*}*/
-
-/*.horizon-header {*/
-/*width: 200px;*/
-/*position: relative;*/
-/*background-color: white;*/
-/*height: 100%;*/
-/*}*/
-
-/*.horizon-header > .ant-tabs-bar {*/
-/*width: 100%;*/
-/*height: 100%;*/
-/*position: absolute;*/
-/*margin: auto;*/
-/*top: 0;*/
-/*bottom: 0;*/
-/*}*/
-
-/*.horizon-header > ul {*/
-/*list-style: none;*/
-/*color: #919191;*/
-/*font-size: 1.5rem;*/
-/*width: 100%;*/
-/*padding: 0;*/
-/*top: 20%;*/
-/*position: absolute;*/
-/*margin-left: 60px;*/
-/*}*/
-
-/*.horizon-header > ul > li {*/
-/*margin-bottom: 20px;*/
-/*}*/
-
-/*.sub-list-parent {*/
-/*margin-top: -15px;*/
-/*}*/
-
-/*.sub-list {*/
-/*list-style: none;*/
-/*padding: 0;*/
-/*margin-top: 15px;*/
-/*}*/
-
-/*.sub-list > li {*/
-/*color: #bbbbbb;*/
-/*font-size: 1.2rem;*/
-/*}*/
-
 .header > .ant-menu-item {
     font-size: 16px;
 }
@@ -110,7 +6,12 @@
     font-size: 16px !important;
 }
 
-.header{
-    /*background-color: #222433;*/
-    /*color : #9fa0a0 !important;*/
+.header {
+    bottom: 0;
+    left: 0;
+    background: #404040;
+    color: #999;
+    width: 240px;
+    height: 100%;
+    overflow: hidden;
 }
