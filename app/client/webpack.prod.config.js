@@ -7,7 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: {
-    rally: ['babel-polyfill', path.resolve(__dirname, 'config/rally.js')]
+    rally: ['babel-polyfill', path.resolve(__dirname, 'config/rally-prod.js')]
   },
   output: {
     path: path.join(__dirname, "/bundle"),
