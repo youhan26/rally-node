@@ -17,7 +17,9 @@
 .topic-detail {
     flex: 1;
     height: 100%;
+    width: 100%;
     overflow: auto;
+    padding: 12px 30px 0px;
 }
 
 .topic-config {
@@ -34,7 +36,7 @@
     font-size: 22px !important;
 }
 
-.topic-config-tag-add{
+.topic-config-tag-add {
     position: absolute;
     margin: auto;
     left: 0;

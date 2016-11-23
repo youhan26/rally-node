@@ -2,7 +2,7 @@
  * Created by YouHan on 2016/11/22.
  */
 import React, {Component, PropTypes} from "react";
-import {Input} from "antd";
+import {Input, Card} from "antd";
 import RichText from "./../common/richText";
 
 require('./../../style/topic.css');
@@ -50,16 +50,19 @@ class TopicDetail extends Component {
   render() {
     return (
       <div className="topic-detail">
-        <Input style={{width: "100%"}} value={this.state.title} onChange={this.titleChange} />
-        <RichText
-          style={{
-            width: '100%',
-            height: '300px'
-          }}
-          placeholder="Input Description of Story...."
-          onChange={this.contentChange}
-          value={this.state.content}
-        />
+        <Card>
+          <Input style={{width: "100%"}} value={this.state.title} onChange={this.titleChange} />
+          <RichText
+            style={{
+              width: '100%',
+              height: '300px'
+            }}
+            placeholder="Tell something...."
+            onChange={this.contentChange}
+            value={this.state.content}
+            disabled={false}
+          />
+        </Card>
       </div>
     );
   }

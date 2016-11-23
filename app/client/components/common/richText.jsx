@@ -79,6 +79,9 @@ export default class RichText extends Component {
       readOnly: me.props.readOnly,
       strict: true
     });
+    if (this.props.disabled) {
+      quill.enable(false);
+    }
     const toolbar = quill.getModule('toolbar');
     toolbar.addHandler('image', () => {
       let fileInput = this.container.querySelector('input.ql-image[type=file]');
@@ -142,13 +145,15 @@ export default class RichText extends Component {
 RichText.propTypes = {
   placeholder: PropTypes.string,
   value: PropTypes.string,
-  readOnly: PropTypes.bool
+  readOnly: PropTypes.bool,
+  disabled: PropTypes.bool
 };
 
 RichText.defaultProps = {
   placeholder: '',
   readOnly: false,
   value: '',
+  disabled: false,
   onChange: () => {
   }
 };
