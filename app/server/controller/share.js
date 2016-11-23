@@ -48,7 +48,7 @@ router.route('/:id?')
       .then(function (data) {
         res.send({
           success: true,
-          data: convertor.changeToVO(data)
+          data: convertor.changeToVO(data[0])
         });
       }, function (error) {
         common.sendError(res, error);

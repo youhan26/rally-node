@@ -2,8 +2,10 @@
  * Created by YouHan on 2016/11/22.
  */
 import React, {Component, PropTypes} from "react";
-import {Input} from "antd";
+import {Input, message, Card, Button} from "antd";
 import RichText from "./../common/richText";
+import Api from "./../api";
+import Auth from "./../auth";
 
 require('./../../style/topic.css');
 
@@ -12,64 +14,113 @@ class TopicDetailEdit extends Component {
     super(props);
     
     this.state = {
-      title: '',
-      content: '',
-      add: true
+      share: {
+        content: ''
+      },
+      replayList: [],
+      content: ''
     };
-    
+    this.loadData = this.loadData.bind(this);
     this.contentChange = this.contentChange.bind(this);
-    this.titleChange = this.titleChange.bind(this);
+    this.replay = this.replay.bind(this);
   }
   
   componentWillMount() {
-    this.loadData(this.props.shareId);
+    if (this.props.params.sid) {
+      this.loadData(this.props.params.sid);
+    }
   }
   
   componentWillReceiveProps(nextProps) {
-    if (this.props.shareId !== nextProps.shareId) {
-      this.loadData(nextProps.shareId);
+    if (this.props.params.sid !== nextProps.params.sid) {
+      this.loadData(nextProps.params.sid);
     }
   }
   
-  loadData(id = '') {
+  contentChange(e) {
+    this.state.content = e.target.value;
+    this.setState(this.state);
+  }
+  
+  loadData(sid = this.props.params.sid) {
     const me = this;
-    if (id !== '') {
-      console.log(id);
+    if (!sid) {
+      message.error('当前网址不对!');
+      return;
     }
+    Api.Share.get(sid).then((res) => {
+      if (res && res.success) {
+        me.state.share = res.data;
+        me.setState(me.state);
+      } else {
+        message.error(res.reason);
+      }
+    });
+    Api.Share.getReplay({
+      id: sid
+    }).then((res) => {
+      if (res && res.success) {
+        console.log(res.data);
+      } else {
+        message.error(res.reason);
+      }
+    });
   }
   
-  contentChange(value) {
-    this.state.content = value;
-    this.setState(this.state);
-  }
-  
-  titleChange(e) {
-    this.state.title = e.target.value;
-    this.setState(this.state);
+  replay() {
+    const me = this;
+    Api.Replay.add({
+      shareId: me.props.params.sid,
+      content: me.state.content,
+      ownerId: Auth.getUser().id
+    }).then((res) => {
+      if (res && res.success) {
+        message.success('Saved!');
+        me.loadData();
+      }
+    });
   }
   
   render() {
     return (
       <div className="topic-detail">
-        <Input style={{width: "100%", marginBottom: "12px"}} value={this.state.title} onChange={this.titleChange} />
+        <Input style={{width: "100%", marginBottom: "12px"}} value={this.state.share.title} disabled={true} />
         <RichText
           style={{
             width: '100%',
             height: '300px'
           }}
           placeholder="Tell something...."
-          onChange={this.contentChange}
-          value={this.state.content}
-          disabled={false}
+          value={this.state.share.content}
+          disabled={true}
         />
+        <div style={{width: "100%", display: "flex"}}>
+          {this.state.share.id} —— {this.state.share.createTime}
+        </div>
+        {this.state.replayList.map((replay) => {
+          return (
+            <Card>
+              {replay.content}
+              <div>
+                {replay.ownerId} —— {replay.createTime}
+              </div>
+            </Card>
+          );
+        })}
+        <div style={{width: "100%", display: "flex"}}>
+          <Input type="textarea" rows={4} value={this.state.content} onChange={this.contentChange} />
+          <Button onClick={this.replay}>replay</Button>
+        </div>
       </div>
     );
   }
 }
 
 TopicDetailEdit.propTypes = {
-  shareId: PropTypes.string,
-  reload: PropTypes.func
+  reload: PropTypes.func,
+  params: PropTypes.shape({
+    sid: PropTypes.string
+  })
 };
 
 

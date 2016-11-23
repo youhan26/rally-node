@@ -10,9 +10,11 @@ module.exports = {
 
 function change2VoList(bos) {
   var list = [];
-  bos.forEach(function (item) {
-    list.push(changeToVO(item));
-  });
+  if (bos && bos.length > 0) {
+    bos.forEach(function (item) {
+      list.push(changeToVO(item));
+    });
+  }
   return list;
 }
 

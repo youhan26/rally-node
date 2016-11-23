@@ -61,18 +61,22 @@ export default class RichText extends Component {
   
   getQuill() {
     const me = this;
+    let toolbar2 = [
+      ['bold', 'italic', 'underline', 'strike'],
+      [{list: 'ordered'}, {list: 'bullet'}],
+      [{script: 'sub'}, {script: 'super'}],
+      [{header: [1, 2, 3, 4, 5, 6, false]}],
+      [{color: []}, {background: []}],
+      [{font: []}],
+      [{align: []}],
+      ['image']
+    ];
+    if (this.props.disabled) {
+      toolbar2 = null;
+    }
     const quill = new Quill(this.editorEl, {
       modules: {
-        toolbar: [
-          ['bold', 'italic', 'underline', 'strike'],
-          [{list: 'ordered'}, {list: 'bullet'}],
-          [{script: 'sub'}, {script: 'super'}],
-          [{header: [1, 2, 3, 4, 5, 6, false]}],
-          [{color: []}, {background: []}],
-          [{font: []}],
-          [{align: []}],
-          ['image']
-        ]
+        toolbar: toolbar2
       },
       placeholder: me.placeholder,
       theme: 'snow',
@@ -81,34 +85,35 @@ export default class RichText extends Component {
     });
     if (this.props.disabled) {
       quill.enable(false);
+    } else {
+      const toolbar = quill.getModule('toolbar');
+      toolbar.addHandler('image', () => {
+        let fileInput = this.container.querySelector('input.ql-image[type=file]');
+        if (fileInput == null) {
+          fileInput = document.createElement('input');
+          fileInput.setAttribute('type', 'file');
+          fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp');
+          fileInput.classList.add('ql-image');
+          fileInput.addEventListener('change', () => {
+            if (fileInput.files != null && fileInput.files[0] != null) {
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                const range = quill.getSelection(true);
+                quill.updateContents(new Delta()
+                    .retain(range.index)
+                    .delete(range.length)
+                    .insert({image: e.target.result})
+                  , 'user');
+                fileInput.value = "";
+              };
+              reader.readAsDataURL(fileInput.files[0]);
+            }
+          });
+          this.container.appendChild(fileInput);
+        }
+        fileInput.click();
+      });
     }
-    const toolbar = quill.getModule('toolbar');
-    toolbar.addHandler('image', () => {
-      let fileInput = this.container.querySelector('input.ql-image[type=file]');
-      if (fileInput == null) {
-        fileInput = document.createElement('input');
-        fileInput.setAttribute('type', 'file');
-        fileInput.setAttribute('accept', 'image/png, image/gif, image/jpeg, image/bmp');
-        fileInput.classList.add('ql-image');
-        fileInput.addEventListener('change', () => {
-          if (fileInput.files != null && fileInput.files[0] != null) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-              const range = quill.getSelection(true);
-              quill.updateContents(new Delta()
-                  .retain(range.index)
-                  .delete(range.length)
-                  .insert({image: e.target.result})
-                , 'user');
-              fileInput.value = "";
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-          }
-        });
-        this.container.appendChild(fileInput);
-      }
-      fileInput.click();
-    });
     return quill;
   }
   

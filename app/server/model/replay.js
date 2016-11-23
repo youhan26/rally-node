@@ -9,7 +9,6 @@ module.exports = {
 
 function add(data) {
   return builder.insert('tbl_replay', [{
-    'title': data.title,
     'topic_content_id': data.topic_content_id,
     'owner_id': data.owner_id,
     'content': data.content,
