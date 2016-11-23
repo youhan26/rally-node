@@ -1,7 +1,7 @@
 /**
  * Created by YouHan on 2016/11/21.
  */
-
+import {api} from "mimikiyru-utils";
 
 export default class Auth {
   static isLogin() {
@@ -17,7 +17,18 @@ export default class Auth {
     location.href = '/index#/dashboard';
   }
   
-  static getUser() {
+  static  getUser() {
     return JSON.parse(localStorage.user || '{}');
   }
-}
+  
+  static getUserById(id) {
+    console.log(this);
+    return api.get({
+      url: `/member/${id}`
+    }).then((res) => {
+      if (res && res.success) {
+        return res.data;
+      }
+    });
+  }
+};

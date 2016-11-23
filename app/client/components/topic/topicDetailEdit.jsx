@@ -15,7 +15,8 @@ class TopicDetailEdit extends Component {
     
     this.state = {
       share: {
-        content: ''
+        content: '',
+        owner: {}
       },
       replayList: [],
       content: ''
@@ -87,32 +88,57 @@ class TopicDetailEdit extends Component {
   render() {
     return (
       <div className="topic-detail">
-        <Input style={{width: "100%", marginBottom: "12px"}} value={this.state.share.title} disabled={true} />
-        <RichText
-          style={{
-            width: '100%',
-            height: '300px'
-          }}
-          placeholder="Tell something...."
-          value={this.state.share.content}
-          disabled={true}
-        />
-        <div style={{width: "100%", display: "flex"}}>
-          {this.state.share.id} —— {this.state.share.createTime}
+        <div className="topic-detail-share">
+          <div style={{width: "130px"}}>
+            <img src={this.state.share.owner.avatar} className="avatar" alt="" />
+            <p>{this.state.share.owner.name}</p>
+            <p>{this.state.share.createTime}</p>
+          </div>
+          <div style={{flex: 1}}>
+            <p style={{fontSize: '20px'}}>{this.state.share.title}</p>
+            <RichText
+              style={{
+                width: '100%',
+                height: '300px'
+              }}
+              placeholder="Tell something...."
+              value={this.state.share.content}
+              disabled={true}
+            />
+          </div>
+          <div style={{width: '130px'}} />
         </div>
         {this.state.replayList.map((replay) => {
           return (
-            <Card key={replay.id}>
-              {replay.content}
-              <div>
-                {replay.ownerId} —— {replay.createTime}
+            <div className="topic-detail-share" key={replay.id}>
+              <div style={{width: "130px"}}>
+                <img src={this.state.share.owner.avatar} className="avatar" alt="" />
+                <p>{replay.owner.name}</p>
+                <p>{replay.createTime}</p>
               </div>
-            </Card>
+              <div style={{flex: 1}}>
+                <Card style={{width: '100%', minHeight: '90px'}}>
+                  {replay.content}
+                </Card>
+              </div>
+              <div style={{width: '130px'}} />
+            </div>
           );
         })}
-        <div style={{width: "100%", display: "flex"}}>
-          <Input type="textarea" rows={4} value={this.state.content} onChange={this.contentChange} />
-          <Button onClick={this.replay}>replay</Button>
+        <div className="topic-detail-share" style={{marginBottom: '150px'}}>
+          <div style={{width: "130px"}} />
+          <div style={{flex: 1}}>
+            <Input
+              type="textarea"
+              rows={4}
+              value={this.state.content}
+              onChange={this.contentChange}
+              style={{width: '100%'}}
+            />
+          </div>
+          <div style={{width: '130px'}}>
+            <Button onClick={this.replay}>replay</Button>
+          </div>
         </div>
       </div>
     );

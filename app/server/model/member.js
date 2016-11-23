@@ -22,6 +22,7 @@ function add(data) {
     'name': data.name,
     'introduction': data.introduction,
     'role_id': data.role_id,
+    'topics': JSON.stringify([]),
     'create_time': new Date(),
     'update_time': new Date()
   }])

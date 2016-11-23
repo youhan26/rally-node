@@ -109,6 +109,8 @@ CREATE TABLE `tbl_member` (
   `introduction` TEXT NULL,
   `role_id` BIGINT(20) NULL,
   `topics` TEXT NULL,
+  `nickname` VARCHAR(20) NULL,
+  `avatar` TEXT NULL,
   `create_time` DATETIME NULL,
   `update_time` DATETIME NULL,
   PRIMARY KEY (`id`)

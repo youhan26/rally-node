@@ -22,19 +22,71 @@ function add(data) {
 }
 
 function get(id) {
-  return builder.select('tbl_topic_content')
-    .where({
-      id: id
+  return new Promise(function (resolve, reject) {
+    var sql = 'SELECT c.* , m.name, m.avatar ' +
+      'FROM `tbl_topic_content` c ' +
+      'LEFT JOIN `tbl_member` m ' +
+      'ON c.`owner_id` = m.`id` ' +
+      'WHERE c.`id` = ' + mysql.escape(id);
+    builder.run(sql).then(function (res) {
+      var result = {};
+      if (res && res.length === 1) {
+        var item = res[0];
+        result = {
+          id: item.id,
+          topic_id: item.topic_id,
+          title: item.title,
+          content: item.content,
+          file: item.file,
+          create_time: item.create_time,
+          update_time: item.update_time,
+          owner: {
+            id: item.owner_id,
+            name: item.name,
+            avatar: item.avatar
+          }
+        }
+      }
+      resolve(result);
+    }, function (error) {
+      reject(error)
+    }).catch(function (error) {
+      reject(error);
     })
-    .orderBy(['id', 'create_time'])
-    .end();
+  });
 }
 
 function getReplay(id) {
-  return builder.select('tbl_replay')
-    .where({
-      topic_content_id: id
+  return new Promise(function (resolve, reject) {
+    var sql = 'SELECT r.* , m.name, m.avatar ' +
+      ' FROM `tbl_replay` r ' +
+      ' LEFT JOIN `tbl_member` m ' +
+      ' ON r.`owner_id` = m.`id` ' +
+      ' WHERE r.`topic_content_id` = ' + mysql.escape(id);
+    console.log(sql);
+    builder.run(sql).then(function (res) {
+      var result = [];
+      if (res && res.length > 0) {
+        res.forEach(function (item) {
+          result.push({
+            owner: {
+              id: item.owner_id,
+              name: item.name,
+              avatar: item.avatar
+            },
+            id: item.id,
+            topic_content_id: item.topic_content_id,
+            content: item.content,
+            create_time: item.create_time,
+            update_time: item.update_time
+          });
+        });
+      }
+      resolve(result);
+    }, function (error) {
+      reject(error);
+    }).catch(function (error) {
+      reject(error);
     })
-    .orderBy(['create_time'])
-    .end();
+  });
 }

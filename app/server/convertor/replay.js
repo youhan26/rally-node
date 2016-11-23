@@ -40,6 +40,7 @@ function changeToVO(bo) {
     ownerId: bo.owner_id,
     content: bo.content,
     createTime: bo.create_time,
-    updateTime: bo.update_time
+    updateTime: bo.update_time,
+    owner: bo.owner
   }
 }
