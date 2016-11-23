@@ -112,7 +112,7 @@ class TopicDetailEdit extends Component {
           return (
             <div className="topic-detail-share" key={replay.id}>
               <div style={{width: "130px"}}>
-                <img src={this.state.share.owner.avatar} className="avatar" alt="" />
+                <img src={replay.owner.avatar} className="avatar" alt="" />
                 <p>{replay.owner.name}</p>
                 <p>{replay.createTime}</p>
               </div>
