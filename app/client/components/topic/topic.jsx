@@ -14,7 +14,11 @@ const Panel = Collapse.Panel;
 const NavList = (props) => {
   return (
     <div className="topic-navList">
-      <Collapse>
+      <Collapse
+        activeKey={props.data.map((item) => {
+          return item.id;
+        })}
+      >
         {props.data.map((item) => {
           return (
             <Panel header={item.title} key={item.id} className={props.params.id === item.id ? 'primary-collapse' : ''}>
