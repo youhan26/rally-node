@@ -44,6 +44,8 @@ class TopicDetailEdit extends Component {
   
   loadData(sid = this.props.params.sid) {
     const me = this;
+    me.state.content = '';
+    me.setState(me.state);
     if (!sid) {
       message.error('当前网址不对!');
       return;
@@ -60,7 +62,8 @@ class TopicDetailEdit extends Component {
       id: sid
     }).then((res) => {
       if (res && res.success) {
-        console.log(res.data);
+        me.state.replayList = res.data;
+        me.setState(me.state);
       } else {
         message.error(res.reason);
       }
@@ -99,7 +102,7 @@ class TopicDetailEdit extends Component {
         </div>
         {this.state.replayList.map((replay) => {
           return (
-            <Card>
+            <Card key={replay.id}>
               {replay.content}
               <div>
                 {replay.ownerId} —— {replay.createTime}

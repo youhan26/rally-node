@@ -14,8 +14,8 @@ router.param('id', function (req, res, next, id) {
   next();
 });
 
-router.post('/getReplay', function (req, res) {
-  var params = req.body;
+router.get('/getReplay', function (req, res) {
+  var params = req.query;
   share.getReplay(params.id).then(function (data) {
     res.send({
       success: true,
