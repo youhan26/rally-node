@@ -163,6 +163,25 @@ const Api = {
         }
       });
     }
+  }(),
+  Share: new class extends BasicApi {
+    constructor() {
+      super('share');
+      
+      this.getReplay = this.getReplay.bind(this);
+    }
+    
+    getReplay(obj) {
+      return api.get({
+        url: '/share/getReplay',
+        params: obj
+      });
+    }
+  }(),
+  Replay: new class extends BasicApi {
+    constructor() {
+      super('replay');
+    }
   }()
 };
 

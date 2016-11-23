@@ -3,8 +3,7 @@
  */
 import React, {Component, PropTypes} from "react";
 import {Button, Collapse, Card, message} from "antd";
-import TopicDetail from "./topicDetail";
-import TopicConfig from "./topicConfig";
+import {Link} from "react-router";
 import Api from "./../api";
 
 
@@ -12,56 +11,46 @@ require('./../../style/topic.css');
 
 const Panel = Collapse.Panel;
 
-class NavList extends Component {
-  constructor(props) {
-    super(props);
-    
-    this.showDetail = this.showDetail.bind(this);
-  }
-  
-  showDetail(id) {
-    this.props.showDetail(id);
-  }
-  
-  render() {
-    const {clickConfig} = this.props;
-    return (
-      <div className="topic-navList">
-        <Collapse defaultActiveKey={['1', '2', '3']}>
-          {this.props.data.map((item) => {
-            return (<Panel header={item.title} key={item.id}>
+const NavList = (props) => {
+  return (
+    <div className="topic-navList">
+      <Collapse>
+        {props.data.map((item) => {
+          return (
+            <Panel header={item.title} key={item.id} className={props.params.id === item.id ? 'primary-collapse' : ''}>
               {item.shares.map((share) => {
                 return (
-                  <Card key={share.id} onClick={this.showDetail.bind(this, share.id)}>
-                    {share.title}
+                  <Card key={share.id} className={props.params.sid === share.id ? 'primary-panel' : ''}>
+                    <Link to={`/topic/${item.id}/share/${share.id}`}>{share.title}</Link>
                   </Card>
                 );
               })}
             </Panel>);
-          })}
-        </Collapse>
-        <Button onClick={clickConfig} style={{width: '185px'}} type="primary">
-          Subscribe Topic
-        </Button>
-        <Button onClick={this.showDetail} style={{width: '185px'}} type="default">
-          Write something
-        </Button>
-      </div>
-    );
-  }
-}
+        })}
+      </Collapse>
+      <Button style={{width: '185px'}} type="primary">
+        <Link to="/topic/config">Subscribe Topic</Link>
+      </Button>
+      <Button style={{width: '185px'}} type="default">
+        <Link to="/topic/new">Write something</Link>
+      </Button>
+    </div>
+  );
+};
 
 NavList.propTypes = {
-  clickConfig: PropTypes.func,
-  showDetail: PropTypes.func,
   data: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string,
-    id: PropTypes.string
+    id: PropTypes.string,
+    shares: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string,
+      id: PropTypes.string
+    }))
   })),
-  shares: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
-    id: PropTypes.string
-  }))
+  params: PropTypes.shape({
+    id: PropTypes.string,
+    sid: PropTypes.string
+  })
 };
 
 class Topic extends Component {
@@ -74,9 +63,7 @@ class Topic extends Component {
       shareId: null
     };
     
-    this.clickConfig = this.clickConfig.bind(this);
     this.reload = this.reload.bind(this);
-    this.showDetail = this.showDetail.bind(this);
   }
   
   componentWillMount() {
@@ -95,35 +82,26 @@ class Topic extends Component {
     });
   }
   
-  clickConfig() {
-    this.state.showConfig = true;
-    this.setState(this.state);
-  }
-  
-  showDetail(id) {
-    this.state.shareId = id || '';
-    this.state.showConfig = false;
-    this.setState(this.state);
-  }
-  
   render() {
+    const me = this;
+    const childrenWithProps = React.Children.map(this.props.children,
+      child => React.cloneElement(child, {
+        reload: me.reload
+      })
+    );
+    
     return (
       <div className="topic">
-        <NavList
-          clickConfig={this.clickConfig}
-          showDetail={this.showDetail}
-          data={this.state.dataList} />
-        
-        {this.state.showConfig ?
-          <TopicConfig reload={this.reload} />
-          : <TopicDetail reload={this.reload} shareId={this.state.shareId} />}
+        <NavList data={this.state.dataList} {...this.props} />
+        {childrenWithProps}
       </div>
     );
   }
 }
 
 Topic.propTypes = {
-  id: PropTypes.string
+  id: PropTypes.string,
+  children: PropTypes.shape({})
 };
 
 

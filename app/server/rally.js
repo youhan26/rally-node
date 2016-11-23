@@ -14,6 +14,8 @@ var release = require('./controller/release');
 var story = require('./controller/story');
 var login = require('./controller/login');
 var topic = require('./controller/topic');
+var share = require('./controller/share');
+var replay = require('./controller/replay');
 
 var tools = require('./controller/tools');
 var dashboard = require('./controller/dashboard');
@@ -44,6 +46,8 @@ router.use('/release', release);
 router.use('/story', story);
 router.use('/login', login);
 router.use('/topic', topic);
+router.use('/share', share);
+router.use('/replay', replay);
 
 
 module.exports = router;

@@ -152,5 +152,44 @@ ReleaseSelect.propTypes = {
 };
 
 
-export {ProjectStatus, ReleaseIntervalUnit, StoryStatus, TaskStatus, DefectStatus, DefectPriority, ReleaseSelect};
+class TopicSelect extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    };
+  }
+  
+  componentWillMount() {
+    const me = this;
+    Api.Topic.getUserList().then((res) => {
+      if (res && res.success) {
+        me.state.data = res.data;
+        me.setState({
+          data: res.data.map((item) => {
+            return {
+              id: item.id,
+              name: item.title
+            };
+          })
+        });
+      }
+    });
+  }
+  
+  render() {
+    return <CommonSelect data={this.state.data} {...this.props} />;
+  }
+}
+
+export {
+  ProjectStatus,
+  ReleaseIntervalUnit,
+  StoryStatus,
+  TaskStatus,
+  DefectStatus,
+  DefectPriority,
+  ReleaseSelect,
+  TopicSelect
+};
 

@@ -25,6 +25,9 @@ import Role from "./manage/role";
 import Login from "./login/login";
 import Topic from "./topic/topic";
 import Auth from "./auth";
+import TopicDetailNew from "./topic/topicDetailNew";
+import TopicDetailEdit from "./topic/topicDetailEdit";
+import TopicConfig from "./topic/topicConfig";
 
 
 require('./../style/basic.css');
@@ -163,7 +166,12 @@ Render.render(
       <Route path="qrcode" component={Code} />
       <Route path="login" component={Login} />
       <Route path="topic" component={Topic} onEnter={requireCredentials}>
-        
+        <IndexRoute component={TopicConfig} onEnter={requireCredentials} />
+        <Route path="new" component={TopicDetailNew} onEnter={requireCredentials} />
+        <Route path="config" component={TopicConfig} onEnter={requireCredentials} />
+      </Route>
+      <Route path="topic/:id" component={Topic} onEnter={requireCredentials}>
+        <Route path="share/:sid" component={TopicDetailEdit} onEnter={requireCredentials} />
       </Route>
     </Route>
   </Router>,

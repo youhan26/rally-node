@@ -45,6 +45,18 @@
     width: 240px;
 }
 
+.primary-collapse {
+    color: #fff !important;
+    background-color: #b0dff4 !important;
+    border-color: #b0dff4 !important;
+}
+
+.primary-panel {
+    color: #fff !important;
+    background-color: #7fcbee !important;
+    border-color: #7fcbee !important;
+}
+
 .ant-collapse-content {
     padding: 0;
 }
