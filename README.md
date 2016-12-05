@@ -30,18 +30,18 @@ npm run flow
 
 ### font-end
 * [X] minify bundle file
-* [ ] eslint check
+* [X] eslint check
 * [X] environment split
 * [ ] remove flow any type
 * [ ] defect detail page
 * [X] dashboard page
 * [ ] user page
-* [ ] config page
+* [X] config page
 
 
 ### back-end
-* [ ] db design( in progress)
+* [X] db design
 * [X] logger
 * [X] VO to DTO convert
 * [X] move business check to service
-* [ ] user auth
+* [X] user auth
